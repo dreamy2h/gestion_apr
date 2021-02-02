@@ -1,0 +1,563 @@
+var base_url = $("#txt_base_url").val();
+var datatable_enabled = true;
+
+function des_habilitar(a, b) {
+    $("#btn_nuevo").prop("disabled", b);
+    $("#btn_modificar").prop("disabled", a);
+    $("#btn_eliminar").prop("disabled", a);
+    $("#btn_aceptar").prop("disabled", a);
+    $("#btn_cancelar").prop("disabled", a);
+    $("#btn_reciclar").prop("disabled", b);
+
+    $("#txt_id_socio").prop("disabled", a);
+    $("#txt_rut_socio").prop("disabled", a);
+    $("#txt_rol").prop("disabled", a);
+    $("#txt_nombre_socio").prop("disabled", a);
+    $("#btn_buscar_socio").prop("disabled", a);
+    $("#txt_n_medidor").prop("disabled", a);
+    $("#cmb_diametro").prop("disabled", a);
+    $("#cmb_sector").prop("disabled", a);
+    $("#rd_si_a").prop("disabled", a);
+    $("#rd_no_a").prop("disabled", a);
+    $("#rd_si_cs").prop("disabled", a);
+    $("#rd_no_cs").prop("disabled", a);
+    $("#cmb_region").prop("disabled", a);
+    $("#cmb_provincia").prop("disabled", a);
+    $("#cmb_comuna").prop("disabled", a);
+    $("#txt_calle").prop("disabled", a);
+    $("#txt_numero").prop("disabled", a);
+    $("#txt_resto_direccion").prop("disabled", a);
+    $("#cmb_tipo_documento").prop("disabled", a);
+    $("#txt_descuento").prop("disabled", a);
+}
+
+function mostrar_datos_arranque(data) {
+    $("#txt_id_arranque").val(data["id_arranque"]);
+    $("#txt_id_socio").val(data["id_socio"]);
+    $("#txt_rut_socio").val(data["rut_socio"]);
+    $("#txt_rol_socio").val(data["rol_socio"]);
+    $("#txt_nombre_socio").val(data["nombre_socio"]);
+    $("#txt_n_medidor").val(data["n_medidor"]);
+    $("#cmb_diametro").val(data["id_diametro"]);
+    $("#cmb_sector").val(data["id_sector"]);
+    
+    $("#lbl_rd_si_sc").removeClass("active");
+    $("#lbl_rd_si_a").removeClass("active");
+    $("#lbl_rd_no_sc").removeClass("active");
+    $("#lbl_rd_no_a").removeClass("active");
+
+    if (data["alcantarillado"] == "SI") { 
+        $("#rd_si_a").prop("checked", true);
+        $("#rd_no_a").prop("checked", false);
+        $("#lbl_rd_si_a").addClass("active");
+    } else { 
+        $("#rd_no_a").prop("checked", true);
+        $("#rd_si_a").prop("checked", false);
+        $("#lbl_rd_no_a").addClass("active");
+    }
+    
+    if (data["cuota_socio"] == "SI") { 
+        $("#rd_si_cs").prop("checked", true); 
+        $("#rd_no_cs").prop("checked", false);
+        $("#lbl_rd_si_sc").addClass("active");
+    } else { 
+        $("#rd_no_cs").prop("checked", true);
+        $("#rd_si_cs").prop("checked", false);
+        $("#lbl_rd_no_sc").addClass("active");
+    }
+
+    $("#cmb_region").val(data["id_region"]);
+    $("#cmb_provincia").val(data["id_provincia"]);
+    $("#cmb_comuna").val(data["id_comuna"]);
+    $("#txt_calle").val(data["calle"]);
+    $("#txt_numero").val(data["numero"]);
+    $("#txt_resto_direccion").val(data["resto_direccion"]);
+    $("#cmb_tipo_documento").val(data["id_tipo_documento"]);
+    $("#txt_descuento").val(data["descuento"]);
+}
+
+function guardar_arranque() {
+    var id_arranque = $("#txt_id_arranque").val();
+    var id_socio = $("#txt_id_socio").val();
+    var n_medidor = $("#txt_n_medidor").val();
+    var id_diametro = $("#cmb_diametro").val();
+    var id_sector = $("#cmb_sector").val();
+    if ($("#rd_si_a").prop("checked")) { var alcantarillado = 1; } else { var alcantarillado = 0; }
+    if ($("#rd_si_cs").prop("checked")) { var cuota_socio = 1; } else { var cuota_socio = 0; }
+    var id_comuna = $("#cmb_comuna").val();
+    var calle = $("#txt_calle").val();
+    var numero = $("#txt_numero").val();
+    var resto_direccion = $("#txt_resto_direccion").val();
+    var tipo_documento = $("#cmb_tipo_documento").val();
+    var descuento = $("#txt_descuento").val();
+
+    $.ajax({
+        url: base_url + "/Formularios/ctrl_arranques/guardar_arranque",
+        type: "POST",
+        async: false,
+        data: {
+            id_arranque: id_arranque,
+            id_socio: id_socio,
+            n_medidor: n_medidor,
+            id_diametro: id_diametro,
+            id_sector: id_sector,
+            alcantarillado: alcantarillado,
+            cuota_socio: cuota_socio,
+            id_comuna: id_comuna,
+            calle: calle,
+            numero: numero,
+            resto_direccion: resto_direccion,
+            tipo_documento: tipo_documento,
+            descuento: descuento
+        },
+        success: function(respuesta) {
+            const OK = 1;
+            if (respuesta == OK) {
+                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_arranques/datatable_arranques");
+                $("#form_arranque")[0].reset();
+                des_habilitar(true, false);
+                alerta.ok("alerta", "Arranque guardado con éxito");
+                $("#datosArranque").collapse();
+                datatable_enabled = true;
+                reset_radio_buttons();
+            } else {
+                alerta.error("alerta", respuesta);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
+}
+
+function eliminar_arranque(opcion, observacion, id_arranque) {
+    if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
+    
+    $.ajax({
+        url: base_url + "/Formularios/ctrl_arranques/eliminar_arranque",
+        type: "POST",
+        async: false,
+        data: { 
+            id_arranque: id_arranque,
+            observacion: observacion,
+            estado: estado
+        },
+        success: function(respuesta) {
+            const OK = 1;
+
+            if (respuesta == OK) {
+                if (opcion == "eliminar") {
+                    alerta.ok("alerta", "Arranque eliminado con éxito");
+                } else {
+                    $('#dlg_reciclar_arranque').modal('hide');
+                    alerta.ok("alerta", "Arranque reciclado con éxito");
+                }
+
+                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_arranques/datatable_arranques");
+            } else {
+                alerta.error("alerta", respuesta);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
+}
+
+function convertirMayusculas(texto) {
+    var text = texto.toUpperCase().trim();
+    return text;
+}
+
+function llenar_cmb_region() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_region",
+    }).done( function(data) {
+        $("#cmb_region").html('');
+
+        var opciones = "<option value=\"\">Seleccione una region</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].region + "</option>";
+        }
+
+        $("#cmb_region").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function llenar_cmb_provincia() {
+    var id_region = $("#cmb_region").val();
+
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_provincia/" + id_region,
+    }).done( function(data) {
+        $("#cmb_provincia").html('');
+
+        var opciones = "<option value=\"\">Seleccione una provincia</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].provincia + "</option>";
+        }
+
+        $("#cmb_provincia").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function llenar_cmb_comuna() {
+    var id_provincia = $("#cmb_provincia").val();
+
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
+    }).done( function(data) {
+        $("#cmb_comuna").html('');
+
+        var opciones = "<option value=\"\">Seleccione una comuna</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].comuna + "</option>";
+        }
+
+        $("#cmb_comuna").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function llenar_cmb_diametro() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_diametro",
+    }).done( function(data) {
+        $("#cmb_diametro").html('');
+
+        var opciones = "<option value=\"\">Seleccione un diámetro</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].diametro + "</option>";
+        }
+
+        $("#cmb_diametro").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function llenar_cmb_sector() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_sector",
+    }).done( function(data) {
+        $("#cmb_sector").html('');
+
+        var opciones = "<option value=\"\">Seleccione un sector</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].sector + "</option>";
+        }
+
+        $("#cmb_sector").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function llenar_cmb_tipo_documento() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_tipo_documento",
+    }).done( function(data) {
+        $("#cmb_tipo_documento").html('');
+
+        var opciones = "<option value=\"\">Seleccione tipo de documento</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].tipo_documento + "</option>";
+        }
+
+        $("#cmb_tipo_documento").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
+function reset_radio_buttons() {
+    $("#lbl_rd_si_sc").removeClass("active");
+    $("#lbl_rd_si_a").removeClass("active");
+    $("#lbl_rd_no_sc").removeClass("active");
+    $("#lbl_rd_no_a").removeClass("active");
+
+    $("#rd_si_a").prop("checked", false);
+    $("#rd_no_a").prop("checked", true);
+    $("#lbl_rd_no_a").addClass("active");
+
+    $("#rd_si_cs").prop("checked", false); 
+    $("#rd_no_cs").prop("checked", true);
+    $("#lbl_rd_no_sc").addClass("active");
+}
+
+$(document).ready(function() {
+    $("#txt_id_arranque").prop("disabled", true);
+    $("#txt_id_socio").prop("readonly", true);
+    $("#txt_rut_socio").prop("readonly", true);
+    $("#txt_rol").prop("readonly", true);
+    $("#txt_nombre_socio").prop("readonly", true);
+    des_habilitar(true, false);
+    llenar_cmb_region();
+    llenar_cmb_provincia();
+    llenar_cmb_comuna();
+    llenar_cmb_diametro();
+    llenar_cmb_sector();
+    llenar_cmb_tipo_documento();
+
+    $("#btn_nuevo").on("click", function() {
+        des_habilitar(false, true);
+        $("#form_arranque")[0].reset();
+
+        $("#btn_modificar").prop("disabled", true);
+        $("#btn_eliminar").prop("disabled", true);
+        reset_radio_buttons();
+        $("#datosArranque").collapse("show");
+    });
+
+    $("#btn_modificar").on("click", function() {
+        des_habilitar(false, true);
+        $("#btn_modificar").prop("disabled", true);
+        $("#btn_eliminar").prop("disabled", true);
+        datatable_enabled = false;
+        $("#datosArranque").collapse("show");
+    });
+
+    $("#btn_eliminar").on("click", function() {
+        Swal.fire({
+            title: "¿Eliminar Arranque?",
+            text: "¿Está seguro de eliminar el arranque?",
+            input: 'text',
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si",
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id_arranque = $("#txt_id_arranque").val();
+                eliminar_arranque("eliminar", result.value, id_arranque);
+            }
+        });
+    });
+
+    $("#btn_aceptar").on("click", function() {
+        if ($("#form_arranque").valid()) {
+            guardar_arranque();
+        }
+    });
+
+    $("#btn_cancelar").on("click", function() {
+        $("#form_arranque")[0].reset();
+        des_habilitar(true, false);
+        datatable_enabled = true;
+
+        reset_radio_buttons();
+
+        $("#datosArranque").collapse("hide");
+    });
+
+    $("#btn_reciclar").on("click", function() {
+        $("#divContenedorReciclarArranque").load(
+            base_url + "/Formularios/ctrl_arranques/v_arranque_reciclar"
+        ); 
+
+        $('#dlg_reciclar_arranque').modal('show');
+    });
+
+    $("#btn_buscar_socio").on("click", function() {
+        $("#divContenedorBuscarSocio").load(
+            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_arranques"
+        ); 
+
+        $('#dlg_buscar_socio').modal('show');
+    });
+
+    $("#cmb_region").on("change", function() {
+        llenar_cmb_provincia();
+    });
+
+    $("#cmb_provincia").on("change", function() {
+        llenar_cmb_comuna();
+    });
+
+    $("#txt_calle").on("blur", function() {
+        this.value = convertirMayusculas(this.value);
+    });
+
+    $("#txt_resto_direccion").on("blur", function() {
+        this.value = convertirMayusculas(this.value);
+    });
+
+    $.validator.addMethod("letras", function(value, element) {
+        return this.optional(element) || /^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]*$/.test(value);
+    });
+
+    $("#form_arranque").validate({
+        debug: true,
+        errorClass: "my-error-class",
+        highlight: function (element, required) {
+            $(element).fadeOut(function () {
+                $(element).fadeIn();
+                $(element).css('border', '2px solid #FDADAF');
+            });
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).css('border', '1px solid #CCC');
+        },
+        rules:  {
+            txt_id_socio: {
+                required: true
+            },
+            txt_n_medidor: {
+                required: true,
+                digits: true,
+                maxlength: 11
+            },
+            cmb_diametro: {
+                required: true
+            },
+            cmb_sector: {
+                required: true
+            },
+            cmb_tipo_documento: {
+                required: true
+            }
+        },
+        messages: {
+            txt_id_socio: {
+                required: "Seleccione un socio, botón buscar"
+            },
+            txt_n_medidor: {
+                required: "El número de medidor es obligatorio",
+                digits: "Solo números",
+                maxlength: "Máximo 11 números"
+            },
+            cmb_diametro: {
+                required: "Seleccione un diámetro"
+            },
+            cmb_sector: {
+                required: "Seleccione un sector"
+            },
+            cmb_tipo_documento: {
+                required: "Seleccione un tipo de documento"
+            }
+        }
+    });
+
+    var grid_arranques = $("#grid_arranques").DataTable({
+		responsive: true,
+        paging: true,
+        scrollY: '50vh',
+        scrollCollapse: true,
+        destroy: true,
+        select: {
+            toggleable: false
+        },
+        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranques",
+        orderClasses: true,
+        columns: [
+            { "data": "id_arranque" },
+            { "data": "id_socio" },
+            { "data": "rut_socio" },
+            { "data": "rol_socio" },
+            { "data": "nombre_socio" },
+            { "data": "n_medidor" },
+            { "data": "id_diametro" },
+            { "data": "diametro" },
+            { "data": "id_sector" },
+            { "data": "sector" },
+            { "data": "alcantarillado" },
+            { "data": "cuota_socio" },
+            { "data": "id_region" },
+            { "data": "id_provincia" },
+            { "data": "id_comuna" },
+            { "data": "calle" },
+            { "data": "numero" },
+            { "data": "resto_direccion" },
+            { "data": "id_tipo_documento" },
+            { "data": "descuento" },
+            { "data": "usuario" },
+            { "data": "fecha" },
+            { 
+                "data": "id_arranque",
+                "render": function(data, type, row) {
+                    return "<button type='button' class='traza_arranque btn btn-warning' title='Traza Arranque'><i class='fas fa-shoe-prints'></i></button>";
+                }
+            }
+        ],
+        "columnDefs": [
+            { "targets": [1, 2, 3, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "visible": false, "searchable": false }
+        ],
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "select": {
+                "rows": "<br/>%d Perfiles Seleccionados"
+            },
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Sig.",
+                "previous": "Ant."
+            }
+        }
+	});
+
+    $("#grid_arranques tbody").on("click", "tr", function () {
+        if (datatable_enabled) {
+            var data = grid_arranques.row($(this)).data();
+            mostrar_datos_arranque(data);
+            des_habilitar(true, false);
+            $("#btn_modificar").prop("disabled", false);
+            $("#btn_eliminar").prop("disabled", false);
+            $("#datosArranque").collapse("hide");
+        }
+    });
+
+    $("#grid_arranques tbody").on("click", "button.traza_arranque", function () {
+        if (datatable_enabled) {
+            $("#divContenedorTrazaArranque").load(
+                base_url + "/Formularios/ctrl_arranques/v_arranque_traza"
+            ); 
+
+            $('#dlg_traza_arranque').modal('show');
+        }
+    });
+});

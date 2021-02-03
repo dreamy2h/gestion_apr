@@ -28,4 +28,8 @@ $(document).ready(function() {
 	$("#menu_convenios").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/convenios");
 	});
+
+	$("#menu_metros").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/metros");
+	});
 });

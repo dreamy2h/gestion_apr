@@ -15,7 +15,7 @@
 	    	$consulta = "SELECT 
 							s.id as id_subsidio,
 						    s.id_socio,
-						    so.rut as rut_socio,
+						    concat(so.rut, ' ', so.dv) as rut_socio,
 						    so.rol as rol_socio,
 						    concat(so.nombres, ' ', so.ape_pat, ' ', so.ape_mat) as nombre_socio,
 						    s.numero_decreto as n_decreto,

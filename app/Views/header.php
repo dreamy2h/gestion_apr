@@ -76,7 +76,7 @@
                             </a>
                             <div class="collapse" id="collapseConsumo" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" id="menu_socios">
+                                    <a class="nav-link" id="menu_metros">
                                         <div class="sb-nav-link-icon"><i class="fas fa-tint mr-1"></i></div> Metros
                                     </a>
                                 </nav>

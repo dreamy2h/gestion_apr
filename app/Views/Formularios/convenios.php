@@ -105,8 +105,8 @@
 					                        </div>
 					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 		                                        <div class="form-group">
-		                                            <label class="small mb-1" for="txt_valor_cuota">Valor Cuota</label>
-		                                            <input type='text' class="form-control" id='txt_valor_cuota' name="txt_valor_cuota" />
+		                                            <label class="small mb-1" for="txt_costo">Costo del Servicio</label>
+		                                            <input type='text' class="form-control" id='txt_costo' name="txt_costo" />
 		                                        </div>
 		                                    </div>
 		                                </div>
@@ -125,7 +125,7 @@
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">
-	                	<div class="card-header"><i class="fas fa-handshake mr-1"></i> Listado de Convenios</div>
+	                	<div class="card-header"><i class="fas fa-handshake mr-1"></i> Listado de Convenios (Doble click, para ver el detalle)</div>
 	                	<div class="card shadow mb-12">
 				            <div class="card-body">
 				            	<div class="container-fluid">
@@ -144,7 +144,7 @@
 					                                <th width="10%">Fecha Servicio</th>
 					                                <th width="10%">N° Cuotas</th>
 					                                <th width="10%">Comienza a Pagar</th>
-					                                <th width="10%">Valor Cuota</th>
+					                                <th width="10%">Costo Servicio</th>
 					                                <th width="10%">Usuarios Reg</th>
 					                                <th width="10%">Fecha</th>
 					                                <th width="5%">Traza</th>
@@ -211,7 +211,7 @@
 	                    </div>
 	                    <div class="modal-body">
 	                        <div class="table-responsive">
-				                <table id="grid_subsidios" class="table table-bordered" width="100%">
+				                <table id="grid_convenio_detalle" class="table table-bordered" width="100%">
 				                	<thead class="thead-dark">
 				                        <tr>
 				                        	<th width="0%">id_cuota_socio</th>

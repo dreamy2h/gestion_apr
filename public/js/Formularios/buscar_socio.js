@@ -1,6 +1,21 @@
 $(document).ready(function() {
     var origen = $("#txt_origen").val();
 
+    var columnas = [
+        { "data": "id_socio" },
+        { "data": "rut" },
+        { "data": "rol" },
+        { "data": "nombre" },
+        { "data": "fecha_entrada" }
+    ];
+
+    if (origen == "ctrl_metros") {
+        columnas.push({"data": "id_arranque"}, {"data": "sector"}, {"data": "consumo_anterior"});
+        ruta = "/Consumo/" + origen
+    } else {
+        ruta = "/Formularios/" + origen
+    }
+
 	var grid_buscar_socio = $("#grid_buscar_socio").DataTable({
 		responsive: true,
 		paging: true,
@@ -8,15 +23,9 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/" + origen + "/datatable_buscar_socio",
+        ajax: base_url +  ruta + "/datatable_buscar_socio",
         orderClasses: true,
-        columns: [
-            { "data": "id_socio" },
-            { "data": "rut" },
-            { "data": "rol" },
-            { "data": "nombre" },
-            { "data": "fecha_entrada" }
-        ],
+        columns: columnas,
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -49,6 +58,36 @@ $(document).ready(function() {
         $("#txt_rol_socio").val(data["rol"]);
         $("#txt_nombre_socio").val(data["nombre"]);
 
-        $('#dlg_buscar_socio').modal('hide');
+        if (origen ==  "ctrl_metros") {
+            $("#txt_id_arranque").val(data["id_arranque"]);
+            $("#txt_sector").val(data["sector"]);
+            $("#txt_c_anterior").val(data["consumo_anterior"]);
+
+            if (data["consumo_anterior"] == 0) {
+                Swal.fire({
+                    title: 'Ingrese consumo anterior',
+                    input: 'text',
+                    inputPlaceholder: 'Ingreso un número',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        return new Promise((resolve) => {
+                            if (value > 0) {
+                                resolve()
+                                $("#txt_c_anterior").val(value);
+                                $('#dlg_buscar_socio').modal('hide');
+                            } else {
+                                resolve("Ingrese un número válido")
+                            }
+                        })
+                    }
+                });
+            } else {
+                $('#dlg_buscar_socio').modal('hide');
+            }
+        } else {
+            $('#dlg_buscar_socio').modal('hide');    
+        }
+
+        
     });
 });

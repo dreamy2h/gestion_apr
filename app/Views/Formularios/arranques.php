@@ -1,6 +1,6 @@
 <main>
     <div class="container-fluid">
-        <h3 class="mt-4" align="center">Arranques</h3>
+        <h3 class="mt-4" align="center"><i class="fas fa-faucet mr-1"></i> Arranques</h3>
         <div class="alert alerta-fijo hidden" role="alert" id="alerta"></div>
 
         <div class="container-fluid">

@@ -18,6 +18,11 @@
 			echo view('Configuracion/apr');
 		}
 
+		public function costo_metros() {
+			$this->validar_sesion();
+			echo view('Configuracion/costo_metros');
+		}
+
 		public function socios() {
 			$this->validar_sesion();
 			echo view('Formularios/socios');
@@ -45,7 +50,7 @@
 
 		public function metros() {
 			$this->validar_sesion();
-			echo view('Metros/metros');
+			echo view('Consumo/metros');
 		}
 
 		public function validar_sesion() {

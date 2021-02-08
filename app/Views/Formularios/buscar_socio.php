@@ -1,15 +1,21 @@
 <main>
     <div class="container-fluid">
+        <div class="alert alerta-fijo hidden" role="alert" id="alerta_busca_socio"></div>
         <input type="hidden" name="txt_origen" id="txt_origen" value="<?php echo $origen; ?>">
 		<div class="table-responsive">
             <table id="grid_buscar_socio" class="table table-bordered" width="100%">
                 <thead class="thead-dark">
                     <tr>
-                    	<th width="30%">Id Socio</th>
-                    	<th width="30%">RUT Socio</th>
-                        <th width="20%">ROL Socio</th>
+                    	<th width="10%">Id Socio</th>
+                    	<th width="10%">RUT Socio</th>
+                        <th width="10%">ROL Socio</th>
                         <th width="20%">Nombre Socio</th>
-                        <th width="20%">Fecha Entrada</th>
+                        <th width="10%">Fecha Entrada</th>
+                    <?php if ($origen ==  "ctrl_metros") { ?>
+                        <th width="10%">Id Arranque</th>
+                        <th width="20%">Sector</th>
+                        <th width="10%">Consumo Anterior</th>
+                    <?php } ?>
                     </tr>
                 </thead>
             </table> 

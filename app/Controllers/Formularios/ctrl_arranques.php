@@ -197,7 +197,7 @@
 
 				$this->guardar_traza($id_arranque, $estado_traza, $observacion);
 			} else {
-				echo "Error al actualizar el sector";
+				echo "Error al actualizar el arranque";
 			}
 		}
 

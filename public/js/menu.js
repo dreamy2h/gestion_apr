@@ -1,14 +1,7 @@
 $(document).ready(function() {
 	var base_url = $("#txt_base_url").val();
 
-	$("#menu_usuarios").click(function() {
-		$("#content").load(base_url + "/ctrl_menu/usuarios");
-	});
-
-	$("#menu_apr").click(function() {
-		$("#content").load(base_url + "/ctrl_menu/apr");
-	});
-
+	// Formularios
 	$("#menu_socios").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/socios");
 	});
@@ -29,7 +22,21 @@ $(document).ready(function() {
 		$("#content").load(base_url + "/ctrl_menu/convenios");
 	});
 
+	// Consumo
 	$("#menu_metros").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/metros");
+	});
+
+	// Configuración
+	$("#menu_usuarios").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/usuarios");
+	});
+
+	$("#menu_apr").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/apr");
+	});
+
+	$("#menu_costo_metros").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/costo_metros");
 	});
 });

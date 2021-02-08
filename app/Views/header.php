@@ -112,6 +112,9 @@
                                     <a class="nav-link" id="menu_apr">
                                         <div class="sb-nav-link-icon"><i class="fas fa-house-user mr-1"></i></div> APR
                                     </a>
+                                    <a class="nav-link" id="menu_costo_metros">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign mr-1"></i></div> Costo Metros
+                                    </a>
                                 </nav>
                             </div>
                         </div>

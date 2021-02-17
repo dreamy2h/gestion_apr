@@ -9,13 +9,14 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_convenio', 'numero_cuota', 'valor_cuota', 'pagado'];
+	    protected $allowedFields = ['id', 'id_convenio', 'fecha_pago', 'numero_cuota', 'valor_cuota', 'pagado'];
 
 	    public function datatable_convenio_detalle($db, $id_convenio) {
 	    	$consulta = "SELECT 
 							cd.id,
 						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as socio,
-						    date_format(date_add(c.fecha_pago, INTERVAL cd.numero_cuota - 1 MONTH), '%m-%Y') as fecha_pago,
+						    -- date_format(date_add(c.fecha_pago, INTERVAL cd.numero_cuota - 1 MONTH), '%m-%Y') as fecha_pago,
+						    date_format(cd.fecha_pago, '%m-%Y') as fecha_pago,
 						    cd.numero_cuota,
 						    cd.valor_cuota
 						FROM 
@@ -47,5 +48,23 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function calcular_total_servicios($db, $fecha_vencimiento, $id_socio) {
+	    	$fecha = date_format(date_create($fecha_vencimiento), 'm-Y');
+
+	    	$consulta = "SELECT 
+							ifnull(sum(cd.valor_cuota), 0) as total_servicios
+						from 
+							convenio_detalle cd
+						    inner join convenios c on cd.id_convenio = c.id
+						where 
+							date_format(cd.fecha_pago, '%m-%Y') = ? and
+						    c.id_socio = ?";
+
+			$query = $db->query($consulta, [$fecha, $id_socio]);
+			$row = $query->getRow();
+			
+			return $row->total_servicios;
+	    }	
 	}
 ?>

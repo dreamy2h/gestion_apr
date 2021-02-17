@@ -56,7 +56,7 @@
                                         <div class="sb-nav-link-icon"><i class="fas fa-male mr-1"></i></div> Socios
                                     </a>
                                     <a class="nav-link" id="menu_arranques">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-faucet mr-1"></i></div> Arranques
+                                        <div class="sb-nav-link-icon"><i class="fas fa-swimming-pool mr-1"></i></div> Arranques
                                     </a>
                                     <a class="nav-link" id="menu_sectores">
                                         <div class="sb-nav-link-icon"><i class="fas fa-location-arrow mr-1"></i></div> Sectores
@@ -66,6 +66,9 @@
                                     </a>
                                     <a class="nav-link" id="menu_convenios">
                                         <div class="sb-nav-link-icon"><i class="fas fa-handshake mr-1"></i></div> Convenios
+                                    </a>
+                                    <a class="nav-link" id="menu_medidores">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-faucet mr-1"></i></div> Medidores
                                     </a>
                                 </nav>
                             </div>

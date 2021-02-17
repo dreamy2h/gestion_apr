@@ -48,6 +48,11 @@
 			echo view('Formularios/convenios');
 		}
 
+		public function medidores() {
+			$this->validar_sesion();
+			echo view('Formularios/medidores');
+		}
+
 		public function metros() {
 			$this->validar_sesion();
 			echo view('Consumo/metros');

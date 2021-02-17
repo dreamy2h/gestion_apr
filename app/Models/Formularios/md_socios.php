@@ -77,5 +77,13 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function existe_socio($rut, $rol) {
+	    	$this->select("count(*) as filas");
+	    	$this->where("rut", $rut);
+	    	$this->where("rol", $rol);
+	    	$datos = $this->findAll();
+	    	return $datos;
+	    }
 	}
 ?>

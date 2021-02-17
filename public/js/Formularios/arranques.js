@@ -1,5 +1,6 @@
 var base_url = $("#txt_base_url").val();
 var datatable_enabled = true;
+var id_medidor;
 
 function des_habilitar(a, b) {
     $("#btn_nuevo").prop("disabled", b);
@@ -14,7 +15,7 @@ function des_habilitar(a, b) {
     $("#txt_rol").prop("disabled", a);
     $("#txt_nombre_socio").prop("disabled", a);
     $("#btn_buscar_socio").prop("disabled", a);
-    $("#txt_n_medidor").prop("disabled", a);
+    $("#cmb_medidor").prop("disabled", a);
     $("#cmb_diametro").prop("disabled", a);
     $("#cmb_sector").prop("disabled", a);
     $("#rd_si_a").prop("disabled", a);
@@ -37,7 +38,8 @@ function mostrar_datos_arranque(data) {
     $("#txt_rut_socio").val(data["rut_socio"]);
     $("#txt_rol_socio").val(data["rol_socio"]);
     $("#txt_nombre_socio").val(data["nombre_socio"]);
-    $("#txt_n_medidor").val(data["n_medidor"]);
+    id_medidor = data["id_medidor"];
+    $("#cmb_medidor").val(data["n_medidor"]);
     $("#cmb_diametro").val(data["id_diametro"]);
     $("#cmb_sector").val(data["id_sector"]);
     
@@ -79,8 +81,6 @@ function mostrar_datos_arranque(data) {
 function guardar_arranque() {
     var id_arranque = $("#txt_id_arranque").val();
     var id_socio = $("#txt_id_socio").val();
-    var n_medidor = $("#txt_n_medidor").val();
-    var id_diametro = $("#cmb_diametro").val();
     var id_sector = $("#cmb_sector").val();
     if ($("#rd_si_a").prop("checked")) { var alcantarillado = 1; } else { var alcantarillado = 0; }
     if ($("#rd_si_cs").prop("checked")) { var cuota_socio = 1; } else { var cuota_socio = 0; }
@@ -98,8 +98,7 @@ function guardar_arranque() {
         data: {
             id_arranque: id_arranque,
             id_socio: id_socio,
-            n_medidor: n_medidor,
-            id_diametro: id_diametro,
+            id_medidor: id_medidor,
             id_sector: id_sector,
             alcantarillado: alcantarillado,
             cuota_socio: cuota_socio,
@@ -115,11 +114,12 @@ function guardar_arranque() {
             if (respuesta == OK) {
                 $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_arranques/datatable_arranques");
                 $("#form_arranque")[0].reset();
+                id_medidor = null;
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Arranque guardado con éxito");
-                $("#datosArranque").collapse();
                 datatable_enabled = true;
                 reset_radio_buttons();
+                $("#datosArranque").collapse("hide");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -316,6 +316,19 @@ function reset_radio_buttons() {
     $("#lbl_rd_no_sc").addClass("active");
 }
 
+function llenar_txt_medidores() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Formularios/ctrl_arranques/llenar_txt_medidores",
+    }).done( function(data) {
+        return data;
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
 $(document).ready(function() {
     $("#txt_id_arranque").prop("disabled", true);
     $("#txt_id_socio").prop("readonly", true);
@@ -326,7 +339,6 @@ $(document).ready(function() {
     llenar_cmb_region();
     llenar_cmb_provincia();
     llenar_cmb_comuna();
-    llenar_cmb_diametro();
     llenar_cmb_sector();
     llenar_cmb_tipo_documento();
 
@@ -377,7 +389,7 @@ $(document).ready(function() {
         $("#form_arranque")[0].reset();
         des_habilitar(true, false);
         datatable_enabled = true;
-
+        id_medidor = null;
         reset_radio_buttons();
 
         $("#datosArranque").collapse("hide");
@@ -397,6 +409,16 @@ $(document).ready(function() {
         ); 
 
         $('#dlg_buscar_socio').modal('show');
+    });
+
+    $("#cmb_medidor").autoComplete({
+        resolverSettings: {
+            url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_medidores"
+        }
+    });
+
+    $("#cmb_medidor").on("autocomplete.select", function (evt, item) {
+        id_medidor = item.value;
     });
 
     $("#cmb_region").on("change", function() {
@@ -435,10 +457,8 @@ $(document).ready(function() {
             txt_id_socio: {
                 required: true
             },
-            txt_n_medidor: {
+            cmb_medidor: {
                 required: true,
-                digits: true,
-                maxlength: 11
             },
             cmb_diametro: {
                 required: true
@@ -454,10 +474,8 @@ $(document).ready(function() {
             txt_id_socio: {
                 required: "Seleccione un socio, botón buscar"
             },
-            txt_n_medidor: {
+            cmb_medidor: {
                 required: "El número de medidor es obligatorio",
-                digits: "Solo números",
-                maxlength: "Máximo 11 números"
             },
             cmb_diametro: {
                 required: "Seleccione un diámetro"
@@ -474,8 +492,8 @@ $(document).ready(function() {
     var grid_arranques = $("#grid_arranques").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
@@ -488,6 +506,7 @@ $(document).ready(function() {
             { "data": "rut_socio" },
             { "data": "rol_socio" },
             { "data": "nombre_socio" },
+            { "data": "id_medidor" },
             { "data": "n_medidor" },
             { "data": "id_diametro" },
             { "data": "diametro" },
@@ -513,7 +532,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 3, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "visible": false, "searchable": false }
+            { "targets": [1, 2, 3, 5, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

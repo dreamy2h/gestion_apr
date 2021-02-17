@@ -4,25 +4,25 @@
 	use App\Controllers\BaseController;
 	use App\Models\Formularios\md_arranques;
 	use App\Models\Formularios\md_arranque_traza;
-	use App\Models\Formularios\md_diametro;
 	use App\Models\Formularios\md_sectores;
 	use App\Models\Formularios\md_tipo_documento;
+	use App\Models\Formularios\md_medidores;
 
 	class ctrl_arranques extends BaseController {
 		protected $arranques;
 		protected $arranque_traza;
-		protected $diametro;
 		protected $sectores;
 		protected $tipo_documento;
+		protected $medidores;
 		protected $sesión;
 		protected $db;
 
 		public function __construct() {
 			$this->arranques = new md_arranques();
 			$this->arranque_traza = new md_arranque_traza();
-			$this->diametro = new md_diametro();
 			$this->sectores = new md_sectores();
 			$this->tipo_documento = new md_tipo_documento();
+			$this->medidores = new md_medidores();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -37,25 +37,6 @@
 		public function datatable_arranques() {
 			$this->validar_sesion();
 			echo $this->arranques->datatable_arranques($this->db, $this->sesión->id_apr_ses);
-		}
-
-		public function llenar_cmb_diametro() {
-			$this->validar_sesion();
-			$datos_diametro = $this->diametro->select("id")->select("glosa as diametro")->where("estado", 1)->findAll();
-
-			$data = array();
-
-			foreach ($datos_diametro as $key) {
-				$row = array(
-					"id" => $key["id"],
-					"diametro" => $key["diametro"]
-				);
-
-				$data[] = $row;
-			}
-
-			// $salida = array("data" => $data);
-			echo json_encode($data);
 		}
 
 		public function llenar_cmb_sector() {
@@ -96,6 +77,12 @@
 			echo json_encode($data);
 		}
 
+		public function llenar_cmb_medidores() {
+			$this->validar_sesion();
+			$this->response->setContentType('application/json');
+			echo $this->medidores->llenar_cmb_medidores($this->db, $this->sesión->id_apr_ses);
+		}
+
 		public function guardar_arranque() {
 			$this->validar_sesion();
 	    	define("CREAR_ARRANQUE", 1);
@@ -111,8 +98,7 @@
 
 			$id_arranque = $this->request->getPost("id_arranque");
 			$id_socio = $this->request->getPost("id_socio");
-			$n_medidor = $this->request->getPost("n_medidor");
-			$id_diametro = $this->request->getPost("id_diametro");
+			$id_medidor = $this->request->getPost("id_medidor");
 			$id_sector = $this->request->getPost("id_sector");
 			$alcantarillado = $this->request->getPost("alcantarillado");
 			$cuota_socio = $this->request->getPost("cuota_socio");
@@ -128,8 +114,7 @@
 			$datosArranque = [
 				"id_socio" => $id_socio,
 				"estado" => $estado,
-				"numero_medidor" => $n_medidor,
-				"id_diametro" => $id_diametro,
+				"id_medidor" => $id_medidor,
 				"id_sector" => $id_sector,
 				"alcantarillado" => $alcantarillado,
 				"cuota_socio" => $cuota_socio,
@@ -185,6 +170,10 @@
 				"fecha" => $fecha,
 				"estado" => $estado,
 			];
+
+			if ($estado == ELIMINAR) {
+				$datosArranque["id_socio"] = null;
+			}
 
 			if ($this->arranques->save($datosArranque)) {
 				echo OK;

@@ -129,7 +129,6 @@ $(document).ready(function() {
 
     $("#txt_clave").keypress(function(event) {
         if(event.keyCode==13){
-            console.warn("1");
             if ($("#btn_login").text() == "Activa tu cuenta") {
                 activar_cuenta();
             } else {

@@ -1,24 +1,28 @@
 $(document).ready(function() {
-	var grid_arranque_reciclar = $("#grid_arranque_reciclar").DataTable({
+	var id_medidor = $("#txt_id_medidor").val();
+
+	var grid_medidor_reciclar = $("#grid_medidor_reciclar").DataTable({
 		responsive: true,
 		paging: true,
         // scrollY: '50vh',
         // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranque_reciclar",
+        ajax: base_url + "/Formularios/ctrl_medidores/datatable_medidor_reciclar",
         orderClasses: true,
         select: {
             toggleable: false
         },
         columns: [
-            { "data": "id_arranque" },
-            { "data": "nombre_socio" },
-            { "data": "n_medidor" },
+            { "data": "id_medidor" },
+            { "data": "numero" },
+            { "data": "id_diametro" },
             { "data": "diametro" },
-            { "data": "sector" },
             { "data": "usuario" },
             { "data": "fecha" }
+        ],
+        "columnDefs": [
+            { "targets": [2], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",
@@ -45,13 +49,14 @@ $(document).ready(function() {
         }
 	});
 
-    $("#grid_arranque_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_arranque_reciclar.row($(this)).data();
-        var id_arranque = data["id_arranque"];
+    $("#grid_medidor_reciclar tbody").on("dblclick", "tr", function () {
+        var data = grid_medidor_reciclar.row($(this)).data();
+        var id_medidor = data["id_medidor"];
+        var numero = data["numero"];
         
         Swal.fire({
-            title: "¿Reciclar Arranque?",
-            text: "¿Está seguro de reciclar este arranque?",
+            title: "¿Reciclar Medidor?",
+            text: "¿Está seguro de reciclar el medidor " + numero + "?",
             input: 'text',
             icon: "question",
             showCancelButton: true,
@@ -61,7 +66,7 @@ $(document).ready(function() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-               eliminar_arranque("reciclar", result.value, id_arranque);
+               eliminar_medidor("reciclar", result.value, id_medidor);
             }
         });
     });

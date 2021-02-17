@@ -5,11 +5,13 @@
 	use App\Models\Consumo\md_metros;
 	use App\Models\Consumo\md_metros_traza;
 	use App\Models\Configuracion\md_costo_metros;
+	use App\Models\Formularios\md_convenio_detalle;
 
 	class ctrl_metros extends BaseController {
 		protected $metros;
 		protected $metros_traza;
 		protected $costo_metros;
+		protected $convenio_detalle;
 		protected $sesión;
 		protected $db;
 
@@ -17,6 +19,7 @@
 			$this->metros = new md_metros();
 			$this->metros_traza = new md_metros_traza();
 			$this->costo_metros = new md_costo_metros();
+			$this->convenio_detalle = new md_convenio_detalle();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -42,38 +45,36 @@
 
 			$fecha = date("Y-m-d H:i:s");
 			$id_usuario = $this->sesión->id_usuario_ses;
+			$id_apr = $this->sesión->id_apr_ses;
 
 			$id_metros = $this->request->getPost("id_metros");
 			$id_socio = $this->request->getPost("id_socio");
-			$subsidio = $this->request->getPost("subsidio");
+			$monto_subsidio = $this->request->getPost("monto_subsidio");
 			$fecha_ingreso = $this->request->getPost("fecha_ingreso");
 			$fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
 			$consumo_anterior = $this->request->getPost("consumo_anterior");
 			$consumo_actual = $this->request->getPost("consumo_actual");
 			$metros = $this->request->getPost("metros");
-			$total_metros = $this->request->getPost("total_metros");
 			$subtotal = $this->request->getPost("subtotal");
 			$multa = $this->request->getPost("multa");
 			$total_servicios = $this->request->getPost("total_servicios");
-			$saldo_aterior = $this->request->getPost("saldo_aterior");
 			$total_mes = $this->request->getPost("total_mes");
 
 			$datosMetros = [
 				"id_socio" => $id_socio,
-				"monto_subsidio" => $subsidio,
-				"fecha_ingreso" => $fecha_ingreso,
-				"fecha_vencimiento" => $fecha_vencimiento,
+				"monto_subsidio" => $monto_subsidio,
+				"fecha_ingreso" =>  date_format(date_create($fecha_ingreso), 'Y-m-d'),
+				"fecha_vencimiento" => date_format(date_create($fecha_vencimiento), 'Y-m-d'),
 				"consumo_anterior" => $consumo_anterior,
 				"consumo_actual" => $consumo_actual,
 				"metros" => $metros,
-				"total_metros" => $total_metros,
-				"Subtotal" => $subtotal,
+				"subtotal" => $subtotal,
 				"multa" => $multa,
 				"total_servicios" => $total_servicios,
-				"saldo_anterior" => $saldo_aterior,
 				"total_mes" => $total_mes,
 				"id_usuario" => $id_usuario,
-				"fecha" => $fecha
+				"fecha" => $fecha,
+				"id_apr" => $id_apr
 			];
 
 			if ($id_metros != "") {
@@ -134,6 +135,13 @@
 		public function datatable_costo_metros($consumo_actual) {
 			$this->validar_sesion();
 			echo $this->costo_metros->datatable_costo_metros_consumo($this->db, $this->sesión->id_apr_ses, $consumo_actual);
+		}
+
+		public function calcular_total_servicios() {
+			$fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
+			$id_socio = $this->request->getPost("id_socio");
+
+			echo $this->convenio_detalle->calcular_total_servicios($this->db, $fecha_vencimiento, $id_socio);
 		}
 	}
 ?>

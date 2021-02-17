@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anteior', 'consumo_actual', 'metros', 'total_metros', 'subtotal', 'multa', 'tota_servicios', 'saldo_aterior', 'total_mes', 'id_usuario', 'fecha', 'estado'];
+	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
 
 	    public function datatable_metros($db, $id_apr) {
 	    	$consulta = "SELECT 
@@ -20,18 +20,16 @@
 						    concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio,
 						    a.id as id_arranque,
 						    sec.nombre as sector,
-						    concat(p.glosa, ' - ', m.monto_subsidio) as subsidio,
+						    ifnull(m.monto_subsidio, 0) as monto_subsidio,
 						    date_format(m.fecha_ingreso, '%d-%m-%Y') as fecha_ingreso,
 						    date_format(m.fecha_vencimiento, '%d-%-m-Y') as fecha_vencimiento,
 						    m.consumo_anterior,
 						    m.consumo_actual,
 						    m.metros,
-						    m.total_metros,
-						    m.subtotal,
-						    m.multa,
-						    m.total_servicios,
-						    m.saldo_anterior,
-						    m.total_mes,
+						    ifnull(m.subtotal, 0) as subtotal,
+						    ifnull(m.multa, 0) as multa,
+						    ifnull(m.total_servicios, 0) as total_servicios,
+						    ifnull(m.total_mes, 0) as total_mes,
 						    u.usuario,
 						    date_format(m.fecha, '%d-%m-%Y') as fecha
 						from 
@@ -41,7 +39,7 @@
 						    inner join sectores sec on a.id_sector = sec.id
 						    inner join subsidios sub on sub.id_socio = soc.id
 						    inner join porcentajes p on sub.id_porcentaje = p.id
-    						inner join usuarios u on m.id_usuario = u.id_usuario
+    						inner join usuarios u on m.id_usuario = u.id
 						where 
 							m.estado = 1 and
     						m.id_apr = $id_apr";
@@ -58,17 +56,15 @@
 					"nombre_socio" => $key["nombre_socio"],
 					"id_arranque" => $key["id_arranque"],
 					"sector" => $key["sector"],
-					"subsidio" => $key["subsidio"],
+					"monto_subsidio" => $key["monto_subsidio"],
 					"fecha_ingreso" => $key["fecha_ingreso"],
 					"fecha_vencimiento" => $key["fecha_vencimiento"],
 					"consumo_anterior" => $key["consumo_anterior"],
 					"consumo_actual" => $key["consumo_actual"],
 					"metros" => $key["metros"],
-					"total_metros" => $key["total_metros"],
 					"subtotal" => $key["subtotal"],
 					"multa" => $key["multa"],
 					"total_servicios" => $key["total_servicios"],
-					"saldo_anterior" => $key["saldo_anterior"],
 					"total_mes" => $key["total_mes"],
 					"usuario" => $key["usuario"],
 					"fecha" => $key["fecha"]
@@ -92,14 +88,16 @@
 							s.rol,
 							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre,
 							date_format(s.fecha_entrada, '%d-%m-%Y') as fecha_entrada,
-						    a.id as id_arranque,
-						    sec.nombre as sector,
-						    ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio)), 0) as consumo_anterior
+							a.id as id_arranque,
+							sec.nombre as sector,
+						    ifnull(p.glosa, '0%') as subsidio,
+							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio)), 0) as consumo_anterior
 						from 
 							arranques a
 							inner join socios s on a.id_socio = s.id
-						    inner join sectores sec on a.id_sector = sec.id
-						    
+							inner join sectores sec on a.id_sector = sec.id
+							left join subsidios sub on sub.id_socio = s.id
+						    left join porcentajes p on sub.id_porcentaje = p.id
 						where 
 							s.id_apr = $id_apr and
 							s.estado = 1";
@@ -117,6 +115,7 @@
 					"fecha_entrada" => $key["fecha_entrada"],
 					"id_arranque" => $key["id_arranque"],
 					"sector" => $key["sector"],
+					"subsidio" => $key["subsidio"],
 					"consumo_anterior" => $key["consumo_anterior"]
 				);
 

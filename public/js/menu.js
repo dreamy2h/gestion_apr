@@ -22,6 +22,10 @@ $(document).ready(function() {
 		$("#content").load(base_url + "/ctrl_menu/convenios");
 	});
 
+	$("#menu_medidores").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/medidores");
+	});
+
 	// Consumo
 	$("#menu_metros").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/metros");

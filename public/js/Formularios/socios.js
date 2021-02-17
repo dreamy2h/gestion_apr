@@ -156,7 +156,7 @@ function guardar_socio() {
                 $("#form_socios")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Socio guardado con éxito");
-                $("#datosSocio").collapse();
+                $("#datosSocio").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);

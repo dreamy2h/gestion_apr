@@ -39,6 +39,27 @@
 					                                <select id="cmb_apr" name="cmb_apr" class="form-control"></select>
 					                            </div>
 				                			</div>
+				                			<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="cmb_diametro">Diámetro del Medidor</label>
+					                                <select id="cmb_diametro" name="cmb_diametro" class="form-control"></select>
+					                            </div>
+				                			</div>
+					                	</div>
+					                	<div class="row">
+					                        <input type='hidden' class="form-control" id="txt_id_cargo_fijo" name="txt_id_cargo_fijo" />
+				                			<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_cantidad_cargo_fijo">Cantidad de Metros Cargo Fijo</label>
+					                                <input type='text' class="form-control" id="txt_cantidad_cargo_fijo" name="txt_cantidad_cargo_fijo" />
+					                            </div>
+				                			</div>
+				                			<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_cargo_fijo">Cargo Fijo $</label>
+					                                <input type='text' class="form-control" id="txt_cargo_fijo" name="txt_cargo_fijo" />
+					                            </div>
+				                			</div>
 					                	</div>
 				                		<div class="row">
 				                			<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
@@ -80,7 +101,9 @@
 					                            <tr>
 					                            	<th width="0%">id_costo_metros</th>
 					                                <th width="0%">id_apr</th>
-					                                <th width="30%">APR</th>
+					                                <th width="20%">APR</th>
+					                                <th width="0%">id_diametro</th>
+					                                <th width="10%">Diámetro</th>
 					                                <th width="10%">Desde</th>
 					                                <th width="10%">Hasta</th>
 					                                <th width="15%">Costo $</th>

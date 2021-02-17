@@ -31,7 +31,7 @@
 				            	<div class="container-fluid">
 				            		<form id="form_metros" name="form_metros" encType="multipart/form-data">
 				                		<div class="row">
-				                			<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+				                			<div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
 				                				<div class="row">
 						                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 						                				<div class="form-group">
@@ -75,17 +75,22 @@
 							                        </div>
 							                    </div>
 							                    <div class="row">
-							                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+							                    	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_id_arranque">Id. Arranque</label>
 							                                <input type='text' class="form-control" id='txt_id_arranque' name="txt_id_arranque" />
 							                            </div>
 							                        </div>
-							                    
-							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_subsidio">Subsidio %</label>
 							                                <input type='text' class="form-control" id='txt_subsidio' name="txt_subsidio" />
+							                            </div>
+							                        </div>
+							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                        	<div class="form-group">
+							                                <label class="small mb-1" for="txt_monto_subsidio">Monto Subsidio $</label>
+							                                <input type='text' class="form-control" id='txt_monto_subsidio' name="txt_monto_subsidio" />
 							                            </div>
 							                        </div>
 							                    </div>
@@ -135,34 +140,28 @@
 							                 
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_subtotal">Subtotal</label>
+							                                <label class="small mb-1" for="txt_subtotal">Subtotal $</label>
 							                                <input type='text' class="form-control" id='txt_subtotal' name="txt_subtotal" />
 							                            </div>
 							                        </div>
 						                        </div>
 						                        <div class="row">
-						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_multa">Multa</label>
+							                                <label class="small mb-1" for="txt_multa">Multa $</label>
 							                                <input type='text' class="form-control" id='txt_multa' name="txt_multa" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios</label>
+							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios $</label>
 							                                <input type='text' class="form-control" id='txt_total_servicios' name="txt_total_servicios" />
-							                            </div>
-							                        </div>
-							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_saldo_aterior">Saldo Anterior</label>
-							                                <input type='text' class="form-control" id='txt_saldo_aterior' name="txt_saldo_aterior" />
 							                            </div>
 							                        </div>
 						                        </div>
 				                			</div>
-				                			<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
-				                				<div class="row align-items-end">
+				                			<div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
+				                				<div class="row">
 					                				<div class="container-fluid">
 									            		<div class="table-responsive">
 										                    <table id="grid_costo_metros" class="table table-bordered" width="100%">
@@ -172,19 +171,19 @@
 										                            	<th width="25%">Metros</th>
 										                            	<th width="25%">Desde</th>
 										                            	<th width="25%">Hasta</th>
-										                                <th width="25%">Costo</th>
+										                                <th width="25%">Costo $</th>
 										                            </tr>
 										                        </thead>
 										                    </table> 
 										                </div>
 										            </div>
 										        </div>
-									            <div class="row bg-primary">
+									            <div class="row" style="bottom: 0px;position: absolute;">
 									            	<div class="container-fluid">
 							                        	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 								                         	<div class="form-group">
 								                                <label class="small mb-1" for="txt_total_mes" style="font-size: 200%;">Total del Mes</label>
-								                                <input type='text' class="form-control bg-success" id='txt_total_mes' name="txt_total_mes" style="font-size: 200%;" />
+								                                <input type='text' class="form-control bg-warning" id='txt_total_mes' name="txt_total_mes" style="font-size: 200%;" />
 								                            </div>
 								                        </div>
 								                    </div>
@@ -211,25 +210,23 @@
 					                    <table id="grid_metros" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Identificador</th>
+					                            	<th width="7.5%">Id.</th>
 					                            	<th width="0%">id_socio</th>
 					                            	<th width="0%">rut_socio</th>
 					                                <th width="0%">rol_socio</th>
 					                                <th width="15%">Nombre Socio</th>
 					                               	<th width="0%">id_Arranque</th>
 					                                <th width="0%">Sector</th>
-					                                <th width="0%">Subsidio</th>
+					                                <th width="7.5%">Monto Subsidio</th>
 					                                <th width="0%">Fecha Ingreso</th> 
 					                                <th width="0%">Fecha Vencimiento</th>
 					                                <th width="0%">Consumo Antetior</th>
 					                                <th width="0%">Consumo Actual</th>
-					                                <th width="10%">Metros</th>
-					                                <th width="0%">Total Metros</th>
+					                                <th width="5%">Metros</th>
 					                                <th width="10%">Subtotal</th>
-					                                <th width="10%">Multa</th>
+					                                <th width="7.5%">Multa</th>
 					                                <th width="10%">Total Servicios</th>
-					                                <th width="0%">Saldo Anterior</th>
-					                                <th width="10%">Total del Mes</th>
+					                                <th width="7.5%">Total del Mes</th>
 					                                <th width="10%">Usuarios Reg</th>
 					                                <th width="10%">Fecha</th>
 					                                <th width="5%">Traza</th>

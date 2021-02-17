@@ -1,22 +1,18 @@
 $(document).ready(function() {
-	var grid_arranque_reciclar = $("#grid_arranque_reciclar").DataTable({
+	var id_medidor = $("#txt_id_medidor").val();
+
+	var grid_medidor_traza = $("#grid_medidor_traza").DataTable({
 		responsive: true,
 		paging: true,
         // scrollY: '50vh',
         // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranque_reciclar",
+        ajax: base_url + "/Formularios/ctrl_medidores/datatable_medidor_traza/" + id_medidor,
         orderClasses: true,
-        select: {
-            toggleable: false
-        },
         columns: [
-            { "data": "id_arranque" },
-            { "data": "nombre_socio" },
-            { "data": "n_medidor" },
-            { "data": "diametro" },
-            { "data": "sector" },
+            { "data": "estado" },
+            { "data": "observacion" },
             { "data": "usuario" },
             { "data": "fecha" }
         ],
@@ -44,25 +40,4 @@ $(document).ready(function() {
 	        }
         }
 	});
-
-    $("#grid_arranque_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_arranque_reciclar.row($(this)).data();
-        var id_arranque = data["id_arranque"];
-        
-        Swal.fire({
-            title: "¿Reciclar Arranque?",
-            text: "¿Está seguro de reciclar este arranque?",
-            input: 'text',
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si",
-            cancelButtonText: "No"
-        }).then((result) => {
-            if (result.isConfirmed) {
-               eliminar_arranque("reciclar", result.value, id_arranque);
-            }
-        });
-    });
 });

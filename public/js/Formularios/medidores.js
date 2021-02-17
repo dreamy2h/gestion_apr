@@ -9,34 +9,38 @@ function des_habilitar(a, b) {
     $("#btn_cancelar").prop("disabled", a);
     $("#btn_reciclar").prop("disabled", b);
 
-    $("#txt_nombre").prop("disabled", a);
+    $("#txt_numero").prop("disabled", a);
+    $("#cmb_diametro").prop("disabled", a);
 }
 
-function mostrar_datos_sector(data) {
-    $("#txt_id_sector").val(data["id_sector"]);
-    $("#txt_nombre").val(data["nombre"]);
+function mostrar_datos_medidor(data) {
+    $("#txt_id_medidor").val(data["id_medidor"]);
+    $("#txt_numero").val(data["numero"]);
+    $("#cmb_diametro").val(data["id_diametro"]);
 }
 
-function guardar_sector() {
-    var id_sector = $("#txt_id_sector").val();
-    var nombre = $("#txt_nombre").val();
+function guardar_medidor() {
+    var id_medidor = $("#txt_id_medidor").val();
+    var numero = $("#txt_numero").val();
+    var id_diametro = $("#cmb_diametro").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_sectores/guardar_sector",
+        url: base_url + "/Formularios/ctrl_medidores/guardar_medidor",
         type: "POST",
         async: false,
         data: {
-            id_sector: id_sector,
-            nombre: nombre
+            id_medidor: id_medidor,
+            numero: numero,
+            id_diametro: id_diametro
         },
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_sectores/datatable_sectores");
-                $("#form_sector")[0].reset();
+                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_medidores/datatable_medidores");
+                $("#form_medidor")[0].reset();
                 des_habilitar(true, false);
-                alerta.ok("alerta", "Sector guardado con éxito");
-                $("#datosSector").collapse("hide");
+                alerta.ok("alerta", "Medidor guardado con éxito");
+                $("#datosMedidor").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
@@ -49,15 +53,15 @@ function guardar_sector() {
     });
 }
 
-function eliminar_sector(opcion, observacion, id_sector) {
+function eliminar_medidor(opcion, observacion, id_medidor) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_sectores/eliminar_sector",
+        url: base_url + "/Formularios/ctrl_medidores/eliminar_medidor",
         type: "POST",
         async: false,
         data: { 
-            id_sector: id_sector,
+            id_medidor: id_medidor,
             observacion: observacion,
             estado: estado
         },
@@ -66,13 +70,13 @@ function eliminar_sector(opcion, observacion, id_sector) {
 
             if (respuesta == OK) {
                 if (opcion == "eliminar") {
-                    alerta.ok("alerta", "Sector eliminado con éxito");
+                    alerta.ok("alerta", "Medidor eliminado con éxito");
                 } else {
                     $('#dlg_reciclar').modal('hide');
-                    alerta.ok("alerta", "Sector reciclado con éxito");
+                    alerta.ok("alerta", "Medidor reciclado con éxito");
                 }
 
-                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_sectores/datatable_sectores");
+                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_medidores/datatable_medidores");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -89,17 +93,39 @@ function convertirMayusculas(texto) {
     return text;
 }
 
+function llenar_cmb_diametro() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: base_url + "/Formularios/ctrl_medidores/llenar_cmb_diametro",
+    }).done( function(data) {
+        $("#cmb_diametro").html('');
+
+        var opciones = "<option value=\"\">Seleccione un diámetro</option>";
+        
+        for (var i = 0; i < data.length; i++) {
+            opciones += "<option value=\"" + data[i].id + "\">" + data[i].diametro + "</option>";
+        }
+
+        $("#cmb_diametro").append(opciones);
+    }).fail(function(error){
+        respuesta = JSON.parse(error["responseText"]);
+        alerta.error("alerta", respuesta.message);
+    });
+}
+
 $(document).ready(function() {
-    $("#txt_id_sector").prop("disabled", true);
+    $("#txt_id_medidor").prop("disabled", true);
     des_habilitar(true, false);
+    llenar_cmb_diametro();
 
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
-        $("#form_sector")[0].reset();
+        $("#form_medidor")[0].reset();
 
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
-        $("#datosSector").collapse("show");
+        $("#datosMedidor").collapse("show");
     });
 
     $("#btn_modificar").on("click", function() {
@@ -107,15 +133,15 @@ $(document).ready(function() {
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
         datatable_enabled = false;
-        $("#datosSector").collapse("show");
+        $("#datosMedidor").collapse("show");
     });
 
     $("#btn_eliminar").on("click", function() {
-        var sector = $("#txt_nombre").val();
+        var numero = $("#txt_numero").val();
         
         Swal.fire({
-            title: "¿Eliminar Sector?",
-            text: "¿Está seguro de eliminar el sector " + sector + "?",
+            title: "¿Eliminar Medidor?",
+            text: "¿Está seguro de eliminar el medidor " + numero + "?",
             input: 'text',
             icon: "question",
             showCancelButton: true,
@@ -125,42 +151,34 @@ $(document).ready(function() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-                var id_sector = $("#txt_id_sector").val();
-                eliminar_sector("eliminar", result.value, id_sector);
+                var id_medidor = $("#txt_id_medidor").val();
+                eliminar_medidor("eliminar", result.value, id_medidor);
             }
         });
     });
 
     $("#btn_aceptar").on("click", function() {
-        if ($("#form_sector").valid()) {
-            guardar_sector();
+        if ($("#form_medidor").valid()) {
+            guardar_medidor();
         }
     });
 
     $("#btn_cancelar").on("click", function() {
-        $("#form_sector")[0].reset();
+        $("#form_medidor")[0].reset();
         des_habilitar(true, false);
         datatable_enabled = true;
-        $("#datosSector").collapse("hide");
+        $("#datosMedidor").collapse("hide");
     });
 
     $("#btn_reciclar").on("click", function() {
-        $("#divContenedorReciclarSector").load(
-            base_url + "/Formularios/ctrl_sectores/v_sector_reciclar"
+        $("#divContenedorReciclarMedidor").load(
+            base_url + "/Formularios/ctrl_medidores/v_medidor_reciclar"
         ); 
 
         $('#dlg_reciclar').modal('show');
     });
 
-    $("#txt_nombre").on("blur", function() {
-        this.value = convertirMayusculas(this.value);
-    });
-
-    $.validator.addMethod("letras", function(value, element) {
-        return this.optional(element) || /^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]*$/.test(value);
-    });
-
-    $("#form_sector").validate({
+    $("#form_medidor").validate({
         debug: true,
         errorClass: "my-error-class",
         highlight: function (element, required) {
@@ -173,44 +191,55 @@ $(document).ready(function() {
             $(element).css('border', '1px solid #CCC');
         },
         rules:  {
-            txt_nombre: {
+            txt_numero: {
                 required: true,
-                letras: true,
-                maxlength: 45
+                digits: true,
+                maxlength: 11
+            },
+            cmb_diametro: {
+                required: true
             }
         },
         messages: {
-            txt_nombre: {
-                required: "El nombre del sector es obligatorio",
-                letras: "Solo puede ingresar letras",
-                maxlength: "Máximo 45 caracteres"
+            txt_numero: {
+                required: "El número del medidor es obligatorio",
+                letras: "Solo puede ingresar números",
+                maxlength: "Máximo 11 caracteres"
+            },
+            cmb_diametro: {
+                required: "Seleccione un diámetro"
             }
         }
     });
 
-    var grid_sectores = $("#grid_sectores").DataTable({
+    var grid_medidores = $("#grid_medidores").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_sectores/datatable_sectores",
+        ajax: base_url + "/Formularios/ctrl_medidores/datatable_medidores",
         orderClasses: true,
         columns: [
-            { "data": "id_sector" },
-            { "data": "nombre" },
+            { "data": "id_medidor" },
+            { "data": "numero" },
+            { "data": "id_diametro" },
+            { "data": "diametro" },
             { "data": "estado" },
             { "data": "usuario" },
             { "data": "fecha" },
             { 
-                "data": "id_sector",
+                "data": "id_medidor",
                 "render": function(data, type, row) {
-                    return "<button type='button' class='traza_sector btn btn-warning' title='Traza Sector'><i class='fas fa-shoe-prints'></i></button>";
+                    return "<button type='button' class='traza_medidor btn btn-warning' title='Traza Medidor'><i class='fas fa-shoe-prints'></i></button>";
                 }
             }
+        ],
+        "columnDefs": [
+            { "targets": [2, 4], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",
@@ -237,24 +266,24 @@ $(document).ready(function() {
         }
 	});
 
-    $("#grid_sectores tbody").on("click", "tr", function () {
+    $("#grid_medidores tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_sectores.row($(this)).data();
-            mostrar_datos_sector(data);
+            var data = grid_medidores.row($(this)).data();
+            mostrar_datos_medidor(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);
             $("#btn_eliminar").prop("disabled", false);
-            $("#datosSector").collapse("hide");
+            $("#datosMedidor").collapse("hide");
         }
     });
 
-    $("#grid_sectores tbody").on("click", "button.traza_sector", function () {
+    $("#grid_medidores tbody").on("click", "button.traza_medidor", function () {
         if (datatable_enabled) {
-            $("#divContenedorTrazaSector").load(
-                base_url + "/Formularios/ctrl_sectores/v_sector_traza"
+            $("#divContenedorTrazaMedidor").load(
+                base_url + "/Formularios/ctrl_medidores/v_medidor_traza"
             ); 
 
-            $('#dlg_traza_sector').modal('show');
+            $('#dlg_traza_medidor').modal('show');
         }
     });
 });

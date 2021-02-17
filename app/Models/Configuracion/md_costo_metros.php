@@ -9,25 +9,31 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_apr', 'desde', 'hasta', 'costo', 'estado', 'id_usuario', 'fecha'];
+	    protected $allowedFields = ['id', 'id_cargo_fijo', 'desde', 'hasta', 'costo', 'estado', 'id_usuario', 'fecha'];
 
-	    public function datatable_costo_metros($db, $id_apr) {
+	    public function datatable_costo_metros($db, $id_apr, $id_diametro) {
 	    	$consulta = "SELECT 
 							cm.id as id_costo_metros,
-						    cm.id_apr,
-						    apr.nombre as apr,
-						    cm.desde,
+						    cf.cargo_fijo,
+						    cf.id_diametro,
+						    d.glosa as diametro,
+							cf.id_apr,
+							apr.nombre as apr,
+							cm.desde,
 							cm.hasta,
-						    cm.costo,
-						    u.usuario,
-						    date_format(cm.fecha, '%d-%m-%Y %H:%i') as fecha
+							cm.costo,
+							u.usuario,
+							date_format(cm.fecha, '%d-%m-%Y %H:%i') as fecha
 						from 
 							costo_metros cm
-						    inner join apr on cm.id_apr = apr.id
-						    inner join usuarios u on cm.id_usuario = u.id
+						    inner join apr_cargo_fijo cf on cm.id_cargo_fijo = cf.id
+							inner join apr on cf.id_apr = apr.id
+						    inner join diametro d on cf.id_diametro = d.id
+							inner join usuarios u on cm.id_usuario = u.id
 						where
-							cm.id_apr = $id_apr and
-						    cm.estado = 1";
+							cf.id_apr = $id_apr and
+						    cf.id_diametro = $id_diametro and
+							cm.estado = 1";
 
 
 			$query = $db->query($consulta);
@@ -36,6 +42,8 @@
 			foreach ($costo_metros as $key) {
 				$row = array(
 					"id_costo_metros" => $key["id_costo_metros"],
+					"id_diametro" => $key["id_diametro"],
+					"diametro" => $key["diametro"],
 					"id_apr" => $key["id_apr"],
 					"apr" => $key["apr"],
 					"desde" => $key["desde"],
@@ -56,27 +64,30 @@
 			}
 	    }
 
-	    public function validar_metraje_existente($db, $desde, $hasta, $id_apr, $id_costo_metros) {
+	    public function validar_metraje_existente($db, $desde, $hasta, $cantidad, $id_apr, $id_diametro, $id_costo_metros) {
 	    	define("ACTIVO", 1);
 	    	$estado = ACTIVO;
 
 	    	$consulta = "SELECT 
 							count(*) as filas
 						from 
-							costo_metros
+							costo_metros cm
+						    inner join apr_cargo_fijo cf on cm.id_cargo_fijo = cf.id
 						where 
-							id_apr = ? and 
-							estado = ? and
-							(desde between ? and ? or
-							hasta between ? and ? or
-							?  between desde and hasta or
-							?  between desde and hasta)";
+							cf.id_apr = ? and 
+						    cf.id_diametro = ? and
+							cm.estado = ? and
+							(cm.desde between ? and ? or
+							cm.hasta between ? and ? or
+							?  between cm.desde and cm.hasta or
+							?  between cm.desde and cm.hasta or
+                            cf.cantidad > ?)";
 
 			if ($id_costo_metros != "") {
-				$consulta .= " and id <> ?";
+				$consulta .= " and cm.id <> ?";
 			}
 						    
-			$bind = [$id_apr, $estado, $desde, $hasta, $desde, $hasta, $desde, $hasta];
+			$bind = [$id_apr, $id_diametro, $estado, $desde, $hasta, $desde, $hasta, $desde, $hasta, $cantidad];
 
 			if ($id_costo_metros != "") {
 				array_push($bind, $id_costo_metros);

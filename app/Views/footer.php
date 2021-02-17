@@ -28,6 +28,7 @@
         <script src="<?php echo base_url(); ?>/jquery-validation-1.19.2/dist/jquery.validate.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/sweetalert2/sweetalert2.all.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/Multiple-Select/dist/js/bootstrap-multiselect.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/autocomplete/bootstrap-autocomplete.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/alerta.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/menu.js" type="text/javascript"></script>
     </body>

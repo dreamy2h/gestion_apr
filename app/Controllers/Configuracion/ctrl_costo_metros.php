@@ -4,16 +4,19 @@
 	use App\Controllers\BaseController;
 	use App\Models\Configuracion\md_costo_metros;
 	use App\Models\Configuracion\md_costo_metros_traza;
+	use App\Models\Configuracion\md_apr_cargo_fijo;
 
 	class ctrl_costo_metros extends BaseController {
 		protected $costo_metros;
 		protected $costo_metros_traza;
+		protected $apr_cargo_fijo;
 		protected $sesión;
 		protected $db;
 
 		public function __construct() {
 			$this->costo_metros = new md_costo_metros();
 			$this->costo_metros_traza = new md_costo_metros_traza();
+			$this->apr_cargo_fijo = new md_apr_cargo_fijo();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -25,9 +28,9 @@
 	    	}
 		}
 
-		public function datatable_costo_metros($id_apr) {
+		public function datatable_costo_metros($id_apr, $id_diametro) {
 			$this->validar_sesion();
-			echo $this->costo_metros->datatable_costo_metros($this->db, $id_apr);
+			echo $this->costo_metros->datatable_costo_metros($this->db, $id_apr, $id_diametro);
 		}
 
 		public function guardar_costo_metros() {
@@ -41,6 +44,10 @@
 
 			$id_costo_metros = $this->request->getPost("id_costo_metros");
 			$id_apr = $this->request->getPost("id_apr");
+			$id_diametro = $this->request->getPost("id_diametro");
+			$id_cargo_fijo = $this->request->getPost("id_cargo_fijo");
+			$cantidad_cargo_fijo = $this->request->getPost("cantidad_cargo_fijo");
+			$cargo_fijo = $this->request->getPost("cargo_fijo");
 			$desde = $this->request->getPost("desde");
 			$hasta = $this->request->getPost("hasta");
 			$costo = $this->request->getPost("costo");
@@ -50,13 +57,36 @@
 				exit();
 			}
 
-			if ($this->costo_metros->validar_metraje_existente($this->db, $desde, $hasta, $id_apr, $id_costo_metros)) {
-				echo "El rango de metros ingresado, se topa con uno existente";
+			if ($this->costo_metros->validar_metraje_existente($this->db, $desde, $hasta, $cantidad_cargo_fijo, $id_apr, $id_diametro, $id_costo_metros)) {
+				$respuesta = [ "respuesta" => "El rango de metros ingresado, se topa con uno existente" ];
+				echo json_encode($respuesta);
 				exit();
 			}
 
-			$datosCostoMetros = [
+			$datosCargoFijo = [
+				"cantidad" => $cantidad_cargo_fijo,
+				"cargo_fijo" => $cargo_fijo,
 				"id_apr" => $id_apr,
+				"id_diametro" => $id_diametro
+			];
+
+			if ($id_cargo_fijo != "") {
+				$datosCargoFijo["id"] = $id_cargo_fijo;
+			}
+			
+			$this->apr_cargo_fijo->save($datosCargoFijo);
+
+			if ($id_cargo_fijo != "") {
+				$nuevo_cf = false;
+			} else {
+				$obtener_id = $this->apr_cargo_fijo->select("max(id) as id_cargo_fijo")->first();
+				$id_cargo_fijo = $obtener_id["id_cargo_fijo"];
+				$nuevo_cf = true;
+			}
+
+			$datosCostoMetros = [
+				"id_costo_metros" => $id_costo_metros,
+				"id_cargo_fijo" => $id_cargo_fijo,
 				"desde" => $desde,
 				"hasta" => $hasta,
 				"costo" => $costo,
@@ -72,7 +102,13 @@
 			}
 
 			if ($this->costo_metros->save($datosCostoMetros)) {
-				echo OK;
+				$respuesta = [
+					"respuesta" => OK,
+					"id_cargo_fijo" => $id_cargo_fijo,
+					"nuevo_cf" => $nuevo_cf
+				];
+
+				echo json_encode($respuesta);
 				
 				if ($id_costo_metros == "") {
 					$obtener_id = $this->costo_metros->select("max(id) as id_costo_metros")->first();
@@ -140,6 +176,30 @@
 		public function datatable_costo_metros_traza($id_costo_metros) {
 			$this->validar_sesion();
 			echo $this->costo_metros_traza->datatable_costo_metros_traza($this->db, $id_costo_metros);
+		}
+
+		public function llenar_costo_fijo() {
+			$this->validar_sesion();
+			$id_apr = $this->request->getPost("id_apr");
+			$id_diametro = $this->request->getPost("id_diametro");
+
+			$AprCargoFijo = $this->apr_cargo_fijo->select("*")->where("id_apr", $id_apr)->where("id_diametro", $id_diametro)->first();
+
+			if ($AprCargoFijo != null) {
+				$cantidad = $AprCargoFijo["cantidad"];
+				$cargo_fijo = $AprCargoFijo["cargo_fijo"];
+				$id_cargo_fijo = $AprCargoFijo["id"];
+
+				$datosAprCargoFijo = [
+					"id_cargo_fijo" => $id_cargo_fijo,
+					"cantidad" => $cantidad,
+					"cargo_fijo" => $cargo_fijo
+				];
+
+				echo json_encode($datosAprCargoFijo);
+			} else {
+				echo "[]";
+			}
 		}
 	}
 ?>

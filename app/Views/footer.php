@@ -21,7 +21,7 @@
         <script src="<?php echo base_url(); ?>/js/dataTables.responsive.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/sum().js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/assets/demo/datatables-demo.js" type="text/javascript"></script>
-        <script src="<?php echo base_url(); ?>/js/moment.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/moment-with-locales.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/fnReloadAjax.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/context-menu/context-menu.min.js" type="text/javascript"></script>
@@ -31,5 +31,12 @@
         <script src="<?php echo base_url(); ?>/autocomplete/bootstrap-autocomplete.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/alerta.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/menu.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/plugins/piexif.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/plugins/sortable.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/fileinput.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/locales/fr.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/locales/es.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/themes/fas/theme.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/fileinput-bootstrap/themes/explorer-fas/theme.js" type="text/javascript"></script>
     </body>
 </html>

@@ -18,6 +18,9 @@
         <link href="<?php echo base_url(); ?>/Multiple-Select/dist/css/bootstrap-multiselect.min.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>/sweetalert2/sweetalert2.min.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>/context-menu/context-menu.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo base_url(); ?>/fileinput-bootstrap/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+        <link href="<?php echo base_url(); ?>/fileinput-bootstrap/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
         <script src="<?php echo base_url(); ?>/js/all.min.js"></script>
     </head>
 

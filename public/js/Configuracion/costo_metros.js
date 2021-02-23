@@ -184,7 +184,6 @@ function actualizar_grid() {
                 id_apr: id_apr
             },
             success: function(datos) {
-                console.log(Object.keys(datos).length);
                 if (Object.keys(datos).length > 0) {
                     $("#txt_cantidad_cargo_fijo").val(datos.cantidad);
                     $("#txt_cargo_fijo").val(datos.cargo_fijo);

@@ -16,6 +16,7 @@ function des_habilitar(a, b) {
     $("#btn_buscar_socio").prop("disabled", a);
     $("#txt_id_arranque").prop("disabled", a);
     $("#txt_sector").prop("disabled", a);
+    $("#txt_diametro").prop("disabled", a);
     $("#txt_subsidio").prop("disabled", a);
     $("#txt_monto_subsidio").prop("disabled", a);
     $("#dt_fecha_ingreso").prop("disabled", a);
@@ -31,26 +32,27 @@ function des_habilitar(a, b) {
 }
 
 function mostrar_datos_metros(data) {
-    $("#txt_id_metros").val(data["id_subsidio"]);
-    $("#txt_id_socio").val(data["id_subsidio"]);
-    $("#txt_rut_socio").val(data["id_socio"]);
-    $("#txt_rol").val(data["rut_socio"]);
-    $("#txt_nombre_socio").val(data["rol_socio"]);
-    $("#btn_buscar_socio").val(data["nombre_socio"]);
-    $("#txt_id_arranque").val(data["n_decreto"]);
-    $("#txt_sector").val(data["fecha_decreto"]);
-    $("#txt_subsidio").val(data["fecha_caducidad"]);
-    $("#txt_monto_subsidio").val(data["fecha_caducidad"]);
-    $("#dt_fecha_ingreso").val(data["id_porcentaje"]);
-    $("#dt_fecha_vencimiento").val(data["fecha_encuesta"]);
-    $("#txt_c_anterior").val(data["puntaje"]);
-    $("#txt_c_actual").val(data["n_unico"]);
-    $("#txt_metros").val(data["d_unico"]);
-    $("#txt_total_metros").val(data["d_unico"]);
-    $("#txt_subtotal").val(data["d_unico"]);
-    $("#txt_multa").val(data["d_unico"]);
-    $("#txt_total_servicios").val(data["d_unico"]);
-    $("#txt_total_mes").val(data["d_unico"]);
+    $("#txt_id_metros").val(data["id_metros"]);
+    $("#txt_id_socio").val(data["id_socio"]);
+    $("#txt_rut_socio").val(data["rut_socio"]);
+    $("#txt_rol").val(data["rol_socio"]);
+    $("#txt_nombre_socio").val(data["nombre_socio"]);
+    $("#txt_id_arranque").val(data["id_arranque"]);
+    $("#txt_subsidio").val(data["subsidio"]);
+    $("#txt_monto_subsidio").val(peso.formateaNumero(data["monto_subsidio"]));
+    $("#txt_sector").val(data["sector"]);
+    $("#txt_diametro").val(data["diametro"]);
+    $("#dt_fecha_ingreso").val(data["fecha_ingreso"]);
+    $("#dt_fecha_vencimiento").val(data["fecha_vencimiento"]);
+    $("#txt_c_anterior").val(data["consumo_anterior"]);
+    $("#txt_c_actual").val(data["consumo_actual"]);
+    $("#txt_metros").val(data["metros"]);
+    $("#txt_subtotal").val(peso.formateaNumero(data["subtotal"]));
+    $("#txt_multa").val(peso.formateaNumero(data["multa"]));
+    $("#txt_total_servicios").val(peso.formateaNumero(data["total_servicios"]));
+    $("#txt_total_mes").val(peso.formateaNumero(data["total_mes"]));
+
+    $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
 }
 
 function guardar_metros() {
@@ -91,6 +93,7 @@ function guardar_metros() {
                 $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_metros");
                 $("#form_metros")[0].reset();
                 des_habilitar(true, false);
+                $("#grid_costo_metros").DataTable().clear().draw();
                 alerta.ok("alerta", "Consumo de metros, guardado con éxito");
                 $("#datosMetros").collapse();
                 datatable_enabled = true;
@@ -112,8 +115,7 @@ function eliminar_metros(observacion, id_metros) {
         async: false,
         data: { 
             id_metros: id_metros,
-            observacion: observacion,
-            estado: estado
+            observacion: observacion
         },
         success: function(respuesta) {
             const OK = 1;
@@ -176,22 +178,36 @@ function calcular_montos() {
     var consumo_anterior = $("#txt_c_anterior").val();
     var consumo_actual = $("#txt_c_actual").val();
     if (parseInt(consumo_actual) >= parseInt(consumo_anterior)) {
-        var metros_consumidos = consumo_actual - consumo_anterior;
+        var metros_consumidos = parseInt(consumo_actual) - parseInt(consumo_anterior);
         $("#txt_metros").val(metros_consumidos);
-        var resto_metros = metros_consumidos;
+        var resto_metros = metros_consumidos + 1;
         var i = 0;
         var subtotal = 0;
 
         $("#grid_costo_metros").DataTable().rows().data().each(function (value) {
-            var cantidad = value.hasta - value.desde;
+            var cantidad = parseInt(value.hasta) - parseInt(value.desde);
             if (resto_metros > cantidad) {
                 resto_metros -= (cantidad + 1);
-                cantidad += 1;
-                var total = cantidad * value.costo;
-                subtotal += total; 
+                
+                if (value.id_costo_metros != 0) {
+                    cantidad += 1;
+                } 
+                
+                if (value.id_costo_metros != 0) {
+                    var total = parseInt(cantidad) * parseInt(value.costo);
+                } else {
+                    var total = parseInt(value.costo);
+                }
+
+                subtotal += total; console.log(subtotal);
                 this.cell({row: i, column: 1}).data(cantidad);
             } else {
-                var total = resto_metros * value.costo;
+                if (value.id_costo_metros != 0) {
+                    var total = resto_metros * value.costo;
+                } else {
+                    var total = value.costo;
+                }
+
                 subtotal += total;
                 this.cell({row: i, column: 1}).data(resto_metros);
                 resto_metros = 0;
@@ -248,6 +264,37 @@ function calcular_total() {
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
 }
 
+function existe_consumo_mes() {
+    var id_socio = $("#txt_id_socio").val();
+    var fecha_vencimiento = $("#dt_fecha_vencimiento").val();
+
+    $.ajax({
+        url: base_url + "/Consumo/ctrl_metros/existe_consumo_mes",
+        type: "POST",
+        async: false,
+        data: { 
+            id_socio: id_socio,
+            fecha_vencimiento: fecha_vencimiento
+        },
+        success: function(respuesta) {
+            const EXISTE = 1;
+
+            if (respuesta == EXISTE) {
+                $("#dt_fecha_ingreso").val("");
+                $("#dt_fecha_vencimiento").val("");
+                alerta.aviso("alerta", "Hay un consumo ingresado con vencimiento este mes, para este socio");
+            } else {
+                habilita_consumo_actual();
+                calcular_total_servicios();
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
+}
+
 $(document).ready(function() {
     $("#txt_id_metros").prop("disabled", true);
     $("#txt_id_socio").prop("readonly", true);
@@ -256,6 +303,7 @@ $(document).ready(function() {
     $("#txt_nombre_socio").prop("readonly", true);
     $("#txt_id_arranque").prop("readonly", true);
     $("#txt_sector").prop("readonly", true);
+    $("#txt_diametro").prop("readonly", true);
     $("#txt_subsidio").prop("readonly", true);
     $("#txt_monto_subsidio").prop("readonly", true);
     $("#txt_c_anterior").prop("readonly", true);
@@ -272,7 +320,8 @@ $(document).ready(function() {
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
         $("#form_metros")[0].reset();
-
+        $("#grid_costo_metros").DataTable().clear().draw();
+        datatable_enabled = false;
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
         $("#datosMetros").collapse("show");
@@ -283,6 +332,9 @@ $(document).ready(function() {
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
         datatable_enabled = false;
+        $("#dt_fecha_ingreso").prop("readonly", false);
+        $("#dt_fecha_vencimiento").prop("readonly", false);
+        $("#txt_c_actual").prop("readonly", false);
         $("#datosMetros").collapse("show");
     });
 
@@ -315,7 +367,16 @@ $(document).ready(function() {
         $("#form_metros")[0].reset();
         des_habilitar(true, false);
         datatable_enabled = true;
+        $("#grid_costo_metros").DataTable().clear().draw();
         $("#datosMetros").collapse("hide");
+    });
+
+    $("#btn_importar").on("click", function() {
+        $("#divContenedorImportar").load(
+            base_url + "/Consumo/ctrl_metros/v_importar_planilla"
+        ); 
+
+        $('#dlg_importar_planilla').modal('show');
     });
 
     $("#btn_buscar_socio").on("click", function() {
@@ -327,16 +388,19 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_ingreso").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     }).on("dp.change", function() {
         habilita_consumo_actual();
     });
 
     $("#dt_fecha_vencimiento").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     }).on("dp.change", function() {
-        habilita_consumo_actual();
-        calcular_total_servicios();
+        existe_consumo_mes();
     });
 
     $("#txt_c_actual").on("blur", function() {
@@ -431,7 +495,7 @@ $(document).ready(function() {
         // scrollCollapse: true,
         destroy: true,
         order: [[ 2, "asc" ]],
-        ajax: base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0",
+        // ajax: base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0",
         orderClasses: true,
         columns: [
             { "data": "id_costo_metros" },
@@ -486,17 +550,45 @@ $(document).ready(function() {
             { "data": "rol_socio" },
             { "data": "nombre_socio" },
             { "data": "id_arranque" },
+            { "data": "subsidio" },
+            { 
+                "data": "monto_subsidio",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
             { "data": "sector" },
-            { "data": "monto_subsidio" },
+            { "data": "id_diametro" },
+            { "data": "diametro" },
             { "data": "fecha_ingreso" },
             { "data": "fecha_vencimiento" },
             { "data": "consumo_anterior" },
             { "data": "consumo_actual" },
             { "data": "metros" },
-            { "data": "subtotal" },
-            { "data": "multa" },
-            { "data": "total_servicios" },
-            { "data": "total_mes" },
+            { 
+                "data": "subtotal",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
+                "data": "multa",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
+                "data": "total_servicios",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
+                "data": "total_mes",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
             { "data": "usuario" },
             { "data": "fecha" },
             { 
@@ -507,7 +599,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 3, 5, 6, 8, 9, 10, 11], "visible": false, "searchable": false }
+            { "targets": [1, 2, 3, 5, 6, 8, 9, 10, 11, 12, 13, 14], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",
@@ -547,7 +639,7 @@ $(document).ready(function() {
 
     $("#grid_metros tbody").on("click", "button.traza_metros", function () {
         if (datatable_enabled) {
-            $("#divContenedorTrazaSubsidio").load(
+            $("#divContenedorTrazaMetros").load(
                 base_url + "/Consumo/ctrl_metros/v_metros_traza"
             ); 
 

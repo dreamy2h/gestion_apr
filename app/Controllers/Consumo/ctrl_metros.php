@@ -98,6 +98,33 @@
 			}
 		}
 
+		public function eliminar_metros() {
+			$this->validar_sesion();
+	    	define("ELIMINAR_METROS", 3);
+	    	define("ELIMINAR", 0);
+	    	define("OK", 1);
+	    	$estado = ELIMINAR;
+	    	$estado_traza = ELIMINAR_METROS;
+
+			$id_metros = $this->request->getPost("id_metros");
+			$observacion = $this->request->getPost("observacion");
+
+			$fecha = date("Y-m-d H:i:s");
+			$id_usuario = $this->sesión->id_usuario_ses;
+
+			$datosMetros = [
+				"id" => $id_metros,
+				"estado" => $estado,
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
+
+			if ($this->metros->save($datosMetros)) {
+				echo OK;
+				$this->guardar_traza($id_metros, $estado_traza, $observacion);
+			}
+		}
+
 		public function guardar_traza($id_metros, $estado, $observacion) {
 			$this->validar_sesion();
 
@@ -132,9 +159,9 @@
 			echo $this->metros->datatable_buscar_socio($this->db, $this->sesión->id_apr_ses);
 		}
 
-		public function datatable_costo_metros($consumo_actual) {
+		public function datatable_costo_metros($consumo_actual, $id_diametro) {
 			$this->validar_sesion();
-			echo $this->costo_metros->datatable_costo_metros_consumo($this->db, $this->sesión->id_apr_ses, $consumo_actual);
+			echo $this->costo_metros->datatable_costo_metros_consumo($this->db, $this->sesión->id_apr_ses, $id_diametro, $consumo_actual);
 		}
 
 		public function calcular_total_servicios() {
@@ -142,6 +169,21 @@
 			$id_socio = $this->request->getPost("id_socio");
 
 			echo $this->convenio_detalle->calcular_total_servicios($this->db, $fecha_vencimiento, $id_socio);
+		}
+
+		public function existe_consumo_mes() {
+			$id_socio = $this->request->getPost("id_socio");
+			$fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
+
+			$existe_consumo_mes = $this->metros->select("count(*) as filas")->where("id_socio", $id_socio)->where("date_format(fecha_vencimiento, '%m-%Y')", date_format(date_create($fecha_vencimiento), 'm-Y'))->first();
+			$filas = $existe_consumo_mes["filas"];
+
+			echo $filas;
+		}
+
+		public function v_importar_planilla() {
+			$this->validar_sesion();
+			echo view("Consumo/importar_planilla");
 		}
 	}
 ?>

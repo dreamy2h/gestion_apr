@@ -104,20 +104,32 @@
 			}
 	    }
 
-	    public function datatable_costo_metros_consumo($db, $id_apr, $consumo_actual) {
-	    	$consulta = "SELECT 
+	    public function datatable_costo_metros_consumo($db, $id_apr, $id_diametro, $consumo_actual) {
+	    	$consulta = "(SELECT 
 							cm.id as id_costo_metros,
 							cm.desde,
 							cm.hasta,
 							cm.costo
 						from 
 							costo_metros cm
-							inner join apr on cm.id_apr = apr.id
-							inner join usuarios u on cm.id_usuario = u.id
+							inner join apr_cargo_fijo cf on cm.id_cargo_fijo = cf.id
+							inner join diametro d on cf.id_diametro = d.id
 						where
-							cm.id_apr = $id_apr and
-							cm.estado = 1
-						order by cm.desde asc";
+							cf.id_apr = $id_apr and
+							cf.id_diametro = $id_diametro and
+							cm.estado = 1)
+						union
+						(select
+						    0 as id_costo_metros,
+						    0 as desde,
+						    cantidad as hasta,
+						    cargo_fijo as costo
+						from
+							apr_cargo_fijo
+						where
+							id_apr = $id_apr and
+						    id_diametro = $id_diametro)
+						order by desde";
 
 
 
@@ -127,7 +139,12 @@
 			$metros;
 
 			foreach ($costo_metros as $key) {
-				$resto = ((intval($key["desde"]) - intval($key["desde"])) + 1);
+				if ($key["id_costo_metros"] == 0) {
+					$resto = ((intval($key["hasta"]) - intval($key["desde"])));	
+				} else {
+					$resto = ((intval($key["hasta"]) - intval($key["desde"])) + 1);
+				}
+
 				if ($resto > intval($consumo_actual)) {
 					$metros = intval($consumo_actual);
 					$consumo_actual = 0;

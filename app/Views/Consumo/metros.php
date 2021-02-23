@@ -15,6 +15,7 @@
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
 	                        <button type="button" name="btn_importar" id="btn_importar" class="btn btn-info"><i class="fas fa-upload"></i> Importar Planilla</button>
+	                        <button type="button" name="btn_formato" id="btn_formato" class="btn btn-info"><i class="fas fa-file-excel"></i> Descargar Formato</button>
 	                    </center>
 	                </div>
 	            </div>
@@ -95,10 +96,16 @@
 							                        </div>
 							                    </div>
 							                    <div class="row">
-							                    	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+							                    	<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_sector">Sector</label>
 							                                <input type='text' class="form-control" id='txt_sector' name="txt_sector" />
+							                            </div>
+							                        </div>
+							                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+							                        	<div class="form-group">
+							                                <label class="small mb-1" for="txt_diametro">Diámetro Medidor</label>
+							                                <input type='text' class="form-control" id='txt_diametro' name="txt_diametro" />
 							                            </div>
 							                        </div>
 							                    </div>
@@ -202,7 +209,7 @@
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">
-	                	<div class="card-header"><i class="fas fa-tint mr-1"></i> Historial Metros</div>
+	                	<div class="card-header"><i class="fas fa-tint mr-1"></i> Historial Metros (Muestra los últimos 10.000 registros)</div>
 	                	<div class="card shadow mb-12">
 				            <div class="card-body">
 				            	<div class="container-fluid">
@@ -210,23 +217,26 @@
 					                    <table id="grid_metros" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="7.5%">Id.</th>
+					                            	<th width="5%">Id.</th>
 					                            	<th width="0%">id_socio</th>
 					                            	<th width="0%">rut_socio</th>
 					                                <th width="0%">rol_socio</th>
 					                                <th width="15%">Nombre Socio</th>
 					                               	<th width="0%">id_Arranque</th>
+					                               	<th width="0%">subsidio</th>
+					                                <th width="10%">Subsidio $</th>
 					                                <th width="0%">Sector</th>
-					                                <th width="7.5%">Monto Subsidio</th>
+													<th width="0%">diametro</th>
+					                                <th width="0%">diametro</th>
 					                                <th width="0%">Fecha Ingreso</th> 
 					                                <th width="0%">Fecha Vencimiento</th>
 					                                <th width="0%">Consumo Antetior</th>
 					                                <th width="0%">Consumo Actual</th>
 					                                <th width="5%">Metros</th>
-					                                <th width="10%">Subtotal</th>
-					                                <th width="7.5%">Multa</th>
-					                                <th width="10%">Total Servicios</th>
-					                                <th width="7.5%">Total del Mes</th>
+					                                <th width="10%">Subtotal $</th>
+					                                <th width="7.5%">Multa $</th>
+					                                <th width="10%">T. Servicios $</th>
+					                                <th width="7.5%">T. Mes $</th>
 					                                <th width="10%">Usuarios Reg</th>
 					                                <th width="10%">Fecha</th>
 					                                <th width="5%">Traza</th>
@@ -263,6 +273,21 @@
 	                    </div>
 	                    <div class="modal-body">
 	                        <div id="divContenedorBuscarSocio"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="dlg_importar_planilla" class="modal fade" role="dialog">
+	            <div class="modal-dialog modal-xl">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title">Importar Planilla Excel</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div id="divContenedorImportar"></div>
 	                    </div>
 	                    <div class="modal-footer">
 	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>

@@ -6,16 +6,19 @@
             <table id="grid_buscar_socio" class="table table-bordered" width="100%">
                 <thead class="thead-dark">
                     <tr>
-                    	<th width="7.5%">Id Socio</th>
-                    	<th width="7.5%">RUT Socio</th>
-                        <th width="7.5%">ROL Socio</th>
-                        <th width="20%">Nombre Socio</th>
-                        <th width="10%">Fecha Entrada</th>
+                    	<th width="10%">Id Socio</th>
+                    	<th width="10%">RUT Socio</th>
+                        <th width="10%">ROL Socio</th>
+                        <th width="50%">Nombre Socio</th>
+                        <th width="20%">Fecha Entrada</th>
                     <?php if ($origen ==  "ctrl_metros") { ?>
-                        <th width="7.5%">Id Arranque</th>
-                        <th width="20%">Sector</th>
-                        <th width="10%">Subsidio</th>
-                        <th width="10%">Consumo Anterior</th>
+                        <th width="0%">id_arranque</th>
+                        <th width="0%">id_diametro</th>
+                        <th width="0%">diametro</th>
+                        <th width="0%">Sector</th>
+                        <th width="0%">Subsidio</th>
+                        <th width="0%">consumo_anterior</th>
+                        <th width="0%">cargo_fijo</th>
                     <?php } ?>
                     </tr>
                 </thead>

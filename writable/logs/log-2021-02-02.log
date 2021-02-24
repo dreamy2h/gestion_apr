@@ -1,0 +1,182 @@
+CRITICAL - 2021-02-02 21:03:16 --> syntax error, unexpected '('
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:03:45 --> Class 'App\Controllers\Formularios\md_subsidios' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\Formularios\ctrl_convenios->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-02-02 21:04:36 --> Class 'App\Models\Formularios\md_convenios_traza' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\Formularios\ctrl_convenios->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-02-02 21:07:12 --> Class 'App\Models\Formularios\md_servicios' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\Formularios\ctrl_convenios->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-02-02 21:08:01 --> Undefined index: servicios
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(45): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 45, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->llenar_cmb_servicios()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:08:33 --> Undefined property: App\Controllers\Formularios\ctrl_convenios::$subsidios
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(194): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 194, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_buscar_socio()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:41:03 --> syntax error, unexpected 'var' (T_VAR)
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:41:38 --> syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ']'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:42:22 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-02 21:43:16 --> date_format() expects parameter 1 to be DateTimeInterface, bool given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\xampp\\htdocs...', 86, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(86): date_format(false, 'Y-m')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-02 21:45:18 --> date_format() expects parameter 1 to be DateTimeInterface, bool given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\xampp\\htdocs...', 86, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(86): date_format(false, 'Y-m-d')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-02 21:51:26 --> Unknown column 'detalle_servicio' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `co...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(101): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-02-02 21:52:41 --> Unknown column 'detalle_servicio' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `co...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(101): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-02-02 21:53:02 --> Unknown column 'detalle_servicio' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `co...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(101): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-02-02 21:55:05 --> Call to a member function save() on null
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-02-02 21:56:02 --> Unknown column 'c.valor_cuota' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenios.php(39): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(36): App\Models\Formularios\md_convenios->datatable_convenios(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenios()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-02 21:58:20 --> Undefined index: valor_cuota
+#0 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenios.php(54): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 54, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(36): App\Models\Formularios\md_convenios->datatable_convenios(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenios()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-02 21:59:21 --> Undefined index: valor_cuota
+#0 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenios.php(54): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 54, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(36): App\Models\Formularios\md_convenios->datatable_convenios(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenios()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-02 22:17:37 --> Invalid file: Formularios/convenio_traza.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/con...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/con...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(182): view('Formularios/con...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->v_convenio_traza()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-02-02 22:17:38 --> Invalid file: Formularios/convenio_traza.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/con...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/con...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(182): view('Formularios/con...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->v_convenio_traza()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-02-02 22:36:10 --> Invalid file: Formularios/convenios_reciclar.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/con...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/con...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(192): view('Formularios/con...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->v_convenios_reciclar()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-02-02 22:47:37 --> Undefined variable: id_subsidio
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(95): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 95, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}

@@ -1,0 +1,7 @@
+CRITICAL - 2021-01-28 15:38:06 --> Undefined property: App\Controllers\Formularios\ctrl_sectores::$socios
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(64): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 64, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->guardar_sector()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}

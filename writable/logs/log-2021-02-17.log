@@ -1,0 +1,12 @@
+CRITICAL - 2021-02-17 19:06:13 --> Too few arguments to function App\Controllers\Consumo\ctrl_metros::datatable_costo_metros(), 1 passed in C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php on line 918 and exactly 2 expected
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_costo_metros('0')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-02-17 20:26:48 --> Too few arguments to function App\Controllers\Consumo\ctrl_metros::datatable_costo_metros(), 1 passed in C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php on line 918 and exactly 2 expected
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_costo_metros('0')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}

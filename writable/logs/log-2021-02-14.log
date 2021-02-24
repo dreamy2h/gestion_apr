@@ -1,0 +1,11 @@
+CRITICAL - 2021-02-14 15:31:20 --> Unknown column 'a.numero_medidor' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_arranques.php(116): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_arranques.php(225): App\Models\Formularios\md_arranques->datatable_arranque_reciclar(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_arranques->datatable_arranque_reciclar()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_arranques))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}

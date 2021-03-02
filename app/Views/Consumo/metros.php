@@ -15,7 +15,6 @@
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
 	                        <button type="button" name="btn_importar" id="btn_importar" class="btn btn-info"><i class="fas fa-upload"></i> Importar Planilla</button>
-	                        <button type="button" name="btn_formato" id="btn_formato" class="btn btn-info"><i class="fas fa-file-excel"></i> Descargar Formato</button>
 	                    </center>
 	                </div>
 	            </div>

@@ -106,7 +106,7 @@
 						    d.glosa as diametro,
 							sec.nombre as sector,
 							ifnull(p.glosa, '0%') as subsidio,
-							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio)), 0) as consumo_anterior,
+							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado = 1)), 0) as consumo_anterior,
 						    cf.cargo_fijo
 						from 
 							arranques a
@@ -118,7 +118,7 @@
 							left join porcentajes p on sub.id_porcentaje = p.id
 						    inner join apr_cargo_fijo cf on cf.id_apr = s.id_apr and cf.id_diametro = m.id_diametro
 						where 
-							s.id_apr = 1 and
+							s.id_apr = $id_apr and
 							s.estado = 1";
 
 

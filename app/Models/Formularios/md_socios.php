@@ -82,8 +82,12 @@
 	    	$this->select("count(*) as filas");
 	    	$this->where("rut", $rut);
 	    	$this->where("rol", $rol);
-	    	$datos = $this->findAll();
-	    	return $datos;
+	    	$datos = $this->first();
+    	 	if (intval($datos["filas"]) > 0) {
+    	 		return true;
+    	 	} else {
+    	 		return false;
+    	 	}
 	    }
 	}
 ?>

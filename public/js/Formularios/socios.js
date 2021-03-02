@@ -267,10 +267,6 @@ $(document).ready(function() {
         llenar_cmb_comuna();
     });
 
-    $("#txt_rol").on("blur", function() {
-        this.value = convertirMayusculas(this.value);
-    });
-
     $("#txt_nombres").on("blur", function() {
         this.value = convertirMayusculas(this.value);
     });
@@ -329,6 +325,7 @@ $(document).ready(function() {
                 maxlength: 12
             },
             txt_rol: {
+                required: true,
                 charspecial: true,
                 maxlength: 45
             },
@@ -369,6 +366,7 @@ $(document).ready(function() {
                 maxlength: "Máximo 10 caracteres"
             },
             txt_rol: {
+                required: "ROL es obliatorio",
                 charspecial: "Hay caracteres extraños no permitdos",
                 maxlength: "Máximo 45 caracteres"
             },

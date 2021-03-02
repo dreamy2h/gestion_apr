@@ -101,10 +101,11 @@ $(document).ready(function() {
                     }
                 });
             } else {
-                $("#txt_c_anterior").val(data["consumo_anterior"]);
                 $("#txt_id_arranque").val(data["id_arranque"]);
                 $("#txt_sector").val(data["sector"]);
                 $("#txt_subsidio").val(data["subsidio"]);
+                $("#txt_c_anterior").val(data["consumo_anterior"]);
+                $("#txt_diametro").val(data["diametro"]);
                 $("#dt_fecha_ingreso").prop("readonly", false);
                 $("#dt_fecha_vencimiento").prop("readonly", false);
                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);

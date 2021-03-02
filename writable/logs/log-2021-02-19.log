@@ -1,0 +1,54 @@
+CRITICAL - 2021-02-19 11:04:28 --> Unknown column 'observacion' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(115): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(95): App\Controllers\Consumo\ctrl_metros->guardar_traza('', 1, '')
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->guardar_metros()
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#10 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2021-02-19 11:05:41 --> Unknown column 'observacion' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `me...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(115): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(95): App\Controllers\Consumo\ctrl_metros->guardar_traza('', 1, '')
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->guardar_metros()
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#10 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2021-02-19 11:27:11 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?
+						order by m.fecha_vencimiento asc
+						limit 10000' at line 35
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Consumo\md_metros.php(56): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(36): App\Models\Consumo\md_metros->datatable_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-19 11:45:04 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?
+						order by m.fecha_vencimiento asc
+						limit 10000' at line 35
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Consumo\md_metros.php(56): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(36): App\Models\Consumo\md_metros->datatable_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}

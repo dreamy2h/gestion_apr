@@ -13,6 +13,7 @@ function des_habilitar(a, b) {
     $("#txt_rut_socio").prop("disabled", a);
     $("#txt_rol").prop("disabled", a);
     $("#txt_nombre_socio").prop("disabled", a);
+    $("#btn_buscar_socio").prop("disabled", a);
     $("#txt_n_decreto").prop("disabled", a);
     $("#dt_fecha_decreto").prop("disabled", a);
     $("#dt_fecha_caducidad").prop("disabled", a);
@@ -80,7 +81,7 @@ function guardar_subsidio() {
                 $("#form_subsidio")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Subsidio guardado con éxito");
-                $("#datosSubsidio").collapse();
+                $("#datosSubsidio").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);

@@ -119,7 +119,7 @@
 
 	    public function datatable_buscar_socio($db, $id_apr) {
 	    	$consulta = "SELECT 
-							s.id as id_socio,
+							distinct s.id as id_socio,
 							concat(s.rut, '-', s.dv) as rut,
 							s.rol,
 							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre,
@@ -128,7 +128,6 @@
 							convenios c
 							right join socios s on c.id_socio = s.id
 						where 
-							c.id_socio is null and
     						s.id_apr = $id_apr and
     						s.estado = 1";
 

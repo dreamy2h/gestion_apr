@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_socio', 'estado', 'numero_medidor', 'id_diametro', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'id_sector', 'alcantarillado', 'cuota_socio', 'id_tipo_documento', 'descuento', 'id_usuario', 'fecha', 'id_apr'];
+	    protected $allowedFields = ['id', 'id_socio', 'estado', 'id_medidor', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'id_sector', 'alcantarillado', 'cuota_socio', 'id_tipo_documento', 'descuento', 'id_usuario', 'fecha', 'id_apr'];
 
 	    public function datatable_arranques($db, $id_apr) {
 	    	$consulta = "SELECT 
@@ -18,8 +18,9 @@
 						     s.rut as rut_socio,
 						     s.rol as rol_socio,
 						     concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
-						     a.numero_medidor as n_medidor,
-						     a.id_diametro,
+                             m.id as id_medidor,
+                             m.numero as n_medidor,
+                             m.id_diametro,
 						     d.glosa as diametro,
 						     a.id_sector,
 						     sec.nombre as sector,
@@ -37,13 +38,14 @@
 						     date_format(a.fecha, '%d-%m-%Y %H:%i') as fecha
 						from 
 							arranques a
-						    inner join socios s on a.id_socio = s.id
+						    left join socios s on a.id_socio = s.id
 						    inner join sectores sec on a.id_sector = sec.id
 						    left join comunas c on a.id_comuna = c.id
 						    left join provincias p on c.id_provincia = p.id
 						    inner join tipo_documento td on a.id_tipo_documento = td.id
 						    inner join apr on a.id_apr = apr.id
-						    inner join diametro d on a.id_diametro = d.id
+                            inner join medidores m on a.id_medidor = m.id
+						    inner join diametro d on m.id_diametro = d.id
 						    inner join usuarios u on a.id_usuario = u.id
 						where 
 							a.id_apr = $id_apr and
@@ -60,6 +62,7 @@
 					"rut_socio" => $key["rut_socio"],
 					"rol_socio" => $key["rol_socio"],
 					"nombre_socio" => $key["nombre_socio"],
+					"id_medidor" => $key["id_medidor"],
 					"n_medidor" => $key["n_medidor"],
 					"id_diametro" => $key["id_diametro"],
 					"diametro" => $key["diametro"],
@@ -92,22 +95,27 @@
 
 		public function datatable_arranque_reciclar($db, $id_apr) {
 	    	$consulta = "SELECT 
-							a.id as id_arranque,
-							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
-						    a.numero_medidor as n_medidor,
-						    d.glosa as diametro,
-						    sec.nombre as sector,
-							u.usuario,
-							date_format(s.fecha, '%d-%m-%Y %H:%m') as fecha
+							 a.id as id_arranque,
+						     concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+							 m.numero as n_medidor,
+							 d.glosa as diametro,
+							 sec.nombre as sector,
+							 u.usuario,
+							 date_format(a.fecha, '%d-%m-%Y %H:%i') as fecha
 						from 
 							arranques a
-						    inner join socios s on s.id = a.id_socio
-						    inner join diametro d on d.id = a.id_diametro
-						    inner join sectores sec on sec.id = a.id_sector
-							inner join usuarios u on u.id = a.id_usuario
-						where
-							a.id_apr = 1
-							and a.estado = 0";
+							left join socios s on a.id_socio = s.id
+							inner join sectores sec on a.id_sector = sec.id
+							left join comunas c on a.id_comuna = c.id
+							left join provincias p on c.id_provincia = p.id
+							inner join tipo_documento td on a.id_tipo_documento = td.id
+							inner join apr on a.id_apr = apr.id
+							inner join medidores m on a.id_medidor = m.id
+							inner join diametro d on m.id_diametro = d.id
+							inner join usuarios u on a.id_usuario = u.id
+						where 
+							a.id_apr = $id_apr and
+							a.estado = 0";
 
 
 			$query = $db->query($consulta);
@@ -146,7 +154,7 @@
 							arranques a
 						    right join socios s on a.id_socio = s.id
 						where 
-							a.id_socio is null and
+							(a.id_socio is null or a.estado = 0) and
     						s.id_apr = $id_apr and
     						s.estado = 1";
 

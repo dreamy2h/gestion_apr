@@ -1,0 +1,78 @@
+CRITICAL - 2021-01-29 16:18:56 --> Undefined variable: id_apr_ses
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(46): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 46, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->guardar_sector()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-01-29 21:54:59 --> Invalid file: Formularios/sector_traza.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/sec...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/sec...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(125): view('Formularios/sec...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->v_sector_traza()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-01-29 21:58:27 --> Invalid file: Formularios/sector_traza.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/sec...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/sec...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(125): view('Formularios/sec...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->v_sector_traza()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-01-29 21:58:52 --> Invalid file: Formularios/sector_traza.php
+#0 C:\xampp\htdocs\gestion_apr\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Formularios/sec...')
+#1 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('Formularios/sec...', Array, true)
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(125): view('Formularios/sec...')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->v_sector_traza()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-01-29 22:01:03 --> Table 'gestion_apr.sector_traza_estados' doesn't exist
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_sector_traza.php(27): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(130): App\Models\Formularios\md_sector_traza->datatable_sector_traza(Object(CodeIgniter\Database\MySQLi\Connection), '2')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->datatable_sector_traza('2')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-01-29 22:01:24 --> Table 'gestion_apr.sector_traza_estados' doesn't exist
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_sector_traza.php(27): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(130): App\Models\Formularios\md_sector_traza->datatable_sector_traza(Object(CodeIgniter\Database\MySQLi\Connection), '2')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->datatable_sector_traza('2')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-01-29 22:05:12 --> Unknown column 'st.id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_sector_traza.php(27): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(130): App\Models\Formularios\md_sector_traza->datatable_sector_traza(Object(CodeIgniter\Database\MySQLi\Connection), '2')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->datatable_sector_traza('2')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-01-29 22:05:52 --> Unknown column 'at.estado' in 'on clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_sector_traza.php(27): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_sectores.php(130): App\Models\Formularios\md_sector_traza->datatable_sector_traza(Object(CodeIgniter\Database\MySQLi\Connection), '2')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_sectores->datatable_sector_traza('2')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_sectores))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}

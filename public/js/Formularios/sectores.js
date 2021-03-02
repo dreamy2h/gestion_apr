@@ -36,7 +36,7 @@ function guardar_sector() {
                 $("#form_sector")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Sector guardado con éxito");
-                $("#datosSector").collapse();
+                $("#datosSector").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);

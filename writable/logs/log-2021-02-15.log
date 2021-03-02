@@ -1,0 +1,197 @@
+CRITICAL - 2021-02-15 18:16:37 --> Unknown column 'cm.id_apr' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(33): App\Models\Configuracion\md_costo_metros->datatable_costo_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->datatable_costo_metros('1')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 18:16:40 --> Unknown column 'cm.id_apr' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(33): App\Models\Configuracion\md_costo_metros->datatable_costo_metros(Object(CodeIgniter\Database\MySQLi\Connection), '2')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->datatable_costo_metros('2')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 18:16:44 --> Unknown column 'cm.id_apr' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(33): App\Models\Configuracion\md_costo_metros->datatable_costo_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->datatable_costo_metros('1')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 19:42:02 --> Unknown column 'cm.id_apr' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(33): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(33): App\Models\Configuracion\md_costo_metros->datatable_costo_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->datatable_costo_metros('1', '1')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 20:26:29 --> Unknown column 'id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(91): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '8', '1', '')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 20:28:28 --> Unknown column 'id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(91): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '8', '1', '')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 21:03:17 --> syntax error, unexpected '=', expecting ']'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Configuracion/c...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Configuracion/c...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:03:17 --> syntax error, unexpected '=', expecting ']'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Configuracion/c...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Configuracion/c...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:04:13 --> Trying to access array offset on value of type null
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(166): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', 'C:\\xampp\\htdocs...', 166, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->llenar_costo_fijo()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:05:22 --> Trying to access array offset on value of type null
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(166): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', 'C:\\xampp\\htdocs...', 166, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->llenar_costo_fijo()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:12:10 --> count(): Parameter must be an array or an object that implements Countable
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'count(): Parame...', 'C:\\xampp\\htdocs...', 167, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(167): count(NULL)
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->llenar_costo_fijo()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-15 21:15:18 --> Trying to access array offset on value of type null
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(167): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', 'C:\\xampp\\htdocs...', 167, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->llenar_costo_fijo()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:15:37 --> Trying to access array offset on value of type null
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(167): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to acces...', 'C:\\xampp\\htdocs...', 167, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->llenar_costo_fijo()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-15 21:37:50 --> Unknown column 'id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(91): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '10', '1', '')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 21:39:36 --> Unknown column 'id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(91): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '10', '1', '')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 21:41:19 --> Unknown column 'id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(91): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '10', '1', '')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 21:52:23 --> Cannot add or update a child row: a foreign key constraint fails (`gestion_apr`.`costo_metros`, CONSTRAINT `rel_costo_metros_cargo_fijo` FOREIGN KEY (`id_cargo_fijo`) REFERENCES `apr_cargo_fijo` (`id`))
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `co...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(89): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-02-15 21:58:31 --> Column 'id' in where clause is ambiguous
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(95): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...', Array)
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(59): App\Models\Configuracion\md_costo_metros->validar_metraje_existente(Object(CodeIgniter\Database\MySQLi\Connection), '1', '10', '1', '1', '15')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-15 23:46:16 --> Cannot add or update a child row: a foreign key constraint fails (`gestion_apr`.`costo_metros`, CONSTRAINT `rel_costo_metros_cargo_fijo` FOREIGN KEY (`id_cargo_fijo`) REFERENCES `apr_cargo_fijo` (`id`))
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('INSERT INTO `co...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#6 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_costo_metros.php(103): CodeIgniter\Model->save(Array)
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_costo_metros->guardar_costo_metros()
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_costo_metros))
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2021-02-15 23:51:19 --> Unknown column 'cm.id_apr' in 'where clause'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Configuracion\md_costo_metros.php(123): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(137): App\Models\Configuracion\md_costo_metros->datatable_costo_metros_consumo(Object(CodeIgniter\Database\MySQLi\Connection), '1', '0')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_costo_metros('0')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}

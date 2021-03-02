@@ -1,22 +1,47 @@
 $(document).ready(function() {
     var origen = $("#txt_origen").val();
 
+    var columnas = [
+        { "data": "id_socio" },
+        { "data": "rut" },
+        { "data": "rol" },
+        { "data": "nombre" },
+        { "data": "fecha_entrada" }
+    ];
+
+    var columnasOcultas = false;
+
+    if (origen == "ctrl_metros") {
+        columnas.push(
+            {"data": "id_arranque"}, 
+            {"data": "id_diametro"}, 
+            {"data": "diametro"}, 
+            {"data": "sector"}, 
+            {"data": "subsidio"}, 
+            {"data": "consumo_anterior"}, 
+            {"data": "cargo_fijo"}
+        );
+
+        columnasOcultas = [
+            { "targets": [5,6,7,8,9,10,11], "visible": false, "searchable": false }
+        ];
+        
+        ruta = "/Consumo/" + origen
+    } else {
+        ruta = "/Formularios/" + origen
+    }
+
 	var grid_buscar_socio = $("#grid_buscar_socio").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/" + origen + "/datatable_buscar_socio",
+        ajax: base_url +  ruta + "/datatable_buscar_socio",
         orderClasses: true,
-        columns: [
-            { "data": "id_socio" },
-            { "data": "rut" },
-            { "data": "rol" },
-            { "data": "nombre" },
-            { "data": "fecha_entrada" }
-        ],
+        columns: columnas,
+        "columnDefs": columnasOcultas,
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -46,9 +71,48 @@ $(document).ready(function() {
         var data = grid_buscar_socio.row($(this)).data();
         $("#txt_id_socio").val(data["id_socio"]);
         $("#txt_rut_socio").val(data["rut"]);
-        $("#txt_rol_socio").val(data["rol"]);
+        $("#txt_rol").val(data["rol"]);
         $("#txt_nombre_socio").val(data["nombre"]);
 
-        $('#dlg_buscar_socio').modal('hide');
+        if (origen ==  "ctrl_metros") {
+            if (data["consumo_anterior"] == 0) {
+                Swal.fire({
+                    title: 'Ingrese consumo anterior',
+                    input: 'text',
+                    inputPlaceholder: 'Ingreso un número',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        return new Promise((resolve) => {
+                            if (value >= 0) {
+                                resolve()
+                                $("#txt_id_arranque").val(data["id_arranque"]);
+                                $("#txt_sector").val(data["sector"]);
+                                $("#txt_subsidio").val(data["subsidio"]);
+                                $("#txt_c_anterior").val(value);
+                                $("#txt_diametro").val(data["diametro"]);
+                                $("#dt_fecha_ingreso").prop("readonly", false);
+                                $("#dt_fecha_vencimiento").prop("readonly", false)
+                                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
+                                $('#dlg_buscar_socio').modal('hide');
+                            } else {
+                                resolve("Ingrese un número válido")
+                            }
+                        })
+                    }
+                });
+            } else {
+                $("#txt_id_arranque").val(data["id_arranque"]);
+                $("#txt_sector").val(data["sector"]);
+                $("#txt_subsidio").val(data["subsidio"]);
+                $("#txt_c_anterior").val(data["consumo_anterior"]);
+                $("#txt_diametro").val(data["diametro"]);
+                $("#dt_fecha_ingreso").prop("readonly", false);
+                $("#dt_fecha_vencimiento").prop("readonly", false);
+                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
+                $('#dlg_buscar_socio').modal('hide');
+            }
+        } else {
+            $('#dlg_buscar_socio').modal('hide');    
+        }
     });
 });

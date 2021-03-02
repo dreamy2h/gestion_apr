@@ -1,0 +1,26 @@
+CRITICAL - 2021-01-18 17:45:03 --> Class 'App\Models\Configuracion\md_usuarios' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\ctrl_login->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-01-18 18:24:10 --> syntax error, unexpected '?>'
+#0 C:\xampp\htdocs\gestion_apr\system\Common.php(1119): CodeIgniter\View\View->render('header', Array, true)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Home.php(20): view('header')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Home->principal()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-01-18 19:39:45 --> Class 'App\Models\Configuracion\md_permisos_detalle' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\Configuracion\ctrl_usuarios->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2021-01-18 19:40:57 --> Class 'App\Controllers\Configuracion\md_permisos_detalle' not found
+#0 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(890): App\Controllers\Configuracion\ctrl_usuarios->__construct()
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}

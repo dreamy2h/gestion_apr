@@ -66,7 +66,7 @@ function guardar_convenio() {
                 $("#form_convenio")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Convenio guardado con éxito");
-                $("#datosConvenio").collapse();
+                $("#datosConvenio").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
@@ -329,8 +329,8 @@ $(document).ready(function() {
     var grid_convenios = $("#grid_convenios").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
@@ -396,8 +396,8 @@ $(document).ready(function() {
     var grid_convenio_detalle = $("#grid_convenio_detalle").DataTable({
         responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         orderClasses: true,
         columns: [

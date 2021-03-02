@@ -1,0 +1,29 @@
+CRITICAL - 2021-01-25 14:48:16 --> Cannot redeclare App\Controllers\ctrl_menu::apr()
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-01-25 14:48:17 --> Cannot redeclare App\Controllers\ctrl_menu::apr()
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-01-25 14:48:23 --> Cannot redeclare App\Controllers\ctrl_menu::apr()
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-01-25 14:48:24 --> Cannot redeclare App\Controllers\ctrl_menu::apr()
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-01-25 14:48:32 --> Cannot redeclare App\Controllers\ctrl_menu::apr()
+#0 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+#1 {main}
+CRITICAL - 2021-01-25 21:12:45 --> Undefined variable: observacion
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_usuarios.php(323): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 323, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_usuarios->guardar_permisos_usuario()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_usuarios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-01-25 21:12:46 --> Undefined variable: observacion
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Configuracion\ctrl_usuarios.php(323): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'C:\\xampp\\htdocs...', 323, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Configuracion\ctrl_usuarios->guardar_permisos_usuario()
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Configuracion\ctrl_usuarios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}

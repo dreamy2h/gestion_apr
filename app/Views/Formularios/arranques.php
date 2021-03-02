@@ -1,6 +1,6 @@
 <main>
     <div class="container-fluid">
-        <h3 class="mt-4" align="center">Arranques</h3>
+        <h3 class="mt-4" align="center"><i class="fas fa-swimming-pool mr-1"></i> Arranques</h3>
         <div class="alert alerta-fijo hidden" role="alert" id="alerta"></div>
 
         <div class="container-fluid">
@@ -24,7 +24,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">
 	                	<div class="card-header" data-toggle="collapse" data-target="#datosArranque" aria-expanded="false" aria-controls="datosArranque">
-	                		<i class="fas fa-faucet mr-1"></i> Datos del Arranque
+	                		<i class="fas fa-swimming-pool mr-1"></i> Datos del Arranque
 	                	</div>
 	                	<div class="card shadow mb-12 collapse" id="datosArranque">
 				            <div class="card-body">
@@ -71,19 +71,15 @@
 					                        </div>
 					                    </div>
 					                    <div class="row">
-					                    	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 				                				<div class="form-group">
 					                                <label class="small mb-1" for="txt_n_medidor">Número de Medidor</label>
-					                                <input type='text' class="form-control" id='txt_n_medidor' name="txt_n_medidor" />
+					                                <div class="autocomplete">
+												    	<select class="form-control basicAutoSelect" name="cmb_medidor" id="cmb_medidor" placeholder="Escriba para filtrar" autocomplete="off"></select>
+												  	</div>
 					                            </div>
 					                        </div>
-					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-					                        	<div class="form-group">
-					                                <label class="small mb-1" for="cmb_diametro">Diámetro</label>
-					                                <select id="cmb_diametro" name="cmb_diametro" class="form-control"></select>
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 		                                        <div class="form-group">
 		                                            <label class="small mb-1" for="cmb_sector">Sector</label>
 		                                            <select id="cmb_sector" name="cmb_sector" class="form-control"></select>
@@ -187,7 +183,7 @@
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">
-	                	<div class="card-header"><i class="fas fa-faucet mr-1"></i> Listado de Arranques</div>
+	                	<div class="card-header"><i class="fas fa-swimming-pool mr-1"></i> Listado de Arranques</div>
 	                	<div class="card shadow mb-12">
 				            <div class="card-body">
 				            	<div class="container-fluid">
@@ -195,11 +191,12 @@
 					                    <table id="grid_arranques" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Identificador</th>
+					                            	<th width="10%">Id.</th>
 					                            	<th width="0%">id_socio</th>
 					                            	<th width="0%">rut_socio</th>
 					                                <th width="0%">rol_socio</th>
 					                                <th width="20%">Nombre Socio</th>
+					                                <th width="0%">id_medidor</th>
 					                                <th width="10%">N° Medidor</th>
 					                                <th width="0%">id_diametro</th>
 					                                <th width="10%">Diámetro</th>

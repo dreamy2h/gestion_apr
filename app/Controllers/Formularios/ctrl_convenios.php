@@ -107,14 +107,18 @@
 				}
 				
 				$valor_cuota = $costo_servicio/$numero_cuotas;
+				$fecha_pagos = date_format(date_create($fecha_pago), 'Y-m-d');
+
 				for ($i = 1; $i <= $numero_cuotas; $i++) {
 					$datosDetalle = [
 						"id_convenio" => $id_convenio,
+						"fecha_pago" =>	$fecha_pagos,
 						"numero_cuota" => $i,
 						"valor_cuota" => $valor_cuota
 					];
 
 					$this->convenio_detalle->save($datosDetalle);
+					$fecha_pagos = date("Y-m-d", strtotime($fecha_pagos. ' + 1 month'));
 				}	
 				
 				$this->guardar_traza($id_convenio, $estado_traza, "");

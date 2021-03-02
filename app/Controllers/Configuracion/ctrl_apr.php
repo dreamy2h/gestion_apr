@@ -78,7 +78,7 @@
 			if ($this->apr->save($datosAPR)) {
 				echo OK;
 				
-				if ($id_apr != "") {
+				if ($id_apr == "") {
 					$obtener_id = $this->apr->select("max(id) as id_apr")->first();
 					$id_apr = $obtener_id["id_apr"];
 				}

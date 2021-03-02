@@ -66,6 +66,11 @@
 			$rut = $rut_completo[0];
 			$dv = $rut_completo[1];
 
+			if ($this->socios->existe_socio($rut, $rol)) {
+				echo "Socio ya existe en el sistema";
+				exit();
+			}
+
 			$datosSocio = [
 				"rut" => $rut,
 				"dv" => $dv,

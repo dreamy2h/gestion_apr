@@ -2,8 +2,8 @@ $(document).ready(function() {
 	var grid_arranque_reciclar = $("#grid_arranque_reciclar").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranque_reciclar",

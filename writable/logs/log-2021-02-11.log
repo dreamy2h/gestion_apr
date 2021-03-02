@@ -1,0 +1,124 @@
+CRITICAL - 2021-02-11 17:16:28 --> Undefined index: fecha_pago
+#0 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenio_detalle.php(35): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'C:\\xampp\\htdocs...', 35, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(217): App\Models\Formularios\md_convenio_detalle->datatable_convenio_detalle(Object(CodeIgniter\Database\MySQLi\Connection), '5')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenio_detalle('5')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:24:35 --> date_add() expects parameter 1 to be DateTime, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_add() expe...', 'C:\\xampp\\htdocs...', 121, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(121): date_add('2021-03-01', Object(DateInterval))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:24:38 --> date_add() expects parameter 1 to be DateTime, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_add() expe...', 'C:\\xampp\\htdocs...', 121, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(121): date_add('2021-03-01', Object(DateInterval))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:24:48 --> date_add() expects parameter 1 to be DateTime, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_add() expe...', 'C:\\xampp\\htdocs...', 121, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(121): date_add('2021-03-01', Object(DateInterval))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:26:02 --> date_add() expects parameter 1 to be DateTime, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_add() expe...', 'C:\\xampp\\htdocs...', 121, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(121): date_add('2021-03-01', Object(DateInterval))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:27:25 --> Object of class DateTime could not be converted to string
+#0 C:\xampp\htdocs\gestion_apr\system\Database\Query.php(443): strtr('INSERT INTO `co...', Array)
+#1 C:\xampp\htdocs\gestion_apr\system\Database\Query.php(404): CodeIgniter\Database\Query->matchNamedBinds('INSERT INTO `co...', Array)
+#2 C:\xampp\htdocs\gestion_apr\system\Database\Query.php(197): CodeIgniter\Database\Query->compileBinds()
+#3 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\Query->getQuery()
+#4 C:\xampp\htdocs\gestion_apr\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#5 C:\xampp\htdocs\gestion_apr\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#6 C:\xampp\htdocs\gestion_apr\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#7 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(120): CodeIgniter\Model->save(Array)
+#8 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#9 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#10 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2021-02-11 17:30:18 --> syntax error, unexpected '1' (T_LNUMBER), expecting ')'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-11 17:32:38 --> date_add() expects parameter 1 to be DateTime, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_add() expe...', 'C:\\xampp\\htdocs...', 121, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(121): date_add('2021-03-01', Object(DateInterval))
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:35:19 --> date_format() expects parameter 1 to be DateTimeInterface, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\xampp\\htdocs...', 123, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(123): date_format('2021-02-11 17:3...', 'Y-m-d')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->guardar_convenio()
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2021-02-11 17:38:49 --> syntax error, unexpected '}'
+#0 C:\xampp\htdocs\gestion_apr\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('Formularios/ctr...')
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('Formularios/ctr...')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2021-02-11 17:40:25 --> Unknown column 'cd.fecha_pagos' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenio_detalle.php(29): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(217): App\Models\Formularios\md_convenio_detalle->datatable_convenio_detalle(Object(CodeIgniter\Database\MySQLi\Connection), '14')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenio_detalle('14')
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2021-02-11 19:32:11 --> date_format() expects parameter 1 to be DateTimeInterface, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\xampp\\htdocs...', 53, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenio_detalle.php(53): date_format('11-02-2021', 'm-Y')
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(146): App\Models\Formularios\md_convenio_detalle->calcular_total_servicios(Object(CodeIgniter\Database\MySQLi\Connection), '11-02-2021', '1')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->calcular_total_servicios()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-02-11 19:32:15 --> date_format() expects parameter 1 to be DateTimeInterface, string given
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'date_format() e...', 'C:\\xampp\\htdocs...', 53, Array)
+#1 C:\xampp\htdocs\gestion_apr\app\Models\Formularios\md_convenio_detalle.php(53): date_format('10-02-2021', 'm-Y')
+#2 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(146): App\Models\Formularios\md_convenio_detalle->calcular_total_servicios(Object(CodeIgniter\Database\MySQLi\Connection), '10-02-2021', '1')
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->calcular_total_servicios()
+#4 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2021-02-11 22:46:28 --> Unknown column 'm.total_metros' in 'field list'
+#0 C:\xampp\htdocs\gestion_apr\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT \r\n\t\t\t\t\t\t...')
+#1 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n\t\t\t\t\t\t...')
+#2 C:\xampp\htdocs\gestion_apr\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n\t\t\t\t\t\t...')
+#3 C:\xampp\htdocs\gestion_apr\app\Models\Consumo\md_metros.php(48): CodeIgniter\Database\BaseConnection->query('SELECT \r\n\t\t\t\t\t\t...')
+#4 C:\xampp\htdocs\gestion_apr\app\Controllers\Consumo\ctrl_metros.php(36): App\Models\Consumo\md_metros->datatable_metros(Object(CodeIgniter\Database\MySQLi\Connection), '1')
+#5 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Consumo\ctrl_metros->datatable_metros()
+#6 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Consumo\ctrl_metros))
+#7 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}

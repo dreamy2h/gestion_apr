@@ -1,0 +1,7 @@
+CRITICAL - 2021-02-03 16:26:31 --> Undefined property: App\Controllers\Formularios\ctrl_convenios::$dv
+#0 C:\xampp\htdocs\gestion_apr\app\Controllers\Formularios\ctrl_convenios.php(213): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'C:\\xampp\\htdocs...', 213, Array)
+#1 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(918): App\Controllers\Formularios\ctrl_convenios->datatable_convenio_detalle('3')
+#2 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Formularios\ctrl_convenios))
+#3 C:\xampp\htdocs\gestion_apr\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\gestion_apr\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}

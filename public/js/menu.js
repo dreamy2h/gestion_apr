@@ -31,6 +31,11 @@ $(document).ready(function() {
 		$("#content").load(base_url + "/ctrl_menu/metros");
 	});
 
+	// Pagos
+	$("#menu_caja").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/caja");
+	});	
+
 	// Configuración
 	$("#menu_usuarios").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/usuarios");

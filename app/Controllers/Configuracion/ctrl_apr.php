@@ -49,6 +49,7 @@
 			$calle = $this->request->getPost("calle");
 			$numero = $this->request->getPost("numero");
 			$resto_direccion = $this->request->getPost("resto_direccion");
+			$tope_subsidio = $this->request->getPost("tope_subsidio");
 
 			$rut_completo = explode("-", $rut_apr);
 			$rut = $rut_completo[0];
@@ -62,6 +63,7 @@
 				"resto_direccion" => $resto_direccion,
 				"hash_sii" => $hash_sii,
 				"codigo_comercio" => $codigo_comercio,
+				"tope_subsidio" => $tope_subsidio,
 				"rut" => $rut,
 				"dv" => $dv,
 				"id_usuario" => $id_usuario,

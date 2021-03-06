@@ -47,8 +47,12 @@ $(document).ready(function() {
 	    maxFileCount: 1,
 		showUpload: false,
 		showRemove: false
-	}).on('filebatchselected',function(event) {
+	}).on('filebatchselected', function(event) {
 		$("#archivos").fileinput("upload");
+	}).on('filebatchuploadsuccess', function(event, data) {
+	  	$("#dt_fecha_ingreso_im").prop("disabled", true);
+	  	$("#dt_fecha_vencimiento_im").prop("disabled", true);
+	  	$("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_metros");
 	});
 
 	$("#archivos").fileinput("lock");

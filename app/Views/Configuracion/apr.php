@@ -103,6 +103,14 @@
 					                            </div>
 				                			</div>
 				                		</div>
+				                		<div class="row">
+				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_tope_subsidio">Tope Subsidio m<sup>3</sup></label>
+					                                <input type='text' class="form-control" id='txt_tope_subsidio' name="txt_tope_subsidio" />
+					                            </div>
+					                        </div>
+					                    </div>
 				                	</form>
 				                </div>
 				            </div>
@@ -127,6 +135,7 @@
 					                                <th width="20%">Nombre APR</th>
 					                                <th width="0%">hash_sii</th>
 					                                <th width="0%">codigo_comercio</th>
+					                                <th width="0%">tope_subsidio</th>
 					                                <th width="0%">id_region</th>
 					                                <th width="0%">id_provincia</th>
 					                                <th width="0%">id_comuna</th>

@@ -11,24 +11,25 @@ $(document).ready(function() {
 
     var columnasOcultas = false;
 
-    if (origen == "ctrl_metros") {
+    if (origen == "ctrl_metros" || origen == "ctrl_caja") {
         columnas.push(
             {"data": "id_arranque"}, 
             {"data": "id_diametro"}, 
             {"data": "diametro"}, 
             {"data": "sector"}, 
-            {"data": "subsidio"}, 
+            {"data": "subsidio"},
+            {"data": "tope_subsidio"},
             {"data": "consumo_anterior"}, 
             {"data": "cargo_fijo"}
         );
 
         columnasOcultas = [
-            { "targets": [5,6,7,8,9,10,11], "visible": false, "searchable": false }
+            { "targets": [5, 6, 7, 8, 9, 10 ,11, 12], "visible": false, "searchable": false }
         ];
         
-        ruta = "/Consumo/" + origen
+        ruta = "/Consumo/ctrl_metros";
     } else {
-        ruta = "/Formularios/" + origen
+        ruta = "/Formularios/" + origen;
     }
 
 	var grid_buscar_socio = $("#grid_buscar_socio").DataTable({
@@ -88,6 +89,7 @@ $(document).ready(function() {
                                 $("#txt_id_arranque").val(data["id_arranque"]);
                                 $("#txt_sector").val(data["sector"]);
                                 $("#txt_subsidio").val(data["subsidio"]);
+                                $("#txt_tope_subsidio").val(data["tope_subsidio"]);
                                 $("#txt_c_anterior").val(value);
                                 $("#txt_diametro").val(data["diametro"]);
                                 $("#dt_fecha_ingreso").prop("readonly", false);
@@ -111,6 +113,9 @@ $(document).ready(function() {
                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                 $('#dlg_buscar_socio').modal('hide');
             }
+        } else if (origen == "ctrl_caja") {
+            buscar_deuda();
+            $('#dlg_buscar_socio').modal('hide');    
         } else {
             $('#dlg_buscar_socio').modal('hide');    
         }

@@ -57,7 +57,7 @@
 					                        <thead class="thead-dark">
 					                            <tr>
 					                            	<th>id_metros</th>
-					                            	<th>Deuda</th>
+					                            	<th>Deuda $</th>
 					                            	<th>Fecha Vencimiento</th>
 					                            </tr>
 					                        </thead>
@@ -65,8 +65,8 @@
 					                </div>
 					                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
 			                        	<div class="form-group">
-			                                <label class="small mb-1" for="txt_total_pagar" style="font-size: 150%;">Total a Pagar</label>
-			                                <input type='text' class="form-control bg-warning" id='txt_total_pagar' name="txt_total_pagar" style="font-size: 150%;" />
+			                                <label class="small mb-1" for="txt_total_pagar" style="font-size: 150%;">Total a Pagar $</label>
+			                                <input type='text' class="form-control bg-warning text-dark" id='txt_total_pagar' name="txt_total_pagar" style="font-size: 150%;" />
 			                            </div>
 			                        </div>
 					            </div>
@@ -84,14 +84,14 @@
 	                				
 			                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 			                        	<div class="form-group">
-			                                <label class="small mb-1" for="txt_entregado" style="font-size: 150%;">Entregado</label>
-			                                <input type='text' class="form-control bg-secondary" id='txt_entregado' name="txt_entregado" style="font-size: 150%;" />
+			                                <label class="small mb-1" for="txt_entregado" style="font-size: 150%;">Entregado $</label>
+			                                <input type='text' class="form-control bg-secondary text-white" id='txt_entregado' name="txt_entregado" style="font-size: 150%;" />
 			                            </div>
 			                        </div>
 			                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 			                        	<div class="form-group">
-			                                <label class="small mb-1" for="txt_vuelto" style="font-size: 150%;">Vuelto</label>
-			                                <input type='text' class="form-control bg-info" id='txt_vuelto' name="txt_vuelto" style="font-size: 150%;" />
+			                                <label class="small mb-1" for="txt_vuelto" style="font-size: 150%;">Vuelto $</label>
+			                                <input type='text' class="form-control bg-info text-white" id='txt_vuelto' name="txt_vuelto" style="font-size: 150%;" />
 			                            </div>
 			                        </div>
 			                    </div>

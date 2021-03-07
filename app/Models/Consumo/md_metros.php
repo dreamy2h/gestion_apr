@@ -12,8 +12,8 @@
 	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
 
 	    public function datatable_metros($db, $id_apr) {
-	    	define("ACTIVO", 1);
-	    	$estado = ACTIVO;
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
 
 	    	$consulta = "SELECT 
 							m.id as id_metros,
@@ -50,7 +50,7 @@
 						    inner join medidores med on a.id_medidor = med.id
 						    inner join diametro d on med.id_diametro = d.id
 						where 
-							m.estado = ? and
+							m.estado <> ? and
 							m.id_apr = ?
 						order by m.fecha_vencimiento asc
 						limit 10000";

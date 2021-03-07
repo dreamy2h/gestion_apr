@@ -36,9 +36,118 @@ var peso = {
     }
 }
 
+function sumar_deudas() {
+    var total = 0;
+    var datos = $("#grid_deuda").DataTable().rows(".selected").data();
+
+    for (var i = 0; i < datos.length; i++) {
+        total += parseInt(datos[i].deuda);
+    }
+
+    $("#txt_entregado").val(0);
+    $("#txt_vuelto").val(0);
+    $("#txt_total_pagar").val(peso.formateaNumero(total));
+}
+
+function calcular_vuelto() {
+    var total_pagar = peso.quitar_formato($("#txt_total_pagar").val());
+    var entregado = peso.quitar_formato($("#txt_entregado").val());
+        
+    if (parseInt(total_pagar) > 0) {
+        if (parseInt(entregado) < parseInt(total_pagar)) {
+            alerta.aviso("alerta", "Lo entregado no puede ser menor al total a pagar");
+            $("#txt_entregado").val(0);
+        } else {
+            var vuelto = parseInt(entregado) - parseInt(total_pagar);
+            $("#txt_vuelto").val(peso.formateaNumero(vuelto));
+
+            var numero = peso.quitar_formato($("#txt_entregado").val());
+            $("#txt_entregado").val(peso.formateaNumero(numero));
+        }
+    } else {
+        $("#txt_entregado").val(0);
+        alerta.aviso("alerta", "Seleccione deudas a pagar");
+    }
+}
+
+function guardar_pago() {
+    var total_pagar = peso.quitar_formato($("#txt_total_pagar").val());
+    var entregado = peso.quitar_formato($("#txt_entregado").val());
+    var vuelto = peso.quitar_formato($("#txt_vuelto").val());
+    var id_socio = $("#txt_id_socio").val();
+
+    if (parseInt(entregado) < parseInt(total_pagar)) {
+        alerta.error("alerta", "Lo entregado no puede ser menor al total a pagar");
+    } else {
+        Swal.fire({
+            title: "¿Efectuar Pago?",
+            text: "¿Está seguro de efectuar el pago?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si",
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var datos = $("#grid_deuda").DataTable().rows(".selected").data();
+                var arr_ids_metros = [];
+
+                for (var i = 0; i < datos.length; i++) {
+                    arr_ids_metros.push(datos[i].id_metros);
+                }
+
+                $.ajax({
+                    url: base_url + "/Pagos/ctrl_caja/guardar_pago",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        id_socio: id_socio,
+                        total_pagar: total_pagar,
+                        entregado: entregado,
+                        vuelto: vuelto,
+                        arr_ids_metros: arr_ids_metros
+                    },
+                    success: function(respuesta) {
+                        const OK = 1;
+                        if (respuesta == OK) {
+                            $("#txt_id_socio").val("");
+                            $("#txt_rut_socio").val("");
+                            $("#txt_rol").val("");
+                            $("#txt_nombre_socio").val("");
+                            $("#btn_pagar").prop("disabled", true);
+                            $("#cmb_forma_pago").prop("disabled", true);
+                            $("#txt_entregado").prop("disabled", true);
+                            $("#txt_entregado").val("");
+                            $("#txt_vuelto").prop("disabled", true);
+                            $("#txt_vuelto").val("");
+                            $("#txt_total_pagar").val("");
+
+                            $("#grid_deuda").DataTable().clear().draw();
+
+                            alerta.ok("alerta", "Pago guardado con éxito");
+                        } else {
+                            alerta.error("alerta", respuesta);
+                        }
+                    },
+                    error: function(error) {
+                        respuesta = JSON.parse(error["responseText"]);
+                        alerta.error("alerta", respuesta.message);
+                    }
+                });
+            }
+        });
+    }
+}
+
 $(document).ready(function() {
+    $("#txt_id_socio").prop("disabled", true);
+    $("#txt_rut_socio").prop("disabled", true);
+    $("#txt_rol").prop("disabled", true);
+    $("#txt_nombre_socio").prop("disabled", true);
 	$("#btn_pagar").prop("disabled", true);
 	$("#txt_total_pagar").prop("readonly", true);
+    $("#txt_vuelto").prop("readonly", true);
 	$("#cmb_forma_pago").prop("disabled", true);
 	$("#txt_entregado").prop("disabled", true);
 	$("#txt_vuelto").prop("disabled", true);
@@ -52,21 +161,32 @@ $(document).ready(function() {
     });
 
     $("#txt_entregado").on("blur", function() {
-    	var total_pagar = peso.quitar_formato($("#txt_total_pagar").val());
-    	
-    	if (parseInt(total_pagar) > 0) {
-	    	var numero = peso.quitar_formato(this.value);
-	    	this.value = peso.formateaNumero(numero);
-    	} else {
-    		this.value = 0;
-    		alerta.aviso("alerta", "Seleccione deudas a pagar");
-    	}
+    	calcular_vuelto();
+    });
+
+    $("#txt_entregado").on("keypress", function(e) {
+        if (e.keyCode == 13) {
+            this.blur();
+        }
+    });
+
+    $("#txt_entregado").on("focus", function() {
+        var entregado = peso.quitar_formato(this.value);
+        if (entregado > 0) {
+            this.value = entregado;
+        } else {
+            this.value = "";
+        }
     });
 
 	$("#txt_vuelto").on("blur", function() {
 		var numero = peso.quitar_formato(this.value);
     	this.value = peso.formateaNumero(numero);
 	});
+
+    $("#btn_pagar").on("click", function() {
+        guardar_pago();
+    });
 
 	var grid_deuda = $("#grid_deuda").DataTable({
 		responsive: true,
@@ -102,7 +222,7 @@ $(document).ready(function() {
             "search": "Buscar:",
             "zeroRecords": "Sin resultados encontrados",
             "select": {
-                "rows": "<br/>%d Perfiles Seleccionados"
+                "rows": "<br/>%d Deuda(s) seleccionada(s)"
             },
             "paginate": {
                 "first": "Primero",
@@ -112,4 +232,10 @@ $(document).ready(function() {
             }
         }
 	});
+
+    grid_deuda.on("select", function (e, dt, type, indexes) {
+        sumar_deudas();
+    }).on("deselect", function (e, dt, type, indexes) {
+        sumar_deudas();
+    });
 });

@@ -81,10 +81,16 @@
 							                                <input type='text' class="form-control" id='txt_id_arranque' name="txt_id_arranque" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_subsidio">Subsidio %</label>
 							                                <input type='text' class="form-control" id='txt_subsidio' name="txt_subsidio" />
+							                            </div>
+							                        </div>
+							                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12">
+							                        	<div class="form-group">
+							                                <label class="small mb-1" for="txt_tope_subsidio">m<sup>3</sup></label>
+							                                <input type='text' class="form-control" id='txt_tope_subsidio' name="txt_tope_subsidio" />
 							                            </div>
 							                        </div>
 							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
@@ -216,29 +222,29 @@
 					                    <table id="grid_metros" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="5%">Id.</th>
-					                            	<th width="0%">id_socio</th>
-					                            	<th width="0%">rut_socio</th>
-					                                <th width="0%">rol_socio</th>
-					                                <th width="15%">Nombre Socio</th>
-					                               	<th width="0%">id_Arranque</th>
-					                               	<th width="0%">subsidio</th>
-					                                <th width="10%">Subsidio $</th>
-					                                <th width="0%">Sector</th>
-													<th width="0%">diametro</th>
-					                                <th width="0%">diametro</th>
-					                                <th width="0%">Fecha Ingreso</th> 
-					                                <th width="0%">Fecha Vencimiento</th>
-					                                <th width="0%">Consumo Antetior</th>
-					                                <th width="0%">Consumo Actual</th>
-					                                <th width="5%">Metros</th>
-					                                <th width="10%">Subtotal $</th>
-					                                <th width="7.5%">Multa $</th>
-					                                <th width="10%">T. Servicios $</th>
-					                                <th width="7.5%">T. Mes $</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>Id.</th>
+					                            	<th>id_socio</th>
+					                            	<th>rut_socio</th>
+					                                <th>rol_socio</th>
+					                                <th>Nombre Socio</th>
+					                               	<th>id_Arranque</th>
+					                               	<th>subsidio</th>
+					                                <th>Subsidio $</th>
+					                                <th>Sector</th>
+													<th>diametro</th>
+					                                <th>diametro</th>
+					                                <th>Fecha Ingreso</th> 
+					                                <th>Fecha Vencimiento</th>
+					                                <th>Consumo Antetior</th>
+					                                <th>Consumo Actual</th>
+					                                <th>Metros</th>
+					                                <th>Subtotal $</th>
+					                                <th>Multa $</th>
+					                                <th>T. Servicios $</th>
+					                                <th>T. Mes $</th>
+					                                <th>Usuario</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

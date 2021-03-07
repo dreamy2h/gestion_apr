@@ -94,13 +94,13 @@
                             </a>
                             <div class="collapse" id="collapsePagos" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" id="menu_socios">
+                                    <a class="nav-link" id="menu_caja">
                                         <div class="sb-nav-link-icon"><i class="fas fa-cash-register mr-1"></i></div> Caja
                                     </a>
-                                    <a class="nav-link" id="menu_socios">
+                                    <a class="nav-link" id="menu_hist_pago">
                                         <div class="sb-nav-link-icon"><i class="fas fa-file-invoice mr-1"></i></div> Historial de Pagos
                                     </a>
-                                    <a class="nav-link" id="menu_socios">
+                                    <a class="nav-link" id="menu_boleta_electronica">
                                         <div class="sb-nav-link-icon"><i class="fas fa-receipt mr-1"></i></div> Boleta Electrónica
                                     </a>
                                 </nav>

@@ -18,6 +18,7 @@ function des_habilitar(a, b) {
     $("#txt_sector").prop("disabled", a);
     $("#txt_diametro").prop("disabled", a);
     $("#txt_subsidio").prop("disabled", a);
+    $("#txt_tope_subsidio").prop("disabled", a);
     $("#txt_monto_subsidio").prop("disabled", a);
     $("#dt_fecha_ingreso").prop("disabled", a);
     $("#dt_fecha_vencimiento").prop("disabled", a);
@@ -39,6 +40,7 @@ function mostrar_datos_metros(data) {
     $("#txt_nombre_socio").val(data["nombre_socio"]);
     $("#txt_id_arranque").val(data["id_arranque"]);
     $("#txt_subsidio").val(data["subsidio"]);
+    $("#txt_tope_subsidio").val(data["tope_subsidio"]);
     $("#txt_monto_subsidio").val(peso.formateaNumero(data["monto_subsidio"]));
     $("#txt_sector").val(data["sector"]);
     $("#txt_diametro").val(data["diametro"]);
@@ -177,49 +179,46 @@ function calcular_total_servicios() {
 function calcular_montos() {
     var consumo_anterior = $("#txt_c_anterior").val();
     var consumo_actual = $("#txt_c_actual").val();
+    var tope_subsidio = $("#txt_tope_subsidio").val();
+
     if (parseInt(consumo_actual) >= parseInt(consumo_anterior)) {
         var metros_consumidos = parseInt(consumo_actual) - parseInt(consumo_anterior);
         $("#txt_metros").val(metros_consumidos);
-        var resto_metros = metros_consumidos + 1;
-        var i = 0;
         var subtotal = 0;
 
-        $("#grid_costo_metros").DataTable().rows().data().each(function (value) {
-            var cantidad = parseInt(value.hasta) - parseInt(value.desde);
-            if (resto_metros > cantidad) {
-                resto_metros -= (cantidad + 1);
-                
-                if (value.id_costo_metros != 0) {
-                    cantidad += 1;
-                } 
-                
-                if (value.id_costo_metros != 0) {
-                    var total = parseInt(cantidad) * parseInt(value.costo);
-                } else {
-                    var total = parseInt(value.costo);
+        var total_subsidio = 0;
+
+        for (var i = 0; i <= metros_consumidos; i++) {
+            var e = 0;
+            $("#grid_costo_metros").DataTable().rows().data().each(function (value) {
+                if (i >= parseInt(value.desde) && i <= parseInt(value.hasta)) {
+                    if (value.id_costo_metros == 0) {
+                        subtotal = parseInt(value.costo);
+                    } else {
+                        subtotal += parseInt(value.costo);
+                    }
+
+                    if (i <= parseInt(tope_subsidio)) {
+                        total_subsidio = subtotal;
+                    }
+                    
+                    if (value.id_costo_metros == 0) {
+                        var cantidad = i - parseInt(value.desde);
+                    } else {
+                        var cantidad = (i  + 1) - parseInt(value.desde);
+                    }
+
+                    this.cell({row: e, column: 1}).data(parseInt(cantidad));
                 }
-
-                subtotal += total; console.log(subtotal);
-                this.cell({row: i, column: 1}).data(cantidad);
-            } else {
-                if (value.id_costo_metros != 0) {
-                    var total = resto_metros * value.costo;
-                } else {
-                    var total = value.costo;
-                }
-
-                subtotal += total;
-                this.cell({row: i, column: 1}).data(resto_metros);
-                resto_metros = 0;
-            }
-
-            i++;
-        });
+                
+                e++;
+            });
+        }
 
         $("#txt_subtotal").val(peso.formateaNumero(subtotal));
         var subsidio_arr = $("#txt_subsidio").val().split("%");
         var subsidio = parseInt(subsidio_arr[0]);
-        var monto_subsidio = subtotal * subsidio / 100;
+        var monto_subsidio = total_subsidio * subsidio / 100;
         $("#txt_monto_subsidio").val(peso.formateaNumero(monto_subsidio));
         calcular_total();
     } else {
@@ -305,6 +304,7 @@ $(document).ready(function() {
     $("#txt_sector").prop("readonly", true);
     $("#txt_diametro").prop("readonly", true);
     $("#txt_subsidio").prop("readonly", true);
+    $("#txt_tope_subsidio").prop("readonly", true);
     $("#txt_monto_subsidio").prop("readonly", true);
     $("#txt_c_anterior").prop("readonly", true);
     $("#txt_metros").prop("readonly", true);
@@ -414,7 +414,8 @@ $(document).ready(function() {
     });
 
     $("#txt_multa").on("blur", function() {
-        this.value = peso.formateaNumero(this.value);
+        var numero = peso.quitar_formato(this.value);
+        this.value = peso.formateaNumero(numero);
         calcular_montos();
     });
 
@@ -491,11 +492,8 @@ $(document).ready(function() {
     var grid_costo_metros = $("#grid_costo_metros").DataTable({
         responsive: true,
         paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         order: [[ 2, "asc" ]],
-        // ajax: base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0",
         orderClasses: true,
         columns: [
             { "data": "id_costo_metros" },
@@ -535,8 +533,6 @@ $(document).ready(function() {
     var grid_metros = $("#grid_metros").DataTable({
 		responsive: true,
         paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
@@ -599,7 +595,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 3, 5, 6, 8, 9, 10, 11, 12, 13, 14], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

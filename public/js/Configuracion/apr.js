@@ -17,6 +17,7 @@ function des_habilitar(a, b) {
     $("#txt_calle").prop("disabled", a);
     $("#txt_numero").prop("disabled", a);
     $("#txt_resto_direccion").prop("disabled", a);
+    $("#txt_tope_subsidio").prop("disabled", a);
 }
 
 function mostrar_datos_apr(data) {
@@ -31,6 +32,7 @@ function mostrar_datos_apr(data) {
     $("#txt_calle").val(data["calle"]);
     $("#txt_numero").val(data["numero"]);
     $("#txt_resto_direccion").val(data["resto_direccion"]);
+    $("#txt_tope_subsidio").val(data["tope_subsidio"]);
 }
 
 function llenar_cmb_region() {
@@ -110,6 +112,7 @@ function guardar_apr() {
     var calle = $("#txt_calle").val();
     var numero = $("#txt_numero").val();
     var resto_direccion = $("#txt_resto_direccion").val();
+    var tope_subsidio = $("#txt_tope_subsidio").val();
 
     $.ajax({
         url: base_url + "/Configuracion/ctrl_apr/guardar_apr",
@@ -124,7 +127,8 @@ function guardar_apr() {
             id_comuna: id_comuna,
             calle: calle,
             numero: numero,
-            resto_direccion: resto_direccion
+            resto_direccion: resto_direccion,
+            tope_subsidio: tope_subsidio
         },
         success: function(respuesta) {
             const OK = 1;
@@ -263,6 +267,10 @@ $(document).ready(function() {
         return this.optional(element) || /^[0-9-.Kk]*$/.test(value);
     });
 
+    $.validator.addMethod("maxnumero", function(value, element) {
+        if (value > 100) { return false; } else { return true; }
+    })
+
     $("#form_APR").validate({
         debug: true,
         errorClass: "my-error-class",
@@ -312,6 +320,11 @@ $(document).ready(function() {
             txt_resto_direccion: {
                 charspecial: true,
                 maxlength: 200
+            },
+            txt_tope_subsidio: {
+                digits: true,
+                maxlength: 3,
+                maxnumero: true
             }
         },
         messages: {
@@ -351,6 +364,11 @@ $(document).ready(function() {
             txt_resto_direccion: {
                 charspecial: "Tiene caracteres no permitidos",
                 maxlength: "Máximo 200 caracteres"
+            },
+            txt_tope_subsidio: {
+                digits: "Solo números",
+                maxlength: "Máximo 3 números",
+                maxnumero: "Máximo hasta 100"
             }
         }
     });
@@ -372,6 +390,7 @@ $(document).ready(function() {
             { "data": "nombre_apr" },
             { "data": "hash_sii" },
             { "data": "codigo_comercio" },
+            { "data": "tope_subsidio" },
             { "data": "id_region" },
             { "data": "id_provincia" },
             { "data": "id_comuna" },
@@ -389,7 +408,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 3, 4, 5, 6, 7, 11], "visible": false, "searchable": false }
+            { "targets": [0, 3, 4, 5, 6, 7, 8, 12], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

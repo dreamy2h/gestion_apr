@@ -17,6 +17,7 @@
                         <th width="0%">diametro</th>
                         <th width="0%">Sector</th>
                         <th width="0%">Subsidio</th>
+                        <th width="0%">tope_subsidio</th>
                         <th width="0%">consumo_anterior</th>
                         <th width="0%">cargo_fijo</th>
                     <?php } ?>

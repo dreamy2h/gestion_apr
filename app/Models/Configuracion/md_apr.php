@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'nombre', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'hash_sii', 'codigo_comercio', 'rut', 'dv', 'id_usuario', 'fecha'];
+	    protected $allowedFields = ['id', 'nombre', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'hash_sii', 'codigo_comercio', 'tope_subsidio', 'rut', 'dv', 'id_usuario', 'fecha'];
 
 	    public function datatable_apr($db) {
 	    	$consulta = "SELECT 
@@ -18,6 +18,7 @@
 						    apr.nombre as nombre_apr,
 						    apr.hash_sii,
 						    apr.codigo_comercio,
+						    apr.tope_subsidio,
 						    p.id_region,
 						    c.id_provincia,
 						    apr.id_comuna,
@@ -44,6 +45,7 @@
 					"nombre_apr" => $key["nombre_apr"],
 					"hash_sii" => $key["hash_sii"],
 					"codigo_comercio" => $key["codigo_comercio"],
+					"tope_subsidio" => $key["tope_subsidio"],
 					"id_region" => $key["id_region"],
 					"id_provincia" => $key["id_provincia"],
 					"id_comuna" => $key["id_comuna"],

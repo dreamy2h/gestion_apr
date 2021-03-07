@@ -230,15 +230,21 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_decreto").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#dt_fecha_caducidad").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#dt_fecha_encuesta").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#form_subsidio").validate({
@@ -332,8 +338,6 @@ $(document).ready(function() {
     var grid_subsidios = $("#grid_subsidios").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false

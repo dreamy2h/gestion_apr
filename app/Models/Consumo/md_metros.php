@@ -12,8 +12,8 @@
 	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
 
 	    public function datatable_metros($db, $id_apr) {
-	    	define("ACTIVO", 1);
-	    	$estado = ACTIVO;
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
 
 	    	$consulta = "SELECT 
 							m.id as id_metros,
@@ -23,6 +23,7 @@
 							concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio,
 							a.id as id_arranque,
 						    ifnull(p.glosa, '0%') as subsidio,
+						    (select tope_subsidio from apr where id = m.id_apr) as tope_subsidio,
 						    ifnull(m.monto_subsidio, 0) as monto_subsidio,
 							sec.nombre as sector,
 							med.id_diametro,
@@ -49,7 +50,7 @@
 						    inner join medidores med on a.id_medidor = med.id
 						    inner join diametro d on med.id_diametro = d.id
 						where 
-							m.estado = ? and
+							m.estado <> ? and
 							m.id_apr = ?
 						order by m.fecha_vencimiento asc
 						limit 10000";
@@ -66,6 +67,7 @@
 					"nombre_socio" => $key["nombre_socio"],
 					"id_arranque" => $key["id_arranque"],
 					"subsidio" => $key["subsidio"],
+					"tope_subsidio" => $key["tope_subsidio"],
 					"monto_subsidio" => $key["monto_subsidio"],
 					"sector" => $key["sector"],
 					"id_diametro" => $key["id_diametro"],
@@ -106,6 +108,7 @@
 						    d.glosa as diametro,
 							sec.nombre as sector,
 							ifnull(p.glosa, '0%') as subsidio,
+							(select tope_subsidio from apr where id = s.id_apr) as tope_subsidio,
 							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado = 1)), 0) as consumo_anterior,
 						    cf.cargo_fijo
 						from 
@@ -137,6 +140,7 @@
 					"diametro" => $key["diametro"],
 					"sector" => $key["sector"],
 					"subsidio" => $key["subsidio"],
+					"tope_subsidio" => $key["tope_subsidio"],
 					"consumo_anterior" => $key["consumo_anterior"],
 					"cargo_fijo" => $key["cargo_fijo"]
 				);

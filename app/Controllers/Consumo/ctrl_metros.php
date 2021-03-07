@@ -87,7 +87,7 @@
 			if ($this->metros->save($datosMetros)) {
 				echo OK;
 				
-				if ($id_metros != "") {
+				if ($id_metros == "") {
 					$obtener_id = $this->metros->select("max(id) as id_metros")->first();
 					$id_metros = $obtener_id["id_metros"];
 				}

@@ -28,6 +28,8 @@ $(document).ready(function() {
         ];
         
         ruta = "/Consumo/ctrl_metros";
+    } else if (origen == "ctrl_historial_pagos") {
+        ruta = "/Pagos/" + origen;
     } else {
         ruta = "/Formularios/" + origen;
     }
@@ -115,9 +117,12 @@ $(document).ready(function() {
             }
         } else if (origen == "ctrl_caja") {
             buscar_deuda();
-            $('#dlg_buscar_socio').modal('hide');    
+            $('#dlg_buscar_socio').modal('hide');
+        } else if (origen == "ctrl_historial_pagos") {
+            buscar_pagos();
+            $('#dlg_buscar_socio').modal('hide');
         } else {
-            $('#dlg_buscar_socio').modal('hide');    
+            $('#dlg_buscar_socio').modal('hide');
         }
     });
 });

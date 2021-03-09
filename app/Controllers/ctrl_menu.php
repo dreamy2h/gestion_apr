@@ -63,6 +63,11 @@
 			echo view('Pagos/caja');
 		}
 
+		public function historial_pagos() {
+			$this->validar_sesion();
+			echo view('Pagos/historial_pagos');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

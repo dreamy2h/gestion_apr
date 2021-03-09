@@ -34,7 +34,11 @@ $(document).ready(function() {
 	// Pagos
 	$("#menu_caja").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/caja");
-	});	
+	});
+
+	$("#menu_hist_pago").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/historial_pagos");
+	});
 
 	// Configuración
 	$("#menu_usuarios").click(function() {

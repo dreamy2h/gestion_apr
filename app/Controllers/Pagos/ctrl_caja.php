@@ -27,7 +27,16 @@
 			$this->db = \Config\Database::connect();
 		}
 
+		public function validar_sesion() {
+			if (!$this->sesión->has("id_usuario_ses")) {
+				echo "La sesión expiró, actualice el sitio web con F5";
+				exit();
+	    	}
+		}
+
 		public function datatable_deuda_socio($id_socio) {
+			$this->validar_sesion();
+
 			$datosDeuda = $this->metros->select("id as id_metros")->select("total_mes as deuda")->select("date_format(fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento")->where("id_socio", $id_socio)->where("estado", 1)->findAll();
 
 			foreach ($datosDeuda as $key) {
@@ -50,6 +59,8 @@
 		}
 
 		public function guardar_pago() {
+			$this->validar_sesion();
+			
 			define("OK", 1);
 			define("PAGADO", 2);
 			define("PAGADO_TRAZA", 5);

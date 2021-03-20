@@ -2098,6 +2098,57 @@
             "install-path": "../psr/simple-cache"
         },
         {
+            "name": "sasco/libredte-sdk-php",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LibreDTE/libredte-sdk-php.git",
+                "reference": "bd324372d78b413ddf57e7e0de57c55d5306a48a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LibreDTE/libredte-sdk-php/zipball/bd324372d78b413ddf57e7e0de57c55d5306a48a",
+                "reference": "bd324372d78b413ddf57e7e0de57c55d5306a48a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.5"
+            },
+            "time": "2020-01-19T03:40:00+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "sasco\\LibreDTE\\SDK\\": "sdk/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "SASCO SpA",
+                    "homepage": "https://sasco.cl"
+                }
+            ],
+            "description": "SDK para realizar la integración con los servicios web de LibreDTE",
+            "homepage": "https://libredte.cl",
+            "keywords": [
+                "dte",
+                "facturación electrónica",
+                "sii"
+            ],
+            "support": {
+                "forum": "https://groups.google.com/forum/#!forum/libredte",
+                "issues": "https://github.com/LibreDTE/libredte-sdk-php/issues",
+                "source": "https://github.com/LibreDTE/libredte-sdk-php"
+            },
+            "install-path": "../sasco/libredte-sdk-php"
+        },
+        {
             "name": "sebastian/code-unit-reverse-lookup",
             "version": "1.0.2",
             "version_normalized": "1.0.2.0",

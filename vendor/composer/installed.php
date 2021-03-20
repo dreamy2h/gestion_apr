@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '14755732b6aabb002ad42ed2c5b6a1dba4957a57',
+    'reference' => 'd6f4601f8137488e2dc5d8d334ffbf624147a6c7',
     'name' => 'codeigniter4/framework',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '14755732b6aabb002ad42ed2c5b6a1dba4957a57',
+      'reference' => 'd6f4601f8137488e2dc5d8d334ffbf624147a6c7',
     ),
     'doctrine/instantiator' => 
     array (
@@ -312,6 +312,15 @@
       array (
       ),
       'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+    ),
+    'sasco/libredte-sdk-php' => 
+    array (
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bd324372d78b413ddf57e7e0de57c55d5306a48a',
     ),
     'sebastian/code-unit-reverse-lookup' => 
     array (

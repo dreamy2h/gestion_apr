@@ -16,6 +16,7 @@
         <script src="<?php echo base_url(); ?>/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/scripts.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/dataTables.buttons.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/dataTables.select.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/dataTables.responsive.min.js" type="text/javascript"></script>

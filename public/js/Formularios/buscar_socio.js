@@ -28,7 +28,7 @@ $(document).ready(function() {
         ];
         
         ruta = "/Consumo/ctrl_metros";
-    } else if (origen == "ctrl_historial_pagos" || origen == "ctrl_informe_socios") {
+    } else if (origen == "ctrl_historial_pagos" || origen == "ctrl_informe_socios" || origen == "ctrl_boleta_electronica") {
         ruta = "/Pagos/ctrl_historial_pagos";
     } else {
         ruta = "/Formularios/" + origen;
@@ -123,6 +123,9 @@ $(document).ready(function() {
             $('#dlg_buscar_socio').modal('hide');
         } else if (origen == "ctrl_informe_socios") {
             buscar_socios();
+            $('#dlg_buscar_socio').modal('hide');
+        } else if (origen == "ctrl_boleta_electronica") { 
+            buscar_boletas();
             $('#dlg_buscar_socio').modal('hide');
         } else {
             $('#dlg_buscar_socio').modal('hide');

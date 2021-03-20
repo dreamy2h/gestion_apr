@@ -74,6 +74,10 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'sasco\\LibreDTE\\SDK\\' => 19,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -132,6 +136,10 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
     );
 
     public static $prefixDirsPsr4 = array (
+        'sasco\\LibreDTE\\SDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sasco/libredte-sdk-php/sdk',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',

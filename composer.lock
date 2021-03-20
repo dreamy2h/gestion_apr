@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "953d0b60189766f3ce0a141ab1a2a78e",
+    "content-hash": "a1a57208767b11a6c7d3e79771930cd5",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -924,6 +924,54 @@
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "sasco/libredte-sdk-php",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LibreDTE/libredte-sdk-php.git",
+                "reference": "bd324372d78b413ddf57e7e0de57c55d5306a48a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LibreDTE/libredte-sdk-php/zipball/bd324372d78b413ddf57e7e0de57c55d5306a48a",
+                "reference": "bd324372d78b413ddf57e7e0de57c55d5306a48a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "sasco\\LibreDTE\\SDK\\": "sdk/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "SASCO SpA",
+                    "homepage": "https://sasco.cl"
+                }
+            ],
+            "description": "SDK para realizar la integración con los servicios web de LibreDTE",
+            "homepage": "https://libredte.cl",
+            "keywords": [
+                "dte",
+                "facturación electrónica",
+                "sii"
+            ],
+            "support": {
+                "forum": "https://groups.google.com/forum/#!forum/libredte",
+                "issues": "https://github.com/LibreDTE/libredte-sdk-php/issues",
+                "source": "https://github.com/LibreDTE/libredte-sdk-php"
+            },
+            "time": "2020-01-19T03:40:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

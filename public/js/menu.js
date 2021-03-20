@@ -40,6 +40,11 @@ $(document).ready(function() {
 		$("#content").load(base_url + "/ctrl_menu/historial_pagos");
 	});
 
+	// Informes
+	$("#menu_socios_inf").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/informe_socios");
+	});
+
 	// Configuración
 	$("#menu_usuarios").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/usuarios");

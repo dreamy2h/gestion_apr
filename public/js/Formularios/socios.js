@@ -280,11 +280,15 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_entrada").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#dt_fecha_nacimiento").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#txt_calle").on("blur", function() {

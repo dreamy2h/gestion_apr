@@ -56,22 +56,22 @@
                             <div class="collapse" id="collapseFormularios" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" id="menu_socios">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-male mr-1"></i></div> Socios
+                                        <div class="sb-nav-link-icon"><i class="fas fa-male"></i></div> Socios
                                     </a>
                                     <a class="nav-link" id="menu_arranques">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-swimming-pool mr-1"></i></div> Arranques
+                                        <div class="sb-nav-link-icon"><i class="fas fa-swimming-pool"></i></div> Arranques
                                     </a>
                                     <a class="nav-link" id="menu_sectores">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-location-arrow mr-1"></i></div> Sectores
+                                        <div class="sb-nav-link-icon"><i class="fas fa-location-arrow"></i></div> Sectores
                                     </a>
                                     <a class="nav-link" id="menu_subsidios">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd mr-1"></i></div> Subsidios
+                                        <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div> Subsidios
                                     </a>
                                     <a class="nav-link" id="menu_convenios">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-handshake mr-1"></i></div> Convenios
+                                        <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div> Convenios
                                     </a>
                                     <a class="nav-link" id="menu_medidores">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-faucet mr-1"></i></div> Medidores
+                                        <div class="sb-nav-link-icon"><i class="fas fa-faucet"></i></div> Medidores
                                     </a>
                                 </nav>
                             </div>
@@ -83,7 +83,7 @@
                             <div class="collapse" id="collapseConsumo" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" id="menu_metros">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-tint mr-1"></i></div> Metros
+                                        <div class="sb-nav-link-icon"><i class="fas fa-tint"></i></div> Metros
                                     </a>
                                 </nav>
                             </div>
@@ -95,13 +95,46 @@
                             <div class="collapse" id="collapsePagos" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" id="menu_caja">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-cash-register mr-1"></i></div> Caja
+                                        <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div> Caja
                                     </a>
                                     <a class="nav-link" id="menu_hist_pago">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-file-invoice mr-1"></i></div> Historial de Pagos
+                                        <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div> Historial de Pagos
                                     </a>
                                     <a class="nav-link" id="menu_boleta_electronica">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-receipt mr-1"></i></div> Boleta Electrónica
+                                        <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div> Boleta Electrónica
+                                    </a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInformes" aria-expanded="false" aria-controls="collapseInformes">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-pdf"></i></div>
+                                Informes
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseInformes" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" id="menu_socios_inf">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-male"></i></div> Socios
+                                    </a>
+                                    <a class="nav-link" id="menu_arranques_inf">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-swimming-pool"></i></div> Arranques
+                                    </a>
+                                    <a class="nav-link" id="menu_pagos_diarios">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-money-bill-alt"></i></div> Pagos Diarios
+                                    </a>
+                                    <a class="nav-link" id="menu_subsidios_inf">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div> Subsidios
+                                    </a>
+                                    <a class="nav-link" id="menu_arqueo">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div> Arqueo
+                                    </a>
+                                    <a class="nav-link" id="menu_balance">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-balance-scale-left"></i></div> Balance
+                                    </a>
+                                    <a class="nav-link" id="menu_afecto_corte">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-cut"></i></div> Afecto a Corte
+                                    </a>
+                                    <a class="nav-link" id="menu_mensualidad">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div> Mensualidad
                                     </a>
                                 </nav>
                             </div>
@@ -113,13 +146,13 @@
                             <div class="collapse" id="collapseConfiguracion" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" id="menu_usuarios">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-user mr-1"></i></div> Usuarios
+                                        <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div> Usuarios
                                     </a>
                                     <a class="nav-link" id="menu_apr">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-house-user mr-1"></i></div> APR
+                                        <div class="sb-nav-link-icon"><i class="fas fa-house-user"></i></div> APR
                                     </a>
                                     <a class="nav-link" id="menu_costo_metros">
-                                        <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign mr-1"></i></div> Costo Metros
+                                        <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div> Costo Metros
                                     </a>
                                 </nav>
                             </div>

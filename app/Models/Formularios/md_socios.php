@@ -89,5 +89,116 @@
     	 		return false;
     	 	}
 	    }
+
+	    public function datatable_informe_socios($db, $id_apr, $datosBusqueda, $origen) {
+	    	$consulta = "SELECT 
+							s.id as id_socio,
+						    concat(s.rut, '-', s.dv) as rut,
+						    s.rol,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_completo,
+						    date_format(s.fecha_entrada, '%d-%m-%Y') as fecha_entrada,
+						    date_format(s.fecha_nacimiento, '%d-%m-%Y') as fecha_nacimiento,
+						    IFNULL(ELT(FIELD(s.id_sexo, 1, 2), 'Masculino','Femenino'), 'Sin registro') as sexo,
+						    ifnull(s.calle, 'Sin registro') as calle,
+						    ifnull(s.numero, 0) as numero,
+						    ifnull(s.resto_direccion, 'Sin registro') as resto_direccion,
+						    ifnull(c.nombre, 'Sin registro') as comuna,
+						    IFNULL(ELT(FIELD(s.estado, 0, 1), 'Desactivado','Activado'), 'Sin registro') as estado
+						FROM 
+							socios s
+						    left join comunas c on s.id_comuna = c.id
+						where
+							s.id_apr = ?";
+
+			$bind = [$id_apr];
+
+			if ($datosBusqueda != "") {
+				$datos = explode(",", $datosBusqueda);
+
+				$id_socio = $datos[0];
+				$desde_entrada = $datos[1];
+				$hasta_entrada = $datos[2];
+				$desde_nac = $datos[3];
+				$hasta_nac = $datos[4];
+				$calle = $datos[5];
+				$n_casa = $datos[6];
+				$resto_direccion = $datos[7];
+				$id_sexo = $datos[8];
+				$estado = $datos[9];
+
+				if ($id_socio != "") {
+					$consulta .= " and s.id = ?";
+					array_push($bind, $id_socio);
+				}
+
+				if ($desde_entrada != "" && $hasta_entrada != "") {
+					$consulta .= " and date_format(s.fecha_entrada, '%d-%m-%Y') between ? and ?";
+					array_push($bind, $desde_entrada, $hasta_entrada);
+				}
+
+				if ($desde_nac != "" && $hasta_nac != "") {
+					$consulta .= " and date_format(s.fecha_nac, '%d-%m-%Y') between ? and ?";
+					array_push($bind, $desde_nac, $hasta_nac);
+				}
+
+				if ($calle != "") {
+					$consulta .= " and s.calle like concat('%', ?, '%')";
+					array_push($bind, $calle);
+				}
+
+				if ($n_casa != "") {
+					$consulta .= " and s.numero like concat('%', ?, '%')";
+					array_push($bind, $n_casa);
+				}
+
+				if ($resto_direccion != "") {
+					$consulta .= " and s.resto_direccion like concat('%', ?, '%')";
+					array_push($bind, $resto_direccion);
+				}
+
+				if ($id_sexo != "") {
+					$consulta .= " and s.id_sexo = ?";
+					array_push($bind, $id_sexo);
+				}
+
+				if ($estado != "") {
+					$consulta .= " and s.estado = ?";
+					array_push($bind, $estado);
+				}
+			}
+
+			$query = $db->query($consulta, $bind);
+			$socios = $query->getResultArray();
+
+			foreach ($socios as $key) {
+				$row = array(
+					"id_socio" => $key["id_socio"],
+					"rut" => $key["rut"],
+					"rol" => $key["rol"],
+					"nombre_completo" => $key["nombre_completo"],
+					"fecha_entrada" => $key["fecha_entrada"],
+					"fecha_nacimiento" => $key["fecha_nacimiento"],
+					"sexo" => $key["sexo"],
+					"calle" => $key["calle"],
+					"numero" => $key["numero"],
+					"resto_direccion" => $key["resto_direccion"],
+					"comuna" => $key["comuna"],
+					"estado" => $key["estado"]
+				);
+
+				$data[] = $row;
+			}
+
+			if ($origen == "datatable") {
+				if (isset($data)) {
+					$salida = array("data" => $data);
+					return json_encode($salida);
+				} else {
+					return "{ \"data\": [] }";
+				}
+			} else {
+				return $socios;
+			}
+	    }
 	}
 ?>

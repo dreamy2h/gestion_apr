@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
+	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
 
 	    public function datatable_metros($db, $id_apr) {
 	    	define("ELIMINADO", 0);
@@ -162,6 +162,7 @@
 
 	    	$consulta = "SELECT 
 							m.id as id_metros,
+							m.folio_bolect,
 							m.id_socio,
 							soc.rut as rut_socio,
 							soc.rol as rol_socio,
@@ -229,6 +230,7 @@
 			foreach ($metros as $key) {
 				$row = array(
 					"id_metros" => $key["id_metros"],
+					"folio_bolect" => $key["folio_bolect"],
 					"id_socio" => $key["id_socio"],
 					"rut_socio" => $key["rut_socio"],
 					"rol_socio" => $key["rol_socio"],

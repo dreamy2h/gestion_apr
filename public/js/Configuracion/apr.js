@@ -104,7 +104,7 @@ function llenar_cmb_comuna() {
 
 function guardar_apr() {
     var id_apr = $("#txt_id_apr").val();
-    var rut_apr = $("#txt_rut_apr").val().replace(".", "");
+    var rut_apr = $("#txt_rut_apr").val().split(".").join("");
     var nombre_apr = $("#txt_nombre_apr").val();
     var hash_sii = $("#txt_hash_sii").val();
     var codigo_comercio = $("#txt_codigo_comercio").val();

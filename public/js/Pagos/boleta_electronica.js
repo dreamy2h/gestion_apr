@@ -56,8 +56,81 @@ var peso = {
     }
 }
 
-function seleccionardp() {
-   
+function emitir_dte() {
+   	var data = $("#grid_boletas").DataTable().rows('.selected').data();
+  	var arr_boletas = [];
+  	$(data).each(function(i,fila) {
+    	if (fila.folio_bolect == 0) {
+    		arr_boletas.push(fila.id_metros);
+    	}
+  	});
+
+  	if (arr_boletas.length > 0) {
+  		$(".div_sample").JQLoader({
+			theme: "standard",
+			mask: true,
+			background: "#fff",
+			color: "#fff"
+		});
+
+		$.ajax({
+	        url: base_url + "/Pagos/ctrl_boleta_electronica/emitir_dte",
+	        type: "POST",
+	        async: false,
+	        data: { arr_boletas: arr_boletas },
+	        success: function(respuesta) {
+	            const OK = 1;
+	            if (respuesta == OK) {
+	            	buscar_boletas();
+	                alerta.ok("alerta", "Boletas generadas con éxito");
+	            } else {
+	                Swal.fire({
+					  	icon: 'error',
+					  	title: 'Errores',
+					  	html: respuesta,
+					  	footer: 'Procedimiento terminado con errores'
+					});
+	            }
+	            $(".div_sample").JQLoader({
+					theme: "standard",
+					mask: true,
+					background: "#fff",
+					color: "#fff",
+					action: "close"
+				});
+	        },
+	        error: function(error) {
+	            $(".div_sample").JQLoader({
+					theme: "standard",
+					mask: true,
+					background: "#fff",
+					color: "#fff",
+					action: "close"
+				});
+	            respuesta = JSON.parse(error["responseText"]);
+	            alerta.error("alerta", respuesta.message);
+	        }
+	    });
+  	} else {
+  		alerta.error("alerta", "Seleccione al menos una boleta, sin folio SII")
+  	}
+}
+
+function imprimir_dte() {
+	var data = $("#grid_boletas").DataTable().rows('.selected').data();
+  	var arr_boletas = [];
+  	$(data).each(function(i,fila) {
+    	if (fila.folio_bolect > 0) {
+    		arr_boletas.push(fila.id_metros);
+    	}
+  	});
+
+  	if (arr_boletas.length > 0) {
+  		var url = base_url + "/Pagos/ctrl_boleta_electronica/imprimir_dte/" + arr_boletas;
+        window.open(url, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
+  	} else {
+  		alerta.error("alerta", "Seleccione al menos una boleta, con folio SII")
+  	}
 }
 
 $(document).ready(function() {
@@ -91,16 +164,11 @@ $(document).ready(function() {
     });
 
     $("#btn_emitir").on("click", function() {
-    	var arr_boletas = [];
-	    $("#grid_boletas tr").each(function(value) {
-	        if ($(this).closest("tr").hasClass("selected")) {
-	            var fila = $(this).closest("tr");
-	            var id_metros = fila[0].id_metros;
-	            arr_boletas.push(id_metros);
-	        }
-	    });
+    	emitir_dte();
+    });
 
-	    alert(arr_boletas);
+    $("#btn_imprimir").on("click", function() {
+    	imprimir_dte();
     });
 
 	var grid_boletas = $("#grid_boletas").DataTable({
@@ -113,6 +181,7 @@ $(document).ready(function() {
         orderClasses: true,
         columns: [
             { "data": "id_metros" },
+            { "data": "folio_bolect" },
             { "data": "id_socio" },
             { "data": "rut_socio" },
             { "data": "rol_socio" },
@@ -165,7 +234,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 18], "visible": false, "searchable": false }
+            { "targets": [0, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 19], "visible": false, "searchable": false }
         ],
         dom: 'Bfrtip',
         buttons: [

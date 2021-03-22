@@ -106,6 +106,7 @@
 					                        <thead class="thead-dark">
 					                            <tr>
 					                            	<th>Id.</th>
+					                            	<th>Folio SII</th>
 					                            	<th>id_socio</th>
 					                            	<th>rut_socio</th>
 					                                <th>rol_socio</th>

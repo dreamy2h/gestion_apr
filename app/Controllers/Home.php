@@ -21,7 +21,7 @@ class Home extends BaseController {
 			echo view("content");
 			echo view("footer");
     	} else {
-			echo view("login");
+			return redirect()->to("http://localhost/gestion_apr/public/");
     	}
 	}
 }

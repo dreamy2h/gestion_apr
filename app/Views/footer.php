@@ -1,15 +1,16 @@
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; DevTeam 2020</div>
-                            <div>
-                                <a href="#">Facebook</a>
-                                &middot;
-                                <a href="#">Sitio Web</a>
+                    <footer class="py-4 bg-light mt-auto">
+                        <div class="container-fluid">
+                            <div class="d-flex align-items-center justify-content-between small">
+                                <div class="text-muted">Copyright &copy; DevTeam 2020</div>
+                                <div>
+                                    <a href="#">Facebook</a>
+                                    &middot;
+                                    <a href="#">Sitio Web</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </footer>
+                    </footer>
+                </div>
             </div>
         </div>
         <script src="<?php echo base_url(); ?>/js/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
@@ -39,5 +40,6 @@
         <script src="<?php echo base_url(); ?>/fileinput-bootstrap/js/locales/es.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/fileinput-bootstrap/themes/fas/theme.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/fileinput-bootstrap/themes/explorer-fas/theme.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/loader-screen-bar/js/JQLoader.js" type="text/javascript"></script>
     </body>
 </html>

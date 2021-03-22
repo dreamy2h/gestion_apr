@@ -110,7 +110,6 @@ $(document).ready(function() {
         $("#dt_hasta").prop("disabled", true);
     });
 
-
 	var grid_pagos = $("#grid_pagos").DataTable({
 		responsive: true,
         paging: true,

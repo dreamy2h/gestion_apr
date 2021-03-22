@@ -40,6 +40,10 @@ $(document).ready(function() {
 		$("#content").load(base_url + "/ctrl_menu/historial_pagos");
 	});
 
+	$("#menu_boleta_electronica").click(function() {
+		$("#content").load(base_url + "/ctrl_menu/boleta_electronica");
+	});
+
 	// Informes
 	$("#menu_socios_inf").click(function() {
 		$("#content").load(base_url + "/ctrl_menu/informe_socios");

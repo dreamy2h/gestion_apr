@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
 {
     public static $files = array (
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
@@ -69,11 +70,15 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
         '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
         '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
         'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+            'sasco\\LibreDTE\\SDK\\' => 19,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -104,6 +109,7 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
         'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
+            'Mpdf\\' => 5,
             'Matrix\\' => 7,
         ),
         'L' => 
@@ -132,6 +138,14 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
+        'sasco\\LibreDTE\\SDK\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sasco/libredte-sdk-php/sdk',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -186,6 +200,10 @@ class ComposerStaticInitffbcc3bf6b9f1c6dc1e0cdd706f561b1
         'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
         ),
         'Matrix\\' => 
         array (

@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
+	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr'];
 
 	    public function datatable_metros($db, $id_apr) {
 	    	define("ELIMINADO", 0);
@@ -153,6 +153,114 @@
 				return json_encode($salida);
 			} else {
 				return "{ \"data\": [] }";
+			}
+	    }
+
+	    public function datatable_boleta_electronica($db, $id_apr, $datosBusqueda) {
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
+
+	    	$consulta = "SELECT 
+							m.id as id_metros,
+							m.folio_bolect,
+							m.id_socio,
+							soc.rut as rut_socio,
+							soc.rol as rol_socio,
+							concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio,
+							a.id as id_arranque,
+						    ifnull(p.glosa, '0%') as subsidio,
+						    (select tope_subsidio from apr where id = m.id_apr) as tope_subsidio,
+						    ifnull(m.monto_subsidio, 0) as monto_subsidio,
+							sec.nombre as sector,
+							med.id_diametro,
+							d.glosa as diametro,
+							date_format(m.fecha_ingreso, '%d-%m-%Y') as fecha_ingreso,
+							date_format(m.fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento,
+							m.consumo_anterior,
+							m.consumo_actual,
+							m.metros,
+							ifnull(m.subtotal, 0) as subtotal,
+							ifnull(m.multa, 0) as multa,
+							ifnull(m.total_servicios, 0) as total_servicios,
+							ifnull(m.total_mes, 0) as total_mes
+						from 
+							metros m
+							inner join socios soc on m.id_socio = soc.id
+							inner join arranques a on a.id_socio = soc.id
+							inner join sectores sec on a.id_sector = sec.id
+							left join subsidios sub on sub.id_socio = soc.id
+							left join porcentajes p on sub.id_porcentaje = p.id
+							inner join usuarios u on m.id_usuario = u.id
+						    inner join medidores med on a.id_medidor = med.id
+						    inner join diametro d on med.id_diametro = d.id
+						where 
+							m.estado <> ? and
+							m.id_apr = ?";
+            
+            $bind = [$estado, $id_apr];
+
+			if ($datosBusqueda != "") {
+				$datos = explode(",", $datosBusqueda);
+
+				$id_socio = $datos[0];
+				$mes_año = $datos[1];
+				$id_sector = $datos[2];
+
+				if ($id_socio != "") {
+					$consulta .= " and m.id_socio = ?";
+					array_push($bind, $id_socio);
+				}
+
+				if ($mes_año != "") {
+					$consulta .= " and date_format(m.fecha_vencimiento, '%m-%Y') = ?";
+					array_push($bind, $mes_año);
+				}
+
+				if ($id_sector != "") {
+					$consulta .= " and a.id_sector = ?";
+					array_push($bind, $id_sector);
+				}
+			}
+			
+			$consulta .= " order by m.fecha_vencimiento asc";
+
+			$query = $db->query($consulta, $bind);
+			$metros = $query->getResultArray();
+
+			foreach ($metros as $key) {
+				$row = array(
+					"id_metros" => $key["id_metros"],
+					"folio_bolect" => $key["folio_bolect"],
+					"id_socio" => $key["id_socio"],
+					"rut_socio" => $key["rut_socio"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"id_arranque" => $key["id_arranque"],
+					"subsidio" => $key["subsidio"],
+					"tope_subsidio" => $key["tope_subsidio"],
+					"monto_subsidio" => $key["monto_subsidio"],
+					"sector" => $key["sector"],
+					"id_diametro" => $key["id_diametro"],
+					"diametro" => $key["diametro"],
+					"fecha_ingreso" => $key["fecha_ingreso"],
+					"fecha_vencimiento" => $key["fecha_vencimiento"],
+					"consumo_anterior" => $key["consumo_anterior"],
+					"consumo_actual" => $key["consumo_actual"],
+					"metros" => $key["metros"],
+					"subtotal" => $key["subtotal"],
+					"multa" => $key["multa"],
+					"total_servicios" => $key["total_servicios"],
+					"total_mes" => $key["total_mes"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
 			}
 	    }
 	}

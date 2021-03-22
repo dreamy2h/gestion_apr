@@ -68,6 +68,11 @@
 			echo view('Pagos/historial_pagos');
 		}
 
+		public function boleta_electronica() {
+			$this->validar_sesion();
+			echo view('Pagos/boleta_electronica');
+		}
+
 		public function informe_socios() {
 			$this->validar_sesion();
 			echo view('Informes/informe_socios');	
@@ -75,7 +80,7 @@
 
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
-				echo "La sesión expiró, actualice el sitio web con F5";
+				return redirect()->to("http://localhost/gestion_apr/public/");
 				exit();
 	    	}
 		}

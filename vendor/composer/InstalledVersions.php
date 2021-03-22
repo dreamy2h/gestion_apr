@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '14755732b6aabb002ad42ed2c5b6a1dba4957a57',
+    'reference' => '52b440fd35a570a0100d1f8540fbb7b855ed4a4a',
     'name' => 'codeigniter4/framework',
   ),
   'versions' => 
@@ -50,7 +50,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '14755732b6aabb002ad42ed2c5b6a1dba4957a57',
+      'reference' => '52b440fd35a570a0100d1f8540fbb7b855ed4a4a',
     ),
     'doctrine/instantiator' => 
     array (
@@ -143,6 +143,15 @@ private static $installed = array (
       ),
       'reference' => '231c73783ebb7dd9ec77916c10037eff5a2b6efe',
     ),
+    'mpdf/mpdf' => 
+    array (
+      'pretty_version' => 'v8.0.10',
+      'version' => '8.0.10.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1333a962cd2f7ae1a127b7534b7734b58179186f',
+    ),
     'myclabs/deep-copy' => 
     array (
       'pretty_version' => '1.10.2',
@@ -164,6 +173,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '46cf3d8498b095bd33727b13fd5707263af99421',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
     ),
     'phar-io/manifest' => 
     array (
@@ -336,6 +354,15 @@ private static $installed = array (
       ),
       'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
     ),
+    'sasco/libredte-sdk-php' => 
+    array (
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bd324372d78b413ddf57e7e0de57c55d5306a48a',
+    ),
     'sebastian/code-unit-reverse-lookup' => 
     array (
       'pretty_version' => '1.0.2',
@@ -443,6 +470,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '99732be0ddb3361e16ad77b68ba41efc8e979019',
+    ),
+    'setasign/fpdi' => 
+    array (
+      'pretty_version' => 'v2.3.6',
+      'version' => '2.3.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6231e315f73e4f62d72b73f3d6d78ff0eed93c31',
     ),
     'squizlabs/php_codesniffer' => 
     array (

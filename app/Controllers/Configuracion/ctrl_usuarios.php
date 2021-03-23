@@ -290,6 +290,7 @@
 			if ($opcion == "guardar") {
 	    		$estado = ACTIVAR;
 	    		$estado_traza = ASIGNAR_PERMISO;
+	    		$observacion = "Id permiso agregado: $id_permiso";
 
 		    	$consulta = $this->permisos_usuario->select("count(*) as filas")->where("id_usuario", $id_usuario)->where("id_permiso", $id_permiso)->first();
 				$filas = $consulta["filas"];

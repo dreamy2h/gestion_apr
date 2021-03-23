@@ -54,6 +54,7 @@ function guardar_permisos_usuario(id_permiso, opcion) {
 $(document).ready(function() {
     var grid_usuario_permisos = $("#grid_usuario_permisos").DataTable({
 		responsive: true,
+        paging:   false,
         scrollY: '50vh',
         scrollCollapse: true,
         destroy: true,
@@ -81,7 +82,7 @@ $(document).ready(function() {
             "search": "Buscar:",
             "zeroRecords": "Sin resultados encontrados",
             "select": {
-                "rows": "<br/>%d Perfiles Seleccionados"
+                "rows": "<br/>%d Permisos Seleccionados"
             }
         }
 	});

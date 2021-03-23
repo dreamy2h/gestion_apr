@@ -1,11 +1,23 @@
 <?php 
 	namespace App\Controllers;
+	use App\Models\Configuracion\md_permisos_usuario;
 
 	class ctrl_menu extends BaseController {
 		protected $sesión;
+		protected $permisos_usuario;
+		protected $db;
 
 		public function __construct() {
 			$this->sesión = session();
+			$this->permisos_usuario = new md_permisos_usuario();
+			$this->db = \Config\Database::connect();
+		}
+
+		public function permisos_usuario() {
+			$this->validar_sesion();
+			$id_usuario = $this->sesión->id_usuario_ses;
+
+			echo $this->permisos_usuario->permisos_usuario($this->db, $id_usuario);
 		}
 
 		public function usuarios() {

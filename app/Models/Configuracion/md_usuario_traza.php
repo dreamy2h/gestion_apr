@@ -42,7 +42,7 @@
 				$salida = array("data" => $data);
 				return json_encode($salida);
 			} else {
-				return "[]";
+				return "{ \"data\": [] }";
 			}
 	    }
 	}

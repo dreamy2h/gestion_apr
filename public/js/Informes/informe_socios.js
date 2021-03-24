@@ -1,96 +1,13 @@
 var base_url = $("#txt_base_url").val();
 
-function buscar_socios() {
-    var id_socio = $("#txt_id_socio").val();
-    var desde_entrada = $("#dt_desde_entrada").val();
-    var hasta_entrada = $("#dt_hasta_entrada").val();
-    var desde_nac = $("#dt_desde_nac").val();
-    var hasta_nac = $("#dt_hasta_nac").val();
-    var calle = $("#txt_calle").val();
-    var n_casa = $("#txt_n_casa").val();
-    var resto_direccion = $("#txt_resto_direccion").val();
-    var id_sexo = $("#cmb_sexo").val();
-    var estado = $("#cmb_estado").val();
-
-    var datosBusqueda = [id_socio, desde_entrada, hasta_entrada, desde_nac, hasta_nac, calle, n_casa, resto_direccion, id_sexo, estado];
-
-    $("#grid_socios").dataTable().fnReloadAjax(base_url + "/Informes/ctrl_informe_socios/datatable_informe_socios/" + datosBusqueda);
-}
-
-function exportar_excel() {
-    var id_socio = $("#txt_id_socio").val();
-    var desde_entrada = $("#dt_desde_entrada").val();
-    var hasta_entrada = $("#dt_hasta_entrada").val();
-    var desde_nac = $("#dt_desde_nac").val();
-    var hasta_nac = $("#dt_hasta_nac").val();
-    var calle = $("#txt_calle").val();
-    var n_casa = $("#txt_n_casa").val();
-    var resto_direccion = $("#txt_resto_direccion").val();
-    var id_sexo = $("#cmb_sexo").val();
-    var estado = $("#cmb_estado").val();
-
-    var datosBusqueda = [id_socio, desde_entrada, hasta_entrada, desde_nac, hasta_nac, calle, n_casa, resto_direccion, id_sexo, estado];
-
-    var url = base_url + "/Informes/ctrl_informe_socios/exportar_excel/" + datosBusqueda;
-    window.open(url, target = "medio", "width=1200,height=800,location=0,scrollbars=yes,");
-}
-
 $(document).ready(function() {
-    $("#txt_id_socio").prop("readonly", true);
-    $("#txt_rut_socio").prop("readonly", true);
-    $("#txt_rol").prop("readonly", true);
-    $("#txt_nombre_socio").prop("readonly", true);
-
-    $("#btn_buscar_socio").on("click", function() {
-        $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_informe_socios"
-        ); 
-
-        $('#dlg_buscar_socio').modal('show');
-    });
-
-    $("#dt_desde_entrada").datetimepicker({
-        format: "DD-MM-YYYY",
-        useCurrent: false,
-        locale: moment.locale("es")
-    });
-
-    $("#dt_hasta_entrada").datetimepicker({
-        format: "DD-MM-YYYY",
-        useCurrent: false,
-        locale: moment.locale("es")
-    });
-
-    $("#dt_desde_nac").datetimepicker({
-        format: "DD-MM-YYYY",
-        useCurrent: false,
-        locale: moment.locale("es")
-    });
-
-    $("#dt_hasta_nac").datetimepicker({
-        format: "DD-MM-YYYY",
-        useCurrent: false,
-        locale: moment.locale("es")
-    });
-
-    $("#btn_buscar").on("click", function() {
-        if ($("#form_informe_socios").valid()) {
-            buscar_socios();
-        }
-    });
-
-    $("#btn_excel").on("click", function() {
-        exportar_excel();
-    });
-
-    var datosBusqueda = ["", "", "", "", "", "", "", "", "", ""];
-
     var grid_socios = $("#grid_socios").DataTable({
 		responsive: true,
         scrollCollapse: true,
         destroy: true,
-        ajax: base_url + "/Informes/ctrl_informe_socios/datatable_informe_socios/" + datosBusqueda,
+        ajax: base_url + "/Informes/ctrl_informe_socios/datatable_informe_socios",
         orderClasses: true,
+        dom: 'Bfrtilp', 
         columns: [
             { "data": "id_socio" },
             { "data": "rut" },
@@ -104,6 +21,31 @@ $(document).ready(function() {
             { "data": "resto_direccion" },
             { "data": "comuna" },
             { "data": "estado" }
+        ],
+        buttons: [ 
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fas fa-file-excel"></i> Excel',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-success',
+                title: "Informe de Socios"
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fas fa-file-pdf"></i> PDF',
+                titleAttr: 'Exportar a PDF',
+                className: 'btn btn-danger',
+                title: "Informe de Socios",
+                orientation: 'landscape',
+                pageSize: 'LETTER'
+            },
+            {
+                extend:    'print',
+                text:      '<i class="fa fa-print"></i> Imprimir',
+                titleAttr: 'Imprimir',
+                className: 'btn btn-info',
+                title: "Informe de Socios"
+            },
         ],
         language: {
             "decimal": "",

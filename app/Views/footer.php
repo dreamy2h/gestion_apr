@@ -21,6 +21,13 @@
         <script src="<?php echo base_url(); ?>/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/dataTables.select.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/dataTables.responsive.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/buttons.bootstrap4.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/jszip.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/pdfmake.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/vfs_fonts.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/buttons.html5.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/buttons.print.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/buttons.colVis.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/sum().js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/assets/demo/datatables-demo.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/moment-with-locales.min.js" type="text/javascript"></script>

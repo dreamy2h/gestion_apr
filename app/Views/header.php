@@ -15,6 +15,7 @@
         <link href="<?php echo base_url(); ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/buttons.dataTables.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/select.dataTables.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>/css/buttons.bootstrap4.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/jquerysctipttop.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>/Multiple-Select/dist/css/bootstrap-multiselect.min.css" rel="stylesheet">

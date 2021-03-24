@@ -90,7 +90,7 @@
     	 	}
 	    }
 
-	    public function datatable_informe_socios($db, $id_apr, $datosBusqueda, $origen) {
+	    public function datatable_informe_socios($db, $id_apr) {
 	    	$consulta = "SELECT 
 							s.id as id_socio,
 						    concat(s.rut, '-', s.dv) as rut,
@@ -110,64 +110,7 @@
 						where
 							s.id_apr = ?";
 
-			$bind = [$id_apr];
-
-			if ($datosBusqueda != "") {
-				$datos = explode(",", $datosBusqueda);
-
-				$id_socio = $datos[0];
-				$desde_entrada = $datos[1];
-				$hasta_entrada = $datos[2];
-				$desde_nac = $datos[3];
-				$hasta_nac = $datos[4];
-				$calle = $datos[5];
-				$n_casa = $datos[6];
-				$resto_direccion = $datos[7];
-				$id_sexo = $datos[8];
-				$estado = $datos[9];
-
-				if ($id_socio != "") {
-					$consulta .= " and s.id = ?";
-					array_push($bind, $id_socio);
-				}
-
-				if ($desde_entrada != "" && $hasta_entrada != "") {
-					$consulta .= " and date_format(s.fecha_entrada, '%d-%m-%Y') between ? and ?";
-					array_push($bind, $desde_entrada, $hasta_entrada);
-				}
-
-				if ($desde_nac != "" && $hasta_nac != "") {
-					$consulta .= " and date_format(s.fecha_nac, '%d-%m-%Y') between ? and ?";
-					array_push($bind, $desde_nac, $hasta_nac);
-				}
-
-				if ($calle != "") {
-					$consulta .= " and s.calle like concat('%', ?, '%')";
-					array_push($bind, $calle);
-				}
-
-				if ($n_casa != "") {
-					$consulta .= " and s.numero like concat('%', ?, '%')";
-					array_push($bind, $n_casa);
-				}
-
-				if ($resto_direccion != "") {
-					$consulta .= " and s.resto_direccion like concat('%', ?, '%')";
-					array_push($bind, $resto_direccion);
-				}
-
-				if ($id_sexo != "") {
-					$consulta .= " and s.id_sexo = ?";
-					array_push($bind, $id_sexo);
-				}
-
-				if ($estado != "") {
-					$consulta .= " and s.estado = ?";
-					array_push($bind, $estado);
-				}
-			}
-
-			$query = $db->query($consulta, $bind);
+			$query = $db->query($consulta, [$id_apr]);
 			$socios = $query->getResultArray();
 
 			foreach ($socios as $key) {
@@ -189,15 +132,11 @@
 				$data[] = $row;
 			}
 
-			if ($origen == "datatable") {
-				if (isset($data)) {
-					$salida = array("data" => $data);
-					return json_encode($salida);
-				} else {
-					return "{ \"data\": [] }";
-				}
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
 			} else {
-				return $socios;
+				return "{ \"data\": [] }";
 			}
 	    }
 	}

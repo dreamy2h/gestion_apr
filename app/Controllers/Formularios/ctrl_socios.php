@@ -66,7 +66,7 @@
 			$rut = $rut_completo[0];
 			$dv = $rut_completo[1];
 
-			if ($this->socios->existe_socio($rut, $rol)) {
+			if ($this->socios->existe_socio($rut, $rol) and $id_socio == "") {
 				echo "Socio ya existe en el sistema";
 				exit();
 			}

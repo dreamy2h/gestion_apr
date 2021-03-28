@@ -1,7 +1,6 @@
 var base_url = $("#txt_base_url").val();
 
 function cargar_page(ruta) {
-	console.log("ruta: " + ruta);
 	$("#content").load(base_url + ruta);
 }
 

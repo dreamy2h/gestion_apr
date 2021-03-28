@@ -36,7 +36,7 @@ function mostrar_datos_arranque(data) {
     $("#txt_id_arranque").val(data["id_arranque"]);
     $("#txt_id_socio").val(data["id_socio"]);
     $("#txt_rut_socio").val(data["rut_socio"]);
-    $("#txt_rol_socio").val(data["rol_socio"]);
+    $("#txt_rol").val(data["rol_socio"]);
     $("#txt_nombre_socio").val(data["nombre_socio"]);
     id_medidor = data["id_medidor"];
     $("#cmb_medidor").val(data["n_medidor"]);
@@ -532,7 +532,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 3, 5, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
+            { "targets": [1, 2, 5, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

@@ -194,7 +194,7 @@ $(document).ready(function() {
             txt_numero: {
                 required: true,
                 digits: true,
-                maxlength: 11
+                maxlength: 20
             },
             cmb_diametro: {
                 required: true

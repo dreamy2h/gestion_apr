@@ -191,30 +191,30 @@
 					                    <table id="grid_arranques" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Id.</th>
-					                            	<th width="0%">id_socio</th>
-					                            	<th width="0%">rut_socio</th>
-					                                <th width="0%">rol_socio</th>
-					                                <th width="20%">Nombre Socio</th>
-					                                <th width="0%">id_medidor</th>
-					                                <th width="10%">N° Medidor</th>
-					                                <th width="0%">id_diametro</th>
-					                                <th width="10%">Diámetro</th>
-					                                <th width="0%">id_sector</th>
-					                                <th width="10%">Sector</th>
-					                                <th width="10%">Alcantarillado</th>
-					                                <th width="0%">Cuota Socio</th>
-					                                <th width="0%">id_region</th>
-					                                <th width="0%">id_provincia</th>
-					                                <th width="0%">id_comuna</th>
-					                                <th width="0%">calle</th>
-					                                <th width="0%">numero</th>
-					                                <th width="0%">resto_direccion</th>
-					                                <th width="0%">id_tipo_documento</th>
-					                                <th width="0%">Descuento</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>Id.</th>
+					                            	<th>id_socio</th>
+					                            	<th>rut_socio</th>
+					                                <th>Rol</th>
+					                                <th>Nombre Socio</th>
+					                                <th>id_medidor</th>
+					                                <th>N° Medidor</th>
+					                                <th>id_diametro</th>
+					                                <th>Diámetro</th>
+					                                <th>id_sector</th>
+					                                <th>Sector</th>
+					                                <th>Alcantarillado</th>
+					                                <th>Cuota Socio</th>
+					                                <th>id_region</th>
+					                                <th>id_provincia</th>
+					                                <th>id_comuna</th>
+					                                <th>calle</th>
+					                                <th>numero</th>
+					                                <th>resto_direccion</th>
+					                                <th>id_tipo_documento</th>
+					                                <th>Descuento</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

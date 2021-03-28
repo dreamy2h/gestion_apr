@@ -131,4 +131,9 @@ $(document).ready(function() {
             $('#dlg_buscar_socio').modal('hide');
         }
     });
+
+    setTimeout(function() {
+        $('#grid_buscar_socio_filter input[type=search]').focus();    
+    }, 500);
+    
 });

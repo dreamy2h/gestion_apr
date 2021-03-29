@@ -56,7 +56,7 @@ function guardar_subsidio() {
     var d_unico = $("#txt_d_unico").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_subsidios/guardar_subsidio",
+        url: base_url + "/Formularios/Ctrl_subsidios/guardar_subsidio",
         type: "POST",
         async: false,
         data: {
@@ -77,7 +77,7 @@ function guardar_subsidio() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_subsidios").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_subsidios/datatable_subsidios");
+                $("#grid_subsidios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_subsidios/datatable_subsidios");
                 $("#form_subsidio")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Subsidio guardado con éxito");
@@ -98,7 +98,7 @@ function eliminar_subsidio(opcion, observacion, id_subsidio) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_subsidios/eliminar_subsidio",
+        url: base_url + "/Formularios/Ctrl_subsidios/eliminar_subsidio",
         type: "POST",
         async: false,
         data: { 
@@ -117,7 +117,7 @@ function eliminar_subsidio(opcion, observacion, id_subsidio) {
                     alerta.ok("alerta", "Subsidio reciclado con éxito");
                 }
 
-                $("#grid_subsidios").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_subsidios/datatable_subsidios");
+                $("#grid_subsidios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_subsidios/datatable_subsidios");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -138,7 +138,7 @@ function llenar_cmb_porcentaje() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_subsidios/llenar_cmb_porcentaje",
+        url: base_url + "/Formularios/Ctrl_subsidios/llenar_cmb_porcentaje",
     }).done( function(data) {
         $("#cmb_porcentaje").html('');
 
@@ -215,7 +215,7 @@ $(document).ready(function() {
 
     $("#btn_reciclar").on("click", function() {
         $("#divContenedorReciclarSubsidio").load(
-            base_url + "/Formularios/ctrl_subsidios/v_subsidio_reciclar"
+            base_url + "/Formularios/Ctrl_subsidios/v_subsidio_reciclar"
         ); 
 
         $('#dlg_reciclar_subsidio').modal('show');
@@ -223,7 +223,7 @@ $(document).ready(function() {
 
     $("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_subsidios"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_subsidios"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -342,7 +342,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_subsidios/datatable_subsidios",
+        ajax: base_url + "/Formularios/Ctrl_subsidios/datatable_subsidios",
         orderClasses: true,
         columns: [
             { "data": "id_subsidio" },
@@ -410,7 +410,7 @@ $(document).ready(function() {
     $("#grid_subsidios tbody").on("click", "button.traza_subsidio", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaSubsidio").load(
-                base_url + "/Formularios/ctrl_subsidios/v_subsidio_traza"
+                base_url + "/Formularios/Ctrl_subsidios/v_subsidio_traza"
             ); 
 
             $('#dlg_traza_subsidio').modal('show');

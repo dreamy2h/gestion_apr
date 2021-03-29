@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Configuracion/ctrl_usuarios/datatable_usuarios_traza/" + id_usuario,
+        ajax: base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios_traza/" + id_usuario,
         orderClasses: true,
         columns: [
             { "data": "estado" },

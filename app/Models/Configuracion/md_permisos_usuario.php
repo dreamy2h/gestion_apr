@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_permisos_usuario extends Model {
+	class Md_permisos_usuario extends Model {
 		protected $table = 'permisos_usuario';
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;

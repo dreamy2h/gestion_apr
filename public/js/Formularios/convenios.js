@@ -46,7 +46,7 @@ function guardar_convenio() {
     var costo_servicio = peso.quitar_formato($("#txt_costo").val());
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_convenios/guardar_convenio",
+        url: base_url + "/Formularios/Ctrl_convenios/guardar_convenio",
         type: "POST",
         async: false,
         data: {
@@ -62,7 +62,7 @@ function guardar_convenio() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_convenios").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_convenios/datatable_convenios");
+                $("#grid_convenios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_convenios");
                 $("#form_convenio")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Convenio guardado con éxito");
@@ -83,7 +83,7 @@ function eliminar_convenio(opcion, observacion, id_convenio) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_convenios/eliminar_convenio",
+        url: base_url + "/Formularios/Ctrl_convenios/eliminar_convenio",
         type: "POST",
         async: false,
         data: { 
@@ -102,7 +102,7 @@ function eliminar_convenio(opcion, observacion, id_convenio) {
                     alerta.ok("alerta", "Convenio reciclado con éxito");
                 }
 
-                $("#grid_convenios").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_convenios/datatable_convenios");
+                $("#grid_convenios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_convenios");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -123,7 +123,7 @@ function llenar_cmb_servicios() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_convenios/llenar_cmb_servicios",
+        url: base_url + "/Formularios/Ctrl_convenios/llenar_cmb_servicios",
     }).done( function(data) {
         $("#cmb_servicios").html('');
 
@@ -221,7 +221,7 @@ $(document).ready(function() {
 
     $("#btn_reciclar").on("click", function() {
         $("#divContenedorReciclarConvenios").load(
-            base_url + "/Formularios/ctrl_convenios/v_convenios_reciclar"
+            base_url + "/Formularios/Ctrl_convenios/v_convenios_reciclar"
         ); 
 
         $('#dlg_reciclar_convenios').modal('show');
@@ -229,7 +229,7 @@ $(document).ready(function() {
 
     $("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_convenios"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_convenios"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -335,7 +335,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_convenios/datatable_convenios",
+        ajax: base_url + "/Formularios/Ctrl_convenios/datatable_convenios",
         orderClasses: true,
         columns: [
             { "data": "id_convenio" },
@@ -449,7 +449,7 @@ $(document).ready(function() {
     $("#grid_convenios tbody").on("dblclick", "tr", function () {
         if (datatable_enabled) {
             var id_convenio = $("#txt_id_convenio").val();
-            $("#grid_convenio_detalle").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_convenios/datatable_convenio_detalle/" + id_convenio);
+            $("#grid_convenio_detalle").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_convenio_detalle/" + id_convenio);
 
             $('#dlg_detalle_convenio').modal('show');
         }
@@ -458,7 +458,7 @@ $(document).ready(function() {
     $("#grid_convenios tbody").on("click", "button.traza_convenio", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaConvenio").load(
-                base_url + "/Formularios/ctrl_convenios/v_convenio_traza"
+                base_url + "/Formularios/Ctrl_convenios/v_convenio_traza"
             ); 
 
             $('#dlg_traza_convenio').modal('show');

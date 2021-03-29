@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_convenio_traza extends Model {
+	class Md_convenio_traza extends Model {
 		protected $table = 'convenio_traza';
 	    protected $primaryKey = 'id';
 

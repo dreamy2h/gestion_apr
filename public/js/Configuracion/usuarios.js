@@ -43,7 +43,7 @@ function llenar_cmb_apr() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_apr",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_apr",
     }).done( function(data) {
         $("#cmb_apr").html('');
 
@@ -64,7 +64,7 @@ function llenar_cmb_region() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_region",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_region",
     }).done( function(data) {
         $("#cmb_region").html('');
 
@@ -87,7 +87,7 @@ function llenar_cmb_provincia() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_provincia/" + id_region,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_provincia/" + id_region,
     }).done( function(data) {
         $("#cmb_provincia").html('');
 
@@ -110,7 +110,7 @@ function llenar_cmb_comuna() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
     }).done( function(data) {
         $("#cmb_comuna").html('');
 
@@ -140,7 +140,7 @@ function guardar_usuario() {
     var resto_direccion = $("#txt_resto_direccion").val();
 
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_usuarios/guardar_usuario",
+        url: base_url + "/Configuracion/Ctrl_usuarios/guardar_usuario",
         type: "POST",
         async: false,
         data: {
@@ -158,7 +158,7 @@ function guardar_usuario() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta.substring(0, 1) == OK) {
-                $("#grid_usuarios").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_usuarios/datatable_usuarios");
+                $("#grid_usuarios").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios");
                 $("#form_usuarios")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Usuario guardado con éxito");
@@ -194,7 +194,7 @@ function bloquear_usuario(opcion, observacion) {
     var id_usuario = $("#txt_id_usuario").val();
     
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_usuarios/bloquear_usuario",
+        url: base_url + "/Configuracion/Ctrl_usuarios/bloquear_usuario",
         type: "POST",
         async: false,
         data: { 
@@ -212,7 +212,7 @@ function bloquear_usuario(opcion, observacion) {
                     alerta.ok("alerta", "Usuario desbloqueado con éxito");
                 }
 
-                $("#grid_usuarios").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_usuarios/datatable_usuarios");
+                $("#grid_usuarios").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -228,7 +228,7 @@ function resetear_clave() {
     var id_usuario = $("#txt_id_usuario").val();
 
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_usuarios/resetear_clave",
+        url: base_url + "/Configuracion/Ctrl_usuarios/resetear_clave",
         type: "POST",
         async: false,
         data: { id_usuario: id_usuario },
@@ -327,7 +327,7 @@ $(document).ready(function() {
 
     $("#btn_permisos").on("click", function() {
         $("#divContenedorPermisos").load(
-            base_url + "/Configuracion/ctrl_usuarios/v_permisos",
+            base_url + "/Configuracion/Ctrl_usuarios/v_permisos",
         );
 
         $('#dlg_permisos').modal('show');
@@ -496,7 +496,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Configuracion/ctrl_usuarios/datatable_usuarios",
+        ajax: base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios",
         orderClasses: true,
         columns: [
             { "data": "id_usuario" },
@@ -577,7 +577,7 @@ $(document).ready(function() {
     $("#grid_usuarios tbody").on("click", "button.traza_usuario", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaUsuario").load(
-                base_url + "/Configuracion/ctrl_usuarios/v_usuario_traza"
+                base_url + "/Configuracion/Ctrl_usuarios/v_usuario_traza"
             ); 
 
             $('#dlg_traza_usuario').modal('show');

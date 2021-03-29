@@ -2,18 +2,18 @@
 	namespace App\Controllers\Formularios;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_sectores;
-	use App\Models\Formularios\md_sector_traza;
+	use App\Models\Formularios\Md_sectores;
+	use App\Models\Formularios\Md_sector_traza;
 
-	class ctrl_sectores extends BaseController {
+	class Ctrl_sectores extends BaseController {
 		protected $sectores;
 		protected $sector_traza;
 		protected $sesión;
 		protected $db;
 
 		public function __construct() {
-			$this->sectores = new md_sectores();
-			$this->sector_traza = new md_sector_traza();
+			$this->sectores = new Md_sectores();
+			$this->sector_traza = new Md_sector_traza();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

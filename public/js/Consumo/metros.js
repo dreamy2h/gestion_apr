@@ -54,7 +54,7 @@ function mostrar_datos_metros(data) {
     $("#txt_total_servicios").val(peso.formateaNumero(data["total_servicios"]));
     $("#txt_total_mes").val(peso.formateaNumero(data["total_mes"]));
 
-    $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
+    $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
 }
 
 function guardar_metros() {
@@ -72,7 +72,7 @@ function guardar_metros() {
     var total_mes = peso.quitar_formato($("#txt_total_mes").val());
 
     $.ajax({
-        url: base_url + "/Consumo/ctrl_metros/guardar_metros",
+        url: base_url + "/Consumo/Ctrl_metros/guardar_metros",
         type: "POST",
         async: false,
         data: {
@@ -92,7 +92,7 @@ function guardar_metros() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_metros");
+                $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_metros");
                 $("#form_metros")[0].reset();
                 des_habilitar(true, false);
                 $("#grid_costo_metros").DataTable().clear().draw();
@@ -112,7 +112,7 @@ function guardar_metros() {
 
 function eliminar_metros(observacion, id_metros) {
     $.ajax({
-        url: base_url + "/Consumo/ctrl_metros/eliminar_metros",
+        url: base_url + "/Consumo/Ctrl_metros/eliminar_metros",
         type: "POST",
         async: false,
         data: { 
@@ -124,7 +124,7 @@ function eliminar_metros(observacion, id_metros) {
 
             if (respuesta == OK) {
                 alerta.ok("alerta", "Consumo de metros, eliminado con éxito");
-                $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_metros");
+                $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_metros");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -155,7 +155,7 @@ function calcular_total_servicios() {
     var id_socio = $("#txt_id_socio").val();
 
     $.ajax({
-        url: base_url + "/Consumo/ctrl_metros/calcular_total_servicios",
+        url: base_url + "/Consumo/Ctrl_metros/calcular_total_servicios",
         type: "POST",
         async: false,
         data: { 
@@ -268,7 +268,7 @@ function existe_consumo_mes() {
     var fecha_vencimiento = $("#dt_fecha_vencimiento").val();
 
     $.ajax({
-        url: base_url + "/Consumo/ctrl_metros/existe_consumo_mes",
+        url: base_url + "/Consumo/Ctrl_metros/existe_consumo_mes",
         type: "POST",
         async: false,
         data: { 
@@ -373,7 +373,7 @@ $(document).ready(function() {
 
     $("#btn_importar").on("click", function() {
         $("#divContenedorImportar").load(
-            base_url + "/Consumo/ctrl_metros/v_importar_planilla"
+            base_url + "/Consumo/Ctrl_metros/v_importar_planilla"
         ); 
 
         $('#dlg_importar_planilla').modal('show');
@@ -381,7 +381,7 @@ $(document).ready(function() {
 
     $("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_metros"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/ctrl_metros"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -537,7 +537,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Consumo/ctrl_metros/datatable_metros",
+        ajax: base_url + "/Consumo/Ctrl_metros/datatable_metros",
         orderClasses: true,
         columns: [
             { "data": "id_metros" },
@@ -636,7 +636,7 @@ $(document).ready(function() {
     $("#grid_metros tbody").on("click", "button.traza_metros", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaMetros").load(
-                base_url + "/Consumo/ctrl_metros/v_metros_traza"
+                base_url + "/Consumo/Ctrl_metros/v_metros_traza"
             ); 
 
             $('#dlg_traza_metros').modal('show');

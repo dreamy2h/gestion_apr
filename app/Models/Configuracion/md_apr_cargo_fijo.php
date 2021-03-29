@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_apr_cargo_fijo extends Model {
+	class Md_apr_cargo_fijo extends Model {
 		protected $table = 'apr_cargo_fijo';
 	    protected $primaryKey = 'id';
 

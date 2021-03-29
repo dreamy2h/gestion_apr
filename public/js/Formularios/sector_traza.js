@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_sectores/datatable_sector_traza/" + id_sector,
+        ajax: base_url + "/Formularios/Ctrl_sectores/datatable_sector_traza/" + id_sector,
         orderClasses: true,
         columns: [
             { "data": "estado" },

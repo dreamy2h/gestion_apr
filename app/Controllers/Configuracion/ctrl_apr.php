@@ -2,18 +2,18 @@
 	namespace App\Controllers\Configuracion;
 
 	use App\Controllers\BaseController;
-	use App\Models\Configuracion\md_apr;
-	use App\Models\Configuracion\md_apr_traza;
+	use App\Models\Configuracion\Md_apr;
+	use App\Models\Configuracion\Md_apr_traza;
 
-	class ctrl_apr extends BaseController {
+	class Ctrl_apr extends BaseController {
 		protected $apr;
 		protected $apr_traza;
 		protected $sesión;
 		protected $db;
 
 		public function __construct() {
-			$this->apr = new md_apr();
-			$this->apr_traza = new md_apr_traza();
+			$this->apr = new Md_apr();
+			$this->apr_traza = new Md_apr_traza();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

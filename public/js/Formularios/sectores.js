@@ -22,7 +22,7 @@ function guardar_sector() {
     var nombre = $("#txt_nombre").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_sectores/guardar_sector",
+        url: base_url + "/Formularios/Ctrl_sectores/guardar_sector",
         type: "POST",
         async: false,
         data: {
@@ -32,7 +32,7 @@ function guardar_sector() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_sectores/datatable_sectores");
+                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_sectores/datatable_sectores");
                 $("#form_sector")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Sector guardado con éxito");
@@ -53,7 +53,7 @@ function eliminar_sector(opcion, observacion, id_sector) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_sectores/eliminar_sector",
+        url: base_url + "/Formularios/Ctrl_sectores/eliminar_sector",
         type: "POST",
         async: false,
         data: { 
@@ -72,7 +72,7 @@ function eliminar_sector(opcion, observacion, id_sector) {
                     alerta.ok("alerta", "Sector reciclado con éxito");
                 }
 
-                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_sectores/datatable_sectores");
+                $("#grid_sectores").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_sectores/datatable_sectores");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -146,7 +146,7 @@ $(document).ready(function() {
 
     $("#btn_reciclar").on("click", function() {
         $("#divContenedorReciclarSector").load(
-            base_url + "/Formularios/ctrl_sectores/v_sector_reciclar"
+            base_url + "/Formularios/Ctrl_sectores/v_sector_reciclar"
         ); 
 
         $('#dlg_reciclar').modal('show');
@@ -197,7 +197,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_sectores/datatable_sectores",
+        ajax: base_url + "/Formularios/Ctrl_sectores/datatable_sectores",
         orderClasses: true,
         columns: [
             { "data": "id_sector" },
@@ -251,7 +251,7 @@ $(document).ready(function() {
     $("#grid_sectores tbody").on("click", "button.traza_sector", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaSector").load(
-                base_url + "/Formularios/ctrl_sectores/v_sector_traza"
+                base_url + "/Formularios/Ctrl_sectores/v_sector_traza"
             ); 
 
             $('#dlg_traza_sector').modal('show');

@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_diametro extends Model {
+	class Md_diametro extends Model {
 		protected $table = 'diametro';
 	    protected $primaryKey = 'id';
 

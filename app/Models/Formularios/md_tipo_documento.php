@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_tipo_documento extends Model {
+	class Md_tipo_documento extends Model {
 		protected $table = 'tipo_documento';
 	    protected $primaryKey = 'id';
 

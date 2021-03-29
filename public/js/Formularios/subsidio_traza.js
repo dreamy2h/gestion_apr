@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_subsidios/datatable_subsidio_traza/" + id_subsidio,
+        ajax: base_url + "/Formularios/Ctrl_subsidios/datatable_subsidio_traza/" + id_subsidio,
         orderClasses: true,
         columns: [
             { "data": "estado" },

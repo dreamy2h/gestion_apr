@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_metros_traza extends Model {
+	class Md_metros_traza extends Model {
 		protected $table = 'metros_traza';
 	    protected $primaryKey = 'id';
 

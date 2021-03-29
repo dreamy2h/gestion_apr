@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_socios/datatable_socio_traza/" + id_socio,
+        ajax: base_url + "/Formularios/Ctrl_socios/datatable_socio_traza/" + id_socio,
         orderClasses: true,
         columns: [
             { "data": "estado" },

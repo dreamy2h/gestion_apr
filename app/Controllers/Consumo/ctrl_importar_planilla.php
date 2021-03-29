@@ -3,17 +3,17 @@
 	use App\Controllers\BaseController;
 	use CodeIgniter\HTTP\IncomingRequest;
 	use CodeIgniter\Database\Query;
-	use App\Models\Formularios\md_socios;
-	use App\Models\Consumo\md_metros;
-	use App\Models\Formularios\md_convenio_detalle;
-	use App\Models\Configuracion\md_costo_metros;
-	use App\Models\Formularios\md_arranques;
-	use App\Models\Formularios\md_medidores;
-	use App\Models\Formularios\md_diametro;
-	use App\Models\Configuracion\md_apr;
-	use App\Models\Consumo\md_metros_traza;
+	use App\Models\Formularios\Md_socios;
+	use App\Models\Consumo\Md_metros;
+	use App\Models\Formularios\Md_convenio_detalle;
+	use App\Models\Configuracion\Md_costo_metros;
+	use App\Models\Formularios\Md_arranques;
+	use App\Models\Formularios\Md_medidores;
+	use App\Models\Formularios\Md_diametro;
+	use App\Models\Configuracion\Md_apr;
+	use App\Models\Consumo\Md_metros_traza;
 
-	class ctrl_importar_planilla extends BaseController {
+	class Ctrl_importar_planilla extends BaseController {
 		protected $sesión;
 		protected $db;
 		protected $socios;
@@ -30,15 +30,15 @@
 		public function __construct() {
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
-			$this->socios = new md_socios();
-			$this->metros = new md_metros();
-			$this->convenio_detalle = new md_convenio_detalle();
-			$this->costo_metros = new md_costo_metros();
-			$this->arranques = new md_arranques();
-			$this->medidores = new md_medidores();
-			$this->diametro = new md_diametro();
-			$this->apr = new md_apr();
-			$this->metros_traza = new md_metros_traza();
+			$this->socios = new Md_socios();
+			$this->metros = new Md_metros();
+			$this->convenio_detalle = new Md_convenio_detalle();
+			$this->costo_metros = new Md_costo_metros();
+			$this->arranques = new Md_arranques();
+			$this->medidores = new Md_medidores();
+			$this->diametro = new Md_diametro();
+			$this->apr = new Md_apr();
+			$this->metros_traza = new Md_metros_traza();
 		}
 
 		public function importar_planilla() {

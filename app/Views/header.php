@@ -43,7 +43,7 @@
                             <a class="dropdown-item" href="#"><?php echo $sesión->apr_ses; ?></a>
                             <a class="dropdown-item" href="#">Actualizar Clave</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>/ctrl_login/logout">Cerrar Sesión</a>
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>/Ctrl_login/logout">Cerrar Sesión</a>
                         </div>
                     </li>
                 </ul>

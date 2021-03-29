@@ -2,14 +2,14 @@
 	namespace App\Controllers\Pagos;
 
 	use App\Controllers\BaseController;
-	use App\Models\Consumo\md_metros;
-	use App\Models\Consumo\md_metros_traza;
-	use App\Models\Pagos\md_caja;
-	use App\Models\Pagos\md_caja_detalle;
-	use App\Models\Pagos\md_caja_traza;
-	use App\Models\Formularios\md_socios;
+	use App\Models\Consumo\Md_metros;
+	use App\Models\Consumo\Md_metros_traza;
+	use App\Models\Pagos\Md_caja;
+	use App\Models\Pagos\Md_caja_detalle;
+	use App\Models\Pagos\Md_caja_traza;
+	use App\Models\Formularios\Md_socios;
 
-	class ctrl_historial_pagos extends BaseController {
+	class Ctrl_historial_pagos extends BaseController {
 		protected $metros;
 		protected $metros_traza;
 		protected $caja;
@@ -20,12 +20,12 @@
 		protected $db;
 
 		public function __construct() {
-			$this->metros = new md_metros();
-			$this->metros_traza = new md_metros_traza();
-			$this->caja = new md_caja();
-			$this->caja_detalle = new md_caja_detalle();
-			$this->caja_traza = new md_caja_traza();
-			$this->socios = new md_socios();
+			$this->metros = new Md_metros();
+			$this->metros_traza = new Md_metros_traza();
+			$this->caja = new Md_caja();
+			$this->caja_detalle = new Md_caja_detalle();
+			$this->caja_traza = new Md_caja_traza();
+			$this->socios = new Md_socios();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

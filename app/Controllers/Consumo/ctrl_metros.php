@@ -2,12 +2,12 @@
 	namespace App\Controllers\Consumo;
 
 	use App\Controllers\BaseController;
-	use App\Models\Consumo\md_metros;
-	use App\Models\Consumo\md_metros_traza;
-	use App\Models\Configuracion\md_costo_metros;
-	use App\Models\Formularios\md_convenio_detalle;
+	use App\Models\Consumo\Md_metros;
+	use App\Models\Consumo\Md_metros_traza;
+	use App\Models\Configuracion\Md_costo_metros;
+	use App\Models\Formularios\Md_convenio_detalle;
 
-	class ctrl_metros extends BaseController {
+	class Ctrl_metros extends BaseController {
 		protected $metros;
 		protected $metros_traza;
 		protected $costo_metros;
@@ -16,10 +16,10 @@
 		protected $db;
 
 		public function __construct() {
-			$this->metros = new md_metros();
-			$this->metros_traza = new md_metros_traza();
-			$this->costo_metros = new md_costo_metros();
-			$this->convenio_detalle = new md_convenio_detalle();
+			$this->metros = new Md_metros();
+			$this->metros_traza = new Md_metros_traza();
+			$this->costo_metros = new Md_costo_metros();
+			$this->convenio_detalle = new Md_convenio_detalle();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

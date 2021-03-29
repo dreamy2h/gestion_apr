@@ -8,7 +8,7 @@ $(document).ready(function() {
         // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_medidores/datatable_medidor_traza/" + id_medidor,
+        ajax: base_url + "/Formularios/Ctrl_medidores/datatable_medidor_traza/" + id_medidor,
         orderClasses: true,
         columns: [
             { "data": "estado" },

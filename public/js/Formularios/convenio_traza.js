@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_convenios/datatable_convenio_traza/" + id_convenio,
+        ajax: base_url + "/Formularios/Ctrl_convenios/datatable_convenio_traza/" + id_convenio,
         orderClasses: true,
         columns: [
             { "data": "estado" },

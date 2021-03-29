@@ -6,7 +6,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_convenios/datatable_convenios_reciclar",
+        ajax: base_url + "/Formularios/Ctrl_convenios/datatable_convenios_reciclar",
         orderClasses: true,
         columns: [
             { "data": "id_convenio" },

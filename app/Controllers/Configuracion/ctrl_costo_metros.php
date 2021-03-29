@@ -2,11 +2,11 @@
 	namespace App\Controllers\Configuracion;
 
 	use App\Controllers\BaseController;
-	use App\Models\Configuracion\md_costo_metros;
-	use App\Models\Configuracion\md_costo_metros_traza;
-	use App\Models\Configuracion\md_apr_cargo_fijo;
+	use App\Models\Configuracion\Md_costo_metros;
+	use App\Models\Configuracion\Md_costo_metros_traza;
+	use App\Models\Configuracion\Md_apr_cargo_fijo;
 
-	class ctrl_costo_metros extends BaseController {
+	class Ctrl_costo_metros extends BaseController {
 		protected $costo_metros;
 		protected $costo_metros_traza;
 		protected $apr_cargo_fijo;
@@ -14,9 +14,9 @@
 		protected $db;
 
 		public function __construct() {
-			$this->costo_metros = new md_costo_metros();
-			$this->costo_metros_traza = new md_costo_metros_traza();
-			$this->apr_cargo_fijo = new md_apr_cargo_fijo();
+			$this->costo_metros = new Md_costo_metros();
+			$this->costo_metros_traza = new Md_costo_metros_traza();
+			$this->apr_cargo_fijo = new Md_apr_cargo_fijo();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

@@ -2,13 +2,13 @@
 	namespace App\Controllers\Formularios;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_arranques;
-	use App\Models\Formularios\md_arranque_traza;
-	use App\Models\Formularios\md_sectores;
-	use App\Models\Formularios\md_tipo_documento;
-	use App\Models\Formularios\md_medidores;
+	use App\Models\Formularios\Md_arranques;
+	use App\Models\Formularios\Md_arranque_traza;
+	use App\Models\Formularios\Md_sectores;
+	use App\Models\Formularios\Md_tipo_documento;
+	use App\Models\Formularios\Md_medidores;
 
-	class ctrl_arranques extends BaseController {
+	class Ctrl_arranques extends BaseController {
 		protected $arranques;
 		protected $arranque_traza;
 		protected $sectores;
@@ -18,11 +18,11 @@
 		protected $db;
 
 		public function __construct() {
-			$this->arranques = new md_arranques();
-			$this->arranque_traza = new md_arranque_traza();
-			$this->sectores = new md_sectores();
-			$this->tipo_documento = new md_tipo_documento();
-			$this->medidores = new md_medidores();
+			$this->arranques = new Md_arranques();
+			$this->arranque_traza = new Md_arranque_traza();
+			$this->sectores = new Md_sectores();
+			$this->tipo_documento = new Md_tipo_documento();
+			$this->medidores = new Md_medidores();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

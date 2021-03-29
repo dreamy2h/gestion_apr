@@ -4,7 +4,7 @@ function mostrar_permisos_usuario() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/data_permisos_usuario/" + id_usuario
+        url: base_url + "/Configuracion/Ctrl_usuarios/data_permisos_usuario/" + id_usuario
     }).done( function(respuesta) {
         $("#grid_usuario_permisos td").each(function() {
             $(this).closest("tr").removeClass("selected");
@@ -30,7 +30,7 @@ function guardar_permisos_usuario(id_permiso, opcion) {
     var id_usuario = $("#txt_id_usuario").val();
 
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_usuarios/guardar_permisos_usuario",
+        url: base_url + "/Configuracion/Ctrl_usuarios/guardar_permisos_usuario",
         type: "POST",
         async: false,
         data: {
@@ -61,7 +61,7 @@ $(document).ready(function() {
         select: {
             style: "multi"
         },
-        ajax: base_url + "/Configuracion/ctrl_usuarios/datatable_usuarios_permisos",
+        ajax: base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios_permisos",
         orderClasses: true,
         columns: [
             { "data": "id_permiso" },

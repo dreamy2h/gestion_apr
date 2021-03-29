@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranque_traza/" + id_arranque,
+        ajax: base_url + "/Formularios/Ctrl_arranques/datatable_arranque_traza/" + id_arranque,
         orderClasses: true,
         columns: [
             { "data": "estado" },

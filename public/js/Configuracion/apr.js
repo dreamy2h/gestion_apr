@@ -39,7 +39,7 @@ function llenar_cmb_region() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_region",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_region",
     }).done( function(data) {
         $("#cmb_region").html('');
 
@@ -62,7 +62,7 @@ function llenar_cmb_provincia() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_provincia/" + id_region,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_provincia/" + id_region,
     }).done( function(data) {
         $("#cmb_provincia").html('');
 
@@ -85,7 +85,7 @@ function llenar_cmb_comuna() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
     }).done( function(data) {
         $("#cmb_comuna").html('');
 
@@ -115,7 +115,7 @@ function guardar_apr() {
     var tope_subsidio = $("#txt_tope_subsidio").val();
 
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_apr/guardar_apr",
+        url: base_url + "/Configuracion/Ctrl_apr/guardar_apr",
         type: "POST",
         async: false,
         data: {
@@ -133,7 +133,7 @@ function guardar_apr() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_apr").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_apr/datatable_apr");
+                $("#grid_apr").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_apr/datatable_apr");
                 $("#form_APR")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "APR guardada con éxito");
@@ -382,7 +382,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Configuracion/ctrl_apr/datatable_apr",
+        ajax: base_url + "/Configuracion/Ctrl_apr/datatable_apr",
         orderClasses: true,
         columns: [
             { "data": "id_apr" },
@@ -448,7 +448,7 @@ $(document).ready(function() {
     $("#grid_apr tbody").on("click", "button.traza_apr", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaAPR").load(
-                base_url + "/Configuracion/ctrl_apr/v_apr_traza"
+                base_url + "/Configuracion/Ctrl_apr/v_apr_traza"
             ); 
 
             $('#dlg_traza_apr').modal('show');

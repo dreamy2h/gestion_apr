@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     $("#archivos").fileinput({
 		theme: "fas",
-		uploadUrl: base_url + "/Consumo/ctrl_importar_planilla/importar_planilla",
+		uploadUrl: base_url + "/Consumo/Ctrl_importar_planilla/importar_planilla",
 		allowedFileExtensions: ['xlsx', 'xls'],
 		language: "es",
 	    uploadAsync: false,
@@ -52,7 +52,7 @@ $(document).ready(function() {
 	}).on('filebatchuploadsuccess', function(event, data) {
 	  	$("#dt_fecha_ingreso_im").prop("disabled", true);
 	  	$("#dt_fecha_vencimiento_im").prop("disabled", true);
-	  	$("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_metros");
+	  	$("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_metros");
 	});
 
 	$("#archivos").fileinput("lock");

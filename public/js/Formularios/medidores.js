@@ -25,7 +25,7 @@ function guardar_medidor() {
     var id_diametro = $("#cmb_diametro").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_medidores/guardar_medidor",
+        url: base_url + "/Formularios/Ctrl_medidores/guardar_medidor",
         type: "POST",
         async: false,
         data: {
@@ -36,7 +36,7 @@ function guardar_medidor() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_medidores/datatable_medidores");
+                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_medidores/datatable_medidores");
                 $("#form_medidor")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Medidor guardado con éxito");
@@ -57,7 +57,7 @@ function eliminar_medidor(opcion, observacion, id_medidor) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_medidores/eliminar_medidor",
+        url: base_url + "/Formularios/Ctrl_medidores/eliminar_medidor",
         type: "POST",
         async: false,
         data: { 
@@ -76,7 +76,7 @@ function eliminar_medidor(opcion, observacion, id_medidor) {
                     alerta.ok("alerta", "Medidor reciclado con éxito");
                 }
 
-                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_medidores/datatable_medidores");
+                $("#grid_medidores").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_medidores/datatable_medidores");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -97,7 +97,7 @@ function llenar_cmb_diametro() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_medidores/llenar_cmb_diametro",
+        url: base_url + "/Formularios/Ctrl_medidores/llenar_cmb_diametro",
     }).done( function(data) {
         $("#cmb_diametro").html('');
 
@@ -172,7 +172,7 @@ $(document).ready(function() {
 
     $("#btn_reciclar").on("click", function() {
         $("#divContenedorReciclarMedidor").load(
-            base_url + "/Formularios/ctrl_medidores/v_medidor_reciclar"
+            base_url + "/Formularios/Ctrl_medidores/v_medidor_reciclar"
         ); 
 
         $('#dlg_reciclar').modal('show');
@@ -221,7 +221,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_medidores/datatable_medidores",
+        ajax: base_url + "/Formularios/Ctrl_medidores/datatable_medidores",
         orderClasses: true,
         columns: [
             { "data": "id_medidor" },
@@ -280,7 +280,7 @@ $(document).ready(function() {
     $("#grid_medidores tbody").on("click", "button.traza_medidor", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaMedidor").load(
-                base_url + "/Formularios/ctrl_medidores/v_medidor_traza"
+                base_url + "/Formularios/Ctrl_medidores/v_medidor_traza"
             ); 
 
             $('#dlg_traza_medidor').modal('show');

@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_sectores extends Model {
+	class Md_sectores extends Model {
 		protected $table = 'sectores';
 	    protected $primaryKey = 'id';
 

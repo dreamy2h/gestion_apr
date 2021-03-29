@@ -2,20 +2,20 @@
 	namespace App\Controllers\Informes;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_socios;
-	use App\Models\Formularios\md_socios_traza;
+	use App\Models\Formularios\Md_socios;
+	use App\Models\Formularios\Md_socios_traza;
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\IOFactory;
 
-	class ctrl_informe_socios extends BaseController {
+	class Ctrl_informe_socios extends BaseController {
 		protected $socios;
 		protected $socios_traza;
 		protected $sesión;
 		protected $db;
 
 		public function __construct() {
-			$this->socios = new md_socios();
-			$this->socios_traza = new md_socios_traza();
+			$this->socios = new Md_socios();
+			$this->socios_traza = new Md_socios_traza();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

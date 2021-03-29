@@ -2,12 +2,12 @@
 	namespace App\Controllers\Formularios;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_convenios;
-	use App\Models\Formularios\md_convenio_traza;
-	use App\Models\Formularios\md_convenio_detalle;
-	use App\Models\Formularios\md_servicios;
+	use App\Models\Formularios\Md_convenios;
+	use App\Models\Formularios\Md_convenio_traza;
+	use App\Models\Formularios\Md_convenio_detalle;
+	use App\Models\Formularios\Md_servicios;
 
-	class ctrl_convenios extends BaseController {
+	class Ctrl_convenios extends BaseController {
 		protected $convenios;
 		protected $convenio_traza;
 		protected $convenio_detalle;
@@ -16,10 +16,10 @@
 		protected $db;
 
 		public function __construct() {
-			$this->convenios = new md_convenios();
-			$this->convenio_traza = new md_convenio_traza();
-			$this->convenio_detalle = new md_convenio_detalle();
-			$this->servicios = new md_servicios();
+			$this->convenios = new Md_convenios();
+			$this->convenio_traza = new Md_convenio_traza();
+			$this->convenio_detalle = new Md_convenio_detalle();
+			$this->servicios = new Md_servicios();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

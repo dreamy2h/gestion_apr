@@ -2,13 +2,13 @@
 	namespace App\Controllers\Pagos;
 
 	use App\Controllers\BaseController;
-	use App\Models\Consumo\md_metros;
-	use App\Models\Consumo\md_metros_traza;
-	use App\Models\Formularios\md_socios;
-	use App\Models\Configuracion\md_comunas;
+	use App\Models\Consumo\Md_metros;
+	use App\Models\Consumo\Md_metros_traza;
+	use App\Models\Formularios\Md_socios;
+	use App\Models\Configuracion\Md_comunas;
 	use \Mpdf\Mpdf;
 
-	class ctrl_boleta_electronica extends BaseController {
+	class Ctrl_boleta_electronica extends BaseController {
 		protected $metros;
 		protected $metros_traza;
 		protected $socios;
@@ -18,10 +18,10 @@
 		protected $error = "";
 
 		public function __construct() {
-			$this->metros = new md_metros();
-			$this->metros_traza = new md_metros_traza();
-			$this->socios = new md_socios();
-			$this->comunas = new md_comunas();
+			$this->metros = new Md_metros();
+			$this->metros_traza = new Md_metros_traza();
+			$this->socios = new Md_socios();
+			$this->comunas = new Md_comunas();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

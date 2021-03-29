@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_sector_traza extends Model {
+	class Md_sector_traza extends Model {
 		protected $table = 'sector_traza';
 	    protected $primaryKey = 'id';
 

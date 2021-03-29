@@ -92,7 +92,7 @@ function guardar_arranque() {
     var descuento = $("#txt_descuento").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_arranques/guardar_arranque",
+        url: base_url + "/Formularios/Ctrl_arranques/guardar_arranque",
         type: "POST",
         async: false,
         data: {
@@ -112,7 +112,7 @@ function guardar_arranque() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_arranques/datatable_arranques");
+                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_arranques/datatable_arranques");
                 $("#form_arranque")[0].reset();
                 id_medidor = null;
                 des_habilitar(true, false);
@@ -135,7 +135,7 @@ function eliminar_arranque(opcion, observacion, id_arranque) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Formularios/ctrl_arranques/eliminar_arranque",
+        url: base_url + "/Formularios/Ctrl_arranques/eliminar_arranque",
         type: "POST",
         async: false,
         data: { 
@@ -154,7 +154,7 @@ function eliminar_arranque(opcion, observacion, id_arranque) {
                     alerta.ok("alerta", "Arranque reciclado con éxito");
                 }
 
-                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_arranques/datatable_arranques");
+                $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_arranques/datatable_arranques");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -175,7 +175,7 @@ function llenar_cmb_region() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_region",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_region",
     }).done( function(data) {
         $("#cmb_region").html('');
 
@@ -198,7 +198,7 @@ function llenar_cmb_provincia() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_provincia/" + id_region,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_provincia/" + id_region,
     }).done( function(data) {
         $("#cmb_provincia").html('');
 
@@ -221,7 +221,7 @@ function llenar_cmb_comuna() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
     }).done( function(data) {
         $("#cmb_comuna").html('');
 
@@ -242,7 +242,7 @@ function llenar_cmb_diametro() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_diametro",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_diametro",
     }).done( function(data) {
         $("#cmb_diametro").html('');
 
@@ -263,7 +263,7 @@ function llenar_cmb_sector() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_sector",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_sector",
     }).done( function(data) {
         $("#cmb_sector").html('');
 
@@ -284,7 +284,7 @@ function llenar_cmb_tipo_documento() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_tipo_documento",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_tipo_documento",
     }).done( function(data) {
         $("#cmb_tipo_documento").html('');
 
@@ -320,7 +320,7 @@ function llenar_txt_medidores() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_arranques/llenar_txt_medidores",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_txt_medidores",
     }).done( function(data) {
         return data;
     }).fail(function(error){
@@ -397,7 +397,7 @@ $(document).ready(function() {
 
     $("#btn_reciclar").on("click", function() {
         $("#divContenedorReciclarArranque").load(
-            base_url + "/Formularios/ctrl_arranques/v_arranque_reciclar"
+            base_url + "/Formularios/Ctrl_arranques/v_arranque_reciclar"
         ); 
 
         $('#dlg_reciclar_arranque').modal('show');
@@ -405,7 +405,7 @@ $(document).ready(function() {
 
     $("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_arranques"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_arranques"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -413,7 +413,7 @@ $(document).ready(function() {
 
     $("#cmb_medidor").autoComplete({
         resolverSettings: {
-            url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_medidores"
+            url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_medidores"
         }
     });
 
@@ -498,7 +498,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranques",
+        ajax: base_url + "/Formularios/Ctrl_arranques/datatable_arranques",
         orderClasses: true,
         columns: [
             { "data": "id_arranque" },
@@ -573,7 +573,7 @@ $(document).ready(function() {
     $("#grid_arranques tbody").on("click", "button.traza_arranque", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaArranque").load(
-                base_url + "/Formularios/ctrl_arranques/v_arranque_traza"
+                base_url + "/Formularios/Ctrl_arranques/v_arranque_traza"
             ); 
 
             $('#dlg_traza_arranque').modal('show');

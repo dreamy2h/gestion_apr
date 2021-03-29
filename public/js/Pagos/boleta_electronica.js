@@ -4,7 +4,7 @@ function llenar_cmb_sector() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_arranques/llenar_cmb_sector",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_sector",
     }).done( function(data) {
         $("#cmb_sector").html('');
 
@@ -29,7 +29,7 @@ function buscar_boletas() {
 	if (id_socio != "" || mes_año != "" || id_sector != "") {
 		var datosBusqueda = [id_socio, mes_año, id_sector];
 
-		$("#grid_boletas").dataTable().fnReloadAjax(base_url + "/Pagos/ctrl_boleta_electronica/datatable_boleta_electronica/" + datosBusqueda);
+		$("#grid_boletas").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_boleta_electronica/datatable_boleta_electronica/" + datosBusqueda);
 	} else {
 		alerta.aviso("alerta", "Debe seleccionar un items");
 	}
@@ -74,7 +74,7 @@ function emitir_dte() {
 		});
 
 		$.ajax({
-	        url: base_url + "/Pagos/ctrl_boleta_electronica/emitir_dte",
+	        url: base_url + "/Pagos/Ctrl_boleta_electronica/emitir_dte",
 	        type: "POST",
 	        async: false,
 	        data: { arr_boletas: arr_boletas },
@@ -126,7 +126,7 @@ function imprimir_dte() {
   	});
 
   	if (arr_boletas.length > 0) {
-  		var url = base_url + "/Pagos/ctrl_boleta_electronica/imprimir_dte/" + arr_boletas;
+  		var url = base_url + "/Pagos/Ctrl_boleta_electronica/imprimir_dte/" + arr_boletas;
         window.open(url, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
   	} else {
   		alerta.error("alerta", "Seleccione al menos una boleta, con folio SII")
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
 	$("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_boleta_electronica"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_boleta_electronica"
         ); 
 
         $('#dlg_buscar_socio').modal('show');

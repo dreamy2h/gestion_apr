@@ -1,19 +1,19 @@
 <?php 
 	namespace App\Controllers;
-	use App\Models\Configuracion\md_usuarios;
-	use App\Models\Configuracion\md_apr;
-	use App\Models\Configuracion\md_usuario_traza;
+	use App\Models\Configuracion\Md_usuarios;
+	use App\Models\Configuracion\Md_apr;
+	use App\Models\Configuracion\Md_usuario_traza;
 
-	class ctrl_login extends BaseController {
+	class Ctrl_login extends BaseController {
 		protected $usuarios;
 		protected $reglasLogin;
 		protected $reglasActivar;
 		protected $usuario_traza;
 
 		public function __construct() {
-			$this->usuarios = new md_usuarios();
-			$this->apr = new md_apr();
-			$this->usuario_traza = new md_usuario_traza();
+			$this->usuarios = new Md_usuarios();
+			$this->apr = new Md_apr();
+			$this->usuario_traza = new Md_usuario_traza();
 
 			$this->reglasLogin = [
 				"usuario" => [

@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_caja_detalle extends Model {
+	class Md_caja_detalle extends Model {
 		protected $table = 'caja_detalle';
 	    protected $primaryKey = 'id';
 

@@ -2,11 +2,11 @@
 	namespace App\Controllers\Formularios;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_medidores;
-	use App\Models\Formularios\md_medidor_traza;
-	use App\Models\Formularios\md_diametro;
+	use App\Models\Formularios\Md_medidores;
+	use App\Models\Formularios\Md_medidor_traza;
+	use App\Models\Formularios\Md_diametro;
 
-	class ctrl_medidores extends BaseController {
+	class Ctrl_medidores extends BaseController {
 		protected $medidores;
 		protected $medidor_traza;
 		protected $diametro;
@@ -14,9 +14,9 @@
 		protected $db;
 
 		public function __construct() {
-			$this->medidores = new md_medidores();
-			$this->medidor_traza = new md_medidor_traza();
-			$this->diametro = new md_diametro();
+			$this->medidores = new Md_medidores();
+			$this->medidor_traza = new Md_medidor_traza();
+			$this->diametro = new Md_diametro();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

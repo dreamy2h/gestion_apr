@@ -11,7 +11,7 @@
                         <th width="10%">ROL Socio</th>
                         <th width="50%">Nombre Socio</th>
                         <th width="20%">Fecha Entrada</th>
-                    <?php if ($origen ==  "ctrl_metros") { ?>
+                    <?php if ($origen ==  "Ctrl_metros") { ?>
                         <th width="0%">id_arranque</th>
                         <th width="0%">id_diametro</th>
                         <th width="0%">diametro</th>

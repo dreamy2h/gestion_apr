@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_sectores/datatable_sector_reciclar",
+        ajax: base_url + "/Formularios/Ctrl_sectores/datatable_sector_reciclar",
         orderClasses: true,
         select: {
             toggleable: false

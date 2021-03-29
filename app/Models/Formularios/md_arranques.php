@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_arranques extends Model {
+	class Md_arranques extends Model {
 		protected $table = 'arranques';
 	    protected $primaryKey = 'id';
 

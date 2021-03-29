@@ -23,14 +23,14 @@ var peso = {
 
 function anular_pago(id_caja) {
 	$.ajax({
-        url: base_url + "/Pagos/ctrl_historial_pagos/anular_pago",
+        url: base_url + "/Pagos/Ctrl_historial_pagos/anular_pago",
         type: "POST",
         async: false,
         data: { id_caja: id_caja },
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_pagos").dataTable().fnReloadAjax(base_url + "/Pagos/ctrl_historial_pagos/datatable_historial_pagos");
+                $("#grid_pagos").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_historial_pagos/datatable_historial_pagos");
                 alerta.ok("alerta", "Pago anulado con éxito");
             } else {
                 alerta.error("alerta", respuesta);
@@ -50,7 +50,7 @@ function buscar_pagos() {
 
 	var datosBusqueda = [id_socio, desde, hasta];
 
-	$("#grid_pagos").dataTable().fnReloadAjax(base_url + "/Pagos/ctrl_historial_pagos/datatable_historial_pagos_busqueda/" + datosBusqueda);
+	$("#grid_pagos").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_historial_pagos/datatable_historial_pagos_busqueda/" + datosBusqueda);
 }
 
 $(document).ready(function() {
@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 	$("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_historial_pagos"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_historial_pagos"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -117,7 +117,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Pagos/ctrl_historial_pagos/datatable_historial_pagos",
+        ajax: base_url + "/Pagos/Ctrl_historial_pagos/datatable_historial_pagos",
         orderClasses: true,
         columns: [
             { "data": "id_caja" },
@@ -185,7 +185,7 @@ $(document).ready(function() {
         var data = grid_pagos.row($(this)).data();
         var id_caja = data["id_caja"];
 
-        $("#grid_deuda").dataTable().fnReloadAjax(base_url + "/Pagos/ctrl_historial_pagos/datatable_detalle_pago/" + id_caja);
+        $("#grid_deuda").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_historial_pagos/datatable_detalle_pago/" + id_caja);
         $("#dlg_caja_detalle").modal("show");
     });
 
@@ -194,7 +194,7 @@ $(document).ready(function() {
         var id_caja = data["id_caja"];
 
         $("#divContenedorTrazaPagos").load(
-            base_url + "/Pagos/ctrl_historial_pagos/v_pago_traza/" + id_caja
+            base_url + "/Pagos/Ctrl_historial_pagos/v_pago_traza/" + id_caja
         ); 
 
         $('#dlg_traza_pagos').modal('show');
@@ -224,7 +224,7 @@ $(document).ready(function() {
 		responsive: true,
         paging: true,
         destroy: true,
-        // ajax: base_url + "/Pagos/ctrl_historial_pagos/datatable_detalle_pago/" + id_caja,
+        // ajax: base_url + "/Pagos/Ctrl_historial_pagos/datatable_detalle_pago/" + id_caja,
         orderClasses: true,
         columns: [
             { "data": "id_metros" },

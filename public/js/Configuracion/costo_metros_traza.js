@@ -8,7 +8,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Configuracion/ctrl_costo_metros/datatable_costo_metros_traza/" + id_costo_metros,
+        ajax: base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros_traza/" + id_costo_metros,
         orderClasses: true,
         columns: [
             { "data": "estado" },

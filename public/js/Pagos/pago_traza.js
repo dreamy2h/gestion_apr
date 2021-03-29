@@ -6,7 +6,7 @@ $(document).ready(function() {
         scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Pagos/ctrl_historial_pagos/datatable_pago_traza/" + id_caja,
+        ajax: base_url + "/Pagos/Ctrl_historial_pagos/datatable_pago_traza/" + id_caja,
         orderClasses: true,
         columns: [
             { "data": "estado" },

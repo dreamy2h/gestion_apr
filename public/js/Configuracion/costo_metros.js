@@ -19,7 +19,7 @@ function llenar_cmb_apr() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_apr",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_apr",
     }).done( function(data) {
         $("#cmb_apr").html('');
 
@@ -40,7 +40,7 @@ function llenar_cmb_diametro() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/ctrl_medidores/llenar_cmb_diametro",
+        url: base_url + "/Formularios/Ctrl_medidores/llenar_cmb_diametro",
     }).done( function(data) {
         $("#cmb_diametro").html('');
 
@@ -59,7 +59,7 @@ function llenar_cmb_diametro() {
 
 function eliminar_costo_metros(observacion, id_costo_metros) {
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_costo_metros/eliminar_costo_metros",
+        url: base_url + "/Configuracion/Ctrl_costo_metros/eliminar_costo_metros",
         type: "POST",
         async: false,
         data: { 
@@ -71,7 +71,7 @@ function eliminar_costo_metros(observacion, id_costo_metros) {
             
             if (respuesta == OK) {
                 alerta.ok("alerta", "Costo eliminado con éxito");
-                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_costo_metros/datatable_costo_metros/" + $("#cmb_apr").val());
+                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros/" + $("#cmb_apr").val());
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -95,7 +95,7 @@ function guardar_costo_metros() {
     var costo = peso.quitar_formato($("#txt_costo").val());
 
     $.ajax({
-        url: base_url + "/Configuracion/ctrl_costo_metros/guardar_costo_metros",
+        url: base_url + "/Configuracion/Ctrl_costo_metros/guardar_costo_metros",
         type: "POST",
         async: false,
         dataType: "json",
@@ -116,7 +116,7 @@ function guardar_costo_metros() {
                 if (respuesta.nuevo_cf) {
                     $("#txt_id_cargo_fijo").val(respuesta.id_cargo_fijo);
                 }
-                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_costo_metros/datatable_costo_metros/" + id_apr + "/" + id_diametro);
+                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros/" + id_apr + "/" + id_diametro);
                 limpiar();
                 des_habilitar(true, false);
                 datatable_enabled = true;
@@ -173,9 +173,9 @@ function actualizar_grid() {
     var id_diametro = $("#cmb_diametro").val();
     
     if (id_apr != "" && id_diametro != "") {
-        $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/ctrl_costo_metros/datatable_costo_metros/" + id_apr + "/" + id_diametro);
+        $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros/" + id_apr + "/" + id_diametro);
         $.ajax({
-            url: base_url + "/Configuracion/ctrl_costo_metros/llenar_costo_fijo",
+            url: base_url + "/Configuracion/Ctrl_costo_metros/llenar_costo_fijo",
             type: "POST",
             dataType: "json",
             async: false,
@@ -362,7 +362,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        // ajax: base_url + "/Configuracion/ctrl_costo_metros/datatable_costo_metros",
+        // ajax: base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros",
         orderClasses: true,
         columns: [
             { "data": "id_costo_metros" },
@@ -423,7 +423,7 @@ $(document).ready(function() {
     $("#grid_costo_metros tbody").on("click", "button.traza_costo_metros", function () {
         if (datatable_enabled) {
 	        $("#divContenedorTrazaCostoMetros").load(
-	            base_url + "/Configuracion/ctrl_costo_metros/v_costo_metros_traza"
+	            base_url + "/Configuracion/Ctrl_costo_metros/v_costo_metros_traza"
 	        ); 
 
 	        $('#dlg_traza_costo_metros').modal('show');

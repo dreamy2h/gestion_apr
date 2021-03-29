@@ -3,7 +3,7 @@ var base_url = $("#txt_base_url").val();
 function buscar_deuda() {
 	var id_socio = $("#txt_id_socio").val();
 
-	$("#grid_deuda").dataTable().fnReloadAjax(base_url + "/Pagos/ctrl_caja/datatable_deuda_socio/" + id_socio);
+	$("#grid_deuda").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_caja/datatable_deuda_socio/" + id_socio);
 
 	setTimeout(function() {
 		if ($("#grid_deuda").DataTable().data().count() > 0) {
@@ -98,7 +98,7 @@ function guardar_pago() {
                 }
 
                 $.ajax({
-                    url: base_url + "/Pagos/ctrl_caja/guardar_pago",
+                    url: base_url + "/Pagos/Ctrl_caja/guardar_pago",
                     type: "POST",
                     async: false,
                     data: {
@@ -154,7 +154,7 @@ $(document).ready(function() {
 
 	$("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/ctrl_arranques/v_buscar_socio/ctrl_caja"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_caja"
         ); 
 
         $('#dlg_buscar_socio').modal('show');
@@ -192,7 +192,7 @@ $(document).ready(function() {
 		responsive: true,
         paging: true,
         destroy: true,
-        // ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranques",
+        // ajax: base_url + "/Formularios/Ctrl_arranques/datatable_arranques",
         orderClasses: true,
         columns: [
             { "data": "id_metros" },

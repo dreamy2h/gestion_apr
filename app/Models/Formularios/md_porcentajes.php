@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_porcentajes extends Model {
+	class Md_porcentajes extends Model {
 		protected $table = 'porcentajes';
 	    protected $primaryKey = 'id';
 

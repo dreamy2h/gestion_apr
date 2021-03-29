@@ -5,7 +5,7 @@ $(document).ready(function() {
 		responsive: true,
         scrollCollapse: true,
         destroy: true,
-        ajax: base_url + "/Informes/ctrl_informe_socios/datatable_informe_socios",
+        ajax: base_url + "/Informes/Ctrl_informe_socios/datatable_informe_socios",
         orderClasses: true,
         dom: 'Bfrtilp', 
         columns: [

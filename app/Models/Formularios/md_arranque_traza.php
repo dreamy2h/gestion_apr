@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_arranque_traza extends Model {
+	class Md_arranque_traza extends Model {
 		protected $table = 'arranque_traza';
 	    protected $primaryKey = 'id';
 

@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$.ajax({
 	    type: "POST",
 	    dataType: "json",
-	    url: base_url + "/ctrl_menu/permisos_usuario",
+	    url: base_url + "/Ctrl_menu/permisos_usuario",
 	}).done( function(data) {
     	var menu = "";
     	var id_grupo;
@@ -40,62 +40,62 @@ $(document).ready(function() {
 
 	// Formularios
 	// $("#menu_socios").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/socios");
+	// 	$("#content").load(base_url + "/Ctrl_menu/socios");
 	// });
 
 	// $("#menu_arranques").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/arranques");
+	// 	$("#content").load(base_url + "/Ctrl_menu/arranques");
 	// });
 
 	// $("#menu_sectores").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/sectores");
+	// 	$("#content").load(base_url + "/Ctrl_menu/sectores");
 	// });
 
 	// $("#menu_subsidios").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/subsidios");
+	// 	$("#content").load(base_url + "/Ctrl_menu/subsidios");
 	// });
 
 	// $("#menu_convenios").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/convenios");
+	// 	$("#content").load(base_url + "/Ctrl_menu/convenios");
 	// });
 
 	// $("#menu_medidores").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/medidores");
+	// 	$("#content").load(base_url + "/Ctrl_menu/medidores");
 	// });
 
 	// // Consumo
 	// $("#menu_metros").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/metros");
+	// 	$("#content").load(base_url + "/Ctrl_menu/metros");
 	// });
 
 	// // Pagos
 	// $("#menu_caja").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/caja");
+	// 	$("#content").load(base_url + "/Ctrl_menu/caja");
 	// });
 
 	// $("#menu_hist_pago").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/historial_pagos");
+	// 	$("#content").load(base_url + "/Ctrl_menu/historial_pagos");
 	// });
 
 	// $("#menu_boleta_electronica").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/boleta_electronica");
+	// 	$("#content").load(base_url + "/Ctrl_menu/boleta_electronica");
 	// });
 
 	// // Informes
 	// $("#menu_socios_inf").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/informe_socios");
+	// 	$("#content").load(base_url + "/Ctrl_menu/informe_socios");
 	// });
 
 	// // Configuración
 	// $("#menu_usuarios").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/usuarios");
+	// 	$("#content").load(base_url + "/Ctrl_menu/usuarios");
 	// });
 
 	// $("#menu_apr").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/apr");
+	// 	$("#content").load(base_url + "/Ctrl_menu/apr");
 	// });
 
 	// $("#menu_costo_metros").click(function() {
-	// 	$("#content").load(base_url + "/ctrl_menu/costo_metros");
+	// 	$("#content").load(base_url + "/Ctrl_menu/costo_metros");
 	// });
 });

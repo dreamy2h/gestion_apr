@@ -11,7 +11,7 @@ $(document).ready(function() {
 
     var columnasOcultas = false;
 
-    if (origen == "ctrl_metros" || origen == "ctrl_caja") {
+    if (origen == "Ctrl_metros" || origen == "Ctrl_caja") {
         columnas.push(
             {"data": "id_arranque"}, 
             {"data": "id_diametro"}, 
@@ -27,9 +27,9 @@ $(document).ready(function() {
             { "targets": [5, 6, 7, 8, 9, 10 ,11, 12], "visible": false, "searchable": false }
         ];
         
-        ruta = "/Consumo/ctrl_metros";
-    } else if (origen == "ctrl_historial_pagos" || origen == "ctrl_informe_socios" || origen == "ctrl_boleta_electronica") {
-        ruta = "/Pagos/ctrl_historial_pagos";
+        ruta = "/Consumo/Ctrl_metros";
+    } else if (origen == "Ctrl_historial_pagos" || origen == "Ctrl_informe_socios" || origen == "Ctrl_boleta_electronica") {
+        ruta = "/Pagos/Ctrl_historial_pagos";
     } else {
         ruta = "/Formularios/" + origen;
     }
@@ -77,7 +77,7 @@ $(document).ready(function() {
         $("#txt_rol").val(data["rol"]);
         $("#txt_nombre_socio").val(data["nombre"]);
 
-        if (origen ==  "ctrl_metros") {
+        if (origen ==  "Ctrl_metros") {
             if (data["consumo_anterior"] == 0) {
                 Swal.fire({
                     title: 'Ingrese consumo anterior',
@@ -96,7 +96,7 @@ $(document).ready(function() {
                                 $("#txt_diametro").val(data["diametro"]);
                                 $("#dt_fecha_ingreso").prop("readonly", false);
                                 $("#dt_fecha_vencimiento").prop("readonly", false)
-                                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
+                                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                                 $('#dlg_buscar_socio').modal('hide');
                             } else {
                                 resolve("Ingrese un número válido")
@@ -112,19 +112,19 @@ $(document).ready(function() {
                 $("#txt_diametro").val(data["diametro"]);
                 $("#dt_fecha_ingreso").prop("readonly", false);
                 $("#dt_fecha_vencimiento").prop("readonly", false);
-                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
+                $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                 $('#dlg_buscar_socio').modal('hide');
             }
-        } else if (origen == "ctrl_caja") {
+        } else if (origen == "Ctrl_caja") {
             buscar_deuda();
             $('#dlg_buscar_socio').modal('hide');
-        } else if (origen == "ctrl_historial_pagos") {
+        } else if (origen == "Ctrl_historial_pagos") {
             buscar_pagos();
             $('#dlg_buscar_socio').modal('hide');
-        } else if (origen == "ctrl_informe_socios") {
+        } else if (origen == "Ctrl_informe_socios") {
             buscar_socios();
             $('#dlg_buscar_socio').modal('hide');
-        } else if (origen == "ctrl_boleta_electronica") { 
+        } else if (origen == "Ctrl_boleta_electronica") { 
             buscar_boletas();
             $('#dlg_buscar_socio').modal('hide');
         } else {

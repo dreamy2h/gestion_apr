@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_permisos_detalle extends Model {
+	class Md_permisos_detalle extends Model {
 		protected $table = 'permisos_detalle';
 	    protected $primaryKey = 'id';
 

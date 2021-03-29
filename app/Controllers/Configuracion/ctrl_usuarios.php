@@ -2,16 +2,16 @@
 	namespace App\Controllers\Configuracion;
 
 	use App\Controllers\BaseController;
-	use App\Models\Configuracion\md_usuarios;
-	use App\Models\Configuracion\md_apr;
-	use App\Models\Configuracion\md_regiones;
-	use App\Models\Configuracion\md_provincias;
-	use App\Models\Configuracion\md_comunas;
-	use App\Models\Configuracion\md_permisos_detalle;
-	use App\Models\Configuracion\md_permisos_usuario;
-	use App\Models\Configuracion\md_usuario_traza;
+	use App\Models\Configuracion\Md_usuarios;
+	use App\Models\Configuracion\Md_apr;
+	use App\Models\Configuracion\Md_regiones;
+	use App\Models\Configuracion\Md_provincias;
+	use App\Models\Configuracion\Md_comunas;
+	use App\Models\Configuracion\Md_permisos_detalle;
+	use App\Models\Configuracion\Md_permisos_usuario;
+	use App\Models\Configuracion\Md_usuario_traza;
 
-	class ctrl_usuarios extends BaseController {
+	class Ctrl_usuarios extends BaseController {
 		protected $usuarios;
 		protected $apr;
 		protected $regiones;
@@ -24,14 +24,14 @@
 		protected $db;
 
 		public function __construct() {
-			$this->usuarios = new md_usuarios();
-			$this->apr = new md_apr();
-			$this->regiones = new md_regiones();
-			$this->provincias = new md_provincias();
-			$this->comunas = new md_comunas();
-			$this->permisos_detalle = new md_permisos_detalle();
-			$this->permisos_usuario = new md_permisos_usuario();
-			$this->usuario_traza = new md_usuario_traza();
+			$this->usuarios = new Md_usuarios();
+			$this->apr = new Md_apr();
+			$this->regiones = new Md_regiones();
+			$this->provincias = new Md_provincias();
+			$this->comunas = new Md_comunas();
+			$this->permisos_detalle = new Md_permisos_detalle();
+			$this->permisos_usuario = new Md_permisos_usuario();
+			$this->usuario_traza = new Md_usuario_traza();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 

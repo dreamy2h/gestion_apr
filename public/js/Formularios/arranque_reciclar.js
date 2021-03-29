@@ -6,7 +6,7 @@ $(document).ready(function() {
         // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/ctrl_arranques/datatable_arranque_reciclar",
+        ajax: base_url + "/Formularios/Ctrl_arranques/datatable_arranque_reciclar",
         orderClasses: true,
         select: {
             toggleable: false

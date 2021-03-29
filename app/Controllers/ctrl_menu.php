@@ -1,15 +1,15 @@
 <?php 
 	namespace App\Controllers;
-	use App\Models\Configuracion\md_permisos_usuario;
+	use App\Models\Configuracion\Md_permisos_usuario;
 
-	class ctrl_menu extends BaseController {
+	class Ctrl_menu extends BaseController {
 		protected $sesión;
 		protected $permisos_usuario;
 		protected $db;
 
 		public function __construct() {
 			$this->sesión = session();
-			$this->permisos_usuario = new md_permisos_usuario();
+			$this->permisos_usuario = new Md_permisos_usuario();
 			$this->db = \Config\Database::connect();
 		}
 

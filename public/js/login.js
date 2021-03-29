@@ -33,7 +33,7 @@ function activar_cuenta() {
     var usu_cod = $("#txt_usuario").val();
 
     $.ajax({
-        url: base_url + "/ctrl_login/activar_cuenta",
+        url: base_url + "/Ctrl_login/activar_cuenta",
         data: {
             clave_activar: clave_activar,
             clave_repetir: clave_repetir,
@@ -61,7 +61,7 @@ function login() {
     var clave = $("#txt_clave").val();
 
     $.ajax({
-        url: base_url + "/ctrl_login/valida",
+        url: base_url + "/Ctrl_login/valida",
         data: {
             usuario: usuario,
             password: clave

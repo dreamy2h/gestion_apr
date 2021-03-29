@@ -47,7 +47,7 @@ function llenar_cmb_region() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_region",
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_region",
     }).done( function(data) {
         $("#cmb_region").html('');
 
@@ -70,7 +70,7 @@ function llenar_cmb_provincia() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_provincia/" + id_region,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_provincia/" + id_region,
     }).done( function(data) {
         $("#cmb_provincia").html('');
 
@@ -93,7 +93,7 @@ function llenar_cmb_comuna() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Configuracion/ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
+        url: base_url + "/Configuracion/Ctrl_usuarios/llenar_cmb_comuna/" + id_provincia,
     }).done( function(data) {
         $("#cmb_comuna").html('');
 
@@ -129,7 +129,7 @@ function guardar_socio() {
     var resto_direccion = $("#txt_resto_direccion").val();
 
     $.ajax({
-        url: base_url + "/Formularios/ctrl_socios/guardar_socio",
+        url: base_url + "/Formularios/Ctrl_socios/guardar_socio",
         type: "POST",
         async: false,
         data: {
@@ -152,7 +152,7 @@ function guardar_socio() {
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_socios").dataTable().fnReloadAjax(base_url + "/Formularios/ctrl_socios/datatable_socios");
+                $("#grid_socios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_socios/datatable_socios");
                 $("#form_socios")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Socio guardado con éxito");
@@ -416,7 +416,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Formularios/ctrl_socios/datatable_socios",
+        ajax: base_url + "/Formularios/Ctrl_socios/datatable_socios",
         orderClasses: true,
         columns: [
             { "data": "id_socio" },
@@ -487,7 +487,7 @@ $(document).ready(function() {
     $("#grid_socios tbody").on("click", "button.traza_socio", function () {
         if (datatable_enabled) {
             $("#divContenedorTrazaSocio").load(
-                base_url + "/Formularios/ctrl_socios/v_socio_traza"
+                base_url + "/Formularios/Ctrl_socios/v_socio_traza"
             ); 
 
             $('#dlg_traza_socio').modal('show');

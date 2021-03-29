@@ -2,11 +2,11 @@
 	namespace App\Controllers\Formularios;
 
 	use App\Controllers\BaseController;
-	use App\Models\Formularios\md_subsidios;
-	use App\Models\Formularios\md_subsidio_traza;
-	use App\Models\Formularios\md_porcentajes;
+	use App\Models\Formularios\Md_subsidios;
+	use App\Models\Formularios\Md_subsidio_traza;
+	use App\Models\Formularios\Md_porcentajes;
 
-	class ctrl_subsidios extends BaseController {
+	class Ctrl_subsidios extends BaseController {
 		protected $subsidios;
 		protected $subsidio_traza;
 		protected $porcentajes;
@@ -14,9 +14,9 @@
 		protected $db;
 
 		public function __construct() {
-			$this->subsidios = new md_subsidios();
-			$this->subsidio_traza = new md_subsidio_traza();
-			$this->porcentajes = new md_porcentajes();
+			$this->subsidios = new Md_subsidios();
+			$this->subsidio_traza = new Md_subsidio_traza();
+			$this->porcentajes = new Md_porcentajes();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}

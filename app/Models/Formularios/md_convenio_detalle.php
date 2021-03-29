@@ -2,7 +2,7 @@
 
 	use CodeIgniter\Model;
 
-	class md_convenio_detalle extends Model {
+	class Md_convenio_detalle extends Model {
 		protected $table = 'convenio_detalle';
 	    protected $primaryKey = 'id';
 

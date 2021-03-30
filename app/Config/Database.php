@@ -32,9 +32,9 @@ class Database extends \CodeIgniter\Database\Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'root',
+		'username' => 'gestion1',
 		'password' => 'l6HD8o7a)!8qFI',
-		'database' => 'gestion1_gesiton_apr',
+		'database' => 'gestion1_gestion_apr',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,

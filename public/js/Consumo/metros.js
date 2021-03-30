@@ -381,7 +381,7 @@ $(document).ready(function() {
 
     $("#btn_buscar_socio").on("click", function() {
         $("#divContenedorBuscarSocio").load(
-            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/ctrl_metros"
+            base_url + "/Formularios/Ctrl_arranques/v_buscar_socio/Ctrl_metros"
         ); 
 
         $('#dlg_buscar_socio').modal('show');

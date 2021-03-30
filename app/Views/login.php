@@ -12,7 +12,7 @@
         <script src="<?php echo base_url(); ?>/js/all.min.js" crossorigin="anonymous"></script>
         <style type="text/css">
             body {
-                background-image: url("imagenes/fondo.jpeg") ;
+                background-image: url("fondo.jpeg") ;
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;

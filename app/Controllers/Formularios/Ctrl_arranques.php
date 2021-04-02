@@ -110,6 +110,8 @@
 			$descuento = $this->request->getPost("descuento");
 
 			if ($id_comuna == "") { $id_comuna = null; }
+			if ($calle == "") { $calle = null; }
+			if ($resto_direccion == "") { $resto_direccion = null; }
 
 			$datosArranque = [
 				"id_socio" => $id_socio,

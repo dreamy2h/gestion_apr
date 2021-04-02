@@ -181,5 +181,60 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function datatable_informe_arranques($db, $id_apr) {
+	    	define("ACTIVO", 1);
+	    	$estado = ACTIVO;
+
+	    	$consulta = "SELECT 
+							a.id as id_arranque,
+							s.rol as rol_socio,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+						    m.numero as numero_medidor,
+						    ifnull(a.calle, 'No Registrado') as calle,
+						    case when a.numero = 0 then 'No Registrado' else a.numero end as numero, 
+						    ifnull(a.resto_direccion, 'No Registrado') as resto_direccion,
+						    case when a.alcantarillado = 1 then 'SI' else 'NO' end as alcantarillado,
+						    case when a.cuota_socio = 1 then 'SI' else 'NO' end as cuota_socio,
+						    td.glosa as tipo_documento,
+						    a.descuento
+						from 
+							arranques a
+						    inner join socios s on a.id_socio = s.id
+						    inner join medidores m on a.id_medidor = m.id
+						    inner join tipo_documento td on a.id_tipo_documento = td.id
+						where
+							a.id_apr = ? and
+    						a.estado = ?";
+
+
+			$query = $db->query($consulta, [$id_apr, $estado]);
+			$arranques = $query->getResultArray();
+
+			foreach ($arranques as $key) {
+				$row = array(
+					"id_arranque" => $key["id_arranque"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"numero_medidor" => $key["numero_medidor"],
+					"calle" => $key["calle"],
+					"numero" => $key["numero"],
+					"resto_direccion" => $key["resto_direccion"],
+					"alcantarillado" => $key["alcantarillado"],
+					"cuota_socio" => $key["cuota_socio"],
+					"tipo_documento" => $key["tipo_documento"],
+					"descuento" => $key["descuento"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": [] }";
+			}
+	    }
 	}
 ?>

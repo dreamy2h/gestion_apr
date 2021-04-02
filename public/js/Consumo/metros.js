@@ -180,6 +180,7 @@ function calcular_montos() {
     var consumo_anterior = $("#txt_c_anterior").val();
     var consumo_actual = $("#txt_c_actual").val();
     var tope_subsidio = $("#txt_tope_subsidio").val();
+    var cargo_fijo;
 
     if (parseInt(consumo_actual) >= parseInt(consumo_anterior)) {
         var metros_consumidos = parseInt(consumo_actual) - parseInt(consumo_anterior);
@@ -253,6 +254,7 @@ function calcular_total() {
     var multa = $("#txt_multa").val();
     var total_servicios = $("#txt_total_servicios").val();
     var monto_subsidio = $("#txt_monto_subsidio").val();
+    var cargo_fijo = parseInt($("#txt_cargo_fijo").val());
 
     if (subtotal == "") { subtotal = 0; } else { subtotal = peso.quitar_formato(subtotal); }
     if (multa == "") { multa = 0; } else { multa = peso.quitar_formato(multa); }
@@ -260,6 +262,10 @@ function calcular_total() {
     if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
 
     var total_mes = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios) - parseInt(monto_subsidio);
+    if (total_mes < cargo_fijo) {
+        total_mes = cargo_fijo;
+    }
+
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
 }
 
@@ -314,6 +320,7 @@ $(document).ready(function() {
     $("#txt_c_actual").prop("readonly", true);
     $("#dt_fecha_ingreso").prop("readonly", true);
     $("#dt_fecha_vencimiento").prop("readonly", true);
+    $("#txt_cargo_fijo").prop("readonly", true);
 
     des_habilitar(true, false);
 

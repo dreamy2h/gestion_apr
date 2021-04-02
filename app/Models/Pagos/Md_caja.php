@@ -71,5 +71,56 @@
 				return "{ \"data\": []}";
 			}
 	    }
+	    
+	    public function datatable_informe_pagos_diarios($db, $id_apr) {
+	    	define("ACTIVO", 1);
+	    	$estado = ACTIVO;
+
+	    	$consulta = "SELECT 
+							c.id as folio_caja,
+						    s.rol as rol_socio,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+						    c.total_pagar,
+						    c.entregado,
+						    c.vuelto,
+						    m.metros as consumo,
+						    u.usuario as usu_reg
+						from 
+							caja c
+						    inner join caja_detalle cd on cd.id_caja = c.id
+						    inner join socios s on c.id_socio = s.id
+						    inner join metros m on cd.id_metros = m.id
+						    inner join usuarios u on c.id_usuario = u.id
+						where 
+							c.fecha = now() and
+						    c.id_apr = ? and
+						    c.estado = ?";
+
+			$query = $db->query($consulta, [$id_apr, $estado]);
+			$caja = $query->getResultArray();
+
+			foreach ($caja as $key) {
+				$row = array(
+					"folio_caja" => $key["folio_caja"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"total_pagar" => $key["total_pagar"],
+					"entregado" => $key["entregado"],
+					"vuelto" => $key["vuelto"],
+					"consumo" => $key["consumo"],
+					"usu_reg" => $key["usu_reg"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
+			}
+	    }
+
 	}
 ?>

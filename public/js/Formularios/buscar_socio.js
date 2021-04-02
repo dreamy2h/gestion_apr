@@ -86,7 +86,7 @@ $(document).ready(function() {
                     showCancelButton: true,
                     inputValidator: (value) => {
                         return new Promise((resolve) => {
-                            if (value >= 0) {
+                            if (value >= 0 && value != "") {
                                 resolve()
                                 $("#txt_id_arranque").val(data["id_arranque"]);
                                 $("#txt_sector").val(data["sector"]);
@@ -94,12 +94,13 @@ $(document).ready(function() {
                                 $("#txt_tope_subsidio").val(data["tope_subsidio"]);
                                 $("#txt_c_anterior").val(value);
                                 $("#txt_diametro").val(data["diametro"]);
+                                $("#txt_cargo_fijo").val(data["cargo_fijo"]);
                                 $("#dt_fecha_ingreso").prop("readonly", false);
-                                $("#dt_fecha_vencimiento").prop("readonly", false)
+                                $("#dt_fecha_vencimiento").prop("readonly", false);
                                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                                 $('#dlg_buscar_socio').modal('hide');
                             } else {
-                                resolve("Ingrese un número válido")
+                                resolve("Ingrese un número válido");
                             }
                         })
                     }

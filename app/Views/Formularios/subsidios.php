@@ -143,23 +143,23 @@
 					                    <table id="grid_subsidios" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Identificador</th>
-					                            	<th width="0%">id_socio</th>
-					                            	<th width="0%">rut_socio</th>
-					                                <th width="0%">rol_socio</th>
-					                                <th width="15%">Nombre Socio</th>
-					                                <th width="7%">Número Decreto</th>
-					                                <th width="7%">Fecha Decreto</th>
-					                                <th width="7%">Fecha Caducidad</th>
-					                                <th width="0%">id_porcentaje</th>
-					                                <th width="7%">Cobertura %</th>
-					                                <th width="7%">F. Encuesta</th>
-					                                <th width="7%">Puntaje</th>
-					                                <th width="7%">N° Único</th>
-					                                <th width="7%">D. Único</th>
-					                                <th width="7%">Usuarios Reg</th>
-					                                <th width="7%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>Id.</th>
+					                            	<th>id_socio</th>
+					                            	<th>rut_socio</th>
+					                                <th>rol_socio</th>
+					                                <th>Nombre Socio</th>
+					                                <th>N° Decreto</th>
+					                                <th>F. Decreto</th>
+					                                <th>F. Caducidad</th>
+					                                <th>id_porcentaje</th>
+					                                <th>%</th>
+					                                <th>F. Encuesta</th>
+					                                <th>Puntaje</th>
+					                                <th>N° Único</th>
+					                                <th>D. Único</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

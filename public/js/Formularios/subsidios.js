@@ -277,21 +277,15 @@ $(document).ready(function() {
             cmb_porcentaje: {
                 required: true
             },
-            dt_fecha_encuesta: {
-                required: true
-            },
             txt_puntaje: {
-                required: true,
                 digits: true,
                 maxlength: 11
             },
             txt_n_unico: {
-                required: true,
                 digits: true,
                 maxlength: 11
             },
             txt_d_unico: {
-                required: true,
                 digits: true,
                 maxlength: 11
             }
@@ -314,21 +308,15 @@ $(document).ready(function() {
             cmb_porcentaje: {
                 required: "Seleccione un porcentaje"
             },
-            dt_fecha_encuesta: {
-                required: "Fecha encuesta es obligatoria"
-            },
             txt_puntaje: {
-                required: "Puntaje encuesta es obligatorio",
                 digits: "Solo números",
                 maxlength: "Máximo 11 números"
             },
             txt_n_unico: {
-                required: "Número único es obligatorio",
                 digits: "Solo números",
                 maxlength: "Máximo 11 números"
             },
             txt_d_unico: {
-                required: "Dígito único es obligatorio",
                 digits: "Solo números",
                 maxlength: "Máximo 11 números"
             }
@@ -369,7 +357,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 3, 8], "visible": false, "searchable": false }
+            { "targets": [1, 2, 8, 11, 12, 13], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

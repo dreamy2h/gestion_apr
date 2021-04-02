@@ -90,6 +90,16 @@
 			echo view('Informes/informe_socios');	
 		}
 
+		public function informe_arranques() {
+			$this->validar_sesion();
+			echo view('Informes/informe_arranques');		
+		}
+
+		public function informe_pagos_diarios() {
+			$this->validar_sesion();
+			echo view('Informes/informe_pagos_diarios');		
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				return redirect()->to("http://localhost/gestion_apr/public/");

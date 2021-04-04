@@ -67,9 +67,6 @@
 
 			$id_subsidio = $this->request->getPost("id_subsidio");
 			$id_socio = $this->request->getPost("id_socio");
-			$rut_socio = $this->request->getPost("rut_socio");
-			$rol = $this->request->getPost("rol");
-			$nombre_socio = $this->request->getPost("nombre_socio");
 			$n_decreto = $this->request->getPost("n_decreto");
 			$fecha_decreto = $this->request->getPost("fecha_decreto");
 			$fecha_caducidad = $this->request->getPost("fecha_caducidad");
@@ -79,13 +76,21 @@
 			$n_unico = $this->request->getPost("n_unico");
 			$d_unico = $this->request->getPost("d_unico");
 
+			if ($n_decreto == "") { $n_decreto = null; }
+			if ($fecha_decreto == "") { $fecha_decreto = null; } else { $fecha_decreto = date_format(date_create($fecha_decreto), 'Y-m-d'); }
+			if ($fecha_caducidad == "") { $fecha_caducidad = null; } else { $fecha_caducidad = date_format(date_create($fecha_caducidad), 'Y-m-d'); }
+			if ($fecha_encuesta == "") { $fecha_encuesta = null; } else { $fecha_encuesta = date_format(date_create($fecha_encuesta), 'Y-m-d'); }
+			if ($puntaje == "") { $puntaje = null; }
+			if ($n_unico == "") { $n_unico = null; }
+			if ($d_unico == "") { $d_unico = null; }
+
 			$datosSubsidio = [
 				"id_socio" => $id_socio,
 				"numero_decreto" => $n_decreto,
-				"fecha_decreto" => date_format(date_create($fecha_decreto), 'Y-m-d'),
-				"fecha_caducidad" => date_format(date_create($fecha_caducidad), 'Y-m-d'),
+				"fecha_decreto" => $fecha_decreto,
+				"fecha_caducidad" => $fecha_caducidad,
 				"id_porcentaje" => $porcentaje,
-				"fecha_encuesta" => date_format(date_create($fecha_encuesta), 'Y-m-d'),
+				"fecha_encuesta" => $fecha_encuesta,
 				"puntaje" => $puntaje,
 				"numero_unico" => $n_unico,
 				"digito_unico" => $d_unico,

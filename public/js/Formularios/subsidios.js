@@ -62,9 +62,6 @@ function guardar_subsidio() {
         data: {
             id_subsidio: id_subsidio,
             id_socio: id_socio,
-            rut_socio: rut_socio,
-            rol: rol,
-            nombre_socio: nombre_socio,
             n_decreto: n_decreto,
             fecha_decreto: fecha_decreto,
             fecha_caducidad: fecha_caducidad,
@@ -264,15 +261,8 @@ $(document).ready(function() {
                 required: true
             },
             txt_n_decreto: {
-                required: true,
                 digits: true,
                 maxlength: 11
-            },
-            dt_fecha_decreto: {
-                required: true
-            },
-            dt_fecha_caducidad: {
-                required: true
             },
             cmb_porcentaje: {
                 required: true
@@ -295,15 +285,8 @@ $(document).ready(function() {
                 required: "Seleccione un socio, botón buscar"
             },
             txt_n_decreto: {
-                required: "El número decreto es obligatorio",
                 digits: "Solo números",
                 maxlength: "Máximo 11 números"
-            },
-            dt_fecha_decreto: {
-                required: "Fecha decreto es obligatoria"
-            },
-            dt_fecha_caducidad: {
-                required: "Fecha caducidad es obligatoria"
             },
             cmb_porcentaje: {
                 required: "Seleccione un porcentaje"

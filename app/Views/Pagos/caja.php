@@ -78,6 +78,8 @@
 			                        		<label class="small mb-1" for="cmb_forma_pago" style="font-size: 150%;">Forma de Pago</label>
 			                        		<select id="cmb_forma_pago" name="cmb_forma_pago" class="form-control" style="font-size: 150%;">
 			                        			<option value="1">Efectivo</option>
+			                        			<option value="2">Tarjeta</option>
+			                        			<option value="3">Transferencia</option>
 			                        		</select>
 			                        	</div>
 			                        </div>

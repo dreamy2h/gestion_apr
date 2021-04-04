@@ -109,7 +109,7 @@
 					                            	<th>Folio SII</th>
 					                            	<th>id_socio</th>
 					                            	<th>rut_socio</th>
-					                                <th>rol_socio</th>
+					                                <th>ROL Socio</th>
 					                                <th>Nombre Socio</th>
 					                               	<th>id_Arranque</th>
 					                               	<th>subsidio</th>

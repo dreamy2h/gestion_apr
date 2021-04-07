@@ -1,11 +1,11 @@
                     <footer class="py-4 bg-light mt-auto">
                         <div class="container-fluid">
                             <div class="d-flex align-items-center justify-content-between small">
-                                <div class="text-muted">Copyright &copy; DevTeam 2020</div>
+                                <div class="text-muted">Copyright &copy; Info Integral y Corretaje. LTDA 2021</div>
                                 <div>
-                                    <a href="#">Facebook</a>
+                                    <a href="https://www.facebook.com/Medidores.Inteligentes.De.Agua.Potable" target="_blank">Facebook</a>
                                     &middot;
-                                    <a href="#">Sitio Web</a>
+                                    <a href="https://medidorinteligente.cl/" target="_blank">Sitio Web</a>
                                 </div>
                             </div>
                         </div>

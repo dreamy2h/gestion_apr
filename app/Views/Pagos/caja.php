@@ -83,7 +83,12 @@
 			                        		</select>
 			                        	</div>
 			                        </div>
-	                				
+			                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+			                        	<div class="form-group">
+			                                <label class="small mb-1" for="txt_n_transaccion" style="font-size: 150%;">N° de Transacción</label>
+			                                <input type='text' class="form-control bg-light text-dark" id='txt_n_transaccion' name="txt_n_transaccion" style="font-size: 150%;" />
+			                            </div>
+			                        </div>
 			                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 			                        	<div class="form-group">
 			                                <label class="small mb-1" for="txt_entregado" style="font-size: 150%;">Entregado $</label>

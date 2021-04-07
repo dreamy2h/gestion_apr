@@ -157,5 +157,54 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function datatable_informe_subsidios($db, $id_apr) {
+	    	$consulta = "SELECT 
+							sub.id as id_subsidio,
+						    soc.rol as rol_socio,
+						    concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio,
+						    ifnull(date_format(sub.fecha_decreto, '%d-%m-%Y'), 'Sin Registro') as fecha_decreto,
+						    ifnull(date_format(sub.fecha_caducidad, '%d-%m-%Y'), 'Sin Registro') as fecha_caducidad,
+						    p.glosa as porcentaje,
+						    ifnull(date_format(sub.fecha_encuesta, '%d-%m-%Y'), 'Sin Registro') as fecha_encuesta,
+						    ifnull(sub.puntaje, 'Sin Registro') as puntaje,
+							ifnull(sub.numero_unico, 'Sin Registro') as numero_unico,
+						    ifnull(sub.digito_unico, 'Sin Registro') as digito_unico,
+						    IFNULL(ELT(FIELD(sub.estado, 0, 1), 'Desactivado','Activado'), 'Sin registro') as estado
+						FROM 
+							subsidios sub
+						    inner join socios soc on sub.id_socio = soc.id
+						    inner join porcentajes p on sub.id_porcentaje = p.id
+						where
+							sub.id_apr = ?";
+
+			$query = $db->query($consulta, [$id_apr]);
+			$subsidios = $query->getResultArray();
+
+			foreach ($subsidios as $key) {
+				$row = array(
+					"id_subsidio" => $key["id_subsidio"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"fecha_decreto" => $key["fecha_decreto"],
+					"fecha_caducidad" => $key["fecha_caducidad"],
+					"porcentaje" => $key["porcentaje"],
+					"fecha_encuesta" => $key["fecha_encuesta"],
+					"puntaje" => $key["puntaje"],
+					"numero_unico" => $key["numero_unico"],
+					"digito_unico" => $key["digito_unico"],
+					"estado" => $key["estado"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": [] }";
+			}
+	    }
 	}
 ?>

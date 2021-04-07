@@ -74,6 +74,9 @@ function guardar_pago() {
     var total_pagar = peso.quitar_formato($("#txt_total_pagar").val());
     var entregado = peso.quitar_formato($("#txt_entregado").val());
     var vuelto = peso.quitar_formato($("#txt_vuelto").val());
+    var forma_pago = $("#cmb_forma_pago").val();
+    var forma_pago_glosa = $("#cmb_forma_pago").text();
+    var n_transaccion = $("#txt_n_transaccion").val();
     var id_socio = $("#txt_id_socio").val();
 
     if (parseInt(entregado) < parseInt(total_pagar)) {
@@ -106,6 +109,8 @@ function guardar_pago() {
                         total_pagar: total_pagar,
                         entregado: entregado,
                         vuelto: vuelto,
+                        forma_pago: forma_pago,
+                        n_transaccion: n_transaccion,
                         arr_ids_metros: arr_ids_metros
                     },
                     success: function(respuesta) {
@@ -117,15 +122,19 @@ function guardar_pago() {
                             $("#txt_nombre_socio").val("");
                             $("#btn_pagar").prop("disabled", true);
                             $("#cmb_forma_pago").prop("disabled", true);
+                            $("#cmb_forma_pago").val(1);
                             $("#txt_entregado").prop("disabled", true);
                             $("#txt_entregado").val("");
                             $("#txt_vuelto").prop("disabled", true);
                             $("#txt_vuelto").val("");
                             $("#txt_total_pagar").val("");
+                            $("#txt_n_transaccion").prop("disabled", true);
+                            $("#txt_n_transaccion").val(""); 
 
                             $("#grid_deuda").DataTable().clear().draw();
 
                             alerta.ok("alerta", "Pago guardado con éxito");
+                            window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
                         } else {
                             alerta.error("alerta", respuesta);
                         }
@@ -149,6 +158,7 @@ $(document).ready(function() {
 	$("#txt_total_pagar").prop("readonly", true);
     $("#txt_vuelto").prop("readonly", true);
 	$("#cmb_forma_pago").prop("disabled", true);
+    $("#txt_n_transaccion").prop("disabled", true);
 	$("#txt_entregado").prop("disabled", true);
 	$("#txt_vuelto").prop("disabled", true);
 
@@ -158,6 +168,14 @@ $(document).ready(function() {
         ); 
 
         $('#dlg_buscar_socio').modal('show');
+    });
+
+    $("#cmb_forma_pago").on("change", function() {
+        if ($(this).val() != 1) {
+            $("#txt_n_transaccion").prop("disabled", false);
+        } else {
+            $("#txt_n_transaccion").prop("disabled", true);
+        }
     });
 
     $("#txt_entregado").on("blur", function() {

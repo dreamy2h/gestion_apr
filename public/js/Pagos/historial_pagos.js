@@ -139,6 +139,8 @@ $(document).ready(function() {
                     return peso.formateaNumero(data);
                 }
             },
+            { "data": "forma_pago" },
+            { "data": "n_transaccion" },
             { "data": "rol_socio" },
             { "data": "estado" },
             { "data": "usuario" },

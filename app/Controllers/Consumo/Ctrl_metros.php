@@ -59,6 +59,7 @@
 			$multa = $this->request->getPost("multa");
 			$total_servicios = $this->request->getPost("total_servicios");
 			$total_mes = $this->request->getPost("total_mes");
+			$cargo_fijo = $this->request->getPost("cargo_fijo");
 
 			$datosMetros = [
 				"id_socio" => $id_socio,
@@ -72,6 +73,7 @@
 				"multa" => $multa,
 				"total_servicios" => $total_servicios,
 				"total_mes" => $total_mes,
+				"cargo_fijo" => $cargo_fijo,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
 				"id_apr" => $id_apr

@@ -9,22 +9,25 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'total_pagar', 'entregado', 'vuelto', 'id_socio', 'estado', 'id_usuario', 'fecha', 'id_apr'];
+	    protected $allowedFields = ['id', 'total_pagar', 'entregado', 'vuelto', 'id_forma_pago', 'numero_transaccion', 'id_socio', 'estado', 'id_usuario', 'fecha', 'id_apr'];
 
 	    public function datatable_historial_pagos($db, $id_apr, $id_socio, $desde, $hasta) {
 	    	$consulta = "SELECT 
 							c.id as id_caja,
-						    c.total_pagar as pagado,
-						    c.entregado,
-						    c.vuelto,
-						    s.rol as rol_socio,
-						    IFNULL(ELT(FIELD(c.estado, 0, 1), 'Anulado', 'Pagado'),'Sin registro') as estado,
-						    u.usuario,
-						    date_format(c.fecha, '%d-%m-%Y') as fecha
+							c.total_pagar as pagado,
+							c.entregado,
+							c.vuelto,
+						    fp.glosa as forma_pago,
+						    ifnull(c.numero_transaccion, 'No Registrado') as n_transaccion,
+							s.rol as rol_socio,
+							IFNULL(ELT(FIELD(c.estado, 0, 1), 'Anulado', 'Pagado'),'Sin registro') as estado,
+							u.usuario,
+							date_format(c.fecha, '%d-%m-%Y') as fecha
 						from 
 							caja c
-						    inner join socios s on c.id_socio = s.id
-						    inner join usuarios u on c.id_usuario = u.id
+							inner join socios s on c.id_socio = s.id
+							inner join usuarios u on c.id_usuario = u.id
+						    inner join forma_pago fp on c.id_forma_pago = fp.id
 						where
 							c.id_apr = ?";
 
@@ -55,6 +58,8 @@
 					"pagado" => $key["pagado"],
 					"entregado" => $key["entregado"],
 					"vuelto" => $key["vuelto"],
+					"forma_pago" => $key["forma_pago"],
+					"n_transaccion" => $key["n_transaccion"],
 					"rol_socio" => $key["rol_socio"],
 					"estado" => $key["estado"],
 					"usuario" => $key["usuario"],

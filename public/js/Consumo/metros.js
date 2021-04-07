@@ -70,6 +70,7 @@ function guardar_metros() {
     var multa = peso.quitar_formato($("#txt_multa").val());
     var total_servicios = peso.quitar_formato($("#txt_total_servicios").val());
     var total_mes = peso.quitar_formato($("#txt_total_mes").val());
+    var cargo_fijo = $("#txt_cargo_fijo").val();
 
     $.ajax({
         url: base_url + "/Consumo/Ctrl_metros/guardar_metros",
@@ -87,7 +88,8 @@ function guardar_metros() {
             subtotal: subtotal,
             multa: multa,
             total_servicios: total_servicios,
-            total_mes: total_mes
+            total_mes: total_mes,
+            cargo_fijo: cargo_fijo,
         },
         success: function(respuesta) {
             const OK = 1;
@@ -180,7 +182,6 @@ function calcular_montos() {
     var consumo_anterior = $("#txt_c_anterior").val();
     var consumo_actual = $("#txt_c_actual").val();
     var tope_subsidio = $("#txt_tope_subsidio").val();
-    var cargo_fijo;
 
     if (parseInt(consumo_actual) >= parseInt(consumo_anterior)) {
         var metros_consumidos = parseInt(consumo_actual) - parseInt(consumo_anterior);
@@ -262,9 +263,6 @@ function calcular_total() {
     if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
 
     var total_mes = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios) - parseInt(monto_subsidio);
-    if (total_mes < cargo_fijo) {
-        total_mes = cargo_fijo;
-    }
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
 }

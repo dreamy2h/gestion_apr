@@ -100,6 +100,11 @@
 			echo view('Informes/informe_pagos_diarios');		
 		}
 
+		public function informe_subsidios() {
+			$this->validar_sesion();
+			echo view('Informes/informe_subsidios');		
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				return redirect()->to("http://localhost/gestion_apr/public/");

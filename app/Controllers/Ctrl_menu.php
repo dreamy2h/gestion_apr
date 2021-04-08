@@ -107,7 +107,7 @@
 
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
-				return redirect()->to("http://localhost/gestion_apr/public/");
+				echo "La sesión expiró, actualice el sitio web con F5";
 				exit();
 	    	}
 		}

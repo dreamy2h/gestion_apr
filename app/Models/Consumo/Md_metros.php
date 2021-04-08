@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr', 'cargo_fijo'];
+	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr', 'cargo_fijo', 'monto_facturable'];
 
 	    public function datatable_metros($db, $id_apr) {
 	    	define("ELIMINADO", 0);
@@ -18,7 +18,7 @@
 	    	$consulta = "SELECT 
 							m.id as id_metros,
 							m.id_socio,
-							soc.rut as rut_socio,
+							concat(soc.rut, '-', soc.dv) as rut_socio,
 							soc.rol as rol_socio,
 							concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio,
 							a.id as id_arranque,
@@ -37,6 +37,8 @@
 							ifnull(m.multa, 0) as multa,
 							ifnull(m.total_servicios, 0) as total_servicios,
 							ifnull(m.total_mes, 0) as total_mes,
+							ifnull(m.cargo_fijo, 0) as cargo_fijo,
+                            ifnull(m.monto_facturable, 0) as monto_facturable,
 							u.usuario,
 							date_format(m.fecha, '%d-%m-%Y') as fecha
 						from 
@@ -81,6 +83,8 @@
 					"multa" => $key["multa"],
 					"total_servicios" => $key["total_servicios"],
 					"total_mes" => $key["total_mes"],
+					"cargo_fijo" => $key["cargo_fijo"],
+					"monto_facturable" => $key["monto_facturable"],
 					"usuario" => $key["usuario"],
 					"fecha" => $key["fecha"]
 				);

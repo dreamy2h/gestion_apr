@@ -60,6 +60,7 @@
 			$total_servicios = $this->request->getPost("total_servicios");
 			$total_mes = $this->request->getPost("total_mes");
 			$cargo_fijo = $this->request->getPost("cargo_fijo");
+			$monto_facturable = $this->request->getPost("monto_facturable");
 
 			$datosMetros = [
 				"id_socio" => $id_socio,
@@ -74,6 +75,7 @@
 				"total_servicios" => $total_servicios,
 				"total_mes" => $total_mes,
 				"cargo_fijo" => $cargo_fijo,
+				"monto_facturable" => $monto_facturable,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
 				"id_apr" => $id_apr

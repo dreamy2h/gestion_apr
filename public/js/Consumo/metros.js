@@ -29,6 +29,7 @@ function des_habilitar(a, b) {
     $("#txt_subtotal").prop("disabled", a);
     $("#txt_multa").prop("disabled", a);
     $("#txt_total_servicios").prop("disabled", a);
+    $("#txt_monto_facturable").prop("disabled", a);
     $("#txt_total_mes").prop("disabled", a);
 }
 
@@ -52,6 +53,8 @@ function mostrar_datos_metros(data) {
     $("#txt_subtotal").val(peso.formateaNumero(data["subtotal"]));
     $("#txt_multa").val(peso.formateaNumero(data["multa"]));
     $("#txt_total_servicios").val(peso.formateaNumero(data["total_servicios"]));
+    $("#txt_monto_facturable").val(peso.formateaNumero(data["monto_facturable"]));
+    $("#txt_cargo_fijo").val(peso.formateaNumero(data["cargo_fijo"]));
     $("#txt_total_mes").val(peso.formateaNumero(data["total_mes"]));
 
     $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
@@ -70,7 +73,8 @@ function guardar_metros() {
     var multa = peso.quitar_formato($("#txt_multa").val());
     var total_servicios = peso.quitar_formato($("#txt_total_servicios").val());
     var total_mes = peso.quitar_formato($("#txt_total_mes").val());
-    var cargo_fijo = $("#txt_cargo_fijo").val();
+    var cargo_fijo = peso.quitar_formato($("#txt_cargo_fijo").val());
+    var monto_facturable = peso.quitar_formato($("#txt_monto_facturable").val());
 
     $.ajax({
         url: base_url + "/Consumo/Ctrl_metros/guardar_metros",
@@ -90,6 +94,7 @@ function guardar_metros() {
             total_servicios: total_servicios,
             total_mes: total_mes,
             cargo_fijo: cargo_fijo,
+            monto_facturable: monto_facturable
         },
         success: function(respuesta) {
             const OK = 1;
@@ -99,7 +104,7 @@ function guardar_metros() {
                 des_habilitar(true, false);
                 $("#grid_costo_metros").DataTable().clear().draw();
                 alerta.ok("alerta", "Consumo de metros, guardado con éxito");
-                $("#datosMetros").collapse();
+                $("#datosMetros").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
@@ -263,8 +268,10 @@ function calcular_total() {
     if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
 
     var total_mes = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios) - parseInt(monto_subsidio);
+    var monto_facturable = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios);
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
+    $("#txt_monto_facturable").val(peso.formateaNumero(monto_facturable));
 }
 
 function existe_consumo_mes() {
@@ -280,9 +287,7 @@ function existe_consumo_mes() {
             fecha_vencimiento: fecha_vencimiento
         },
         success: function(respuesta) {
-            const EXISTE = 1;
-
-            if (respuesta == EXISTE) {
+            if (parseInt(respuesta) > 0) {
                 $("#dt_fecha_ingreso").val("");
                 $("#dt_fecha_vencimiento").val("");
                 alerta.aviso("alerta", "Hay un consumo ingresado con vencimiento este mes, para este socio");
@@ -319,11 +324,14 @@ $(document).ready(function() {
     $("#dt_fecha_ingreso").prop("readonly", true);
     $("#dt_fecha_vencimiento").prop("readonly", true);
     $("#txt_cargo_fijo").prop("readonly", true);
+    $("#txt_monto_facturable").prop("readonly", true);
 
     des_habilitar(true, false);
 
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
+        $("#dt_fecha_ingreso").val("01-01-2021");
+        $("#dt_fecha_vencimiento").val("01-01-2021");
         $("#form_metros")[0].reset();
         $("#grid_costo_metros").DataTable().clear().draw();
         datatable_enabled = false;
@@ -397,6 +405,10 @@ $(document).ready(function() {
         useCurrent: false,
         locale: moment.locale("es")
     }).on("dp.change", function() {
+        $("#dt_fecha_ingreso").blur();
+    });
+
+    $("#dt_fecha_ingreso").on("blur", function() {
         habilita_consumo_actual();
     });
 
@@ -405,6 +417,10 @@ $(document).ready(function() {
         useCurrent: false,
         locale: moment.locale("es")
     }).on("dp.change", function() {
+        $("#dt_fecha_vencimiento").blur();
+    });
+
+    $("#dt_fecha_vencimiento").on("blur", function() {
         existe_consumo_mes();
     });
 
@@ -590,6 +606,18 @@ $(document).ready(function() {
                     return peso.formateaNumero(data);
                 }
             },
+            { 
+                "data": "monto_facturable",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
+                "data": "cargo_fijo",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
             { "data": "usuario" },
             { "data": "fecha" },
             { 
@@ -600,7 +628,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

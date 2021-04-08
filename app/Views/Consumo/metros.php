@@ -87,13 +87,13 @@
 							                                <input type='text' class="form-control" id='txt_subsidio' name="txt_subsidio" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12">
+							                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_tope_subsidio">m<sup>3</sup></label>
 							                                <input type='text' class="form-control" id='txt_tope_subsidio' name="txt_tope_subsidio" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 							                        	<div class="form-group">
 							                                <label class="small mb-1" for="txt_monto_subsidio">Monto Subsidio $</label>
 							                                <input type='text' class="form-control" id='txt_monto_subsidio' name="txt_monto_subsidio" />
@@ -149,7 +149,6 @@
 							                                <input type='text' class="form-control" id='txt_metros' name="txt_metros" />
 							                            </div>
 							                        </div>
-							                 
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_subtotal">Subtotal $</label>
@@ -158,16 +157,22 @@
 							                        </div>
 						                        </div>
 						                        <div class="row">
-						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_multa">Multa $</label>
 							                                <input type='text' class="form-control" id='txt_multa' name="txt_multa" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios $</label>
 							                                <input type='text' class="form-control" id='txt_total_servicios' name="txt_total_servicios" />
+							                            </div>
+							                        </div>
+						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                         	<div class="form-group">
+							                                <label class="small mb-1" for="txt_monto_facturable">Monto Facturable $</label>
+							                                <input type='text' class="form-control" id='txt_monto_facturable' name="txt_monto_facturable" />
 							                            </div>
 							                        </div>
 						                        </div>
@@ -246,6 +251,8 @@
 					                                <th>Multa $</th>
 					                                <th>T. Servicios $</th>
 					                                <th>T. Mes $</th>
+					                                <th>M. Facturable $</th>
+					                                <th>Cargo Fijo $</th>
 					                                <th>Usuario</th>
 					                                <th>Fecha</th>
 					                                <th>Traza</th>

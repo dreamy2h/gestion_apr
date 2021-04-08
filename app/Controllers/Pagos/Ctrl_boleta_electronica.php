@@ -49,12 +49,12 @@
 			$folios = $this->request->getPost("arr_boletas");
 
 			foreach ($folios as $folio) {
-				$datosMetros = $this->metros->select("id_socio")->select("total_mes")->select("consumo_anterior")->select("consumo_actual")->select("metros")->where("id", $folio)->first();
+				$datosMetros = $this->metros->select("id_socio")->select("monto_facturable")->select("consumo_anterior")->select("consumo_actual")->select("metros")->where("id", $folio)->first();
 
 				$consumo_anterior = $datosMetros["consumo_anterior"];
 				$consumo_actual = $datosMetros["consumo_actual"];
 				$metros_ = $datosMetros["metros"];
-				$total_mes = $datosMetros["total_mes"];
+				$monto_facturable = $datosMetros["monto_facturable"];
 				$id_socio =  $datosMetros["id_socio"];
 
 				$datosSocios = $this->socios->select("concat(rut, '-', dv) as rut_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")->select("concat(calle, ', ', numero, ', ', resto_direccion) as direccion")->select("id_comuna")->where("id", $id_socio)->first();
@@ -113,7 +113,7 @@
 	                        'IndExe' => 1,
 	                        'NmbItem' => 'Consumo de Agua Potable',
 	                        'QtyItem' => 1,
-	                        'PrcItem' => $total_mes
+	                        'PrcItem' => $monto_facturable
 	                    ],
 	                ],
 	                'LibreDTE' => [

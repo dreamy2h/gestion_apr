@@ -216,7 +216,7 @@
 				}
 
 				if ($mes_año != "") {
-					$consulta .= " and date_format(m.fecha_vencimiento, '%m-%Y') = ?";
+					$consulta .= " and date_format(m.fecha_ingreso, '%m-%Y') = ?";
 					array_push($bind, $mes_año);
 				}
 

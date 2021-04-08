@@ -62,7 +62,7 @@
 					                    <div class="row">
 					                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 					                    		<div class="form-group">
-					                    			<label class="small mb-1" for="dt_mes_año">Mes / Año</label>
+					                    			<label class="small mb-1" for="dt_mes_año">Mes Consumo</label>
 					                                <input type='text' class="form-control" id='dt_mes_año' name="dt_mes_año" />
 					                    		</div>
 					                    	</div>

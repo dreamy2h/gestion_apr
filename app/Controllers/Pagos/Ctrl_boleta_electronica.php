@@ -84,7 +84,7 @@
 					$comuna = "Sin Comuna";
 				}
 				
-				$datosParaGrafico = $this->metros->select("date_format(fecha_vencimiento, '%b-%Y') as fecha")->select("consumo_actual")->where("id_socio", $id_socio)->whereNotIn("estado", [0])->findAll();
+				$datosParaGrafico = $this->metros->select("date_format(fecha_ingreso, '%m-%Y') as fecha")->select("consumo_actual")->where("id_socio", $id_socio)->whereNotIn("estado", [0])->findAll();
 
 				$datos_graf = [];
 

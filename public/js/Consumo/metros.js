@@ -555,7 +555,7 @@ $(document).ready(function() {
 		responsive: true,
         paging: true,
         destroy: true,
-        order: [[ 0, "asc" ]],
+        order: [[ 0, "desc" ]],
         select: {
             toggleable: false
         },
@@ -629,7 +629,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 5, 6, 8, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

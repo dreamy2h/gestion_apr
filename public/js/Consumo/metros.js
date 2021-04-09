@@ -555,6 +555,7 @@ $(document).ready(function() {
 		responsive: true,
         paging: true,
         destroy: true,
+        order: [[ 0, "asc" ]],
         select: {
             toggleable: false
         },

@@ -54,9 +54,7 @@ function guardar_permisos_usuario(id_permiso, opcion) {
 $(document).ready(function() {
     var grid_usuario_permisos = $("#grid_usuario_permisos").DataTable({
 		responsive: true,
-        paging:   false,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        paging: false,
         destroy: true,
         select: {
             style: "multi"

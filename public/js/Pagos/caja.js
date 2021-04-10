@@ -134,6 +134,7 @@ function guardar_pago() {
                             $("#grid_deuda").DataTable().clear().draw();
 
                             alerta.ok("alerta", "Pago guardado con éxito");
+                            if (n_transaccion == "") { n_transaccion = 0; }
                             window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
                         } else {
                             alerta.error("alerta", respuesta);

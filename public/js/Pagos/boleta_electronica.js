@@ -133,6 +133,21 @@ function imprimir_dte() {
   	}
 }
 
+function imprimir_aviso_cobranza() {
+    var data = $("#grid_boletas").DataTable().rows('.selected').data();
+    var arr_boletas = [];
+    $(data).each(function(i,fila) {
+        arr_boletas.push(fila.id_metros);
+    });
+
+    if (arr_boletas.length > 0) {
+        var url = base_url + "/Pagos/Ctrl_boleta_electronica/imprimir_aviso_cobranza/" + arr_boletas;
+        window.open(url, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
+    } else {
+        alerta.error("alerta", "Seleccione al menos una boleta, con folio SII")
+    }
+}
+
 $(document).ready(function() {
 	$("#txt_id_socio").prop("readonly", true);
     $("#txt_rut_socio").prop("readonly", true);
@@ -169,6 +184,10 @@ $(document).ready(function() {
 
     $("#btn_imprimir").on("click", function() {
     	imprimir_dte();
+    });
+
+    $("#btn_aviso_cobranza").on("click", function() {
+        imprimir_aviso_cobranza();
     });
 
 	var grid_boletas = $("#grid_boletas").DataTable({

@@ -5,7 +5,10 @@
 	use App\Models\Consumo\Md_metros;
 	use App\Models\Consumo\Md_metros_traza;
 	use App\Models\Formularios\Md_socios;
+	use App\Models\Formularios\Md_arranques;
+	use App\Models\Formularios\Md_medidores;
 	use App\Models\Configuracion\Md_comunas;
+	use App\Models\Configuracion\Md_apr;
 	use \Mpdf\Mpdf;
 
 	class Ctrl_boleta_electronica extends BaseController {
@@ -13,6 +16,9 @@
 		protected $metros_traza;
 		protected $socios;
 		protected $comunas;
+		protected $apr;
+		protected $arranques;
+		protected $medidores;
 		protected $sesión;
 		protected $db;
 		protected $error = "";
@@ -22,6 +28,9 @@
 			$this->metros_traza = new Md_metros_traza();
 			$this->socios = new Md_socios();
 			$this->comunas = new Md_comunas();
+			$this->apr = new Md_apr();
+			$this->arranques = new Md_arranques();
+			$this->medidores = new Md_medidores();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -39,6 +48,7 @@
 		}
 
 		public function emitir_dte() {
+			$this->validar_sesion();
 			define("BOLETA_EXENTA", 41);
 	        define("ASIGNA_FOLIO_BOLECT", 7);
 
@@ -188,6 +198,7 @@
 		}
 
 		public function imprimir_dte($arr_boletas) {
+			$this->validar_sesion();
 			$mpdf = new \Mpdf\Mpdf();
 
 			define("BOLETA_EXENTA", 41);
@@ -219,6 +230,171 @@
 				unlink($folio_sii . ".pdf");
 			}
 
+			return redirect()->to($mpdf->Output());
+		}
+
+		public function imprimir_aviso_cobranza($arr_boletas) {
+			$this->validar_sesion();
+			$mpdf = new \Mpdf\Mpdf([
+			    'mode' => 'utf-8',
+			    'format' => 'letter',
+			    'margin_bottom' => 1
+			]);
+
+			$datosApr = $this->apr->select("nombre")
+									->select("concat(rut, '-', dv) as rut")
+									->select("ifnull(calle, 'Sin Registro') as calle")
+									->select("case when numero = 0 then 'Sin Registro' else numero end as numero")
+									->select("ifnull(resto_direccion, 'Sin Registro') as resto_direccion")
+									->where("id", $this->sesión->id_apr_ses)->first();
+
+			$nombre_apr = $datosApr["nombre"];
+			$rut_apr = $datosApr["rut"];
+			$direccion_apr = $datosApr["calle"] . ", " . $datosApr["numero"] . ", " . $datosApr["resto_direccion"];
+
+			$folios = explode(",", $arr_boletas);
+			
+			foreach ($folios as $folio) {
+				$datosMetros = $this->metros->select("id_socio")
+											->select("consumo_anterior")
+											->select("consumo_actual")
+											->select("metros")
+											->select("monto_facturable")
+											->select("total_mes")
+											->select("date_format(fecha, '%d-%m-%Y') as fecha_emision")
+											->select("date_format(fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento")
+											->where("id", $folio)->first();
+
+				$id_socio = $datosMetros["id_socio"];
+				$consumo_anterior = $datosMetros["consumo_anterior"];
+				$consumo_actual = $datosMetros["consumo_actual"];
+				$consumo_metros = $datosMetros["metros"];
+				$monto_facturable = $datosMetros["monto_facturable"];
+				$total_mes = $datosMetros["total_mes"];
+				$fecha_emision = $datosMetros["fecha_emision"];
+				$fecha_vencimiento = $datosMetros["fecha_vencimiento"];
+
+				$datosSocio = $this->socios->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")
+											->select("concat(calle, ', ', numero, ', ', resto_direccion) as direccion_socio")
+											->select("rol as codigo_socio")
+											->where("id", $id_socio)->first();
+
+				$nombre_socio = $datosSocio["nombre_socio"];
+				$direccion_socio = $datosSocio["direccion_socio"];
+				$codigo_socio = $datosSocio["codigo_socio"];
+
+				$datosArranque = $this->arranques->select("id_medidor")->where("id_socio", $id_socio)->first();
+				$datosMedidor = $this->medidores->select("numero")->where("id", $datosArranque["id_medidor"])->first();
+
+				$numero_medidor = $datosMedidor["numero"];
+
+				$pagecount = $mpdf->SetSourceFile("002.pdf");
+				$tplId = $mpdf->ImportPage($pagecount);
+		        $mpdf->AddPage();
+				$mpdf->UseTemplate($tplId);
+				$mpdf->WriteHTML('
+					<div style="height: 11%;"></div>
+					<div>
+			        	<div style="font-size: 90%; width: 60%; float: left;">
+			        		<br><br><br>
+			        		<b>' . $nombre_apr .  '</b><br>
+							RUT: ' . $rut_apr . '<br>
+							CAPTACIÓN, PURIFICACIÓN Y DIST. DE AGUA<br>
+							' . $direccion_apr . '<br>
+							FONOS: 722 392 155 - 722 392 131
+			        	</div>
+			        	
+			        	<div style="width: 40%; float: left;">
+			        		<div style="font-size: 140%;">
+			        			<b>N° ' . $folio . '<br></b><br>
+			        		</div>
+			        		<div style="font-size: 90%;">
+				        		BOLETA DE VENTAS Y SERVICIOS<br>
+								NO AFECTAS O EXENTAS DE IVA<br>
+								OFICIO N° 2.413 DEL 30 - 08 - 96 DEL S.I.I.<br>
+								RESOLUCIÓN N° 78 03-04-1998
+							</div>
+			        	</div>
+			        </div>
+			        <br><br>
+					<div>
+			        	<div style="width: 60%; float: left; margin-left: 3%;">
+			        		' . $nombre_socio . '<br>
+							' . $direccion_socio . '<br>
+							' . $codigo_socio . '<br>
+							' . $numero_medidor . '
+			        	</div>
+			        </div>
+			        <br><br><br><br><br>
+					<div>
+			        	<div style="width: 25%; float: left; margin-left: 3%;">
+			        		' . $consumo_anterior . ' M<sup>3</sup><br>
+			        	</div>
+			        	<div style="width: 32%; float: left;">
+			        		' . $consumo_actual . ' M<sup>3</sup><br>
+			        	</div>
+			        	<div style="width: 40%; float: left;">
+			        		' . $consumo_metros . ' M<sup>3</sup><br>
+			        	</div>
+			        </div>
+			        <div style="height: 6.7%;"></div>
+					<div>
+			        	<div style="width: 100%; float: left; margin-left: 60%;">
+			        		$ ' . number_format($total_mes, 0, ",", ".") . '
+			        	</div>
+			        </div>
+			        <div style="height: 8%;"></div>
+					<div>
+			        	<div style="width: 35%; float: left; margin-left: 10%;">
+			        		' . $fecha_emision . '
+			        	</div>
+			        	<div style="width: 35%; float: left;">
+			        		' . $fecha_vencimiento . '
+			        	</div>
+			        	<div style="width: 15%; float: left;">
+			        		$ ' . number_format($total_mes, 0, ",", ".") . '
+			        	</div>
+			        </div>
+			        <div style="height: 13%;"></div>
+					<div>
+			        	<div style="font-size: 70%; width: 40%; float: left;">
+			        		<b>' . $nombre_apr .  '</b><br>
+							RUT: ' . $rut_apr . '<br>
+							CAPTACIÓN, PURIFICACIÓN Y DIST. DE AGUA<br>
+							' . $direccion_apr . '<br>
+							FONOS: 722 392 155 - 722 392 131
+			        	</div>
+			        	
+			        	<div style="width: 40%; float: left;">
+			        		<div style="font-size: 10 	0%;">
+			        			<b>N° ' . $folio . '<br>
+			        		</div>
+			        		<div style="font-size: 70%;">
+				        		BOLETA DE VENTAS Y SERVICIOS<br>
+								NO AFECTAS O EXENTAS DE IVA<br>
+								OFICIO N° 2.413 DEL 30 - 08 - 96 DEL S.I.I.<br>
+								RESOLUCIÓN N° 78 03-04-1998
+							</div>
+			        	</div>
+			        	<div style="width: 20%; float: left;">
+			        		<br><br>
+			        		' . $fecha_emision . '
+			        	</div>
+			        	<br>
+			        	<div style="width: 77%; float: left; margin-left: 3%; font-size: 70%;">
+			        		' . $nombre_socio . '<br>
+							' . $direccion_socio . '<br>
+							' . $codigo_socio . '<br>
+							' . $numero_medidor . '
+			        	</div>
+			        	<div style="width: 20%; float: left;">
+			        		<br><br>
+			        		' . $fecha_vencimiento . '
+			        	</div>
+			        </div>
+				');
+			}
+			
 			return redirect()->to($mpdf->Output());
 		}
 	}

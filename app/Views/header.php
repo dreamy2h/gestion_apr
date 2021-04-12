@@ -32,7 +32,7 @@
         <div class="div_sample">
             <input type="hidden" id="txt_base_url" name="txt_base_url" value="<?php echo base_url(); ?>">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-                <a class="navbar-brand" href="index.html"><?php echo substr($sesión->apr_ses, 0, 20); ?></a>
+                <a class="navbar-brand"><?php echo substr($sesión->apr_ses, 0, 20); ?></a>
                 <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
                 
                 <!-- Navbar-->

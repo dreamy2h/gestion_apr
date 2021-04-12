@@ -110,6 +110,11 @@
 			echo view('Informes/informe_arqueo');		
 		}
 
+		public function informe_municipalidad_subsidios() {
+			$this->validar_sesion();
+			echo view('Informes/informe_municipalidad_subsidios');		
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

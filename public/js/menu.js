@@ -18,7 +18,7 @@ $(document).ready(function() {
         		if (i > 0) {
 	            	menu += "</nav></div>"
 	        	}
-	        	menu += '<a class="nav-link collapsed" data-toggle="collapse" data-target="#' + data[i].collapse + '" aria-expanded="false" aria-controls="' + data[i].collapse + '">\
+	        	menu += '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#' + data[i].collapse + '" aria-expanded="false" aria-controls="' + data[i].collapse + '">\
                             <div class="sb-nav-link-icon"><i class="' + data[i].icono_grupo + '"></i></div>\
                             ' + data[i].grupo + '\
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>\
@@ -28,7 +28,7 @@ $(document).ready(function() {
             	id_grupo = data[i].id_grupo;
         	}
 
-        	menu += '<a class="nav-link" id="' + data[i].div_id + '" onclick="cargar_page(\'' + String(data[i].ruta) + '\')">\
+        	menu += '<a class="nav-link" href="#" id="' + data[i].div_id + '" onclick="cargar_page(\'' + String(data[i].ruta) + '\')">\
                         <div class="sb-nav-link-icon"><i class="' + data[i].icono + '"></i></div> ' + data[i].permiso + '\
                     </a>';
 

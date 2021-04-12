@@ -267,5 +267,46 @@
 				return "{ \"data\": []}";
 			}
 	    }
+
+	    public function datatable_informe_municipal($db, $id_apr, $mes_consumo) {
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
+
+	    	$consulta = "SELECT 
+							m.id as id_metros,
+						    concat(s.rut, '-', s.dv) as rut_socio,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+						    date_format(m.fecha_ingreso, '%m-%Y') as mes_cubierto,
+						    m.monto_subsidio as subsidio
+						from 
+							metros m
+						    inner join socios s on m.id_socio = s.id
+						where
+							date_format(m.fecha_ingreso, '%m-%Y') = ? and
+						    m.monto_subsidio > ? and
+						    m.estado <> ?";
+
+			$query = $db->query($consulta, [$mes_consumo, 0, $estado]);
+			$metros = $query->getResultArray();
+
+			foreach ($metros as $key) {
+				$row = array(
+					"id_metros" => $key["id_metros"],
+					"rut_socio" => $key["rut_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"mes_cubierto" => $key["mes_cubierto"],
+					"subsidio" => $key["subsidio"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
+			}
+	    }
 	}
 ?>

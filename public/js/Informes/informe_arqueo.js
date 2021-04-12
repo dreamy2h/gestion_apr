@@ -261,22 +261,4 @@ $(document).ready(function() {
             $(element).css('border', '1px solid #CCC');
         }
     });
-
-    // $('#dataTable77').DataTable({
-    //     drawCallback:function() { 
-    //         zSumArr(this,[6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],6); 
-    //     },
-    //     dom: 'Bfrtip',
-    //     buttons: [{
-    //         extend: 'excel',
-    //         text: 'Save current page',
-    //         footer: true,
-    //         exportOptions: {
-    //             modifier: {
-    //                 page: 'current'
-    //             }
-    //         }
-    //     }],
-    //     "pageLength": 100
-    // });
 });

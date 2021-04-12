@@ -144,7 +144,7 @@ function imprimir_aviso_cobranza() {
         var url = base_url + "/Pagos/Ctrl_boleta_electronica/imprimir_aviso_cobranza/" + arr_boletas;
         window.open(url, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
     } else {
-        alerta.error("alerta", "Seleccione al menos una boleta, con folio SII")
+        alerta.error("alerta", "Seleccione al menos una boleta")
     }
 }
 

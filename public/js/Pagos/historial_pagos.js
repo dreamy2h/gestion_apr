@@ -148,6 +148,12 @@ $(document).ready(function() {
             { 
                 "data": "id_caja",
                 "render": function(data, type, row) {
+                    return "<button type='button' class='reimprimir_boucher btn btn-info' title='Reimprimir Boucher'><i class='fas fa-print'></i></button>";
+                }
+            },
+            { 
+                "data": "id_caja",
+                "render": function(data, type, row) {
                     return "<button type='button' class='anular_pago btn btn-danger' title='Anular Pago'><i class='fas fa-ban'></i></button>";
                 }
             },
@@ -192,7 +198,12 @@ $(document).ready(function() {
     });
 
     $("#grid_pagos tbody").on("click", "button.traza_pago", function () {
-		var data = grid_pagos.row($(this).parents("tr")).data();
+		var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_pagos.row(tr).data();
         var id_caja = data["id_caja"];
 
         $("#divContenedorTrazaPagos").load(
@@ -203,7 +214,12 @@ $(document).ready(function() {
     });
 
     $("#grid_pagos tbody").on("click", "button.anular_pago", function () {
-		var data = grid_pagos.row($(this).parents("tr")).data();
+		var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_pagos.row(tr).data();
         var id_caja = data["id_caja"];
 
         Swal.fire({
@@ -220,6 +236,22 @@ $(document).ready(function() {
             	anular_pago(id_caja);
             }
         });
+    });
+
+    $("#grid_pagos tbody").on("click", "button.reimprimir_boucher", function () {
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_pagos.row(tr).data();
+        var total_pagar = data["pagado"];
+        var entregado = data["entregado"];
+        var vuelto = data["vuelto"];
+        var forma_pago_glosa = data["forma_pago"];
+        var n_transaccion = data["n_transaccion"];
+
+        window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
     });
 
     var grid_deuda = $("#grid_deuda").DataTable({

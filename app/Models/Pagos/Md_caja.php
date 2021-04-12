@@ -127,5 +127,82 @@
 			}
 	    }
 
+	    public function datatable_informe_arqueo($db, $id_apr, $datosBusqueda) {
+	    	$consulta = "SELECT 
+							c.id as id_caja,
+							s.rol as rol_socio,
+							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+						    fp.glosa as forma_pago,
+						    ifnull(c.numero_transaccion, 'No Registrado') as n_transaccion,
+						    date_format(c.fecha, '%d-%m-%Y') as fecha_pago,
+						    m.monto_facturable as total,
+						    m.monto_subsidio,
+						    c.total_pagar as pagado,
+						    c.entregado,
+						    c.vuelto
+						from 
+							caja c
+						    inner join caja_detalle cd on cd.id_caja = c.id
+						    inner join metros m on cd.id_metros = m.id
+						    inner join socios s on c.id_socio = s.id
+						    inner join forma_pago fp on c.id_forma_pago = fp.id
+						where
+							c.id_apr = ? and
+							c.estado = ?";
+
+			$bind = [$id_apr, 1];
+
+			if ($datosBusqueda != "") {
+				$datos = explode(",", $datosBusqueda);
+				$id_socio = $datos[0];
+				$desde = $datos[1];
+				$hasta = $datos[2];
+				$id_forma_pago = $datos[3];
+
+				if ($id_socio != "") {
+					$consulta .= " and c.id_socio = ?";
+					array_push($bind, $id_socio);
+				}
+
+				if ($desde != "" && $hasta != "") {
+					$consulta .= " and date_format(c.fecha, '%d-%m-%Y') between ? and ?";
+					array_push($bind, $desde, $hasta);
+				}
+
+				if ($id_forma_pago != "") {
+					$consulta .= " and c.id_forma_pago = ?";
+					array_push($bind, $id_forma_pago);
+				}
+			}
+			
+			$query = $db->query($consulta, $bind);
+			$caja = $query->getResultArray();
+
+			foreach ($caja as $key) {
+				$row = array(
+					"id_caja" => $key["id_caja"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+					"forma_pago" => $key["forma_pago"],
+					"n_transaccion" => $key["n_transaccion"],
+					"fecha_pago" => $key["fecha_pago"],
+					"total" => $key["total"],
+					"monto_subsidio" => $key["monto_subsidio"],
+					"pagado" => $key["pagado"],
+					"entregado" => $key["entregado"],
+					"vuelto" => $key["vuelto"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
+			}
+	    }
+
 	}
 ?>

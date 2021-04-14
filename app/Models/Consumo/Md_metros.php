@@ -284,9 +284,10 @@
 						where
 							date_format(m.fecha_ingreso, '%m-%Y') = ? and
 						    m.monto_subsidio > ? and
-						    m.estado <> ?";
+						    m.estado <> ? and
+						    m.id_apr = ?";
 
-			$query = $db->query($consulta, [$mes_consumo, 0, $estado]);
+			$query = $db->query($consulta, [$mes_consumo, 0, $estado, $id_apr]);
 			$metros = $query->getResultArray();
 
 			foreach ($metros as $key) {
@@ -296,6 +297,64 @@
 					"nombre_socio" => $key["nombre_socio"],
 					"mes_cubierto" => $key["mes_cubierto"],
 					"subsidio" => $key["subsidio"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
+			}
+	    }
+
+	    public function datatable_informe_balance($db, $id_apr, $mes_consumo) {
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
+
+	    	$consulta = "SELECT 
+							m.id as id_metros,
+						    s.rol as rol_socio,
+						    concat(s.rut, '-', dv) as rut,
+						    concat(s.nombres, ' ', s.ape_pat) as nombre_socio,
+						    m.consumo_anterior,
+						    m.consumo_actual,
+						    m.metros,
+						    m.subtotal,
+						    m.multa,
+						    m.total_servicios,
+						    m.monto_subsidio,
+						    m.total_mes,
+						    me.glosa as estado
+						from 
+							metros m 
+						    inner join socios s on m.id_socio = s.id
+						    inner join metros_estados me on m.estado = me.id
+						where 
+							date_format(m.fecha_ingreso, '%m-%Y') = ? and
+						    m.estado <> ? and
+						    m.id_apr = ?";
+
+			$query = $db->query($consulta, [$mes_consumo, $estado, $id_apr]);
+			$metros = $query->getResultArray();
+
+			foreach ($metros as $key) {
+				$row = array(
+					"id_metros" => $key["id_metros"],
+					"rol_socio" => $key["rol_socio"],
+					"rut" => $key["rut"],
+					"nombre_socio" => $key["nombre_socio"],
+					"consumo_anterior" => $key["consumo_anterior"],
+					"consumo_actual" => $key["consumo_actual"],
+					"metros" => $key["metros"],
+					"subtotal" => $key["subtotal"],
+					"multa" => $key["multa"],
+					"total_servicios" => $key["total_servicios"],
+					"monto_subsidio" => $key["monto_subsidio"],
+					"total_mes" => $key["total_mes"],
+					"estado" => $key["estado"]
 				);
 
 				$data[] = $row;

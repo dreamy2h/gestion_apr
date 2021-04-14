@@ -110,6 +110,11 @@
 			echo view('Informes/informe_arqueo');		
 		}
 
+		public function informe_balance() {
+			$this->validar_sesion();
+			echo view('Informes/informe_balance');		
+		}
+
 		public function informe_municipalidad_subsidios() {
 			$this->validar_sesion();
 			echo view('Informes/informe_municipalidad_subsidios');		

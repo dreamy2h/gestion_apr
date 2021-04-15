@@ -4,6 +4,42 @@ function cargar_page(ruta) {
 	$("#content").load(base_url + ruta);
 }
 
+function actualizar_clave() {
+    var clave_actual = $("#txt_clave_actual").val();
+    var clave_nueva = $("#txt_clave_nueva").val();
+    var repetir = $("#txt_repetir").val();
+
+    $.ajax({
+        url: base_url + "/Ctrl_menu/actualizar_clave",
+        type: "POST",
+        async: false,
+        data: {
+            clave_actual: clave_actual,
+            clave_nueva: clave_nueva,
+            repetir: repetir
+        },
+        success: function(respuesta) {
+            const OK = 1;
+            if (respuesta == OK) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Clave",
+                    text: "La clave se actualizó con éxito",
+                    footer: "Actualizar Clave"
+                });
+                $('#dlg_actualizar_clave').modal('hide');
+                $("#form_actualizar_clave")[0].reset();
+            } else {
+                alerta.error("alerta", respuesta);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
+}
+
 $(document).ready(function() {
 	$.ajax({
 	    type: "POST",
@@ -37,4 +73,65 @@ $(document).ready(function() {
 
         $("#menu").html(menu);
 	});
+
+    $.validator.addMethod("charspecial", function(value, element) {
+        return this.optional(element) || /^[^;\"'{}\[\]^<>=]+$/.test(value);
+    });
+
+    $("#form_actualizar_clave").validate({
+        errorClass: "my-error-class",
+        highlight: function (element, required) {
+            $(element).css('border', '2px solid #FDADAF');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).css('border', '1px solid #CCC');
+        },
+        rules:  {
+            txt_clave_actual: {
+                required: true,
+                maxlength: 10,
+                charspecial: true
+            },
+            txt_clave_nueva: {
+                required: true,
+                maxlength: 10,
+                charspecial: true
+            },
+            txt_repetir: {
+                required: true,
+                maxlength: 10,
+                charspecial: true,
+                equalTo: "#txt_clave_nueva"
+            }
+        },
+        messages: {
+            txt_clave_actual: {
+                required: "Obligatorio",
+                maxlength: "Máximo 10 caracteres",
+                charspecial: "Caracter no permitido"
+            },
+            txt_clave_nueva: {
+                required: "Obligatorio",
+                maxlength: "Máximo 10 caracteres",
+                charspecial: "Caracter no permitido"
+            },
+            txt_repetir: {
+                required: "Obligatorio",
+                maxlength: "Máximo 10 caracteres",
+                charspecial: "Caracter no permitido",
+                equalTo: "Las claves tienen que coincidir"
+            }
+        }
+    });
+
+    $("#btn_actualizar_clave").on("click", function() {
+        $("#form_actualizar_clave")[0].reset();
+        $('#dlg_actualizar_clave').modal('show');
+    });
+
+    $("#btn_actualizar").on("click", function() {
+        if ($("#form_actualizar_clave").valid()) {
+            actualizar_clave();
+        }
+    });
 });

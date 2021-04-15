@@ -139,5 +139,41 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function datatable_informe_afecto_corte($db, $id_apr, $n_meses) {
+	    	$consulta = "SELECT
+							rol as rol_socio,
+						    concat(rut, '-', dv) as rut,
+						    concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio,
+						    afecto_corte(id, id_apr) as meses_pendientes,
+						    total_deuda(id, id_apr) as total_deuda
+						from 
+							socios s
+						where
+							id_apr = ? and
+						    afecto_corte(id, id_apr) >= ?";
+
+			$query = $db->query($consulta, [$id_apr, $n_meses]);
+			$socios = $query->getResultArray();
+
+			foreach ($socios as $key) {
+				$row = array(
+					"rol_socio" => $key["rol_socio"],
+					"rut" => $key["rut"],
+					"nombre_socio" => $key["nombre_socio"],
+					"meses_pendientes" => $key["meses_pendientes"],
+					"total_deuda" => $key["total_deuda"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": [] }";
+			}
+	    }
 	}
 ?>

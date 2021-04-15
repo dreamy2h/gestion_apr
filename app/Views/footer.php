@@ -1,3 +1,45 @@
+                    <div id="dlg_actualizar_clave" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Actualizar Clave</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <form id="form_actualizar_clave" name="form_actualizar_clave" encType="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="txt_clave_actual">Clave Actual</label>
+                                                        <input type='password' class="form-control" id='txt_clave_actual' name="txt_clave_actual" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="txt_clave_nueva">Clave Nueva</label>
+                                                        <input type='password' class="form-control" id='txt_clave_nueva' name="txt_clave_nueva" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="txt_repetir">Repetir Clave Nueva</label>
+                                                        <input type='password' class="form-control" id='txt_repetir' name="txt_repetir" />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" id="btn_actualizar" name="btn_actualizar">Actualizar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <footer class="py-4 bg-light mt-auto">
                         <div class="container-fluid">
                             <div class="d-flex align-items-center justify-content-between small">

@@ -80,6 +80,7 @@
 	    public function datatable_informe_pagos_diarios($db, $id_apr) {
 	    	define("ACTIVO", 1);
 	    	$estado = ACTIVO;
+	    	$fecha = date("d-m-Y");
 
 	    	$consulta = "SELECT 
 							c.id as folio_caja,
@@ -97,11 +98,11 @@
 						    inner join metros m on cd.id_metros = m.id
 						    inner join usuarios u on c.id_usuario = u.id
 						where 
-							c.fecha = now() and
+							date_format(c.fecha, '%d-%m-%Y') = ? and
 						    c.id_apr = ? and
 						    c.estado = ?";
 
-			$query = $db->query($consulta, [$id_apr, $estado]);
+			$query = $db->query($consulta, [$fecha, $id_apr, $estado]);
 			$caja = $query->getResultArray();
 
 			foreach ($caja as $key) {
@@ -191,6 +192,50 @@
 					"pagado" => $key["pagado"],
 					"entregado" => $key["entregado"],
 					"vuelto" => $key["vuelto"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": []}";
+			}
+	    }
+
+	    public function datatable_informe_mensual($db, $id_apr, $mes_consumo) {
+	    	$consulta = "SELECT 
+							date_format(c.fecha, '%d-%m-%Y') as fecha_pago,
+						    count(*) as cantidad_boletas,
+						    sum(m.subtotal) as subtotal,
+						    sum(m.monto_subsidio) as subsidios,
+						    sum(m.multa) as multas,
+						    sum(m.total_servicios) as servicios,
+						    sum(c.total_pagar) as total_pagado
+						from 
+							caja c
+						    inner join caja_detalle cd on cd.id_caja = c.id
+						    inner join metros m on cd.id_metros = m.id
+						where 
+							c.id_apr = ? and
+							date_format(c.fecha, '%m-%Y') = ?
+						group by
+							date_format(c.fecha, '%d-%m-%Y')";
+
+			$query = $db->query($consulta, [$id_apr, $mes_consumo]);
+			$caja = $query->getResultArray();
+
+			foreach ($caja as $key) {
+				$row = array(
+					"fecha_pago" => $key["fecha_pago"],
+					"cantidad_boletas" => $key["cantidad_boletas"],
+					"subtotal" => $key["subtotal"],
+					"subsidios" => $key["subsidios"],
+					"multas" => $key["multas"],
+					"servicios" => $key["servicios"],
+					"total_pagado" => $key["total_pagado"]
 				);
 
 				$data[] = $row;

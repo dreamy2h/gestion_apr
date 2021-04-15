@@ -41,7 +41,7 @@
                         <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $sesión->nombres_ses . " " . $sesión->ape_pat_ses . " "; ?><i class="fas fa-user fa-fw"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#"><?php echo $sesión->apr_ses; ?></a>
-                            <a class="dropdown-item" href="#">Actualizar Clave</a>
+                            <a class="dropdown-item" href="#" id="btn_actualizar_clave">Actualizar Clave</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>/Ctrl_login/logout">Cerrar Sesión</a>
                         </div>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="sb-sidenav-footer">
-                            <?php echo $sesión->establecimiento_ses; ?>
+                            <center><img src="<?php echo base_url(); ?>/imagenes/logo_original.png" width="100"></center>
                         </div>
                     </nav>
                 </div>

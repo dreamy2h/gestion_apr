@@ -39,7 +39,8 @@
                 <!-- Navbar-->
                 <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $sesión->nombres_ses . " " . $sesión->ape_pat_ses . " "; ?><i class="fas fa-user fa-fw"></i></a>
+                        <a class="nav-link dropdown-toggle d-none d-sm-none d-md-block" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $sesión->nombres_ses . " " . $sesión->ape_pat_ses; ?><i class="fas fa-user fa-fw"></i></a>
+                        <a class="nav-link dropdown-toggle d-block d-sm-block d-md-none" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo substr($sesión->nombres_ses, 0, 1) . substr($sesión->ape_pat_ses, 0, 1); ?><i class="fas fa-user fa-fw"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#"><?php echo $sesión->apr_ses; ?></a>
                             <a class="dropdown-item" href="#" id="btn_actualizar_clave">Actualizar Clave</a>

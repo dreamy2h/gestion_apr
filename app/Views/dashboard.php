@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="col-xl-3 col-md-6">
                                             <div class="card bg-light text-dark mb-4">
-                                                <div class="card-body"><img src="<?php echo base_url(); ?>/imagenes/logo-web-2019.png" width="100%"></div>
+                                                <div class="card-body"><img src="<?php echo base_url(); ?>/logo-web-2019.png" width="100%"></div>
                                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                                     <a class="small text-dark stretched-link" target="_blank" href="https://medidorinteligente.cl">https://medidorinteligente.cl</a>
                                                     <div class="small text-dark"><i class="fas fa-angle-right"></i></div>

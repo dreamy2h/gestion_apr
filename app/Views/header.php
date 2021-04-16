@@ -10,6 +10,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Gestión APR</title>
+        <link rel="icon" href="<?php echo base_url(); ?>/imagenes/icon_html.png" type="image/png" />
         <link href="<?php echo base_url(); ?>/css/styles.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/estilo_extra.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet" />

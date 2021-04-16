@@ -175,5 +175,40 @@
 				return "{ \"data\": [] }";
 			}
 	    }
+
+	    public function llenar_grafico_socios($db, $id_apr) {
+	    	define("ACTIVO", 1);
+	    	$estado = ACTIVO;
+
+	    	$consulta = "SELECT 
+							IFNULL(ELT(FIELD(id_sexo, 1, 2), 'Hombres','Mujeres'),'No Registrado') as sexo,
+						    count(id_sexo) as cantidad
+						from 
+							socios 
+						where 
+							id_apr = ? and 
+						    estado = ?
+						group by
+							id_sexo";
+
+			$query = $db->query($consulta, [$id_apr, $estado]);
+			$socios = $query->getResultArray();
+
+			foreach ($socios as $key) {
+				$row = array(
+					"sexo" => $key["sexo"],
+					"cantidad" => $key["cantidad"]
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				return json_encode($data);
+			} else {
+				$data = array();
+				return json_encode($data);
+			}
+	    }
 	}
 ?>

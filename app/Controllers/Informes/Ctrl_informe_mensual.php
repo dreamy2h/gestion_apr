@@ -24,6 +24,9 @@
 
 		public function datatable_informe_mensual($mes_consumo) {
 			$this->validar_sesion();
+			if ($mes_consumo == 0) {
+				$mes_consumo = date("m-Y");
+			}
 			echo $this->caja->datatable_informe_mensual($this->db, $this->sesión->id_apr_ses, $mes_consumo);
 		}
 	}

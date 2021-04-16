@@ -75,6 +75,11 @@
 			}
 		}
 
+		public function dashboard() {
+			$this->validar_sesion();
+			echo view('dashboard');
+		}
+
 		public function usuarios() {
 			$this->validar_sesion();
 			echo view('Configuracion/usuarios');

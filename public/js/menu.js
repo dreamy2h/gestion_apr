@@ -134,4 +134,6 @@ $(document).ready(function() {
             actualizar_clave();
         }
     });
+
+    cargar_page("/ctrl_menu/dashboard");
 });

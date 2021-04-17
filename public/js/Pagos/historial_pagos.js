@@ -190,7 +190,12 @@ $(document).ready(function() {
 	});
 
 	$("#grid_pagos tbody").on("dblclick", "tr", function () {
-        var data = grid_pagos.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_pagos.row(tr).data();
         var id_caja = data["id_caja"];
 
         $("#grid_deuda").dataTable().fnReloadAjax(base_url + "/Pagos/Ctrl_historial_pagos/datatable_detalle_pago/" + id_caja);

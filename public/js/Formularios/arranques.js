@@ -561,7 +561,12 @@ $(document).ready(function() {
 
     $("#grid_arranques tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_arranques.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_arranques.row(tr).data();
             mostrar_datos_arranque(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);

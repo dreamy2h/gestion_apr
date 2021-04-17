@@ -243,14 +243,14 @@
 
 			$datosApr = $this->apr->select("nombre")
 									->select("concat(rut, '-', dv) as rut")
-									->select("ifnull(calle, 'Sin Registro') as calle")
-									->select("case when numero = 0 then 'Sin Registro' else numero end as numero")
-									->select("ifnull(resto_direccion, 'Sin Registro') as resto_direccion")
+									->select("ifnull(resto_direccion, 'Sin Registro') direccion")
+									->select("ifnull(fono, 'Sin Registro') as fono")
 									->where("id", $this->sesión->id_apr_ses)->first();
 
 			$nombre_apr = $datosApr["nombre"];
 			$rut_apr = $datosApr["rut"];
-			$direccion_apr = $datosApr["calle"] . ", " . $datosApr["numero"] . ", " . $datosApr["resto_direccion"];
+			$fono_apr = $datosApr["fono"];
+			$direccion_apr = $datosApr["direccion"];
 
 			$folios = explode(",", $arr_boletas);
 			
@@ -259,8 +259,9 @@
 											->select("consumo_anterior")
 											->select("consumo_actual")
 											->select("metros")
-											->select("monto_facturable")
+											->select("subtotal")
 											->select("total_mes")
+											->select("monto_subsidio")
 											->select("date_format(fecha, '%d-%m-%Y') as fecha_emision")
 											->select("date_format(fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento")
 											->where("id", $folio)->first();
@@ -269,7 +270,8 @@
 				$consumo_anterior = $datosMetros["consumo_anterior"];
 				$consumo_actual = $datosMetros["consumo_actual"];
 				$consumo_metros = $datosMetros["metros"];
-				$monto_facturable = $datosMetros["monto_facturable"];
+				$subtotal = $datosMetros["subtotal"];
+				$monto_subsidio = $datosMetros["monto_subsidio"];
 				$total_mes = $datosMetros["total_mes"];
 				$fecha_emision = $datosMetros["fecha_emision"];
 				$fecha_vencimiento = $datosMetros["fecha_vencimiento"];
@@ -288,12 +290,17 @@
 
 				$numero_medidor = $datosMedidor["numero"];
 
-				$pagecount = $mpdf->SetSourceFile("002.pdf");
+				$pagecount = $mpdf->SetSourceFile("003.pdf");
 				$tplId = $mpdf->ImportPage($pagecount);
 		        $mpdf->AddPage();
 				$mpdf->UseTemplate($tplId);
 				$mpdf->WriteHTML('
-					<div style="height: 11%;"></div>
+					<div style="height: 2%;"></div>
+					<div>
+						<div style="width: 20%; float: right;">
+							<img src="' . $this->sesión->id_apr_ses . '.png" width="100">
+						</div>
+			        </div>
 					<div>
 			        	<div style="font-size: 90%; width: 60%; float: left;">
 			        		<br><br><br>
@@ -301,7 +308,7 @@
 							RUT: ' . $rut_apr . '<br>
 							CAPTACIÓN, PURIFICACIÓN Y DIST. DE AGUA<br>
 							' . $direccion_apr . '<br>
-							FONOS: 722 392 155 - 722 392 131
+							FONOS: ' . $fono_apr . '
 			        	</div>
 			        	
 			        	<div style="width: 40%; float: left;">
@@ -337,13 +344,14 @@
 			        		' . $consumo_metros . ' M<sup>3</sup><br>
 			        	</div>
 			        </div>
-			        <div style="height: 6.7%;"></div>
+			        <div style="height: 6.5%;"></div>
 					<div>
 			        	<div style="width: 100%; float: left; margin-left: 60%;">
-			        		$ ' . number_format($total_mes, 0, ",", ".") . '
+			        		$ ' . number_format($subtotal, 0, ",", ".") . '<br><br><br>
+			        		$ ' . number_format($monto_subsidio, 0, ",", ".") . '
 			        	</div>
 			        </div>
-			        <div style="height: 8%;"></div>
+			        <div style="height: 7%;"></div>
 					<div>
 			        	<div style="width: 35%; float: left; margin-left: 10%;">
 			        		' . $fecha_emision . '
@@ -353,43 +361,6 @@
 			        	</div>
 			        	<div style="width: 15%; float: left;">
 			        		$ ' . number_format($total_mes, 0, ",", ".") . '
-			        	</div>
-			        </div>
-			        <div style="height: 13%;"></div>
-					<div>
-			        	<div style="font-size: 70%; width: 40%; float: left;">
-			        		<b>' . $nombre_apr .  '</b><br>
-							RUT: ' . $rut_apr . '<br>
-							CAPTACIÓN, PURIFICACIÓN Y DIST. DE AGUA<br>
-							' . $direccion_apr . '<br>
-							FONOS: 722 392 155 - 722 392 131
-			        	</div>
-			        	
-			        	<div style="width: 40%; float: left;">
-			        		<div style="font-size: 10 	0%;">
-			        			<b>N° ' . $folio . '<br>
-			        		</div>
-			        		<div style="font-size: 70%;">
-				        		BOLETA DE VENTAS Y SERVICIOS<br>
-								NO AFECTAS O EXENTAS DE IVA<br>
-								OFICIO N° 2.413 DEL 30 - 08 - 96 DEL S.I.I.<br>
-								RESOLUCIÓN N° 78 03-04-1998
-							</div>
-			        	</div>
-			        	<div style="width: 20%; float: left;">
-			        		<br><br>
-			        		' . $fecha_emision . '
-			        	</div>
-			        	<br>
-			        	<div style="width: 77%; float: left; margin-left: 3%; font-size: 70%;">
-			        		' . $nombre_socio . '<br>
-							' . $direccion_socio . '<br>
-							' . $codigo_socio . '<br>
-							' . $numero_medidor . '
-			        	</div>
-			        	<div style="width: 20%; float: left;">
-			        		<br><br>
-			        		' . $fecha_vencimiento . '
 			        	</div>
 			        </div>
 				');

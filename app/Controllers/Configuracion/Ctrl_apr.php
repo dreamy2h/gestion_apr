@@ -46,10 +46,9 @@
 			$hash_sii = $this->request->getPost("hash_sii");
 			$codigo_comercio = $this->request->getPost("codigo_comercio");
 			$id_comuna = $this->request->getPost("id_comuna");
-			$calle = $this->request->getPost("calle");
-			$numero = $this->request->getPost("numero");
 			$resto_direccion = $this->request->getPost("resto_direccion");
 			$tope_subsidio = $this->request->getPost("tope_subsidio");
+			$fono = $this->request->getPost("fono");
 
 			$rut_completo = explode("-", $rut_apr);
 			$rut = $rut_completo[0];
@@ -58,8 +57,6 @@
 			$datosAPR = [
 				"nombre" => $nombre_apr,
 				"id_comuna" => $id_comuna,
-				"calle" => $calle,
-				"numero" => $numero,
 				"resto_direccion" => $resto_direccion,
 				"hash_sii" => $hash_sii,
 				"codigo_comercio" => $codigo_comercio,
@@ -67,7 +64,8 @@
 				"rut" => $rut,
 				"dv" => $dv,
 				"id_usuario" => $id_usuario,
-				"fecha" => $fecha
+				"fecha" => $fecha,
+				"fono" => $fono
 			];
 
 			if ($id_apr != "") {
@@ -118,6 +116,11 @@
 		public function datatable_apr_traza($id_apr) {
 			$this->validar_sesion();
 			echo $this->apr_traza->datatable_apr_traza($this->db, $id_apr);
+		}
+
+		public function v_importar_logo() {
+			$this->validar_sesion();
+			echo view("Configuracion/apr_importar_logo");
 		}
 	}
 ?>

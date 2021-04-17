@@ -4,6 +4,7 @@ var datatable_enabled = true;
 function des_habilitar(a, b) {
     $("#btn_nuevo").prop("disabled", b);
     $("#btn_modificar").prop("disabled", a);
+    $("#btn_subir_logo").prop("disabled", a);
     $("#btn_aceptar").prop("disabled", a);
     $("#btn_cancelar").prop("disabled", a);
 
@@ -14,10 +15,9 @@ function des_habilitar(a, b) {
     $("#cmb_region").prop("disabled", a);
     $("#cmb_provincia").prop("disabled", a);
     $("#cmb_comuna").prop("disabled", a);
-    $("#txt_calle").prop("disabled", a);
-    $("#txt_numero").prop("disabled", a);
     $("#txt_resto_direccion").prop("disabled", a);
     $("#txt_tope_subsidio").prop("disabled", a);
+    $("#txt_fono").prop("disabled", a);
 }
 
 function mostrar_datos_apr(data) {
@@ -29,10 +29,9 @@ function mostrar_datos_apr(data) {
     $("#cmb_region").val(data["id_region"]);
     $("#cmb_provincia").val(data["id_provincia"]);
     $("#cmb_comuna").val(data["id_comuna"]);
-    $("#txt_calle").val(data["calle"]);
-    $("#txt_numero").val(data["numero"]);
     $("#txt_resto_direccion").val(data["resto_direccion"]);
     $("#txt_tope_subsidio").val(data["tope_subsidio"]);
+    $("#txt_fono").val(data["fono"]);
 }
 
 function llenar_cmb_region() {
@@ -109,10 +108,9 @@ function guardar_apr() {
     var hash_sii = $("#txt_hash_sii").val();
     var codigo_comercio = $("#txt_codigo_comercio").val();
     var id_comuna = $("#cmb_comuna").val();
-    var calle = $("#txt_calle").val();
-    var numero = $("#txt_numero").val();
     var resto_direccion = $("#txt_resto_direccion").val();
     var tope_subsidio = $("#txt_tope_subsidio").val();
+    var fono = $("#txt_fono").val();
 
     $.ajax({
         url: base_url + "/Configuracion/Ctrl_apr/guardar_apr",
@@ -125,10 +123,9 @@ function guardar_apr() {
             hash_sii: hash_sii,
             codigo_comercio: codigo_comercio,
             id_comuna: id_comuna,
-            calle: calle,
-            numero: numero,
             resto_direccion: resto_direccion,
-            tope_subsidio: tope_subsidio
+            tope_subsidio: tope_subsidio,
+            fono: fono
         },
         success: function(respuesta) {
             const OK = 1;
@@ -137,7 +134,7 @@ function guardar_apr() {
                 $("#form_APR")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "APR guardada con éxito");
-                $("#datosAPR").collapse();
+                $("#datosAPR").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
@@ -202,12 +199,14 @@ $(document).ready(function() {
         $("#form_APR")[0].reset();
 
         $("#btn_modificar").prop("disabled", true);
+        $("#btn_subir_logo").prop("disabled", true);
         $("#datosAPR").collapse("show");
     });
 
     $("#btn_modificar").on("click", function() {
         des_habilitar(false, true);
         $("#btn_modificar").prop("disabled", true);
+        $("#btn_subir_logo").prop("disabled", true);
         datatable_enabled = false;
         $("#datosAPR").collapse("show");
     });
@@ -223,6 +222,14 @@ $(document).ready(function() {
         des_habilitar(true, false);
         datatable_enabled = true;
         $("#datosAPR").collapse("hide");
+    });
+
+    $("#btn_subir_logo").on("click", function() {
+        $("#divContenedorImportar").load(
+            base_url + "/Configuracion/Ctrl_apr/v_importar_logo"
+        ); 
+
+        $('#dlg_importar_logo').modal('show');
     });
 
     $("#txt_rut_apr").on("blur", function() {
@@ -244,10 +251,6 @@ $(document).ready(function() {
     });
 
     $("#txt_nombre_apr").on("blur", function() {
-        this.value = convertirMayusculas(this.value);
-    });
-
-    $("#txt_calle").on("blur", function() {
         this.value = convertirMayusculas(this.value);
     });
 
@@ -309,14 +312,6 @@ $(document).ready(function() {
             cmb_comuna: {
                 required: true
             },
-            txt_calle: {
-                letras: true,
-                maxlength: 60
-            },
-            txt_numero: {
-                digits: true,
-                maxlength: 6
-            },
             txt_resto_direccion: {
                 charspecial: true,
                 maxlength: 200
@@ -325,6 +320,10 @@ $(document).ready(function() {
                 digits: true,
                 maxlength: 3,
                 maxnumero: true
+            },
+            txt_fono: {
+                digits: true,
+                maxlength: 11
             }
         },
         messages: {
@@ -353,14 +352,6 @@ $(document).ready(function() {
             cmb_comuna: {
                 required: "La comuna es obligatoria"
             },
-            txt_calle: {
-                letras: "Solo puede ingresar letras",
-                maxlength: "Máximo 60 caracteres"
-            },
-            txt_numero: {
-                digits: "Solo números",
-                maxlength: "Máximo 6 digitos"
-            },
             txt_resto_direccion: {
                 charspecial: "Tiene caracteres no permitidos",
                 maxlength: "Máximo 200 caracteres"
@@ -369,6 +360,10 @@ $(document).ready(function() {
                 digits: "Solo números",
                 maxlength: "Máximo 3 números",
                 maxnumero: "Máximo hasta 100"
+            },
+            txt_fono: {
+                digits: "Solo números",
+                maxlength: "Máximo 11 números"
             }
         }
     });
@@ -405,10 +400,11 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return "<button type='button' class='traza_apr btn btn-warning' title='Traza APR'><i class='fas fa-shoe-prints'></i></button>";
                 }
-            }
+            },
+            { "data": "fono" }
         ],
         "columnDefs": [
-            { "targets": [0, 3, 4, 5, 6, 7, 8, 12], "visible": false, "searchable": false }
+            { "targets": [0, 3, 4, 5, 6, 7, 8, 12, 16], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",
@@ -437,10 +433,16 @@ $(document).ready(function() {
 
     $("#grid_apr tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_apr.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_apr.row(tr).data();
             mostrar_datos_apr(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);
+            $("#btn_subir_logo").prop("disabled", false);
             $("#datosAPR").collapse("hide");
         }
     });

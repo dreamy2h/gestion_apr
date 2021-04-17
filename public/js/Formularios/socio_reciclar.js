@@ -1,28 +1,19 @@
 $(document).ready(function() {
-	var id_medidor = $("#txt_id_medidor").val();
-
-	var grid_medidor_reciclar = $("#grid_medidor_reciclar").DataTable({
+	var grid_socio_reciclar = $("#grid_socio_reciclar").DataTable({
 		responsive: true,
 		paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
-        ajax: base_url + "/Formularios/Ctrl_medidores/datatable_medidor_reciclar",
+        ajax: base_url + "/Formularios/Ctrl_socios/datatable_socios_reciclar",
         orderClasses: true,
         select: {
             toggleable: false
         },
         columns: [
-            { "data": "id_medidor" },
-            { "data": "numero" },
-            { "data": "id_diametro" },
-            { "data": "diametro" },
-            { "data": "usuario" },
-            { "data": "fecha" }
-        ],
-        "columnDefs": [
-            { "targets": [2], "visible": false, "searchable": false }
+            { "data": "id_socio" },
+            { "data": "rut_socio" },
+            { "data": "rol_socio" },
+            { "data": "nombre_socio" }
         ],
         language: {
             "decimal": "",
@@ -49,19 +40,19 @@ $(document).ready(function() {
         }
 	});
 
-    $("#grid_medidor_reciclar tbody").on("dblclick", "tr", function () {
+    $("#grid_socio_reciclar tbody").on("dblclick", "tr", function () {
         var tr = $(this).closest('tr');
         if ($(tr).hasClass('child') ) {
             tr = $(tr).prev();  
         }
 
-        var data = grid_medidor_reciclar.row(tr).data();
-        var id_medidor = data["id_medidor"];
-        var numero = data["numero"];
+        var data = grid_socio_reciclar.row(tr).data();
+        var id_socio = data["id_socio"];
+        var nombre_socio = data["nombre_socio"];
         
         Swal.fire({
-            title: "¿Reciclar Medidor?",
-            text: "¿Está seguro de reciclar el medidor " + numero + "?",
+            title: "¿Reciclar Socio?",
+            text: "¿Está seguro de reciclar a " + nombre_socio + "?",
             input: 'text',
             icon: "question",
             showCancelButton: true,
@@ -71,7 +62,7 @@ $(document).ready(function() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-               eliminar_medidor("reciclar", result.value, id_medidor);
+                cambiar_estado_socio(result.value, id_socio, "reciclar");
             }
         });
     });

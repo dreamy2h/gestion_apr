@@ -45,7 +45,12 @@ $(document).ready(function() {
 	});
 
     $("#grid_convenios_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_convenios_reciclar.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_convenios_reciclar.row(tr).data();
         var id_convenio = data["id_convenio"];
         
         Swal.fire({

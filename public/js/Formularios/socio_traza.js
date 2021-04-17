@@ -7,7 +7,7 @@ $(document).ready(function() {
         scrollY: '50vh',
         scrollCollapse: true,
         destroy: true,
-        order: [[ 3, "desc" ]],
+        order: [[ 3, "asc" ]],
         ajax: base_url + "/Formularios/Ctrl_socios/datatable_socio_traza/" + id_socio,
         orderClasses: true,
         columns: [

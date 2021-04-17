@@ -13,6 +13,7 @@
 	                        <button type="button" name="btn_modificar" id="btn_modificar" class="btn btn-primary"><i class="fas fa-edit"></i> Modificar</button>
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
+	                        <button type="button" name="btn_subir_logo" id="btn_subir_logo" class="btn btn-info"><i class="fas fa-images"></i> Subir Logo</button>
 	                    </center>
 	                </div>
 	            </div>
@@ -84,33 +85,25 @@
 				                			</div>
 				                		</div>
 				                		<div class="row">
-				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-				                				<div class="form-group">
-					                                <label class="small mb-1" for="txt_calle">Calle</label>
-					                                <input type='text' class="form-control" id='txt_calle' name="txt_calle" />
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12">
-					                            <div class="form-group">
-					                                <label class="small mb-1" for="txt_numero">Número</label>
-					                                <input type='text' class="form-control" id='txt_numero' name="txt_numero" />
-					                            </div>
-				                			</div>
-				                			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-					                            <div class="form-group">
-					                                <label class="small mb-1" for="txt_resto_direccion">Resto Dirección</label>
-					                                <textarea class="form-control" id="txt_resto_direccion" name="txt_resto_direccion"></textarea>
-					                            </div>
-				                			</div>
-				                		</div>
-				                		<div class="row">
-				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				                			<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
 				                				<div class="form-group">
 					                                <label class="small mb-1" for="txt_tope_subsidio">Tope Subsidio m<sup>3</sup></label>
 					                                <input type='text' class="form-control" id='txt_tope_subsidio' name="txt_tope_subsidio" />
 					                            </div>
 					                        </div>
-					                    </div>
+					                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_fono">Fono</label>
+					                                <input type='text' class="form-control" id='txt_fono' name="txt_fono" />
+					                            </div>
+					                        </div>
+				                			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+					                            <div class="form-group">
+					                                <label class="small mb-1" for="txt_resto_direccion">Dirección</label>
+					                                <textarea class="form-control" id="txt_resto_direccion" name="txt_resto_direccion"></textarea>
+					                            </div>
+				                			</div>
+				                		</div>
 				                	</form>
 				                </div>
 				            </div>
@@ -130,22 +123,23 @@
 					                    <table id="grid_apr" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="0%">id_apr</th>
-					                                <th width="10%">RUT APR</th>
-					                                <th width="20%">Nombre APR</th>
-					                                <th width="0%">hash_sii</th>
-					                                <th width="0%">codigo_comercio</th>
-					                                <th width="0%">tope_subsidio</th>
-					                                <th width="0%">id_region</th>
-					                                <th width="0%">id_provincia</th>
-					                                <th width="0%">id_comuna</th>
-					                                <th width="20%">Comuna</th>
-					                                <th width="20%">Calle</th>
-					                                <th width="5%">Número</th>
-					                                <th width="0%">resto_direccion</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>id_apr</th>
+					                                <th>RUT APR</th>
+					                                <th>Nombre APR</th>
+					                                <th>hash_sii</th>
+					                                <th>codigo_comercio</th>
+					                                <th>tope_subsidio</th>
+					                                <th>id_region</th>
+					                                <th>id_provincia</th>
+					                                <th>id_comuna</th>
+					                                <th>Comuna</th>
+					                                <th>Calle</th>
+					                                <th>Número</th>
+					                                <th>resto_direccion</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
+					                                <th>Fono</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 
@@ -166,7 +160,22 @@
 	                        <div id="divContenedorTrazaAPR"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="dlg_importar_logo" class="modal fade" role="dialog">
+	            <div class="modal-dialog modal-xl">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title">Importar Logo</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div id="divContenedorImportar"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	                    </div>
 	                </div>
 	            </div>

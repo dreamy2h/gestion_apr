@@ -162,7 +162,7 @@ function guardar_usuario() {
                 $("#form_usuarios")[0].reset();
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Usuario guardado con éxito");
-                $("#datosUsuario").collapse();
+                $("#datosUsuario").collapse("hide");
                 datatable_enabled = true;
                 if (respuesta.length > 1) {
                     var array = respuesta.split("--");
@@ -555,7 +555,12 @@ $(document).ready(function() {
 
     $("#grid_usuarios tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_usuarios.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_usuarios.row(tr).data();
             mostrar_datos_usuario(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);

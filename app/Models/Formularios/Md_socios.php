@@ -38,7 +38,8 @@
 							left join comunas c on c.id = s.id_comuna
 							left join provincias p on p.id = c.id_provincia
 						where
-							s.id_apr = $id_apr";
+							s.id_apr = $id_apr and
+							s.estado = 1";
 
 
 			$query = $db->query($consulta);
@@ -210,5 +211,42 @@
 				return json_encode($data);
 			}
 	    }
+
+	    public function datatable_socios_reciclar($db, $id_apr) {
+	    	define("DESACTIVADO", 0);
+	    	$estado = DESACTIVADO;
+
+	    	$consulta = "SELECT 
+							s.id as id_socio,
+							concat(s.rut, '-', s.dv) as rut_socio,
+						    s.rol as rol_socio,
+							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio
+						from 
+							socios s
+						where
+							s.id_apr = ? and
+							s.estado = ?";
+
+			$query = $db->query($consulta, [$id_apr, $estado]);
+			$socios = $query->getResultArray();
+
+			foreach ($socios as $key) {
+				$row = array(
+					"id_socio" => $key["id_socio"],
+					"rut_socio" => $key["rut_socio"],
+					"rol_socio" => $key["rol_socio"],
+					"nombre_socio" => $key["nombre_socio"],
+				);
+
+				$data[] = $row;
+			}
+
+			if (isset($data)) {
+				$salida = array("data" => $data);
+				return json_encode($salida);
+			} else {
+				return "{ \"data\": [] }";
+			}
+		}
 	}
 ?>

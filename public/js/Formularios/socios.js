@@ -208,6 +208,38 @@ var Fn = {
     }
 }
 
+function cambiar_estado_socio(observacion, id_socio, estado) {
+    $.ajax({
+        url: base_url + "/Formularios/Ctrl_socios/cambiar_estado_socio",
+        type: "POST",
+        async: false,
+        data: {
+            id_socio: id_socio,
+            estado: estado,
+            observacion: observacion
+        },
+        success: function(respuesta) {
+            const OK = 1;
+            if (respuesta == OK) {
+                $("#grid_socios").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_socios/datatable_socios");
+                $("#form_socios")[0].reset();
+                des_habilitar(true, false);
+                if (estado == "eliminar") {
+                    alerta.ok("alerta", "Socio eliminado con éxito");
+                } else {
+                    $('#dlg_reciclar_socio').modal('hide');
+                    alerta.ok("alerta", "Socio recuperado con éxito");
+                }
+            } else {
+                alerta.error("alerta", respuesta);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
+}
 
 $(document).ready(function() {
     $("#txt_id_socio").prop("disabled", true);
@@ -232,6 +264,38 @@ $(document).ready(function() {
         $("#btn_eliminar").prop("disabled", true);
         datatable_enabled = false;
         $("#datosSocio").collapse("show");
+    });
+
+    $("#btn_eliminar").on("click", function() {
+        var nombres = $("#txt_nombres").val();
+        var ape_pat = $("#txt_ape_pat").val();
+        var ape_mat = $("#txt_ape_mat").val();
+
+        var nombre_socio = nombres + " " + ape_pat + " " + ape_mat;
+        Swal.fire({
+            title: "¿Eliminar Socio?",
+            text: "¿Está seguro de eliminar a " + nombre_socio + "?",
+            input: 'text',
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si",
+            cancelButtonText: "No"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id_socio = $("#txt_id_socio").val();
+                cambiar_estado_socio(result.value, id_socio, "eliminar");
+            }
+        });
+    });
+
+    $("#btn_reciclar").on("click", function() {
+        $("#divContenedorReciclarSocio").load(
+            base_url + "/Formularios/Ctrl_socios/v_socio_reciclar"
+        ); 
+
+        $('#dlg_reciclar_socio').modal('show');
     });
 
     $("#btn_aceptar").on("click", function() {
@@ -475,7 +539,12 @@ $(document).ready(function() {
 
     $("#grid_socios tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_socios.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_socios.row(tr).data();
             mostrar_datos_socios(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);

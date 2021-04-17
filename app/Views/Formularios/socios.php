@@ -153,26 +153,26 @@
 					                    <table id="grid_socios" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="0%">id_socio</th>
-					                                <th width="10%">RUT</th>
-					                                <th width="10%">ROL</th>
-					                                <th width="0%">nombres</th>
-					                                <th width="0%">ape_pat</th>
-					                                <th width="0%">ape_mat</th>
-					                                <th width="20%">Nombre Completo</th>
-					                                <th width="10%">Fecha Entrada</th>
-					                                <th width="10%">Fecha Nacimiento</th>
-					                                <th width="0%">id_sexo</th>
-					                                <th width="0%">id_region</th>
-					                                <th width="0%">id_provincia</th>
-					                                <th width="0%">id_comuna</th>
-					                                <th width="15%">Comuna</th>
-					                                <th width="0%">Calle</th>
-					                                <th width="0%">Número</th>
-					                                <th width="0%">resto_direccion</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>id_socio</th>
+					                                <th>RUT</th>
+					                                <th>ROL</th>
+					                                <th>nombres</th>
+					                                <th>ape_pat</th>
+					                                <th>ape_mat</th>
+					                                <th>Nombre Completo</th>
+					                                <th>Fecha Entrada</th>
+					                                <th>Fecha Nacimiento</th>
+					                                <th>id_sexo</th>
+					                                <th>id_region</th>
+					                                <th>id_provincia</th>
+					                                <th>id_comuna</th>
+					                                <th>Comuna</th>
+					                                <th>Calle</th>
+					                                <th>Número</th>
+					                                <th>resto_direccion</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 
@@ -193,7 +193,22 @@
 	                        <div id="divContenedorTrazaSocio"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="dlg_reciclar_socio" class="modal fade" role="dialog">
+	            <div class="modal-dialog modal-xl">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title">Reciclar Socio (Doble click, para reciclar)</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                        <div id="divContenedorReciclarSocio"></div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	                    </div>
 	                </div>
 	            </div>

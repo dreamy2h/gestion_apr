@@ -180,7 +180,7 @@
 	                        <div id="divContenedorTrazaSubsidio"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -195,7 +195,7 @@
 	                        <div id="divContenedorBuscarSocio"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -210,7 +210,7 @@
 	                        <div id="divContenedorReciclarSubsidio"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	                    </div>
 	                </div>
 	            </div>

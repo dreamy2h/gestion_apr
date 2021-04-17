@@ -71,7 +71,12 @@ $(document).ready(function() {
 	});
 
     $("#grid_buscar_socio tbody").on("dblclick", "tr", function () {
-        var data = grid_buscar_socio.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_buscar_socio.row(tr).data();
         $("#txt_id_socio").val(data["id_socio"]);
         $("#txt_rut_socio").val(data["rut"]);
         $("#txt_rol").val(data["rol"]);

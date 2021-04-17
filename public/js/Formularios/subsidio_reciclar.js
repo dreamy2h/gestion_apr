@@ -46,7 +46,12 @@ $(document).ready(function() {
 	});
 
     $("#grid_subsidio_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_subsidio_reciclar.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_subsidio_reciclar.row(tr).data();
         var id_subsidio = data["id_subsidio"];
         
         Swal.fire({

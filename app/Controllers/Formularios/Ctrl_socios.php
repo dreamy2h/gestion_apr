@@ -108,7 +108,7 @@
 					
 				$this->guardar_traza($id_socio, $estado_traza, "");
 			} else {
-				echo "Error al guardar los datos del sector";
+				echo "Error al guardar los datos del socio";
 			}
 		}
 
@@ -139,6 +139,50 @@
 		public function datatable_socio_traza($id_socio) {
 			$this->validar_sesion();
 			echo $this->socios_traza->datatable_socio_traza($this->db, $id_socio);
+		}
+
+		public function cambiar_estado_socio() {
+			$this->validar_sesion();
+			$id_socio = $this->request->getPost("id_socio");
+			$estado = $this->request->getPost("estado");
+			$observacion = $this->request->getPost("observacion");
+
+			define("OK", 1);
+
+			if ($estado == "eliminar") {
+				$estado_traza = 3;
+				$estado = 0;
+			} else {
+				$estado_traza = 4;
+				$estado = 1;
+			}
+
+			$fecha = date("Y-m-d H:i:s");
+			$id_usuario = $this->sesión->id_usuario_ses;
+
+			$datosSocio = [
+				"id" => $id_socio,
+				"estado" => $estado,
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
+
+			if ($this->socios->save($datosSocio)) {
+				echo OK;
+				$this->guardar_traza($id_socio, $estado_traza, $observacion);
+			} else {
+				echo "Error al guardar los datos del socio";
+			}
+		}
+
+		public function v_socio_reciclar() {
+			$this->validar_sesion();
+			echo view("Formularios/socio_reciclar");
+		}
+
+		public function datatable_socios_reciclar() {
+			$this->validar_sesion();
+			echo $this->socios->datatable_socios_reciclar($this->db, $this->sesión->id_apr_ses);
 		}
 	}
 ?>

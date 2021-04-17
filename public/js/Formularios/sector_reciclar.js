@@ -45,7 +45,12 @@ $(document).ready(function() {
 	});
 
     $("#grid_sector_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_sector_reciclar.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_sector_reciclar.row(tr).data();
         var id_sector = data["id_sector"];
         var sector = data["nombre"];
         

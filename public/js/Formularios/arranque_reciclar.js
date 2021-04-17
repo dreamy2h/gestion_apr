@@ -46,7 +46,12 @@ $(document).ready(function() {
 	});
 
     $("#grid_arranque_reciclar tbody").on("dblclick", "tr", function () {
-        var data = grid_arranque_reciclar.row($(this)).data();
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+
+        var data = grid_arranque_reciclar.row(tr).data();
         var id_arranque = data["id_arranque"];
         
         Swal.fire({

@@ -658,7 +658,12 @@ $(document).ready(function() {
 
     $("#grid_metros tbody").on("click", "tr", function () {
         if (datatable_enabled) {
-            var data = grid_metros.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_metros.row(tr).data();
             mostrar_datos_metros(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);

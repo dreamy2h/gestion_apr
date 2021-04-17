@@ -412,7 +412,12 @@ $(document).ready(function() {
 
 	$("#grid_costo_metros tbody").on("click", "tr", function () {
 		if (datatable_enabled) {
-	        var data = grid_costo_metros.row($(this)).data();
+            var tr = $(this).closest('tr');
+            if ($(tr).hasClass('child') ) {
+                tr = $(tr).prev();  
+            }
+
+            var data = grid_costo_metros.row(tr).data();
 	        mostrar_datos_costo_metros(data);
 	        des_habilitar(true, false);
 	        $("#btn_modificar").prop("disabled", false);

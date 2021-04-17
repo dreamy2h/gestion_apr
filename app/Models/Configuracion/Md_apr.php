@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'nombre', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'hash_sii', 'codigo_comercio', 'tope_subsidio', 'rut', 'dv', 'id_usuario', 'fecha'];
+	    protected $allowedFields = ['id', 'nombre', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'hash_sii', 'codigo_comercio', 'tope_subsidio', 'rut', 'dv', 'id_usuario', 'fecha', 'fono'];
 
 	    public function datatable_apr($db) {
 	    	$consulta = "SELECT 
@@ -27,7 +27,8 @@
 						    apr.numero,
 						    apr.resto_direccion,
 						    u.usuario,
-						    date_format(apr.fecha, '%d-%m-%Y %H:%i:%s') as fecha
+						    date_format(apr.fecha, '%d-%m-%Y %H:%i:%s') as fecha,
+						    apr.fono
 						from 
 							apr
 							inner join usuarios u on u.id = apr.id_usuario
@@ -54,7 +55,8 @@
 					"numero" => $key["numero"],
 					"resto_direccion" => $key["resto_direccion"],
 					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"]
+					"fecha" => $key["fecha"],
+					"fono" => $key["fono"]
 				);
 
 				$data[] = $row;

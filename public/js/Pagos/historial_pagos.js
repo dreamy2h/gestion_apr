@@ -117,6 +117,7 @@ $(document).ready(function() {
         select: {
             toggleable: false
         },
+        order: [[ 0, "desc" ]],
         ajax: base_url + "/Pagos/Ctrl_historial_pagos/datatable_historial_pagos",
         orderClasses: true,
         columns: [

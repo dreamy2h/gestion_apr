@@ -22,6 +22,7 @@ $(document).ready(function() {
             { "data": "comuna" },
             { "data": "estado" }
         ],
+        dom: 'Bfrtip',
         buttons: [ 
             {
                 extend:    'excelHtml5',

@@ -41,7 +41,7 @@
 
 		public function llenar_cmb_sector() {
 			$this->validar_sesion();
-			$datos_sectores = $this->sectores->select("id")->select("nombre as sector")->where("estado", 1)->findAll();
+			$datos_sectores = $this->sectores->select("id")->select("nombre as sector")->where("estado", 1)->where("id_apr", $this->sesión->id_apr_ses)->findAll();
 
 			$data = array();
 

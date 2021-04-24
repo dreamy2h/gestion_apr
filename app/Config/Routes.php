@@ -22,6 +22,8 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
+$routes->resource('api/auth', ['controller' => 'Auth']);
+$routes->resource('api/user', ['controller' => 'User']);
 /**
  * --------------------------------------------------------------------
  * Route Definitions

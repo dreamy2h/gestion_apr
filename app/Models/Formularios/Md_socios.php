@@ -79,10 +79,12 @@
 			}
 	    }
 
-	    public function existe_socio($rut, $rol) {
+	    public function existe_socio($rut, $rol, $id_apr) {
 	    	$this->select("count(*) as filas");
 	    	$this->where("rut", $rut);
 	    	$this->where("rol", $rol);
+	    	$this->where("estado", 1);
+	    	$this->where("id_apr", $id_apr);
 	    	$datos = $this->first();
     	 	if (intval($datos["filas"]) > 0) {
     	 		return true;

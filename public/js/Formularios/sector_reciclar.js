@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_sector_reciclar = $("#grid_sector_reciclar").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Formularios/Ctrl_sectores/datatable_sector_reciclar",

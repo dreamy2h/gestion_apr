@@ -20,6 +20,7 @@ $(document).ready(function() {
             { "data": "numero" },
             { "data": "resto_direccion" },
             { "data": "comuna" },
+            { "data": "ruta" },
             { "data": "estado" }
         ],
         dom: 'Bfrtip',

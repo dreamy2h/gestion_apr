@@ -134,6 +134,14 @@
 					                            </div>
 				                			</div>
 				                		</div>
+				                		<div class="row">
+				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_ruta">Ruta</label>
+					                                <input type='text' class="form-control" id='txt_ruta' name="txt_ruta" />
+					                            </div>
+					                        </div>
+				                		</div>
 				                	</form>
 				                </div>
 				            </div>
@@ -173,6 +181,7 @@
 					                                <th>Usuarios Reg</th>
 					                                <th>Fecha</th>
 					                                <th>Traza</th>
+					                                <th>ruta</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

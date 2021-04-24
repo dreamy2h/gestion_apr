@@ -1,6 +1,6 @@
 <main>
     <div class="container-fluid">
-        <h3 class="mt-4" align="center"><i class="fas fa-chart-line mr-1"></i> Dashboard</h3>
+        <h3 class="mt-4" align="center"><i class="fas fa-chart-line mr-1"></i> Bienvenido <?php $sesión = session(); echo $sesión->apr_ses; ?></h3>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">

@@ -58,6 +58,7 @@
 			$calle = $this->request->getPost("calle");
 			$numero = $this->request->getPost("numero");
 			$resto_direccion = $this->request->getPost("resto_direccion");
+			$ruta = $this->request->getPost("ruta");
 
 			if ($id_comuna == "") { $id_comuna = null; }
 			if ($fecha_nacimiento == "") { $fecha_nacimiento = null; } else { $fecha_nacimiento = date_format(date_create($fecha_nacimiento), 'Y-m-d'); }
@@ -84,6 +85,7 @@
 				"calle" => $calle,
 				"numero" => $numero,
 				"resto_direccion" => $resto_direccion,
+				"ruta" => $ruta,
 				"id_comuna" => $id_comuna,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,

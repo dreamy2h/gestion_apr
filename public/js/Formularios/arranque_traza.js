@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_arranque_traza = $("#grid_arranque_traza").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Formularios/Ctrl_arranques/datatable_arranque_traza/" + id_arranque,

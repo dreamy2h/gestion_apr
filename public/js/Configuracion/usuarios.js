@@ -490,8 +490,8 @@ $(document).ready(function() {
     var grid_usuarios = $("#grid_usuarios").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false

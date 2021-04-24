@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_costo_metros_traza = $("#grid_costo_metros_traza").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Configuracion/Ctrl_costo_metros/datatable_costo_metros_traza/" + id_costo_metros,

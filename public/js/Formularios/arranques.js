@@ -16,7 +16,6 @@ function des_habilitar(a, b) {
     $("#txt_nombre_socio").prop("disabled", a);
     $("#btn_buscar_socio").prop("disabled", a);
     $("#cmb_medidor").prop("disabled", a);
-    $("#cmb_diametro").prop("disabled", a);
     $("#cmb_sector").prop("disabled", a);
     $("#rd_si_a").prop("disabled", a);
     $("#rd_no_a").prop("disabled", a);
@@ -40,7 +39,6 @@ function mostrar_datos_arranque(data) {
     $("#txt_nombre_socio").val(data["nombre_socio"]);
     id_medidor = data["id_medidor"];
     $("#cmb_medidor").val(data["n_medidor"]);
-    $("#cmb_diametro").val(data["id_diametro"]);
     $("#cmb_sector").val(data["id_sector"]);
     
     $("#lbl_rd_si_sc").removeClass("active");
@@ -232,27 +230,6 @@ function llenar_cmb_comuna() {
         }
 
         $("#cmb_comuna").append(opciones);
-    }).fail(function(error){
-        respuesta = JSON.parse(error["responseText"]);
-        alerta.error("alerta", respuesta.message);
-    });
-}
-
-function llenar_cmb_diametro() {
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_diametro",
-    }).done( function(data) {
-        $("#cmb_diametro").html('');
-
-        var opciones = "<option value=\"\">Seleccione un diámetro</option>";
-        
-        for (var i = 0; i < data.length; i++) {
-            opciones += "<option value=\"" + data[i].id + "\">" + data[i].diametro + "</option>";
-        }
-
-        $("#cmb_diametro").append(opciones);
     }).fail(function(error){
         respuesta = JSON.parse(error["responseText"]);
         alerta.error("alerta", respuesta.message);
@@ -460,9 +437,6 @@ $(document).ready(function() {
             cmb_medidor: {
                 required: true,
             },
-            cmb_diametro: {
-                required: true
-            },
             cmb_sector: {
                 required: true
             },
@@ -476,9 +450,6 @@ $(document).ready(function() {
             },
             cmb_medidor: {
                 required: "El número de medidor es obligatorio",
-            },
-            cmb_diametro: {
-                required: "Seleccione un diámetro"
             },
             cmb_sector: {
                 required: "Seleccione un sector"

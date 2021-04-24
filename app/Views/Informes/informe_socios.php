@@ -27,6 +27,7 @@
 					                            	<th>N° Casa</th>
 					                            	<th>Resto Dirección</th>
 					                            	<th>Comuna</th>
+					                            	<th>Ruta</th>
 					                            	<th>Estado</th>
 					                            </tr>
 					                        </thead>

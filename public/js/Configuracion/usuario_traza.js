@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_usuario_traza = $("#grid_usuario_traza").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Configuracion/Ctrl_usuarios/datatable_usuarios_traza/" + id_usuario,

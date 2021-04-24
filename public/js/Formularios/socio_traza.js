@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_socio_traza = $("#grid_socio_traza").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "asc" ]],
         ajax: base_url + "/Formularios/Ctrl_socios/datatable_socio_traza/" + id_socio,

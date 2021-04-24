@@ -371,8 +371,8 @@ $(document).ready(function() {
     var grid_apr = $("#grid_apr").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false

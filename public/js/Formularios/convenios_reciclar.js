@@ -2,8 +2,8 @@ $(document).ready(function() {
 	var grid_convenios_reciclar = $("#grid_convenios_reciclar").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Formularios/Ctrl_convenios/datatable_convenios_reciclar",

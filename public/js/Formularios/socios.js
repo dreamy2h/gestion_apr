@@ -23,6 +23,7 @@ function des_habilitar(a, b) {
     $("#txt_calle").prop("disabled", a);
     $("#txt_numero").prop("disabled", a);
     $("#txt_resto_direccion").prop("disabled", a);
+    $("#txt_ruta").prop("disabled", a);
 }
 
 function mostrar_datos_socios(data) {
@@ -41,6 +42,7 @@ function mostrar_datos_socios(data) {
     $("#txt_calle").val(data["calle"]);
     $("#txt_numero").val(data["numero"]);
     $("#txt_resto_direccion").val(data["resto_direccion"]);
+    $("#txt_ruta").val(data["ruta"]);
 }
 
 function llenar_cmb_region() {
@@ -127,6 +129,7 @@ function guardar_socio() {
     var calle = $("#txt_calle").val();
     var numero = $("#txt_numero").val();
     var resto_direccion = $("#txt_resto_direccion").val();
+    var ruta = $("#txt_ruta").val();
 
     $.ajax({
         url: base_url + "/Formularios/Ctrl_socios/guardar_socio",
@@ -147,7 +150,8 @@ function guardar_socio() {
             id_comuna: id_comuna,
             calle: calle,
             numero: numero,
-            resto_direccion: resto_direccion
+            resto_direccion: resto_direccion,
+            ruta: ruta
         },
         success: function(respuesta) {
             const OK = 1;
@@ -408,7 +412,6 @@ $(document).ready(function() {
                 maxlength: 45
             },
             txt_ape_mat: {
-                required: true,
                 letras: true,
                 maxlength: 45
             },
@@ -416,7 +419,7 @@ $(document).ready(function() {
                 required: true,
             },
             txt_calle: {
-                letras: true,
+                charspecial: true,
                 maxlength: 60
             },
             txt_numero: {
@@ -426,6 +429,10 @@ $(document).ready(function() {
             txt_resto_direccion: {
                 charspecial: true,
                 maxlength: 200
+            },
+            txt_ruta: {
+                charspecial: true,
+                maxlength: 10
             }
         },
         messages: {
@@ -449,7 +456,6 @@ $(document).ready(function() {
                 maxlength: "Máximo 45 caracteres"
             },
             txt_ape_mat: {
-                required: "El apellido materno es obligatorio",
                 letras: "Solo puede ingresar letras",
                 maxlength: "Máximo 45 caracteres"
             },
@@ -457,7 +463,7 @@ $(document).ready(function() {
                 required: "La fecha de entrada es obligatoria"
             },
             txt_calle: {
-                letras: "Solo puede ingresar letras",
+                charspecial: "Ha ingresado caracteres no permitdos",
                 maxlength: "Máximo 60 caracteres"
             },
             txt_numero: {
@@ -467,6 +473,10 @@ $(document).ready(function() {
             txt_resto_direccion: {
                 charspecial: "Hay caracteres extraños no permitdos",
                 maxlength: "Máximo 200 caracteres"
+            },
+            txt_ruta: {
+                charspecial: "Hay caracteres extraños no permitdos",
+                maxlength: "Máximo 10 caracteres"
             }
         }
     });
@@ -474,8 +484,8 @@ $(document).ready(function() {
     var grid_socios = $("#grid_socios").DataTable({
 		responsive: true,
         paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
@@ -507,10 +517,11 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return "<button type='button' class='traza_socio btn btn-warning' title='Traza socio'><i class='fas fa-shoe-prints'></i></button>";
                 }
-            }
+            },
+            { "data": "ruta" }
         ],
         "columnDefs": [
-            { "targets": [0, 3, 4, 5, 9, 10, 11, 12, 14, 15, 16], "visible": false, "searchable": false }
+            { "targets": [0, 3, 4, 5, 9, 10, 11, 12, 14, 15, 16, 20], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

@@ -44,8 +44,8 @@
 						    left join provincias p on c.id_provincia = p.id
 						    inner join tipo_documento td on a.id_tipo_documento = td.id
 						    inner join apr on a.id_apr = apr.id
-                            inner join medidores m on a.id_medidor = m.id
-						    inner join diametro d on m.id_diametro = d.id
+                            left join medidores m on a.id_medidor = m.id
+						    left join diametro d on m.id_diametro = d.id
 						    inner join usuarios u on a.id_usuario = u.id
 						where 
 							a.id_apr = $id_apr and

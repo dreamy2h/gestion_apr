@@ -2,8 +2,8 @@ $(document).ready(function() {
 	var grid_subsidio_reciclar = $("#grid_subsidio_reciclar").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Formularios/Ctrl_subsidios/datatable_subsidio_reciclar",

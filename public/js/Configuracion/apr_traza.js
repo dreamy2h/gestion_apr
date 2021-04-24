@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var grid_apr_traza = $("#grid_apr_traza").DataTable({
 		responsive: true,
 		paging: true,
-        scrollY: '50vh',
-        scrollCollapse: true,
+        // scrollY: '50vh',
+        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url + "/Configuracion/ctrl_apr/datatable_apr_traza/" + id_apr,

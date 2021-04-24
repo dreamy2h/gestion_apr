@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'rut', 'dv', 'rol', 'nombres', 'ape_pat', 'ape_mat', 'fecha_entrada', 'fecha_nacimiento', 'id_sexo', 'calle', 'numero', 'resto_direccion', 'id_comuna', 'estado', 'id_usuario', 'fecha', 'id_apr'];
+	    protected $allowedFields = ['id', 'rut', 'dv', 'rol', 'nombres', 'ape_pat', 'ape_mat', 'fecha_entrada', 'fecha_nacimiento', 'id_sexo', 'calle', 'numero', 'resto_direccion', 'id_comuna', 'estado', 'id_usuario', 'fecha', 'id_apr', 'ruta'];
 
 	    public function datatable_socios($db, $id_apr) {
 	    	$consulta = "SELECT 
@@ -30,6 +30,7 @@
 							s.calle,
 							s.numero,
 							s.resto_direccion,
+							s.ruta,
 							u.usuario,
 							date_format(s.fecha, '%d-%m-%Y %H:%i:%s') as fecha
 						from 
@@ -64,6 +65,7 @@
 					"calle" => $key["calle"],
 					"numero" => $key["numero"],
 					"resto_direccion" => $key["resto_direccion"],
+					"ruta" => $key["ruta"],
 					"usuario" => $key["usuario"],
 					"fecha" => $key["fecha"]
 				);
@@ -106,12 +108,14 @@
 						    ifnull(s.numero, 0) as numero,
 						    ifnull(s.resto_direccion, 'Sin registro') as resto_direccion,
 						    ifnull(c.nombre, 'Sin registro') as comuna,
+						    ifnull(s.ruta, 'Sin registro') as ruta,
 						    IFNULL(ELT(FIELD(s.estado, 0, 1), 'Desactivado','Activado'), 'Sin registro') as estado
 						FROM 
 							socios s
 						    left join comunas c on s.id_comuna = c.id
 						where
-							s.id_apr = ?";
+							s.id_apr = ? and
+                            s.estado = 1";
 
 			$query = $db->query($consulta, [$id_apr]);
 			$socios = $query->getResultArray();
@@ -129,6 +133,7 @@
 					"numero" => $key["numero"],
 					"resto_direccion" => $key["resto_direccion"],
 					"comuna" => $key["comuna"],
+					"ruta" => $key["ruta"],
 					"estado" => $key["estado"]
 				);
 

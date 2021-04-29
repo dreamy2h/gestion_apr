@@ -113,7 +113,7 @@
 							sec.nombre as sector,
 							ifnull(p.glosa, '0%') as subsidio,
 							(select tope_subsidio from apr where id = s.id_apr) as tope_subsidio,
-							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado = 1)), 0) as consumo_anterior,
+							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado <> 0)), 0) as consumo_anterior,
 						    cf.cargo_fijo
 						from 
 							arranques a
@@ -126,7 +126,7 @@
 						    inner join apr_cargo_fijo cf on cf.id_apr = s.id_apr and cf.id_diametro = m.id_diametro
 						where 
 							s.id_apr = $id_apr and
-							s.estado = 1";
+							s.estado <> 0";
 
 
 			$query = $db->query($consulta);

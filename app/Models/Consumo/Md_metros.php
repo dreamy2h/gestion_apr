@@ -126,7 +126,7 @@
 						    inner join apr_cargo_fijo cf on cf.id_apr = s.id_apr and cf.id_diametro = m.id_diametro
 						where 
 							s.id_apr = $id_apr and
-							s.estado <> 0";
+							s.estado = 1";
 
 
 			$query = $db->query($consulta);

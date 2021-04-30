@@ -111,7 +111,7 @@
 						    m.id_diametro,
 						    d.glosa as diametro,
 							sec.nombre as sector,
-							ifnull(p.glosa, '0%') as subsidio,
+							case when sub.estado = 1 then p.glosa else '0%' end as subsidio,
 							(select tope_subsidio from apr where id = s.id_apr) as tope_subsidio,
 							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado <> 0)), 0) as consumo_anterior,
 						    cf.cargo_fijo

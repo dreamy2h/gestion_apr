@@ -26,7 +26,7 @@ class Auth extends ResourceController
 			$key = Services::getSecretKey();
 			$payload = [
 				'iat' => $time,
-				'exp' => $time + 60*60,
+				'exp' => $time + 10,
 				// 'data' => ["usuario" => "puntoblue", "name"],
 			];
 

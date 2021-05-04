@@ -8,6 +8,7 @@
 	use App\Models\Formularios\Md_socios;
 	use App\Models\Pagos\Md_webpay;
 	use App\Models\Pagos\Md_caja_webpay;
+	use App\Models\Configuracion\Md_apr;
 
 	class Webpay extends Auth {
 		protected $metros;
@@ -18,6 +19,7 @@
 		protected $socios;
 		protected $webpay;
 		protected $caja_webpay;
+		protected $apr;
 		protected $db;
 
 		public function __construct() {
@@ -29,6 +31,7 @@
 			$this->socios = new Md_socios();
 			$this->webpay = new Md_webpay();
 			$this->caja_webpay = new Md_caja_webpay();
+			$this->apr = new Md_apr();
 			$this->db = \Config\Database::connect();
 		}
 
@@ -39,9 +42,10 @@
 					define("PAGADO", 2);
 					define("WEBPAY", 4);
 					define("PAGADO_TRAZA", 5);
+					define("WEBPAY_USER", 9);
 					$estado = PAGADO;
 					$forma_pago = WEBPAY;
-					$id_usuario = 9;
+					$id_usuario = WEBPAY_USER;
 					$fecha = date("Y-m-d H:i:s");
 					
 					$arr_datos = json_decode(file_get_contents("php://input")); 
@@ -51,6 +55,11 @@
 					$datosWebpay = $this->webpay->select("max(id_webpay) as id_webpay")->first();
 					$id_webpay = $datosWebpay["id_webpay"];
 
+					$data_webpay = [
+						"orden_compra" => $id_webpay
+					];
+
+					$a = 0;
 					foreach ($arr_datos as $datos => $datosPago) {
 						$e = 0;
 						foreach ($datosPago as $key => $value) {
@@ -107,7 +116,18 @@
 						];
 
 						$this->caja_webpay->save($datosCajaWebpay);
+
+						$datosApr = $this->apr->select("codigo_comercio")->where("id", $id_apr)->first();
+						$codigo_comercio = $datosApr["codigo_comercio"];
 						
+						$childs = [
+							"child" => $id_caja,
+							"total_pagar" => $total_pagar,
+							"codigo_comercio" => $codigo_comercio
+						];
+
+						$data_webpay["childs"][$a] = $childs;
+
 						foreach ($arr_ids_metros as $key => $id_metro) {
 							$datosPagoDetalle = [
 								"id_caja" => $id_caja,
@@ -134,12 +154,14 @@
 
 							$this->metros_traza->save($datosMetrosTraza);
 						}
+
+						$a++;
 					}
 
 					$respuesta = [
 						"message" => "Datos guardados con éxito",
 						"estado" => "exito",
-						"folio" => $id_webpay
+						"data" => $data_webpay
 					];
 
 					return $this->respond($respuesta, 200);
@@ -147,7 +169,7 @@
 					$respuesta = [
 						"message" => "No hay datos enviados por post",
 						"estado" => "error",
-						"folio" => "Sin folio"
+						"folio" => ""
 					];
 
 					return $this->respond($respuesta, 401);
@@ -156,7 +178,7 @@
 				$respuesta = [
 					"message" => "Token Inválido",
 					"estado" => "error",
-					"folio" => "Sin folio"
+					"folio" => ""
 				];
 
 				return $this->respond($respuesta, 401);
@@ -176,16 +198,19 @@
 									m.total_mes as total_pagar,
 									s.id_apr,
 									m.id as id_metros,
-									apr.nombre as apr
+									apr.nombre as apr,
+									apr.codigo_comercio,
+									date_format(m.fecha_ingreso, '%m/%Y') as mes_consumo
 								from 
 									socios s 
 									inner join metros m on m.id_socio = s.id
 									inner join apr on m.id_apr = apr.id
 								where 
 									s.rut = ? and 
-									s.estado = ?";
+									s.estado = ? and 
+									m.estado = ?";
 
-					$query = $this->db->query($consulta, [$rut, 1]);
+					$query = $this->db->query($consulta, [$rut, 1, 1]);
 					$metros = $query->getResultArray();
 
 					foreach ($metros as $key) {
@@ -195,7 +220,9 @@
 							"total_pagar" => $key["total_pagar"],
 							"id_apr" => $key["id_apr"],
 							"id_metros" => $key["id_metros"],
-							"apr" => $key["apr"]
+							"apr" => $key["apr"],
+							"codigo_comercio" => $key["codigo_comercio"],
+							"mes_consumo" => $key["mes_consumo"]
 						);
 
 						$data[] = $row;
@@ -205,7 +232,8 @@
 				} else {
 					$respuesta = [
 						"message" => "No hay datos enviados por post",
-						"estado" => "error"
+						"estado" => "error",
+						"folio" => ""
 					];
 
 					return $this->respond($respuesta, 401);
@@ -213,7 +241,138 @@
 			} else {
 				$respuesta = [
 					"message" => "Token Inválido",
-					"estado" => "error"
+					"estado" => "error",
+					"folio" => ""
+				];
+
+				return $this->respond($respuesta, 401);
+			}
+		}
+
+		public function anular_pago() {
+			$token = ($this->request->getHeader("Authorization")!=null)?$this->request->getHeader("Authorization")->getValue():"";
+			if ($this->validateToken($token) == true) {
+				if ($this->request->getMethod() == "post") {
+					define("PUNTO_BLUE", 9);
+					define("ANULADO", 0);
+					define("ANULADO_TRAZA", 2);
+					define("PENDIENTE", 1);
+					define("PAGO_ANULADO", 6);
+
+					$id_webpay = $this->request->getPost('orden_compra');
+					$fecha = date("Y-m-d H:i:s");
+					$id_usuario = PUNTO_BLUE;
+
+					$datosCajaWebpay = $this->caja_webpay->select("id_caja")->where("id_webpay", $id_webpay)->findAll();
+
+					foreach ($datosCajaWebpay as $key) {
+						$id_caja = $key["id_caja"];	
+
+						$datosPago = [
+							"id" => $id_caja,
+							"estado" => ANULADO,
+							"id_usuario" => $id_usuario,
+							"fecha" => $fecha
+						];
+
+						$this->caja->save($datosPago);
+
+						$datosPagoTraza = [
+							"id_caja" => $id_caja,
+							"estado" => ANULADO_TRAZA,
+							"id_usuario" => $id_usuario,
+							"fecha" => $fecha
+						];
+
+						$this->caja_traza->save($datosPagoTraza);
+
+						$datosPagoDetalle = $this->caja_detalle->select("*")->where("id_caja", $id_caja)->findAll();
+						
+						foreach ($datosPagoDetalle as $key) {
+							$datosMetros = [
+								"id" => $key["id_metros"],
+								"estado" => PENDIENTE,
+								"id_usuario" => $id_usuario,
+								"fecha" => $fecha
+							];
+
+							$this->metros->save($datosMetros);
+							
+							$datosMetrosTraza = [
+								"id_metros" => $key["id_metros"],
+								"estado" => PAGO_ANULADO,
+								"id_usuario" => $id_usuario,
+								"fecha" => $fecha
+							];
+
+							$this->metros_traza->save($datosMetrosTraza);
+						}
+					}
+
+					$respuesta = [
+						"message" => "Pago anulado con éxito",
+						"estado" => "exito",
+						"folio" => ""
+					];
+
+					return $this->respond($respuesta, 200);
+				}else {
+					$respuesta = [
+						"message" => "No hay datos enviados por post",
+						"estado" => "error",
+						"folio" => ""
+					];
+
+					return $this->respond($respuesta, 401);
+				}
+			} else {
+				$respuesta = [
+					"message" => "Token Inválido",
+					"estado" => "error",
+					"folio" => ""
+				];
+
+				return $this->respond($respuesta, 401);
+			}
+		}
+
+		public function confirmar_pago() {
+			$token = ($this->request->getHeader("Authorization")!=null)?$this->request->getHeader("Authorization")->getValue():"";
+			if ($this->validateToken($token) == true) {
+				if ($this->request->getMethod() == "post") {
+					$datosWebpay = json_decode(file_get_contents("php://input")); 
+
+					if ($this->webpay->save($datosWebpay)) {
+						$respuesta = [
+							"message" => "Datos de transacción guardados con éxito",
+							"estado" => "exito",
+							"folio" => ""
+						];
+
+						return $this->respond($respuesta, 200);
+					} else {
+						$respuesta = [
+							"message" => "Error al guardar datos de transacción",
+							"estado" => "error",
+							"folio" => ""
+						];
+
+						return $this->respond($respuesta, 401);
+					}
+				} else {
+					$respuesta = [
+						"message" => "No hay datos enviados por post",
+						"estado" => "error",
+						"folio" => ""
+					];
+
+					return $this->respond($respuesta, 401);
+				}
+			} else {
+				$respuesta = [
+					"message" => "Token Inválido",
+					"estado" => "error",
+					"folio" => ""
 				];
 
 				return $this->respond($respuesta, 401);

@@ -178,14 +178,15 @@ $(document).ready(function() {
         $('#dlg_reciclar').modal('show');
     });
 
+    $.validator.addMethod("charspecial", function(value, element) {
+        return this.optional(element) || /^[^;\"'{}\[\]^<>=]+$/.test(value);
+    });
+
     $("#form_medidor").validate({
         debug: true,
         errorClass: "my-error-class",
         highlight: function (element, required) {
-            $(element).fadeOut(function () {
-                $(element).fadeIn();
-                $(element).css('border', '2px solid #FDADAF');
-            });
+            $(element).css('border', '2px solid #FDADAF');
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).css('border', '1px solid #CCC');
@@ -193,7 +194,7 @@ $(document).ready(function() {
         rules:  {
             txt_numero: {
                 required: true,
-                digits: true,
+                charspecial: true,
                 maxlength: 20
             },
             cmb_diametro: {
@@ -203,7 +204,7 @@ $(document).ready(function() {
         messages: {
             txt_numero: {
                 required: "El número del medidor es obligatorio",
-                letras: "Solo puede ingresar números",
+                letras: "Caracteres no permitidos",
                 maxlength: "Máximo 11 caracteres"
             },
             cmb_diametro: {

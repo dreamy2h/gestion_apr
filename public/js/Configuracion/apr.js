@@ -278,10 +278,7 @@ $(document).ready(function() {
         debug: true,
         errorClass: "my-error-class",
         highlight: function (element, required) {
-            $(element).fadeOut(function () {
-                $(element).fadeIn();
-                $(element).css('border', '2px solid #FDADAF');
-            });
+            $(element).css('border', '2px solid #FDADAF');
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).css('border', '1px solid #CCC');

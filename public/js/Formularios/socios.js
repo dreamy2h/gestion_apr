@@ -28,21 +28,21 @@ function des_habilitar(a, b) {
 
 function mostrar_datos_socios(data) {
     $("#txt_id_socio").val(data["id_socio"]);
-    $("#txt_rut").val(Fn.formatear(data["rut"]));
-    $("#txt_rol").val(data["rol"]);
-    $("#txt_nombres").val(data["nombres"]);
-    $("#txt_ape_pat").val(data["ape_pat"]);
-    $("#txt_ape_mat").val(data["ape_mat"]);
-    $("#dt_fecha_entrada").val(data["fecha_entrada"]);
-    $("#dt_fecha_nacimiento").val(data["fecha_nacimiento"]);
-    $("#cmb_sexo").val(data["id_sexo"]);
-    $("#cmb_region").val(data["id_region"]);
-    $("#cmb_provincia").val(data["id_provincia"]);
-    $("#cmb_comuna").val(data["id_comuna"]);
-    $("#txt_calle").val(data["calle"]);
-    $("#txt_numero").val(data["numero"]);
-    $("#txt_resto_direccion").val(data["resto_direccion"]);
-    $("#txt_ruta").val(data["ruta"]);
+    if (data["rut"] != null) { $("#txt_rut").val(Fn.formatear(data["rut"])); }
+    if (data["rol"] != null) { $("#txt_rol").val(data["rol"]); }
+    if (data["nombres"] != null) { $("#txt_nombres").val(data["nombres"]); }
+    if (data["ape_pat"] != null) { $("#txt_ape_pat").val(data["ape_pat"]); }
+    if (data["ape_mat"] != null) { $("#txt_ape_mat").val(data["ape_mat"]); }
+    if (data["fecha_entrada"] != null) { $("#dt_fecha_entrada").val(data["fecha_entrada"]); }
+    if (data["fecha_nacimiento"] != null) { $("#dt_fecha_nacimiento").val(data["fecha_nacimiento"]); }
+    if (data["id_sexo"] != null) { $("#cmb_sexo").val(data["id_sexo"]); }
+    if (data["id_region"] != null) { $("#cmb_region").val(data["id_region"]); }
+    if (data["id_provincia"] != null) { $("#cmb_provincia").val(data["id_provincia"]); }
+    if (data["id_comuna"] != null) { $("#cmb_comuna").val(data["id_comuna"]); }
+    if (data["calle"] != null) { $("#txt_calle").val(data["calle"]); }
+    if (data["numero"] != null) { $("#txt_numero").val(data["numero"]); }
+    if (data["resto_direccion"] != null) { $("#txt_resto_direccion").val(data["resto_direccion"]); }
+    if (data["ruta"] != null) { $("#txt_ruta").val(data["ruta"]); }
 }
 
 function llenar_cmb_region() {
@@ -383,10 +383,7 @@ $(document).ready(function() {
         debug: true,
         errorClass: "my-error-class",
         highlight: function (element, required) {
-            $(element).fadeOut(function () {
-                $(element).fadeIn();
-                $(element).css('border', '2px solid #FDADAF');
-            });
+            $(element).css('border', '2px solid #FDADAF');
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).css('border', '1px solid #CCC');

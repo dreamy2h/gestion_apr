@@ -138,7 +138,7 @@
 						    date_format(c.fecha, '%d-%m-%Y') as fecha_pago,
 						    m.monto_facturable as total,
 						    m.monto_subsidio,
-						    c.total_pagar as pagado,
+						    m.total_mes as pagado,
 						    c.entregado,
 						    c.vuelto
 						from 

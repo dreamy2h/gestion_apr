@@ -190,6 +190,46 @@
 			echo view('Informes/informe_municipalidad_subsidios');		
 		}
 
+		public function finanzas_ingresos() {
+			$this->validar_sesion();
+			echo view('Finanzas/ingresos');
+		}
+
+		public function finanzas_egresos() {
+			$this->validar_sesion();
+			echo view('Finanzas/egresos');
+		}
+
+		public function proveedores() {
+			$this->validar_sesion();
+			echo view('Finanzas/proveedores');
+		}
+
+		public function cuentas() {
+			$this->validar_sesion();
+			echo view('Finanzas/cuentas');
+		}
+
+		public function motivos() {
+			$this->validar_sesion();
+			echo view('Finanzas/motivos');
+		}
+
+		public function funcionarios() {
+			$this->validar_sesion();
+			echo view('Finanzas/funcionarios');
+		}
+
+		public function tipo_ingreso() {
+			$this->validar_sesion();
+			echo view('Finanzas/tipo_ingreso');
+		}
+
+		public function tipo_egreso() {
+			$this->validar_sesion();
+			echo view('Finanzas/tipo_egreso');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

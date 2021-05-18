@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 	var grid_pagos = $("#grid_pagos").DataTable({
 		responsive: true,
-        paging: true,
+        // paging: true,
         destroy: true,
         select: {
             toggleable: false

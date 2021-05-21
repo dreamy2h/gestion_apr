@@ -39,14 +39,14 @@
 			$token = ($this->request->getHeader("Authorization")!=null)?$this->request->getHeader("Authorization")->getValue():"";
 			if ($this->validateToken($token) == true) {
 				if ($this->request->getMethod() == "post") {
-					define("PAGADO", 2);
 					define("WEBPAY", 4);
-					define("PAGADO_TRAZA", 5);
 					define("WEBPAY_USER", 9);
-					$estado = PAGADO;
+					define("ANULADO", 0);
+					
 					$forma_pago = WEBPAY;
 					$id_usuario = WEBPAY_USER;
 					$fecha = date("Y-m-d H:i:s");
+					$estado_pago = ANULADO;
 					
 					$arr_datos = json_decode(file_get_contents("php://input")); 
 					// return $this->respond(["message" => $arr_datos], 401);
@@ -94,7 +94,8 @@
 							"id_socio" => $id_socio,
 							"id_usuario" => $id_usuario,
 							"fecha" => $fecha,
-							"id_apr" => $id_apr
+							"id_apr" => $id_apr,
+							"estado" => $estado_pago
 						];
 
 						$this->caja->save($datosPago);
@@ -104,6 +105,7 @@
 						$datosPagoTraza = [
 							"id_caja" => $id_caja,
 							"estado" => 1,
+							"observacion" => "Pago ingresado anulado, por concepto de WebPay",
 							"id_usuario" => $id_usuario,
 							"fecha" => $fecha
 						];
@@ -135,24 +137,6 @@
 							];
 
 							$this->caja_detalle->save($datosPagoDetalle);
-
-							$datosMetros = [
-								"id" => $id_metro,
-								"estado" => $estado,
-								"id_usuario" => $id_usuario,
-								"fecha" => $fecha
-							];
-
-							$this->metros->save($datosMetros);
-								
-							$datosMetrosTraza = [
-								"id_metros" => $id_metro,
-								"estado" => PAGADO_TRAZA,
-								"id_usuario" => $id_usuario,
-								"fecha" => $fecha
-							];
-
-							$this->metros_traza->save($datosMetrosTraza);
 						}
 
 						$a++;
@@ -343,11 +327,70 @@
 					$datosWebpay = json_decode(file_get_contents("php://input")); 
 
 					if ($this->webpay->save($datosWebpay)) {
+						define("PAGADO", 2);
+						define("PAGADO_TRAZA", 5);
+						define("ACTIVO", 1);
+						define("PAGADO_TRAZA_CAJA", 1);
+						define("PUNTO_BLUE", 9);
+
+						$estado = PAGADO;
+						$estado_pago = ACTIVO;
+						$fecha = date("Y-m-d H:i:s");
+						$id_usuario = PUNTO_BLUE;
+						
 						$respuesta = [
 							"message" => "Datos de transacción guardados con éxito",
 							"estado" => "exito",
 							"folio" => ""
 						];
+
+						$id_webpay = $datosWebpay->id_webpay;
+						$datosCajaWebpay = $this->caja_webpay->select("id_caja")->where("id_webpay", $id_webpay)->findAll();
+
+						foreach ($datosCajaWebpay as $key) {
+							$id_caja = $key["id_caja"];
+							
+							$datosCaja = [
+								"id" => $id_caja,
+								"estado" => $estado_pago
+							];
+
+							$this->caja->save($datosCaja);
+
+							$datosCajaTraza = [
+								"id_caja" => $id_caja,
+								"estado" => PAGADO_TRAZA_CAJA,
+								"observacion" => "Pago confirmado, por concepto de WebPay",
+								"id_usuario" => $id_usuario,
+								"fecha" => $fecha
+							];
+
+							$this->caja_traza->save($datosCajaTraza);
+
+							$datosCajaDetalle = $this->caja_detalle->select("id_metros")->where("id_caja", $id_caja)->findAll();
+
+							foreach ($datosCajaDetalle as $key) {
+								$id_metro = $key["id_metros"];
+
+								$datosMetros = [
+									"id" => $id_metro,
+									"estado" => $estado,
+									"id_usuario" => $id_usuario,
+									"fecha" => $fecha
+								];
+
+								$this->metros->save($datosMetros);
+									
+								$datosMetrosTraza = [
+									"id_metros" => $id_metro,
+									"estado" => PAGADO_TRAZA,
+									"id_usuario" => $id_usuario,
+									"fecha" => $fecha
+								];
+
+								$this->metros_traza->save($datosMetrosTraza);
+							}
+						}
 
 						return $this->respond($respuesta, 200);
 					} else {

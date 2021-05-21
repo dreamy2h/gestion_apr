@@ -230,6 +230,16 @@
 			echo view('Finanzas/tipo_egreso');
 		}
 
+		public function compras() {
+			$this->validar_sesion();
+			echo view('Finanzas/compras');
+		}
+
+		public function productos() {
+			$this->validar_sesion();
+			echo view('Inventario/productos');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

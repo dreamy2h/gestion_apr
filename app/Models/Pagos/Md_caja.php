@@ -22,7 +22,8 @@
 							s.rol as rol_socio,
 							IFNULL(ELT(FIELD(c.estado, 0, 1), 'Anulado', 'Pagado'),'Sin registro') as estado,
 							u.usuario,
-							date_format(c.fecha, '%d-%m-%Y') as fecha
+							date_format(c.fecha, '%d-%m-%Y') as fecha,
+							concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio
 						from 
 							caja c
 							inner join socios s on c.id_socio = s.id
@@ -63,7 +64,8 @@
 					"rol_socio" => $key["rol_socio"],
 					"estado" => $key["estado"],
 					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"]
+					"fecha" => $key["fecha"],
+					"nombre_socio" => $key["nombre_socio"]
 				);
 
 				$data[] = $row;

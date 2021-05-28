@@ -78,6 +78,7 @@ function guardar_pago() {
     var forma_pago_glosa = $("#cmb_forma_pago").text();
     var n_transaccion = $("#txt_n_transaccion").val();
     var id_socio = $("#txt_id_socio").val();
+    var nombre_socio = $("#txt_nombre_socio").val();
 
     if (parseInt(entregado) < parseInt(total_pagar)) {
         alerta.error("alerta", "Lo entregado no puede ser menor al total a pagar");
@@ -135,7 +136,7 @@ function guardar_pago() {
 
                             alerta.ok("alerta", "Pago guardado con éxito");
                             if (n_transaccion == "") { n_transaccion = 0; }
-                            window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
+                            window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion + "/" + nombre_socio, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
                         } else {
                             alerta.error("alerta", respuesta);
                         }

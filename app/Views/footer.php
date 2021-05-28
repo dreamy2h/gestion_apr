@@ -91,5 +91,7 @@
         <script src="<?php echo base_url(); ?>/fileinput-bootstrap/themes/explorer-fas/theme.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/loader-screen-bar/js/JQLoader.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>/js/chart.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/jquery-barcode-last.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>/js/printThis.js" type="text/javascript"></script>
     </body>
 </html>

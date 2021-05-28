@@ -156,7 +156,7 @@
 			}
 		}
 
-		function emitir_comprobante_pago($total_pagar, $entregado, $vuelto, $forma_pago, $n_transaccion) {
+		function emitir_comprobante_pago($total_pagar, $entregado, $vuelto, $forma_pago, $n_transaccion, $nombre_socio) {
 			$font_size = 60;
 
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;" align="center"><b>COMPROBANTE DE PAGO</b></div><br>');
@@ -172,9 +172,11 @@
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Medio de Pago: ' . $forma_pago . '</div>');
 		    
 		    if ($n_transaccion != "") {
-		    	$this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">N° Trans: ' . $n_transaccion . '</div> <br><br>');
+		    	$this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">N° Trans: ' . $n_transaccion . '</div>');
 		    }
 
+		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Nombre Socio:</div>');
+		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">' . $nombre_socio . '</div><br>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Comprobante no válido como boleta</div>');
 
 		    $verificar_dispositivo = $this->verificar_dispositivo();

@@ -105,6 +105,7 @@
 				                            	<th>Imp.</th>
 				                            	<th>Anular</th>
 				                            	<th>Traza</th>
+				                            	<th>Nombre Socio</th>
 				                            </tr>
 				                        </thead>
 				                    </table> 

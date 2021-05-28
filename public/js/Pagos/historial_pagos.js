@@ -163,10 +163,11 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return "<button type='button' class='traza_pago btn btn-warning' title='Traza Pago'><i class='fas fa-shoe-prints'></i></button>";
                 }
-            }
+            },
+            { "data": "nombre_socio" }
         ],
         "columnDefs": [
-            { "targets": [0], "visible": false, "searchable": false }
+            { "targets": [0, 13], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",
@@ -256,8 +257,9 @@ $(document).ready(function() {
         var vuelto = data["vuelto"];
         var forma_pago_glosa = data["forma_pago"];
         var n_transaccion = data["n_transaccion"];
+        var nombre_socio = data["nombre_socio"];
 
-        window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
+        window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion + "/" + nombre_socio, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
     });
 
     var grid_deuda = $("#grid_deuda").DataTable({

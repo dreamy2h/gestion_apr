@@ -9,34 +9,34 @@ function des_habilitar(a, b) {
     $("#btn_cancelar").prop("disabled", a);
     $("#btn_reciclar").prop("disabled", b);
 
-    $("#txt_motivo").prop("disabled", a);
+    $("#txt_estado").prop("disabled", a);
 }
 
-function mostrar_datos_motivo(data) {
-    $("#txt_id_motivo").val(data["id_motivo"]);
-    $("#txt_motivo").val(data["motivo"]);
+function mostrar_datos_estado(data) {
+    $("#txt_id_estado").val(data["id_estado"]);
+    $("#txt_estado").val(data["estado"]);
 }
 
-function guardar_motivo() {
-    var id_motivo = $("#txt_id_motivo").val();
-    var motivo = $("#txt_motivo").val();
+function guardar_estado() {
+    var id_estado = $("#txt_id_estado").val();
+    var estado = $("#txt_estado").val();
 
     $.ajax({
-        url: base_url + "/Finanzas/Ctrl_motivos/guardar_motivo",
+        url: base_url + "/Inventario/Ctrl_estados_producto/guardar_estado",
         type: "POST",
         async: false,
         data: {
-            id_motivo: id_motivo,
-            motivo: motivo
+            id_estado: id_estado,
+            estado: estado
         },
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
-                $("#grid_motivos").dataTable().fnReloadAjax(base_url + "/Finanzas/Ctrl_motivos/datatable_motivos");
-                $("#form_motivo")[0].reset();
+                $("#grid_estados").dataTable().fnReloadAjax(base_url + "/Inventario/Ctrl_estados_producto/datatable_estados_producto");
+                $("#form_estado")[0].reset();
                 des_habilitar(true, false);
-                alerta.ok("alerta", "Motivo guardado con éxito");
-                $("#datosMotivo").collapse("hide");
+                alerta.ok("alerta", "Estado guardado con éxito");
+                $("#datosEstadosProducto").collapse("hide");
                 datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
@@ -49,15 +49,15 @@ function guardar_motivo() {
     });
 }
 
-function eliminar_motivo(opcion, observacion, id_motivo) {
+function cambiar_estado(opcion, observacion, id_estado) {
     if (opcion == "eliminar") { var estado = 0; } else { var estado = 1; }
     
     $.ajax({
-        url: base_url + "/Finanzas/Ctrl_motivos/eliminar_motivo",
+        url: base_url + "/Inventario/Ctrl_estados_producto/cambiar_estado",
         type: "POST",
         async: false,
         data: { 
-            id_motivo: id_motivo,
+            id_estado: id_estado,
             observacion: observacion,
             estado: estado
         },
@@ -66,13 +66,13 @@ function eliminar_motivo(opcion, observacion, id_motivo) {
 
             if (respuesta == OK) {
                 if (opcion == "eliminar") {
-                    alerta.ok("alerta", "Motivo eliminado con éxito");
+                    alerta.ok("alerta", "Estado eliminado con éxito");
                 } else {
-                    $('#dlg_reciclar_motivo').modal('hide');
-                    alerta.ok("alerta", "Motivo reciclado con éxito");
+                    $('#dlg_reciclar_estado').modal('hide');
+                    alerta.ok("alerta", "Estado reciclado con éxito");
                 }
 
-                $("#grid_motivos").dataTable().fnReloadAjax(base_url + "/Finanzas/Ctrl_motivos/datatable_motivos");
+                $("#grid_estados").dataTable().fnReloadAjax(base_url + "/Inventario/Ctrl_estados_producto/datatable_estados_producto");
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -90,16 +90,16 @@ function convertirMayusculas(texto) {
 }
 
 $(document).ready(function() {
-    $("#txt_id_motivo").prop("disabled", true);
+    $("#txt_id_estado").prop("disabled", true);
     des_habilitar(true, false);
 
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
-        $("#form_motivo")[0].reset();
+        $("#form_estado")[0].reset();
 
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
-        $("#datosMotivo").collapse("show");
+        $("#datosEstadosProducto").collapse("show");
     });
 
     $("#btn_modificar").on("click", function() {
@@ -107,15 +107,15 @@ $(document).ready(function() {
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
         datatable_enabled = false;
-        $("#datosMotivo").collapse("show");
+        $("#datosEstadosProducto").collapse("show");
     });
 
     $("#btn_eliminar").on("click", function() {
-        var motivo = $("#txt_motivo").val();
+        var estado = $("#txt_estado").val();
         
         Swal.fire({
-            title: "¿Eliminar Motivo?",
-            text: "¿Está seguro de eliminar el motivo " + motivo + "?",
+            title: "¿Eliminar estado?",
+            text: "¿Está seguro de eliminar el estado " + estado + "?",
             input: 'text',
             icon: "question",
             showCancelButton: true,
@@ -125,34 +125,34 @@ $(document).ready(function() {
             cancelButtonText: "No"
         }).then((result) => {
             if (result.isConfirmed) {
-                var id_motivo = $("#txt_id_motivo").val();
-                eliminar_motivo("eliminar", result.value, id_motivo);
+                var id_estado = $("#txt_id_estado").val();
+                cambiar_estado("eliminar", result.value, id_estado);
             }
         });
     });
 
     $("#btn_aceptar").on("click", function() {
-        if ($("#form_motivo").valid()) {
-            guardar_motivo();
+        if ($("#form_estado").valid()) {
+            guardar_estado();
         }
     });
 
     $("#btn_cancelar").on("click", function() {
-        $("#form_motivo")[0].reset();
+        $("#form_estado")[0].reset();
         des_habilitar(true, false);
         datatable_enabled = true;
-        $("#datosMotivo").collapse("hide");
+        $("#datosEstadosProducto").collapse("hide");
     });
 
     $("#btn_reciclar").on("click", function() {
-        $("#divContenedorReciclarMotivo").load(
-            base_url + "/Finanzas/Ctrl_motivos/v_motivos_reciclar"
+        $("#divContenedorReciclarEstado").load(
+            base_url + "/Inventario/Ctrl_estados_producto/v_estados_producto_reciclar"
         ); 
 
-        $('#dlg_reciclar_motivo').modal('show');
+        $('#dlg_reciclar_estado').modal('show');
     });
 
-    $("#txt_motivo").on("blur", function() {
+    $("#txt_estado").on("blur", function() {
         $(this).val(convertirMayusculas($(this).val()));
     });
 
@@ -160,7 +160,7 @@ $(document).ready(function() {
         return this.optional(element) || /^[^;\"'{}\[\]^<>=]+$/.test(value);
     });
 
-    $("#form_motivo").validate({
+    $("#form_estado").validate({
         debug: true,
         errorClass: "my-error-class",
         highlight: function (element, required) {
@@ -170,39 +170,39 @@ $(document).ready(function() {
             $(element).css('border', '1px solid #CCC');
         },
         rules:  {
-            txt_motivo: {
+            txt_estado: {
                 required: true,
                 charspecial: true,
                 maxlength: 100
             }
         },
         messages: {
-            txt_motivo: {
-                required: "El motivo es obligatorio",
+            txt_estado: {
+                required: "El estado es obligatorio",
                 charspecial: "Caraceteres no permitidos",
                 maxlength: "Máximo 100 caracteres"
             }
         }
     });
 
-    var grid_motivos = $("#grid_motivos").DataTable({
+    var grid_estados = $("#grid_estados").DataTable({
 		responsive: true,
         paging: true,
         destroy: true,
         select: {
             toggleable: false
         },
-        ajax: base_url + "/Finanzas/Ctrl_motivos/datatable_motivos",
+        ajax: base_url + "/Inventario/Ctrl_estados_producto/datatable_estados_producto",
         orderClasses: true,
         columns: [
-            { "data": "id_motivo" },
-            { "data": "motivo" },
+            { "data": "id_estado" },
+            { "data": "estado" },
             { "data": "usuario" },
             { "data": "fecha" },
             { 
-                "data": "id_motivo",
+                "data": "id_estado",
                 "render": function(data, type, row) {
-                    return "<button type='button' class='traza_motivo btn btn-warning' title='Traza Motivo'><i class='fas fa-shoe-prints'></i></button>";
+                    return "<button type='button' class='traza_estado btn btn-warning' title='Traza estado'><i class='fas fa-shoe-prints'></i></button>";
                 }
             }
         ],
@@ -231,29 +231,29 @@ $(document).ready(function() {
         }
 	});
 
-    $("#grid_motivos tbody").on("click", "tr", function () {
+    $("#grid_estados tbody").on("click", "tr", function () {
         if (datatable_enabled) {
             var tr = $(this).closest('tr');
             if ($(tr).hasClass('child') ) {
                 tr = $(tr).prev();  
             }
 
-            var data = grid_motivos.row(tr).data();
-            mostrar_datos_motivo(data);
+            var data = grid_estados.row(tr).data();
+            mostrar_datos_estado(data);
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);
             $("#btn_eliminar").prop("disabled", false);
-            $("#datosMotivo").collapse("hide");
+            $("#datosEstadosProducto").collapse("hide");
         }
     });
 
-    $("#grid_motivos tbody").on("click", "button.traza_motivo", function () {
+    $("#grid_estados tbody").on("click", "button.traza_estado", function () {
         if (datatable_enabled) {
-            $("#divContenedorTrazaMotivo").load(
-                base_url + "/Finanzas/Ctrl_motivos/v_motivos_traza"
+            $("#divContenedorTrazaEstado").load(
+                base_url + "/Inventario/Ctrl_estados_producto/v_estados_producto_traza"
             ); 
 
-            $('#dlg_traza_motivo').modal('show');
+            $('#dlg_traza_estado').modal('show');
         }
     });
 });

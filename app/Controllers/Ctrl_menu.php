@@ -234,10 +234,20 @@
 			$this->validar_sesion();
 			echo view('Finanzas/compras');
 		}
-
+		
 		public function productos() {
 			$this->validar_sesion();
 			echo view('Inventario/productos');
+		}
+
+		public function estados_producto() {
+			$this->validar_sesion();
+			echo view('Inventario/estados_producto');
+		}
+
+		public function ubicaciones_producto() {
+			$this->validar_sesion();
+			echo view('Inventario/ubicaciones_producto');
 		}
 
 		public function validar_sesion() {

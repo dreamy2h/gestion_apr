@@ -262,6 +262,7 @@
 											->select("subtotal")
 											->select("total_mes")
 											->select("monto_subsidio")
+											->select("multa")
 											->select("date_format(fecha, '%d-%m-%Y') as fecha_emision")
 											->select("date_format(fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento")
 											->where("id", $folio)->first();
@@ -272,15 +273,26 @@
 				$consumo_metros = $datosMetros["metros"];
 				$subtotal = $datosMetros["subtotal"];
 				$monto_subsidio = $datosMetros["monto_subsidio"];
+				$multa = $datosMetros["multa"];
 				$total_mes = $datosMetros["total_mes"];
 				$fecha_emision = $datosMetros["fecha_emision"];
 				$fecha_vencimiento = $datosMetros["fecha_vencimiento"];
 
-				$datosSocio = $this->socios->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")
+				$query = $this->db->query("SELECT total_mes as saldo_anterior from metros where id = (select max(id) from metros where id_socio = (select id_socio from metros where id = $folio) and estado = 1 and id < $folio)");
+
+				$datosConsumoAnterior = $query->getRow();
+				$saldo_anterior = $datosConsumoAnterior->saldo_anterior;
+				if ($saldo_anterior == "") { $saldo_anterior = 0; }
+
+				$total_pagar = $total_mes + $saldo_anterior;
+
+				$datosSocio = $this->socios->select("case when rut is null then 'Sin RUT registrado' else concat(rut, '-', dv) end as rut_socio")
+											->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")
 											->select("concat(calle, ', ', numero, ', ', resto_direccion) as direccion_socio")
 											->select("rol as codigo_socio")
 											->where("id", $id_socio)->first();
 
+				$rut_socio = $datosSocio["rut_socio"];
 				$nombre_socio = $datosSocio["nombre_socio"];
 				$direccion_socio = $datosSocio["direccion_socio"];
 				$codigo_socio = $datosSocio["codigo_socio"];
@@ -290,20 +302,20 @@
 
 				$numero_medidor = $datosMedidor["numero"];
 
-				$pagecount = $mpdf->SetSourceFile("003.pdf");
+				$pagecount = $mpdf->SetSourceFile("005.pdf");
 				$tplId = $mpdf->ImportPage($pagecount);
 		        $mpdf->AddPage();
 				$mpdf->UseTemplate($tplId);
 				$mpdf->WriteHTML('
 					<div style="height: 2%;"></div>
 					<div>
-						<div style="width: 20%; float: right;">
-							<img src="' . $this->sesión->id_apr_ses . '.png" width="100">
+						<div style="width: 20%; float: left;">
+							<img src="' . $this->sesión->id_apr_ses . '.png" width="200">
 						</div>
 			        </div>
 					<div>
 			        	<div style="font-size: 90%; width: 60%; float: left;">
-			        		<br><br><br>
+			        		<br>
 			        		<b>' . $nombre_apr .  '</b><br>
 							RUT: ' . $rut_apr . '<br>
 							CAPTACIÓN, PURIFICACIÓN Y DIST. DE AGUA<br>
@@ -326,6 +338,7 @@
 			        <br><br>
 					<div>
 			        	<div style="width: 60%; float: left; margin-left: 3%;">
+			        		' . $rut_socio . '<br>
 			        		' . $nombre_socio . '<br>
 							' . $direccion_socio . '<br>
 							' . $codigo_socio . '<br>
@@ -334,10 +347,10 @@
 			        </div>
 			        <br><br><br><br><br>
 					<div>
-			        	<div style="width: 25%; float: left; margin-left: 3%;">
+			        	<div style="width: 28%; float: left; margin-left: 3%;">
 			        		' . $consumo_anterior . ' M<sup>3</sup><br>
 			        	</div>
-			        	<div style="width: 32%; float: left;">
+			        	<div style="width: 29%; float: left;">
 			        		' . $consumo_actual . ' M<sup>3</sup><br>
 			        	</div>
 			        	<div style="width: 40%; float: left;">
@@ -346,9 +359,14 @@
 			        </div>
 			        <div style="height: 6.5%;"></div>
 					<div>
-			        	<div style="width: 100%; float: left; margin-left: 60%;">
+			        	<div style="width: 20%; float: left; margin-left: 50%;">
 			        		$ ' . number_format($subtotal, 0, ",", ".") . '<br><br><br>
+			        		$ ' . number_format($saldo_anterior, 0, ",", ".") . '<br><br><br>
 			        		$ ' . number_format($monto_subsidio, 0, ",", ".") . '
+			        	</div>
+			        	<div style="width: 20%; float: left; margin-left: 10%;">
+			        		<br><br><br>
+			        		$ ' . number_format($multa, 0, ",", ".") . '
 			        	</div>
 			        </div>
 			        <div style="height: 7%;"></div>
@@ -360,7 +378,7 @@
 			        		' . $fecha_vencimiento . '
 			        	</div>
 			        	<div style="width: 15%; float: left;">
-			        		$ ' . number_format($total_mes, 0, ",", ".") . '
+			        		$ ' . number_format($total_pagar, 0, ",", ".") . '
 			        	</div>
 			        </div>
 				');

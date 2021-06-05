@@ -234,6 +234,11 @@
 			$this->validar_sesion();
 			echo view('Finanzas/compras');
 		}
+
+		public function historial_egresos() {
+			$this->validar_sesion();
+			echo view('Finanzas/historial_egresos');	
+		}
 		
 		public function productos() {
 			$this->validar_sesion();

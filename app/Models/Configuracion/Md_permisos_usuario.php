@@ -21,14 +21,20 @@
 						    pd.nombre as permiso,
 						    pd.ruta,
 						    pd.div_id,
-						    pd.icono
+						    pd.icono,
+						    ps.id as id_subgrupo,
+                            ps.nombre as subgrupo,
+                            ps.icono as icono_subgrupo,
+                            ps.collapse as collapse_subgrupo
 						from 
 							permisos_usuario pu
 						    inner join permisos_detalle pd on pu.id_permiso = pd.id
 						    inner join permisos_enc pe on pd.id_grupo = pe.id
+                            left join permisos_subgrupo ps on pd.id_subgrupo = ps.id
 						where 
 							pu.estado = ? and
-						    pu.id_usuario = ?";
+						    pu.id_usuario = ?
+						order by id_grupo, id_subgrupo";
 
 
 			$query = $db->query($consulta, [$estado, $id_usuario]);
@@ -43,7 +49,11 @@
 					"permiso" => $key["permiso"],
 					"ruta" => $key["ruta"],
 					"div_id" => $key["div_id"],
-					"icono" => $key["icono"]
+					"icono" => $key["icono"],
+					"id_subgrupo" => $key["id_subgrupo"],
+					"subgrupo" => $key["subgrupo"],
+					"icono_subgrupo" => $key["icono_subgrupo"],
+					"collapse_subgrupo" => $key["collapse_subgrupo"]
 				);
 
 				$data[] = $row;

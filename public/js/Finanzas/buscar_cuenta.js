@@ -4,12 +4,16 @@ $(document).ready(function() {
 		paging: true,
         destroy: true,
         order: [[ 2, "desc" ]],
-        ajax: base_url + "/Finanzas/Ctrl_ingresos/datatable_buscar_cuenta",
+        ajax: base_url + "/Finanzas/Ctrl_egresos/datatable_buscar_cuenta",
         orderClasses: true,
         columns: [
             { "data": "id_cuenta" },
+            { "data": "nombre_banco" },
+            { "data": "tipo_cuenta" },
+            { "data": "n_cuenta" },
             { "data": "rut_cuenta" },
             { "data": "nombre_cuenta" },
+            { "data": "email" }
         ],
         language: {
             "decimal": "",
@@ -40,13 +44,26 @@ $(document).ready(function() {
         }
 
         var data = grid_buscar_cuentas.row(tr).data();
+
         var id_cuenta = data["id_cuenta"];
+        var nombre_banco = data["nombre_banco"];
+        var tipo_cuenta = data["tipo_cuenta"];
+        var n_cuenta = data["n_cuenta"];
         var rut_cuenta = data["rut_cuenta"];
         var nombre_cuenta = data["nombre_cuenta"];
+        var email = data["email"];
 
         $("#txt_id_cuenta").val(id_cuenta);
         $("#txt_rut_cuenta").val(rut_cuenta);
         $("#txt_nombre_cuenta").val(nombre_cuenta);
+
+        $("#txt_id_cuenta").val(id_cuenta);
+        $("#txt_banco").val(nombre_banco);
+        $("#txt_tipo_cuenta").val(tipo_cuenta);
+        $("#txt_n_cuenta").val(n_cuenta);
+        $("#txt_rut").val(rut_cuenta);
+        $("#txt_nombre").val(nombre_cuenta);
+        $("#txt_email").val(email);
 
         $('#dlg_buscador').modal('hide');
     });

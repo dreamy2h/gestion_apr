@@ -49,6 +49,13 @@ $(document).ready(function() {
         $("#txt_rut_proveedor").val(rut_proveedor);
         $("#txt_razon_social").val(razon_social);
 
-        $('#dlg_buscador').modal('hide');
+        if (('#dlg_buscador')) {
+            $('#dlg_buscador').modal('hide');
+        }
+
+        if ($('#dlg_compras')) {
+            $('#dlg_compras').modal("hide");
+        }
+        
     });
 });

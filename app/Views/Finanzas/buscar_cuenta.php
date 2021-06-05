@@ -6,8 +6,12 @@
                 <thead class="thead-dark">
                     <tr>
                     	<th>Id. Cuenta</th>
-                        <th>RUT</th>
-                        <th>Nombre</th>
+                        <th>Nombre Banco</th>
+                        <th>Tipo Cuenta</th>
+                        <th>N° Cuenta</th>
+                        <th>Rut Cuenta</th>
+                        <th>Nombre Cuenta</th>
+                        <th>C. Electrónico</th>
                     </tr>
                 </thead>
             </table> 

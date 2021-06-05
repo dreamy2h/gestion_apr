@@ -134,10 +134,16 @@
 
 	    	$consulta = "SELECT 
 							c.id as id_cuenta,
+                            b.nombre_banco,
+                            tp.glosa as tipo_cuenta,
+                            c.n_cuenta,
                             concat(c.rut, '-', c.dv) as rut_cuenta,
-                            c.nombre_cuenta
+                            c.nombre_cuenta,
+                            c.email
 						from 
 							cuentas c
+                            inner join bancos b on b.id = c.id_banco
+                            inner join banco_tipo_cuenta  tp on tp.id = c.id_tipo_cuenta
 						where
 							c.id_apr = ? and
 							c.estado = ?";
@@ -146,22 +152,8 @@
 			$query = $db->query($consulta, [$id_apr, $estado]);
 			$cuentas = $query->getResultArray();
 
-			foreach ($cuentas as $key) {
-				$row = array(
-					"id_cuenta" => $key["id_cuenta"],
-					"rut_cuenta" => $key["rut_cuenta"],
-					"nombre_cuenta" => $key["nombre_cuenta"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $cuentas);
+			return json_encode($salida);
 	    }
 	}
 ?>

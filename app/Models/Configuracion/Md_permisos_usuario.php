@@ -34,7 +34,7 @@
 						where 
 							pu.estado = ? and
 						    pu.id_usuario = ?
-						order by id_grupo, id_subgrupo";
+						order by pe.orden, pd.orden, ps.id";
 
 
 			$query = $db->query($consulta, [$estado, $id_usuario]);

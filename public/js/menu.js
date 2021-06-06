@@ -55,7 +55,6 @@ $(document).ready(function() {
         for (var i = 0; i < data.length; i++) {
             if (id_subgrupo != data[i].id_subgrupo && cierre_subgrupo == 1) {
                 menu += "</nav></div>";
-                id_subgrupo = data[i].id_subgrupo;
                 cierre_subgrupo = 0;
             }
 
@@ -73,7 +72,7 @@ $(document).ready(function() {
             	id_grupo = data[i].id_grupo;
         	}
 
-            if (id_subgrupo != data[i].id_subgrupo) {
+            if (data[i].id_subgrupo != null && cierre_subgrupo == 0) {
                 menu += '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#' + data[i].collapse_subgrupo + '" aria-expanded="false" aria-controls="' + data[i].collapse_subgrupo + '">\
                             <div class="sb-nav-link-icon"><i class="' + data[i].icono_subgrupo + '"></i></div>\
                             ' + data[i].subgrupo + '\
@@ -81,7 +80,7 @@ $(document).ready(function() {
                         </a>\
                         <div class="collapse" id="' + data[i].collapse_subgrupo + '" aria-labelledby="headingOne" data-parent="#' + data[i].collapse + 'Accordion">\
                             <nav class="sb-sidenav-menu-nested nav">';
-                id_subgrupo = data[i].id_subgrupo;
+                
                 cierre_subgrupo = 1;
             }
 
@@ -89,7 +88,7 @@ $(document).ready(function() {
                         <div class="sb-nav-link-icon"><i class="' + data[i].icono + '"></i></div> ' + data[i].permiso + '\
                     </a>';
 
-
+            id_subgrupo = data[i].id_subgrupo;
         }
 
         $("#menu").html(menu);

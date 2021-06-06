@@ -32,7 +32,7 @@
 				                		<div class="row">
 				                			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 				                				<div class="form-group">
-					                                <label class="small mb-1" for="txt_id_ingreso">Id. Ingreso</label>
+					                                <label class="small mb-1" for="txt_id_ingreso">N° de Ingreso</label>
 					                                <input type="text" class="form-control" name="txt_id_ingreso" id="txt_id_ingreso" />
 					                            </div>
 					                        </div>

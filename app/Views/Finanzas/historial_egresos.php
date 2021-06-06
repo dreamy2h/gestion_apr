@@ -17,7 +17,7 @@
 					                    <table id="grid_egresos" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th>Id.</th>
+					                            	<th width="10%">N° Egreso</th>
 					                            	<th>Tipo Egreso</th>
 					                            	<th>Usuario</th>
 					                            	<th>Fecha</th>

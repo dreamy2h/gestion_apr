@@ -186,6 +186,7 @@
                     <h4 class="modal-title" id="tlt_compras_dlg"></h4>
                 </div>
                 <div class="modal-body">
+                	<input type="hidden" name="txt_origen" id="txt_origen" value="compras">
                     <div id="divContenedorDlg"></div>
                 </div>
                 <div class="modal-footer">

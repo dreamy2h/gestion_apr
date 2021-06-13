@@ -34,6 +34,8 @@ $(document).ready(function() {
 	});
 
     $("#grid_buscar_socio tbody").on("dblclick", "tr", function () {
+        var origen = $("#txt_origen").val();
+
         var tr = $(this).closest('tr');
         if ($(tr).hasClass('child') ) {
             tr = $(tr).prev();  
@@ -44,9 +46,29 @@ $(document).ready(function() {
         var rut_socio = data["rut_socio"];
         var nombre_socio = data["nombre_socio"];
 
-        $("#txt_id_proveedor").val(id_socio);
-        $("#txt_rut_proveedor").val(rut_socio);
-        $("#txt_razon_social").val(nombre_socio);
+        switch (origen) {
+            case "ingresos":
+                $("#txt_id_proveedor").val(id_socio);
+                $("#txt_rut_proveedor").val(rut_socio);
+                $("#txt_razon_social").val(nombre_socio);
+                break;
+            case "egresos":
+                $("#txt_id_proveedor").val(id_socio);
+                $("#txt_rut_proveedor").val(rut_socio);
+                $("#txt_razon_social").val(nombre_socio);
+                break;
+            case "compras":
+                $("#txt_id_proveedor").val(id_socio);
+                $("#txt_rut_proveedor").val(rut_socio);
+                $("#txt_razon_social").val(nombre_socio);
+                break;
+            case "informe_ingresos":
+                $("#txt_id_entidad").val(id_socio);
+                break;
+            case "informe_egresos":
+                $("#txt_id_entidad").val(id_socio);
+                break;
+        }
 
         $('#dlg_buscador').modal('hide');
     });

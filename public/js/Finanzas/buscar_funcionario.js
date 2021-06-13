@@ -34,6 +34,8 @@ $(document).ready(function() {
 	});
 
     $("#grid_buscar_funcionario tbody").on("dblclick", "tr", function () {
+        var origen = $("#txt_origen").val();
+
         var tr = $(this).closest('tr');
         if ($(tr).hasClass('child') ) {
             tr = $(tr).prev();  
@@ -44,10 +46,25 @@ $(document).ready(function() {
         var rut_funcionario = data["rut_funcionario"];
         var nombre_funcionario = data["nombre_funcionario"];
 
-        $("#txt_id_proveedor").val(id_funcionario);
-        $("#txt_rut_proveedor").val(rut_funcionario);
-        $("#txt_razon_social").val(nombre_funcionario);
-
+        switch (origen) {
+            case "ingresos":
+                $("#txt_id_proveedor").val(id_funcionario);
+                $("#txt_rut_proveedor").val(rut_funcionario);
+                $("#txt_razon_social").val(nombre_funcionario);
+                break;
+            case "egresos":
+                $("#txt_id_proveedor").val(id_funcionario);
+                $("#txt_rut_proveedor").val(rut_funcionario);
+                $("#txt_razon_social").val(nombre_funcionario);
+                break;
+            case "informe_ingresos":
+                $("#txt_id_entidad").val(id_funcionario);
+                break;
+            case "informe_egresos":
+                $("#txt_id_entidad").val(id_funcionario);
+                break;
+        }
+        
         $('#dlg_buscador').modal('hide');
     });
 });

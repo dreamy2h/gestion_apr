@@ -255,6 +255,26 @@
 			echo view('Inventario/ubicaciones_producto');
 		}
 
+		public function informe_ingresos() {
+			$this->validar_sesion();
+			echo view('Informes/informe_ingresos');
+		}
+
+		public function informe_egresos_simples() {
+			$this->validar_sesion();
+			echo view('Informes/informe_egresos_simples');
+		}
+
+		public function informe_compras() {
+			$this->validar_sesion();
+			echo view('Informes/informe_compras');
+		}
+
+		public function informe_inventario() {
+			$this->validar_sesion();
+			echo view('Informes/informe_inventario');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

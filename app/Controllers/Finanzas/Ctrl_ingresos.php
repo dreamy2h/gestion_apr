@@ -177,22 +177,8 @@
 			$this->validar_sesion();
 			$datosFuncionario = $this->funcionarios->select("id as id_funcionario")->select("concat(nombres, ' ', ape_pat, ' ', ape_pat) as nombre_funcionario")->select("concat(rut, '-', dv) as rut_funcionario")->where("id_apr", $this->sesión->id_apr_ses)->where("estado", 1)->findAll();
 
-			foreach ($datosFuncionario as $key) {
-				$row = array(
-					"id_funcionario" => $key["id_funcionario"],
-					"rut_funcionario" => $key["rut_funcionario"],
-					"nombre_funcionario" => $key["nombre_funcionario"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $datosFuncionario);
+			return json_encode($salida);
 		}
 
 		public function v_buscar_socio() {

@@ -35,6 +35,8 @@ $(document).ready(function() {
 	});
 
     $("#grid_buscar_proveedores tbody").on("dblclick", "tr", function () {
+        var origen = $("#txt_origen").val();
+
         var tr = $(this).closest('tr');
         if ($(tr).hasClass('child') ) {
             tr = $(tr).prev();  
@@ -45,9 +47,39 @@ $(document).ready(function() {
         var rut_proveedor = data["rut_proveedor"];
         var razon_social = data["razon_social"];
 
-        $("#txt_id_proveedor").val(id_proveedor);
-        $("#txt_rut_proveedor").val(rut_proveedor);
-        $("#txt_razon_social").val(razon_social);
+        switch (origen) {
+            case "ingresos":
+                $("#txt_id_proveedor").val(id_proveedor);
+                $("#txt_rut_proveedor").val(rut_proveedor);
+                $("#txt_razon_social").val(razon_social);
+                break;
+            case "egresos":
+                $("#txt_id_proveedor").val(id_proveedor);
+                $("#txt_rut_proveedor").val(rut_proveedor);
+                $("#txt_razon_social").val(razon_social);
+                break;
+            case "compras":
+                $("#txt_id_proveedor").val(id_proveedor);
+                $("#txt_rut_proveedor").val(rut_proveedor);
+                $("#txt_razon_social").val(razon_social);
+                break;
+            case "informe_ingresos":
+                $("#txt_id_entidad").val(id_proveedor);
+                break;
+            case "informe_egresos":
+                $("#txt_id_entidad").val(id_proveedor);
+                break;
+            case "informe_compras_basico":
+                $("#txt_id_proveedor").val(id_proveedor);
+                $("#txt_rut_proveedor").val(rut_proveedor);
+                $("#txt_razon_social").val(razon_social);
+                break;
+            case "informe_compras_detallado":
+                $("#txt_id_proveedor_det").val(id_proveedor);
+                $("#txt_rut_proveedor_det").val(rut_proveedor);
+                $("#txt_razon_social_det").val(razon_social);
+                break;
+        }
 
         if (('#dlg_buscador')) {
             $('#dlg_buscador').modal('hide');

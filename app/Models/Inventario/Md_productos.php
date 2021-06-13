@@ -57,37 +57,56 @@
 			}
 	    }
 
-	  //   public function datatable_estados_producto_reciclar($db, $id_apr) {
-	  //   	define("DESACTIVADO", 0);
-	  //   	$estado = DESACTIVADO;
+	    public function datatable_informe_inventario($db, $id_apr, $datosBusqueda) {
+	    	define("ACTIVO", 1);
+	    	$estado = ACTIVO;
+	    	$datosBusqueda = json_decode($datosBusqueda, true);
 
-	  //   	$consulta = "SELECT 
-			// 				m.id as id_estado,
-   //                          m.estado_producto as estado
-			// 			from 
-			// 				estados_producto m
-			// 			where
-			// 				m.id_apr = ? and
-			// 				m.estado = ?";
+	    	$productos = $datosBusqueda["productos"];
+			$estado = $datosBusqueda["estado"];
+			$ubicacion = $datosBusqueda["ubicacion"];
+			$codigo_barras = $datosBusqueda["codigo_barras"];
 
-			// $query = $db->query($consulta, [$id_apr, $estado]);
-			// $estados_producto = $query->getResultArray();
+	    	$consulta = "SELECT 
+							pd.id as id_producto,
+						    p.nombre as producto,
+						    p.marca,
+						    p.modelo,
+						    pd.codigo as codigo_barras,
+						    ifnull(ep.estado_producto, 'No Registrado') as estado,
+						    ifnull(up.ubicacion, 'No Registrado') as ubicacion
+						from 
+							productos p
+						    inner join productos_detalles pd on pd.id_producto = p.id
+						    left join estados_producto ep on pd.id_estado = ep.id
+						    left join ubicaciones_producto up on pd.id_ubicacion = up.id
+						where
+							IFNULL(pd.id_estado, -1) != 0 and
+    						p.id_apr = $id_apr";
 
-			// foreach ($estados_producto as $key) {
-			// 	$row = array(
-			// 		"id_estado" => $key["id_estado"],
-			// 		"estado" => $key["estado"]
-			// 	);
+			if ($productos != "") {
+				$consulta .= " and p.id = $productos";
+			}
+			
+			if ($estado != "") {
+				$consulta .= " and ep.id = $estado";
+			}
 
-			// 	$data[] = $row;
-			// }
+			if ($ubicacion != "") {
+				$consulta .= " and up.id = $ubicacion";
+			}
 
-			// if (isset($data)) {
-			// 	$salida = array("data" => $data);
-			// 	return json_encode($salida);
-			// } else {
-			// 	return "{ \"data\": [] }";
-			// }
-		// }
+			if ($codigo_barras != "") {
+				$consulta .= " and pd.codigo = $codigo_barras";
+			}
+
+			$consulta .= " order by p.nombre asc";
+			
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			$salida = array("data" => $data);
+			return json_encode($salida);
+	    }
 	}
 ?>

@@ -228,6 +228,7 @@
 	                        <h4 class="modal-title" id="tlt_buscador"></h4>
 	                    </div>
 	                    <div class="modal-body">
+	                    	<input type="hidden" name="txt_origen" id="txt_origen" value="egresos">
 	                        <div id="divContenedorBuscador"></div>
 	                    </div>
 	                    <div class="modal-footer">

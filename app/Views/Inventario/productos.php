@@ -180,7 +180,7 @@
 					            <div class="card-body bg-light">
 					                <div class="container-fluid">
 					                	<h5 class="card-title"><i class="fas fa-barcode"></i> Código de Barras</h5>
-	                        			<div id="divCodigoBarras" align="center"></div>
+	                        			<canvas id="divCodigoBarras" align="center"></canvas>
 	                    			</div>
 	                    		</div>
 	                    	</div>

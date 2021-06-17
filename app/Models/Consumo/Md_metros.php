@@ -367,5 +367,138 @@
 				return "{ \"data\": []}";
 			}
 	    }
+
+	    public function datatable_informe_consumo_agua($db, $id_apr, $datosBusqueda) {
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
+			
+			$datosBusqueda = json_decode($datosBusqueda, true);
+			$fecha_desde = $datosBusqueda["fecha_desde"];
+			$fecha_hasta = $datosBusqueda["fecha_hasta"];
+			$id_socio = $datosBusqueda["id_socio"];
+			$id_conversion = $datosBusqueda["id_conversion"];
+			$conversion = $datosBusqueda["conversion"];
+			$id_sector = $datosBusqueda["id_sector"];
+
+	    	$consulta = "SELECT 
+							m.id as id_metros,
+						    concat(s.rut, '-', dv) as rut_socio,
+						    s.rol as rol_socio,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
+						    sec.nombre as sector,
+						";
+
+			if ($id_conversion == 1) {
+				$consulta .= "  m.metros as consumo,";
+			} else {
+				$consulta .= " round(m.metros * 1000) as consumo,";
+			}
+
+				$consulta .= " '$conversion' as um_agua
+								from 
+									metros m
+								    inner join socios s on m.id_socio = s.id
+								    inner join arranques a on a.id_socio = s.id
+								    inner join sectores sec on a.id_sector = sec.id
+								where
+									m.id_apr = $id_apr and
+								    m.estado <> $estado";
+
+
+			if ($fecha_desde != "" and $fecha_hasta != "") {
+				$consulta .= " and date_format(m.fecha_ingreso, '%m-%Y') between '$fecha_desde' and '$fecha_hasta'";
+			}
+
+			if ($id_socio != "") {
+				$consulta .= " and m.id_socio = $id_socio";
+			}
+
+			if ($id_sector != "") {
+				$consulta .= " and a.id_sector = $id_sector";
+			}
+
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			$salida = array("data" => $data);
+			return json_encode($salida);
+	    }
+
+	    public function llenar_grafico_consumo_agua($db, $id_apr, $datosBusqueda) {
+	    	define("ELIMINADO", 0);
+	    	$estado = ELIMINADO;
+			
+			$datosBusqueda = json_decode($datosBusqueda, true);
+			$fecha_desde = $datosBusqueda["fecha_desde"];
+			$fecha_hasta = $datosBusqueda["fecha_hasta"];
+			$id_socio = $datosBusqueda["id_socio"];
+			$id_conversion = $datosBusqueda["id_conversion"];
+			$conversion = $datosBusqueda["conversion"];
+			$id_sector = $datosBusqueda["id_sector"];
+
+	    	$consulta = "SELECT ";
+
+			if ($id_conversion == 1) {
+				$consulta .= "  sum(m.metros) as consumo,";
+			} else {
+				$consulta .= " sum(round(m.metros * 1000)) as consumo,";
+			}
+
+				$consulta .= " sec.nombre as sector
+								from 
+									metros m
+								    inner join socios s on m.id_socio = s.id
+								    inner join arranques a on a.id_socio = s.id
+								    inner join sectores sec on a.id_sector = sec.id
+								where
+									m.id_apr = $id_apr and
+								    m.estado <> $estado";
+
+
+			if ($fecha_desde != "" and $fecha_hasta != "") {
+				$consulta .= " and date_format(m.fecha_ingreso, '%m-%Y') between '$fecha_desde' and '$fecha_hasta'";
+			}
+
+			if ($id_socio != "") {
+				$consulta .= " and m.id_socio = $id_socio";
+			}
+
+			if ($id_sector != "") {
+				$consulta .= " and a.id_sector = $id_sector";
+			}
+
+			$consulta .= " group by sec.nombre";
+
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			return json_encode($data);
+	    }
+
+	    public function llenar_grafico_cuadratura_agua($db, $id_apr, $datosBusqueda) {
+	    	define("ELIMINADO", 0);
+	    	define("ACTIVO", 1);
+			
+			$datosBusqueda = json_decode($datosBusqueda, true);
+			$fecha_desde = $datosBusqueda["fecha_desde"];
+			$fecha_hasta = $datosBusqueda["fecha_hasta"];
+			$id_conversion = $datosBusqueda["id_conversion"];
+
+			if ($id_conversion == 1) {
+				$consulta = "SELECT 'Consumo' as tipo, round(sum(metros)) as agua from metros where date_format(fecha_ingreso, '%m-%Y') between '$fecha_desde' and '$fecha_hasta' and id_apr = $id_apr and estado <> " . ELIMINADO . "
+							union
+								select 'Llenado' as tipo, case when um_agua = 1 then round(sum(cantidad_agua)) else round(sum(cantidad_agua/1000)) end as agua from llenado_agua where date_format(fecha_hora, '%m-%Y') between '$fecha_desde' and '$fecha_hasta' and id_apr = $id_apr and estado = " . ACTIVO;
+
+			} else {
+				$consulta = "SELECT 'Consumo' as tipo, round(sum(metros*1000)) as agua from metros where date_format(fecha_ingreso, '%m-%Y') between '$fecha_desde' and '$fecha_hasta' and id_apr = $id_apr and estado <> " . ELIMINADO . "
+							union
+								select 'Llenado' as tipo, case when um_agua = 1 then round(sum(cantidad_agua*1000)) else round(sum(cantidad_agua)) end as agua from llenado_agua where date_format(fecha_hora, '%m-%Y') between '$fecha_desde' and '$fecha_hasta' and id_apr = $id_apr and estado = " . ACTIVO;
+			}
+
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			return json_encode($data);
+	    }
 	}
 ?>

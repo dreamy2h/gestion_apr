@@ -63,6 +63,16 @@ $(document).ready(function() {
             case "informe_egresos":
                 $("#txt_id_entidad").val(id_funcionario);
                 break;
+            case "llenado_agua":
+                $("#txt_id_operador").val(id_funcionario);
+                $("#txt_rut_operador").val(rut_funcionario);
+                $("#txt_nombre_operador").val(nombre_funcionario);
+                break;
+            case "informe_llenado_agua":
+                $("#txt_id_operador").val(id_funcionario);
+                $("#txt_rut_operador").val(rut_funcionario);
+                $("#txt_nombre_operador").val(nombre_funcionario);
+                break;
         }
         
         $('#dlg_buscador').modal('hide');

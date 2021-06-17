@@ -275,6 +275,26 @@
 			echo view('Informes/informe_inventario');
 		}
 
+		public function llenado_agua() {
+			$this->validar_sesion();
+			echo view('Inventario_agua/llenado_agua');
+		}
+
+		public function informe_llenado_agua() {
+			$this->validar_sesion();
+			echo view('Informes/informe_llenado_agua');
+		}
+
+		public function informe_consumo_agua() {
+			$this->validar_sesion();
+			echo view('Informes/informe_consumo_agua');
+		}
+
+		public function informe_cuadratura_agua() {
+			$this->validar_sesion();
+			echo view('Informes/informe_cuadratura_agua');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

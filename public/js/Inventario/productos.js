@@ -359,7 +359,7 @@ $(document).ready(function() {
     });
 
     $("#btn_codigo_barra").on("click", function() {
-        $("#divCodigoBarras").printThis();
+        $("#divCodigoBarras").printThis({canvas: true});
     });
 
     $("#txt_motivo").on("blur", function() {
@@ -650,9 +650,14 @@ $(document).ready(function() {
 
         var data = grid_productos_detalles.row(tr).data();
 
-        $("#divCodigoBarras").barcode(data["codigo_barra"], "ean13", {
-            barWidth:2, barHeight:100
-        });
+        $("#divCodigoBarras").JsBarcode(
+            data["codigo_barra"], 
+            {
+                displayValue: true, 
+                fontSize: 15,
+                width: 5
+            }
+        );
         $('#dlg_codigo_barra').modal('show');
     });
 

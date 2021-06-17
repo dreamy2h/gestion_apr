@@ -68,6 +68,11 @@ $(document).ready(function() {
             case "informe_egresos":
                 $("#txt_id_entidad").val(id_socio);
                 break;
+            case "informe_consumo_agua":
+                $("#txt_id_socio").val(id_socio);
+                $("#txt_rut_socio").val(rut_socio);
+                $("#txt_nombre_socio").val(nombre_socio);
+                break;
         }
 
         $('#dlg_buscador').modal('hide');

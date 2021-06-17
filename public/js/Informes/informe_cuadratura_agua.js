@@ -65,8 +65,6 @@ function buscar() {
 
     if (myLineChart != undefined) { myLineChart.destroy(); }
 
-    console.log(datos_graf);
-
     myLineChart = new Chart(ctx, {
         type: 'bar',
         data: {

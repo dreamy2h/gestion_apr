@@ -26,8 +26,17 @@ function buscar_pagos() {
 	var desde = $("#dt_desde").val();
 	var hasta = $("#dt_hasta").val();
     var id_forma_pago = $("#cmb_forma_pago").val();
+    var punto_blue = $("#chk_punto_blue").prop("checked") ? 1 : 0;
 
-	var datosBusqueda = [id_socio, desde, hasta, id_forma_pago];
+    var datos = {
+        id_socio: id_socio,
+        desde: desde,
+        hasta: hasta,
+        id_forma_pago: id_forma_pago,
+        punto_blue: punto_blue
+    }
+
+	var datosBusqueda = JSON.stringify(datos);
 
 	$("#grid_pagos").dataTable().fnReloadAjax(base_url + "/Informes/Ctrl_informe_arqueo/datatable_informe_arqueo/" + datosBusqueda);
 }

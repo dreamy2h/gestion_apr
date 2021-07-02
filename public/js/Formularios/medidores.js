@@ -11,18 +11,24 @@ function des_habilitar(a, b) {
 
     $("#txt_numero").prop("disabled", a);
     $("#cmb_diametro").prop("disabled", a);
+    $("#txt_marca").prop("disabled", a);
+    $("#txt_tipo").prop("disabled", a);
 }
 
 function mostrar_datos_medidor(data) {
     $("#txt_id_medidor").val(data["id_medidor"]);
     $("#txt_numero").val(data["numero"]);
     $("#cmb_diametro").val(data["id_diametro"]);
+    $("#txt_marca").val(data["marca"]);
+    $("#txt_tipo").val(data["tipo"]);
 }
 
 function guardar_medidor() {
     var id_medidor = $("#txt_id_medidor").val();
     var numero = $("#txt_numero").val();
     var id_diametro = $("#cmb_diametro").val();
+    var marca = $("#txt_marca").val();
+    var tipo = $("#txt_tipo").val();
 
     $.ajax({
         url: base_url + "/Formularios/Ctrl_medidores/guardar_medidor",
@@ -31,7 +37,9 @@ function guardar_medidor() {
         data: {
             id_medidor: id_medidor,
             numero: numero,
-            id_diametro: id_diametro
+            id_diametro: id_diametro,
+            marca: marca,
+            tipo: tipo
         },
         success: function(respuesta) {
             const OK = 1;
@@ -178,6 +186,14 @@ $(document).ready(function() {
         $('#dlg_reciclar').modal('show');
     });
 
+    $("#txt_marca").on("blur", function() {
+        $(this).val(convertirMayusculas($(this).val()));
+    });
+
+    $("#txt_tipo").on("blur", function() {
+        $(this).val(convertirMayusculas($(this).val()));
+    });
+
     $.validator.addMethod("charspecial", function(value, element) {
         return this.optional(element) || /^[^;\"'{}\[\]^<>=]+$/.test(value);
     });
@@ -199,16 +215,32 @@ $(document).ready(function() {
             },
             cmb_diametro: {
                 required: true
+            },
+            txt_marca: {
+                charspecial: true,
+                maxlength: 45
+            },
+            txt_tipo: {
+                charspecial: true,
+                maxlength: 45
             }
         },
         messages: {
             txt_numero: {
                 required: "El número del medidor es obligatorio",
                 letras: "Caracteres no permitidos",
-                maxlength: "Máximo 11 caracteres"
+                maxlength: "Máximo 20 caracteres"
             },
             cmb_diametro: {
                 required: "Seleccione un diámetro"
+            },
+            txt_marca: {
+                charspecial: "Caracteres no permitidos",
+                maxlength: "Máximo 45 caracteres"
+            },
+            txt_tipo: {
+                charspecial: "Caracteres no permitidos",
+                maxlength: "Máximo 45 caracteres"
             }
         }
     });
@@ -229,6 +261,8 @@ $(document).ready(function() {
             { "data": "numero" },
             { "data": "id_diametro" },
             { "data": "diametro" },
+            { "data": "marca" },
+            { "data": "tipo" },
             { "data": "estado" },
             { "data": "usuario" },
             { "data": "fecha" },
@@ -240,7 +274,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [2, 4], "visible": false, "searchable": false }
+            { "targets": [2, 6], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

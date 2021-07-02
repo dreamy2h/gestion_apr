@@ -172,6 +172,7 @@ $(document).ready(function() {
 
     $("#btn_buscar").on("click", function() {
 		buscar_boletas();
+        $("#datosBuscarSocios").collapse("hide");
     });
 
     $("#btn_limpiar").on("click", function() {
@@ -201,6 +202,7 @@ $(document).ready(function() {
         columns: [
             { "data": "id_metros" },
             { "data": "folio_bolect" },
+            { "data": "ruta" },
             { "data": "id_socio" },
             { "data": "rut_socio" },
             { "data": "rol_socio" },
@@ -252,8 +254,9 @@ $(document).ready(function() {
                 }
             }
         ],
+        order: [[ 2, "asc" ]],
         "columnDefs": [
-            { "targets": [0, 2, 3, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 19], "visible": false, "searchable": false }
+            { "targets": [0, 3, 4, 7, 8, 9, 10, 11, 12, 13, 15, 16, 18, 19, 20], "visible": false, "searchable": false }
         ],
         dom: 'Bfrtip',
         buttons: [

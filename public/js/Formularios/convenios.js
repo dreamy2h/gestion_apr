@@ -8,6 +8,7 @@ function des_habilitar(a, b) {
     $("#btn_aceptar").prop("disabled", a);
     $("#btn_cancelar").prop("disabled", a);
     $("#btn_reciclar").prop("disabled", b);
+    $("#btn_repactar").prop("disabled", a);
 
     $("#txt_id_socio").prop("disabled", a);
     $("#txt_rut_socio").prop("disabled", a);
@@ -42,7 +43,7 @@ function guardar_convenio() {
     var detalles = $("#txt_detalles").val();
     var fecha_servicio = $("#dt_fecha_servicio").val();
     var numero_cuotas = $("#txt_n_cuotas").val();
-    var fecha_pago = "01-" + $("#dt_fecha_pago").val();
+    var fecha_pago = $("#dt_fecha_pago").val();
     var costo_servicio = peso.quitar_formato($("#txt_costo").val());
 
     $.ajax({
@@ -161,6 +162,17 @@ var peso = {
     }
 }
 
+function sumar_cuotas_faltantes() {
+    var total = 0;
+    $("#grid_repactar").DataTable().rows().data().each(function (value) {
+        if (value.pagado == "NO") {
+            total += parseInt(value.valor_cuota);
+        }
+    });
+
+    $("#txt_deuda_vigente").val(total);
+}
+
 $(document).ready(function() {
     $("#txt_id_convenio").prop("disabled", true);
     $("#txt_id_socio").prop("readonly", true);
@@ -235,12 +247,27 @@ $(document).ready(function() {
         $('#dlg_buscar_socio').modal('show');
     });
 
+    $("#btn_repactar").on("click", function() {
+        var id_convenio = $("#txt_id_convenio").val();
+        $("#grid_repactar").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_repactar_convenio/" + id_convenio);
+        setTimeout(function() {
+            sumar_cuotas_faltantes();
+        }, 1000);
+        $('#dlg_repactar').modal('show');
+    });
+
     $("#dt_fecha_servicio").datetimepicker({
-        format: "DD-MM-YYYY"
+        format: "DD-MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es")
     });
 
     $("#dt_fecha_pago").datetimepicker({
-        format: "MM-YYYY"
+        format: "MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es"),
+        minDate: new Date()
+
     });
 
     $("#txt_detalles").on("blur", function() {
@@ -444,6 +471,7 @@ $(document).ready(function() {
             des_habilitar(true, false);
             $("#btn_modificar").prop("disabled", false);
             $("#btn_eliminar").prop("disabled", false);
+            $("#btn_repactar").prop("disabled", false);
             $("#datosConvenio").collapse("hide");
         }
     });
@@ -464,6 +492,47 @@ $(document).ready(function() {
             ); 
 
             $('#dlg_traza_convenio').modal('show');
+        }
+    });
+
+    var grid_repactar = $("#grid_repactar").DataTable({
+        responsive: true,
+        paging: true,
+        destroy: true,
+        orderClasses: true,
+        columns: [
+            { "data": "id" },
+            { "data": "socio" },
+            { "data": "fecha_pago" },
+            { "data": "numero_cuota" },
+            { "data": "valor_cuota" },
+            { "data": "pagado" }
+        ],
+        "columnDefs": [
+            { "targets": [0], "visible": false, "searchable": false }
+        ],
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "select": {
+                "rows": "<br/>%d Perfiles Seleccionados"
+            },
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Sig.",
+                "previous": "Ant."
+            }
         }
     });
 });

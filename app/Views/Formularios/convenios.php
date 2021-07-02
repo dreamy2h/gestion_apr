@@ -15,6 +15,7 @@
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
 	                        <button type="button" name="btn_reciclar" id="btn_reciclar" class="btn btn-warning"><i class="fas fa-recycle"></i> Reciclar</button>
+	                        <button type="button" name="btn_repactar" id="btn_repactar" class="btn btn-secondary"><i class="fas fa-divide"></i> Repactar Deuda</button>
 	                    </center>
 	                </div>
 	            </div>
@@ -219,6 +220,60 @@
 				                            <th width="20%">Fecha Pago</th>
 				                            <th width="20%">N° Cuota</th>
 				                            <th width="20%">Valor Cuota</th>
+				                        </tr>
+				                    </thead>
+				                </table> 
+				            </div>
+	                    </div>
+	                    <div class="modal-footer">
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="dlg_repactar" class="modal fade" role="dialog">
+	            <div class="modal-dialog modal-xl">
+	                <div class="modal-content">
+	                    <div class="modal-header">
+	                        <h4 class="modal-title">Repactar Convenio</h4>
+	                    </div>
+	                    <div class="modal-body">
+	                    	<div class="card shadow mb-12">
+            					<div class="card-body">
+		                    		<div class="container-fluid">
+		                    			<div class="row">
+				                    		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_deuda_vigente">Deuda Vigente</label>
+					                                <input type='text' class="form-control" id='txt_deuda_vigente' name="txt_deuda_vigente" />
+					                            </div>
+					                        </div>
+					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                        	<div class="form-group">
+					                        		<label class="small mb-1" for="txt_n_cuotas">N° de Cuotas</label>
+					                        		<input type='text' class="form-control" id='txt_n_cuotas' name="txt_n_cuotas" />
+					                        	</div>
+					                        </div>
+					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                        	<div class="form-group">
+					                                <label class="small mb-1" for="dt_fecha_pago">Mes de Inicio</label>
+					                                <input type='text' class="form-control" id='dt_fecha_pago' name="dt_fecha_pago" />
+					                            </div>
+					                        </div>
+					                    </div>
+				                    </div>
+			                    </div>
+	                    	</div><br>
+	                        <div class="table-responsive">
+				                <table id="grid_repactar" class="table table-bordered" width="100%">
+				                	<thead class="thead-dark">
+				                        <tr>
+				                        	<th width="0%">id_cuota_socio</th>
+				                            <th width="40%">Socio</th>
+				                            <th width="20%">Fecha Pago</th>
+				                            <th width="20%">N° Cuota</th>
+				                            <th width="20%">Valor Cuota</th>
+				                            <th width="20%">Pagada</th>
 				                        </tr>
 				                    </thead>
 				                </table> 

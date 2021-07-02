@@ -29,7 +29,7 @@
 			$this->db = \Config\Database::connect();
 			$this->mpdf = new \Mpdf\Mpdf([
 				'mode' => 'utf-8', 
-				'format' => [48, 75],
+				'format' => [48, 80],
 				'margin_top' => 2,
 				'margin_left' => 5,
 				'margin_right' => 3,
@@ -79,6 +79,7 @@
 			$total_pagar = $this->request->getPost("total_pagar");
 			$entregado = $this->request->getPost("entregado");
 			$vuelto = $this->request->getPost("vuelto");
+			$descuento = $this->request->getPost("descuento");
 			$forma_pago = $this->request->getPost("forma_pago");
 			$n_transaccion = $this->request->getPost("n_transaccion");
 			$arr_ids_metros = $this->request->getPost("arr_ids_metros");
@@ -95,6 +96,7 @@
 				"total_pagar" => $total_pagar,
 				"entregado" => $entregado,
 				"vuelto" => $vuelto,
+				"descuento" => $descuento,
 				"id_forma_pago" => $forma_pago,
 				"numero_transaccion" => $n_transaccion,
 				"id_socio" => $id_socio,
@@ -156,9 +158,19 @@
 			}
 		}
 
-		function emitir_comprobante_pago($total_pagar, $entregado, $vuelto, $forma_pago, $n_transaccion, $nombre_socio) {
+		function emitir_comprobante_pago($datos) {
 			$font_size = 60;
 
+			$datos = json_decode($datos, true);
+
+			$total_pagar = $datos["total_pagar"];
+			$entregado = $datos["entregado"];
+			$vuelto = $datos["vuelto"];
+			$forma_pago = $datos["forma_pago_glosa"];
+			$n_transaccion = $datos["n_transaccion"];
+			$nombre_socio = $datos["nombre_socio"];
+			$descuento = $datos["descuento"];
+			$this->mpdf->SetTitle('Boucher Comprobante de Pago');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;" align="center"><b>COMPROBANTE DE PAGO</b></div><br>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;" align="center">' . $this->sesión->apr_ses . '</div>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;" align="center">Fecha: ' . date("d-m-Y") . '</div>');
@@ -167,6 +179,7 @@
 
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;" align="center"><b>DETALLE DEL PAGO</b></div><br>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Total a Pagar: ' . $total_pagar . '</div>');
+		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Descuento: ' . $descuento . '</div>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Entregado: ' . $entregado . '</div>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Vuelto: ' . $vuelto . '</div>');
 		    $this->mpdf->WriteHTML('<div style="font-size: ' . $font_size . '%;">Medio de Pago: ' . $forma_pago . '</div>');

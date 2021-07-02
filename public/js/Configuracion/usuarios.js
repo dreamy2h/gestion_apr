@@ -22,6 +22,7 @@ function des_habilitar(a, b) {
     $("#txt_calle").prop("disabled", a);
     $("#txt_numero").prop("disabled", a);
     $("#txt_resto_direccion").prop("disabled", a);
+    $("#chk_punto_blue").prop("disabled", a);
 }
 
 function mostrar_datos_usuario(data) {
@@ -37,6 +38,11 @@ function mostrar_datos_usuario(data) {
     $("#txt_calle").val(data["calle"]);
     $("#txt_numero").val(data["numero"]);
     $("#txt_resto_direccion").val(data["resto_direccion"]);
+    if (data["punto_blue"] == 1) {
+        $("#chk_punto_blue").prop("checked", true);
+    } else {
+        $("#chk_punto_blue").prop("checked", false);
+    }
 }
 
 function llenar_cmb_apr() {
@@ -138,6 +144,7 @@ function guardar_usuario() {
     var calle = $("#txt_calle").val();
     var numero = $("#txt_numero").val();
     var resto_direccion = $("#txt_resto_direccion").val();
+    var punto_blue = $("#chk_punto_blue").prop("checked") ? 1 : 0;
 
     $.ajax({
         url: base_url + "/Configuracion/Ctrl_usuarios/guardar_usuario",
@@ -153,7 +160,8 @@ function guardar_usuario() {
             id_comuna: id_comuna,
             calle: calle,
             numero: numero,
-            resto_direccion: resto_direccion
+            resto_direccion: resto_direccion,
+            punto_blue: punto_blue
         },
         success: function(respuesta) {
             const OK = 1;
@@ -487,8 +495,6 @@ $(document).ready(function() {
     var grid_usuarios = $("#grid_usuarios").DataTable({
 		responsive: true,
         paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
@@ -511,6 +517,7 @@ $(document).ready(function() {
             { "data": "calle" },
             { "data": "numero" },
             { "data": "resto_direccion" },
+            { "data": "punto_blue" },
             { "data": "id_estado" },
             { "data": "estado" },
             { "data": "usuario_reg" },
@@ -523,7 +530,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15], "visible": false, "searchable": false }
+            { "targets": [0, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 15, 16], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

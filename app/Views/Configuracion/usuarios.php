@@ -51,8 +51,6 @@
 					                                <select id="cmb_apr" name="cmb_apr" class="form-control"></select>
 					                            </div>
 					                        </div>
-				                		</div>
-				                		<div class="row">
 				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 				                				<div class="form-group">
 					                                <label class="small mb-1" for="txt_nombres">Nombres</label>
@@ -71,8 +69,6 @@
 					                                <input type='text' class="form-control" id='txt_apemat' name="txt_apemat" />
 					                            </div>
 				                			</div>
-				                		</div>
-				                		<div class="row">
 				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 				                				<div class="form-group">
 					                                <label class="small mb-1" for="cmb_region">Región</label>
@@ -91,8 +87,6 @@
 					                                <select id="cmb_comuna" name="cmb_comuna" class="form-control"></select>
 					                            </div>
 				                			</div>
-				                		</div>
-				                		<div class="row">
 				                			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 				                				<div class="form-group">
 					                                <label class="small mb-1" for="txt_calle">Calle</label>
@@ -109,6 +103,12 @@
 					                            <div class="form-group">
 					                                <label class="small mb-1" for="txt_resto_direccion">Resto Dirección</label>
 					                                <textarea class="form-control" id="txt_resto_direccion" name="txt_resto_direccion"></textarea>
+					                            </div>
+				                			</div>
+				                			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+					                            <div class="form-group form-check">
+					                                <input type="checkbox" class="form-check-input" id="chk_punto_blue" name="chk_punto_blue">
+					                                <label class="form-check-label" for="chk_punto_blue">Punto Blue</label>
 					                            </div>
 				                			</div>
 				                		</div>
@@ -131,26 +131,27 @@
 					                    <table id="grid_usuarios" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="0%">id_usuario</th>
-					                                <th width="10%">Usuario</th>
-					                                <th width="0%">id_apr</th>
-					                                <th width="20%">APR</th>
-					                                <th width="0%">Nombres</th>
-					                                <th width="0%">Ap. Paterno</th>
-					                                <th width="0%">Ap. Materno</th>
-					                                <th width="20%">Nombre Usuario</th>
-					                                <th width="0%">id_region</th>
-					                                <th width="0%">id_provincia</th>
-					                                <th width="0%">id_comuna</th>
-					                                <th width="15%">Comuna</th>
-					                                <th width="0%">Calle</th>
-					                                <th width="0%">Número</th>
-					                                <th width="0%">resto_direccion</th>
-					                                <th width="0%">id_estado</th>
-					                                <th width="10%">Estado</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>id_usuario</th>
+					                                <th>Usuario</th>
+					                                <th>id_apr</th>
+					                                <th>APR</th>
+					                                <th>Nombres</th>
+					                                <th>Ap. Paterno</th>
+					                                <th>Ap. Materno</th>
+					                                <th>Nombre Usuario</th>
+					                                <th>id_region</th>
+					                                <th>id_provincia</th>
+					                                <th>id_comuna</th>
+					                                <th>Comuna</th>
+					                                <th>Calle</th>
+					                                <th>Número</th>
+					                                <th>resto_direccion</th>
+					                                <th>Punto Blue</th>
+					                                <th>id_estado</th>
+					                                <th>Estado</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

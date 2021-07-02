@@ -49,6 +49,18 @@
 					                                <select id="cmb_diametro" name="cmb_diametro" class="form-control"></select>
 					                            </div>
 					                        </div>
+					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                        	<div class="form-group">
+					                                <label class="small mb-1" for="txt_marca">Marca del Medidor</label>
+					                                <input type='text' class="form-control" id='txt_marca' name="txt_marca" />
+					                            </div>
+					                        </div>
+					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+					                        	<div class="form-group">
+					                                <label class="small mb-1" for="txt_tipo">Tipo del Medidor</label>
+					                                <input type='text' class="form-control" id='txt_tipo' name="txt_tipo" />
+					                            </div>
+					                        </div>
 				                		</div>
 				                	</form>
 				                </div>
@@ -69,14 +81,16 @@
 					                    <table id="grid_medidores" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Id.</th>
-							                    	<th width="30%">Número</th>
-							                        <th width="0%">id_diametro</th>
-							                        <th width="15%">Diámetro</th>
-							                        <th width="0%">estado</th>
-							                        <th width="15%">Usuario</th>
-							                        <th width="20%">Fecha</th>
-							                        <th width="10%">Traza</th>
+					                            	<th>Id.</th>
+							                    	<th>Número</th>
+							                        <th>id_diametro</th>
+							                        <th>Diámetro</th>
+							                        <th>Marca</th>
+							                        <th>Tipo</th>
+							                        <th>estado</th>
+							                        <th>Usuario</th>
+							                        <th>Fecha</th>
+							                        <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

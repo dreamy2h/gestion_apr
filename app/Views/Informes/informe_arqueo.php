@@ -37,16 +37,12 @@
 				                                <button type="button" name="btn_buscar_socio" id="btn_buscar_socio" class="btn btn-dark form-control"><i class="fas fa-search"></i> Buscar Socio</button>
 				                            </div>
 				                        </div>
-				                    </div>
-				                    <div class="row">
 				                    	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 				                        	<div class="form-group">
 				                                <label class="small mb-1" for="txt_nombre_socio">Nombre Socio</label>
 				                                <input type='text' class="form-control" id='txt_nombre_socio' name="txt_nombre_socio" />
 				                            </div>
 				                        </div>
-				                    </div>
-				                    <div class="row">
 				                    	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 				                    		<div class="form-group">
 				                    			<label class="small mb-1" for="dt_desde">Desde</label>
@@ -63,12 +59,22 @@
 				                    		<div class="form-group">
 				                                <label class="small mb-1" for="cmb_forma_pago">Forma de Pago</label>
 				                        		<select id="cmb_forma_pago" name="cmb_forma_pago" class="form-control" style="font-size: 150%;">
+				                        			<option value="">Todos</option>
 				                        			<option value="1">Efectivo</option>
 				                        			<option value="2">Tarjeta</option>
 				                        			<option value="3">Transferencia</option>
+				                        			<option value="4">WebPay</option>
+				                        			<option value="5">Cheque</option>
+				                        			<option value="6">Depósito</option>
 				                        		</select>
 				                    		</div>
 				                    	</div>
+				                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+				                            <div class="form-group form-check">
+				                                <input type="checkbox" class="form-check-input" id="chk_punto_blue" name="chk_punto_blue">
+				                                <label class="form-check-label" for="chk_punto_blue">Punto Blue</label>
+				                            </div>
+			                			</div>
 				                    </div>
 				                    <div class="row">
 				                    	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">

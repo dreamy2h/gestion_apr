@@ -44,11 +44,15 @@
 				                            	<th>RUT Socio</th>
 				                            	<th>Nombre Socio</th>
 				                            	<th>Mes Cubierto</th>
+				                            	<th>50%</th>
+				                            	<th>100%</th>
 				                            	<th>Subsidio</th>
 				                            </tr>
 				                        </thead>
 				                        <tfoot>
 				                            <tr>
+				                            	<th></th>
+				                            	<th></th>
 				                            	<th></th>
 				                            	<th></th>
 				                            	<th></th>

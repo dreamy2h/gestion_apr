@@ -106,6 +106,7 @@
 				                            	<th>Anular</th>
 				                            	<th>Traza</th>
 				                            	<th>Nombre Socio</th>
+				                            	<th>Descuento</th>
 				                            </tr>
 				                        </thead>
 				                    </table> 

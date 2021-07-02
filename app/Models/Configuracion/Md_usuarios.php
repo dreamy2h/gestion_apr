@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'usuario', 'clave', 'id_apr', 'nombres', 'ape_paterno', 'ape_materno', 'calle', 'numero', 'resto_direccion', 'id_comuna', 'estado', 'id_usuario', 'fecha'];
+	    protected $allowedFields = ['id', 'usuario', 'clave', 'id_apr', 'nombres', 'ape_paterno', 'ape_materno', 'calle', 'numero', 'resto_direccion', 'punto_blue', 'id_comuna', 'estado', 'id_usuario', 'fecha'];
 
 	    public function existe_usuario($usu_cod) {
 	    	$this->select("count(*) as filas");
@@ -38,6 +38,7 @@
 						    u.calle,
 						    u.numero,
 						    u.resto_direccion,
+						    u.punto_blue,
 						    u.estado as id_estado,
 						    IFNULL(ELT(FIELD(u.estado, 0, 1, 2), 'Pendiente','Activo', 'Bloqueado'),'Sin registro') as estado,
 						    usu.usuario as usuario_reg,
@@ -51,40 +52,10 @@
 
 
 			$query = $db->query($consulta);
-			$usuarios = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($usuarios as $key) {
-				$row = array(
-					"id_usuario" => $key["id_usuario"],
-					"usuario" => $key["usuario"],
-					"id_apr" => $key["id_apr"],
-					"apr" => $key["apr"],
-					"nombres" => $key["nombres"],
-					"ape_paterno" => $key["ape_paterno"],
-					"ape_materno" => $key["ape_materno"],
-					"nombre_usuario" => $key["nombre_usuario"],
-					"id_region" => $key["id_region"],
-					"id_provincia" => $key["id_provincia"],
-					"id_comuna" => $key["id_comuna"],
-					"comuna" => $key["comuna"],
-					"calle" => $key["calle"],
-					"numero" => $key["numero"],
-					"resto_direccion" => $key["resto_direccion"],
-					"id_estado" => $key["id_estado"],
-					"estado" => $key["estado"],
-					"usuario_reg" => $key["usuario_reg"],
-					"fecha" => $key["fecha"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 	    
 	}

@@ -49,10 +49,14 @@
 			$id_medidor = $this->request->getPost("id_medidor");
 			$numero = $this->request->getPost("numero");
 			$id_diametro = $this->request->getPost("id_diametro");
+			$marca = $this->request->getPost("marca");
+			$tipo = $this->request->getPost("tipo");
 
 			$datosMedidor = [
 				"numero" => $numero,
 				"id_diametro" => $id_diametro,
+				"marca" => $marca,
+				"tipo" => $tipo,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
 				"id_apr" => $id_apr

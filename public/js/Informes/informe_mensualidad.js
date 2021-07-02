@@ -106,7 +106,7 @@ $(document).ready(function() {
                 text:      '<i class="fas fa-file-excel"></i> Excel',
                 titleAttr: 'Exportar a Excel',
                 className: 'btn btn-success',
-                title: "Informe de Balance",
+                title: "Informe de Mensualidad",
                 footer: true,
                 exportOptions: {
                     modifier: {
@@ -131,7 +131,7 @@ $(document).ready(function() {
                 text:      '<i class="fas fa-file-pdf"></i> PDF',
                 titleAttr: 'Exportar a PDF',
                 className: 'btn btn-danger',
-                title: "Informe de Balance",
+                title: "Informe de Mensualidad",
                 pageSize: 'LETTER',
                 footer: true,
                 exportOptions: {
@@ -145,7 +145,7 @@ $(document).ready(function() {
                 text:      '<i class="fa fa-print"></i> Imprimir',
                 titleAttr: 'Imprimir',
                 className: 'btn btn-info',
-                title: "Informe de Balance",
+                title: "Informe de Mensualidad",
                 footer: true,
                 exportOptions: {
                     modifier: {

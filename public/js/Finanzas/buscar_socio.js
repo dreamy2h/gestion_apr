@@ -73,6 +73,11 @@ $(document).ready(function() {
                 $("#txt_rut_socio").val(rut_socio);
                 $("#txt_nombre_socio").val(nombre_socio);
                 break;
+            case "cambio_medidor":
+                $("#txt_id_socio").val(id_socio);
+                $("#txt_rut_socio").val(rut_socio);
+                $("#txt_nombre_socio").val(nombre_socio);
+                break;
         }
 
         $('#dlg_buscador').modal('hide');

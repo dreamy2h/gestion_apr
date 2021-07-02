@@ -186,7 +186,8 @@
 							ifnull(m.subtotal, 0) as subtotal,
 							ifnull(m.multa, 0) as multa,
 							ifnull(m.total_servicios, 0) as total_servicios,
-							ifnull(m.total_mes, 0) as total_mes
+							ifnull(m.total_mes, 0) as total_mes,
+							case when soc.ruta = '' then 0 else ifnull(soc.ruta, 0) end as ruta
 						from 
 							metros m
 							inner join socios soc on m.id_socio = soc.id
@@ -229,43 +230,10 @@
 			$consulta .= " order by m.fecha_vencimiento asc";
 
 			$query = $db->query($consulta, $bind);
-			$metros = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($metros as $key) {
-				$row = array(
-					"id_metros" => $key["id_metros"],
-					"folio_bolect" => $key["folio_bolect"],
-					"id_socio" => $key["id_socio"],
-					"rut_socio" => $key["rut_socio"],
-					"rol_socio" => $key["rol_socio"],
-					"nombre_socio" => $key["nombre_socio"],
-					"id_arranque" => $key["id_arranque"],
-					"subsidio" => $key["subsidio"],
-					"tope_subsidio" => $key["tope_subsidio"],
-					"monto_subsidio" => $key["monto_subsidio"],
-					"sector" => $key["sector"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"fecha_ingreso" => $key["fecha_ingreso"],
-					"fecha_vencimiento" => $key["fecha_vencimiento"],
-					"consumo_anterior" => $key["consumo_anterior"],
-					"consumo_actual" => $key["consumo_actual"],
-					"metros" => $key["metros"],
-					"subtotal" => $key["subtotal"],
-					"multa" => $key["multa"],
-					"total_servicios" => $key["total_servicios"],
-					"total_mes" => $key["total_mes"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": []}";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function datatable_informe_municipal($db, $id_apr, $mes_consumo) {
@@ -277,10 +245,13 @@
 						    concat(s.rut, '-', s.dv) as rut_socio,
 						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre_socio,
 						    date_format(m.fecha_ingreso, '%m-%Y') as mes_cubierto,
+						    case when sub.id_porcentaje = 1 then m.monto_subsidio else 0 end as subsidio_50,
+                            case when sub.id_porcentaje = 2 then m.monto_subsidio else 0 end as subsidio_100,
 						    m.monto_subsidio as subsidio
 						from 
 							metros m
 						    inner join socios s on m.id_socio = s.id
+						    inner join subsidios sub on sub.id_socio = s.id
 						where
 							date_format(m.fecha_ingreso, '%m-%Y') = ? and
 						    m.monto_subsidio > ? and
@@ -288,26 +259,10 @@
 						    m.id_apr = ?";
 
 			$query = $db->query($consulta, [$mes_consumo, 0, $estado, $id_apr]);
-			$metros = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($metros as $key) {
-				$row = array(
-					"id_metros" => $key["id_metros"],
-					"rut_socio" => $key["rut_socio"],
-					"nombre_socio" => $key["nombre_socio"],
-					"mes_cubierto" => $key["mes_cubierto"],
-					"subsidio" => $key["subsidio"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": []}";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function datatable_informe_balance($db, $id_apr, $mes_consumo) {
@@ -500,5 +455,34 @@
 
 			return json_encode($data);
 	    }
+
+	    public function datatable_informe_lecturas_sector($db, $id_apr, $id_sector) {
+	    	define("ELIMINADO", 0);
+			$estado = ELIMINADO;
+
+			$consulta = "SELECT
+							ifnull(s.ruta, 'No registrada') as ruta,
+						    s.rol as rol_socio,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as socio,
+						    med.numero as n_medidor,
+						    m.consumo_actual as lectura_anterior,
+						    ' ' as lectura_actual
+						from 
+							metros m
+						    inner join socios s on m.id_socio = s.id
+						    inner join arranques a on a.id_socio = s.id
+						    inner join medidores med on a.id_medidor = med.id
+						where
+							date_format(m.fecha_ingreso, '%m-%Y') = date_format(DATE_SUB(NOW(), INTERVAL '1' MONTH), '%m-%Y') and
+						    m.id_apr = $id_apr and
+						    m.estado != $estado and
+    						a.id_sector = $id_sector";
+
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			$salida = array('data' => $data);
+			return json_encode($salida);
+		}
 	}
 ?>

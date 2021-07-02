@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'numero', 'id_diametro', 	'estado', 'id_usuario', 'fecha', 'id_apr'];
+	    protected $allowedFields = ['id', 'numero', 'id_diametro', 'marca', 'tipo', 'estado', 'id_usuario', 'fecha', 'id_apr'];
 
 	    public function datatable_medidores($db, $id_apr) {
 	    	$consulta = "SELECT 
@@ -17,6 +17,8 @@
 						    m.numero,
 						    m.id_diametro,
 						    d.glosa as diametro,
+						    m.marca,
+						    m.tipo,
 						    IFNULL(ELT(FIELD(m.estado, 0, 1), 'Eliminado', 'Activo'),'Sin registro') as estado,
 						    u.usuario,
 						    date_format(m.fecha, '%d-%m-%Y %H:%m') as fecha
@@ -30,28 +32,10 @@
 
 
 			$query = $db->query($consulta);
-			$medidores = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($medidores as $key) {
-				$row = array(
-					"id_medidor" => $key["id_medidor"],
-					"numero" => $key["numero"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"estado" => $key["estado"],
-					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 		public function datatable_medidor_reciclar($db, $id_apr) {
@@ -73,28 +57,10 @@
 
 
 			$query = $db->query($consulta);
-			$medidores = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($medidores as $key) {
-				$row = array(
-					"id_medidor" => $key["id_medidor"],
-					"numero" => $key["numero"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"estado" => $key["estado"],
-					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function llenar_cmb_medidores($db, $id_apr) {
@@ -110,16 +76,7 @@
 
 
 			$query = $db->query($consulta);
-			$medidores = $query->getResultArray();
-
-			foreach ($medidores as $key) {
-				$row = array(
-					"value" => $key["id"],
-					"text" => $key["numero"]
-				);
-
-				$data[] = $row;
-			}
+			$data = $query->getResultArray();
 
 			return json_encode($data);
 	    }

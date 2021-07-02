@@ -73,6 +73,11 @@ $(document).ready(function() {
                 $("#txt_rut_operador").val(rut_funcionario);
                 $("#txt_nombre_operador").val(nombre_funcionario);
                 break;
+            case "cambio_medidor":
+                $("#txt_id_funcionario").val(id_funcionario);
+                $("#txt_rut_funcionario").val(rut_funcionario);
+                $("#txt_nombre_funcionario").val(nombre_funcionario);
+                break;
         }
         
         $('#dlg_buscador').modal('hide');

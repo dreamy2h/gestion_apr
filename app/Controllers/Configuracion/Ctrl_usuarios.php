@@ -192,6 +192,7 @@
 				$calle = $this->request->getPost("calle");
 				$numero = $this->request->getPost("numero");
 				$resto_direccion = $this->request->getPost("resto_direccion");
+				$punto_blue = $this->request->getPost("punto_blue");
 
 				if ($id_comuna == "") {
 					$id_comuna = null;
@@ -206,6 +207,7 @@
 					"calle" => $calle,
 					"numero" => $numero,
 					"resto_direccion" => $resto_direccion,
+					"punto_blue" => $punto_blue,
 					"id_comuna" => $id_comuna,
 					"id_usuario" => $usuario_reg,
 					"fecha" => $fecha

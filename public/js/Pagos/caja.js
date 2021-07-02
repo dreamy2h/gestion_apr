@@ -11,6 +11,7 @@ function buscar_deuda() {
 			$("#cmb_forma_pago").prop("disabled", false);
 			$("#txt_entregado").prop("disabled", false);
 			$("#txt_vuelto").prop("disabled", false);
+            $("#txt_descuento").prop("disabled", false);
 		}
 	}, 1000);
 }
@@ -46,6 +47,7 @@ function sumar_deudas() {
 
     $("#txt_entregado").val(0);
     $("#txt_vuelto").val(0);
+    $("#txt_descuento").val(0);
     $("#txt_total_pagar").val(peso.formateaNumero(total));
 }
 
@@ -70,12 +72,44 @@ function calcular_vuelto() {
     }
 }
 
+function calcular_descuento() {
+    var total_pagar = 0;
+    var datos = $("#grid_deuda").DataTable().rows(".selected").data();
+
+    for (var i = 0; i < datos.length; i++) {
+        total_pagar += parseInt(datos[i].deuda);
+    }
+
+    var descuento = peso.quitar_formato($("#txt_descuento").val());
+        
+    if (!isNaN(descuento)) {
+        if (parseInt(total_pagar) > 0) {
+            if (parseInt(descuento) > parseInt(total_pagar)) {
+                alerta.aviso("alerta", "El descuento no puede ser mayor al total a pagar");
+                $("#txt_descuento").val(0);
+            } else {
+                var total = parseInt(total_pagar) - parseInt(descuento);
+                $("#txt_total_pagar").val(peso.formateaNumero(total));
+
+                $("#txt_vuelto").val(0);
+                $("#txt_entregado").val(0);
+            }
+        } else {
+            $("#txt_descuento").val(0);
+            alerta.aviso("alerta", "Seleccione deudas a pagar");
+        }
+    } else {
+        $("#txt_descuento").val(0);
+    }
+}
+
 function guardar_pago() {
     var total_pagar = peso.quitar_formato($("#txt_total_pagar").val());
     var entregado = peso.quitar_formato($("#txt_entregado").val());
     var vuelto = peso.quitar_formato($("#txt_vuelto").val());
+    var descuento = peso.quitar_formato($("#txt_descuento").val());
     var forma_pago = $("#cmb_forma_pago").val();
-    var forma_pago_glosa = $("#cmb_forma_pago").text();
+    var forma_pago_glosa = $("#cmb_forma_pago option:selected").text();
     var n_transaccion = $("#txt_n_transaccion").val();
     var id_socio = $("#txt_id_socio").val();
     var nombre_socio = $("#txt_nombre_socio").val();
@@ -110,6 +144,7 @@ function guardar_pago() {
                         total_pagar: total_pagar,
                         entregado: entregado,
                         vuelto: vuelto,
+                        descuento: descuento,
                         forma_pago: forma_pago,
                         n_transaccion: n_transaccion,
                         arr_ids_metros: arr_ids_metros
@@ -136,7 +171,20 @@ function guardar_pago() {
 
                             alerta.ok("alerta", "Pago guardado con éxito");
                             if (n_transaccion == "") { n_transaccion = 0; }
-                            window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + total_pagar + "/" + entregado + "/" + vuelto + "/" + forma_pago_glosa + "/" + n_transaccion + "/" + nombre_socio, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
+
+                            var datos = {
+                                total_pagar: total_pagar,
+                                entregado: entregado,
+                                vuelto: vuelto,
+                                forma_pago_glosa: forma_pago_glosa,
+                                n_transaccion: n_transaccion,
+                                nombre_socio: nombre_socio,
+                                descuento: descuento
+                            }
+
+                            var datos_json = JSON.stringify(datos);
+
+                            window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + datos_json, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
                         } else {
                             alerta.error("alerta", respuesta);
                         }
@@ -157,6 +205,7 @@ $(document).ready(function() {
     $("#txt_rol").prop("disabled", true);
     $("#txt_nombre_socio").prop("disabled", true);
 	$("#btn_pagar").prop("disabled", true);
+    $("#txt_descuento").prop("disabled", true);
 	$("#txt_total_pagar").prop("readonly", true);
     $("#txt_vuelto").prop("readonly", true);
 	$("#cmb_forma_pago").prop("disabled", true);
@@ -203,6 +252,25 @@ $(document).ready(function() {
 		var numero = peso.quitar_formato(this.value);
     	this.value = peso.formateaNumero(numero);
 	});
+
+    $("#txt_descuento").on("blur", function() {
+        calcular_descuento();
+    });
+
+    $("#txt_descuento").on("keypress", function(e) {
+        if (e.keyCode == 13) {
+            this.blur();
+        }
+    });
+
+    $("#txt_descuento").on("focus", function() {
+        var descuento = peso.quitar_formato(this.value);
+        if (descuento > 0) {
+            this.value = descuento;
+        } else {
+            this.value = "";
+        }
+    });
 
     $("#btn_pagar").on("click", function() {
         guardar_pago();

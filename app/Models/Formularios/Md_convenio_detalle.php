@@ -65,6 +65,29 @@
 			$row = $query->getRow();
 			
 			return $row->total_servicios;
-	    }	
+	    }
+
+	    public function datatable_repactar_convenio($db, $id_convenio) {
+	    	$consulta = "SELECT 
+							cd.id,
+						    concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as socio,
+						    -- date_format(date_add(c.fecha_pago, INTERVAL cd.numero_cuota - 1 MONTH), '%m-%Y') as fecha_pago,
+						    date_format(cd.fecha_pago, '%m-%Y') as fecha_pago,
+						    cd.numero_cuota,
+						    cd.valor_cuota,
+						    case when pagado = 1 then 'SI' else 'NO' end as pagado
+						FROM 
+							convenio_detalle cd
+						    inner join convenios c on cd.id_convenio = c.id
+						    inner join socios s on c.id_socio = s.id
+						where
+							cd.id_convenio = $id_convenio";
+
+			$query = $db->query($consulta);
+			$data = $query->getResultArray();
+
+			$salida = array("data" => $data);
+			return json_encode($salida);
+	    }
 	}
 ?>

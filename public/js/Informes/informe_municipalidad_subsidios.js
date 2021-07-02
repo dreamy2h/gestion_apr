@@ -50,6 +50,18 @@ $(document).ready(function() {
             { "data": "nombre_socio" },
             { "data": "mes_cubierto" },
             { 
+                "data": "subsidio_50",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
+                "data": "subsidio_100",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
+            },
+            { 
                 "data": "subsidio",
                 "render": function(data, type, row) {
                     return peso.formateaNumero(data);
@@ -60,6 +72,12 @@ $(document).ready(function() {
             var api = this.api();
             $( api.column(4).footer()).html(
                 peso.formateaNumero(api.column(4, {page:'current'} ).data().sum())
+            );
+            $( api.column(5).footer()).html(
+                peso.formateaNumero(api.column(5, {page:'current'} ).data().sum())
+            );
+            $( api.column(6).footer()).html(
+                peso.formateaNumero(api.column(6, {page:'current'} ).data().sum())
             );
         },
         buttons: [ 
@@ -78,13 +96,10 @@ $(document).ready(function() {
                         body: function ( data, row, column, node ) {
                             const SUBSIDIOS = 4; 
 
-                            switch(column) {
-                                case SUBSIDIOS:
-                                    return peso.quitar_formato(data);
-                                    break;
-                                default:
-                                    return data;
-                                    break;
+                            if (column == 4 || column == 5 || column == 6) {
+                                return peso.quitar_formato(data);
+                            } else {
+                                return data;
                             }
                         },
                         footer: function ( data, row, column, node ) {

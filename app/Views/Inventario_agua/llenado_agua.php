@@ -1,6 +1,6 @@
 <main>
     <div class="container-fluid">
-        <h3 class="mt-4" align="center"><i class="fas fa-water"></i> Llenado del Agua</h3>
+        <h3 class="mt-4" align="center"><i class="fas fa-water"></i> Llenado de Copa</h3>
         <div class="alert alerta-fijo hidden" role="alert" id="alerta"></div>
 
         <div class="container-fluid">

@@ -108,6 +108,7 @@
 					                            <tr>
 					                            	<th>Id.</th>
 					                            	<th>Folio SII</th>
+					                            	<th>Ruta</th>
 					                            	<th>id_socio</th>
 					                            	<th>rut_socio</th>
 					                                <th>ROL Socio</th>

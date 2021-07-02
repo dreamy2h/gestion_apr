@@ -79,7 +79,6 @@
 
 		public function llenar_cmb_medidores() {
 			$this->validar_sesion();
-			$this->response->setContentType('application/json');
 			echo $this->medidores->llenar_cmb_medidores($this->db, $this->sesión->id_apr_ses);
 		}
 

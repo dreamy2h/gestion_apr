@@ -293,13 +293,19 @@ function reset_radio_buttons() {
     $("#lbl_rd_no_sc").addClass("active");
 }
 
-function llenar_txt_medidores() {
+function llenar_cmb_medidores() {
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Formularios/Ctrl_arranques/llenar_txt_medidores",
+        url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_medidores",
     }).done( function(data) {
-        return data;
+        $("#cmb_medidor").html('');
+        var opciones = "<option value=\"\">Seleccione un número de medidor</option>";
+
+        for (var i = 0; i < data.length; i++) {
+            opciones+='<option value="'+data[i].id+'">'+data[i].numero+'</option>';
+        }
+        $("#cmb_medidor").append(opciones);
     }).fail(function(error){
         respuesta = JSON.parse(error["responseText"]);
         alerta.error("alerta", respuesta.message);
@@ -318,6 +324,7 @@ $(document).ready(function() {
     llenar_cmb_comuna();
     llenar_cmb_sector();
     llenar_cmb_tipo_documento();
+    llenar_cmb_medidores();
 
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
@@ -386,16 +393,6 @@ $(document).ready(function() {
         ); 
 
         $('#dlg_buscar_socio').modal('show');
-    });
-
-    $("#cmb_medidor").autoComplete({
-        resolverSettings: {
-            url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_medidores"
-        }
-    });
-
-    $("#cmb_medidor").on("autocomplete.select", function (evt, item) {
-        id_medidor = item.value;
     });
 
     $("#cmb_region").on("change", function() {

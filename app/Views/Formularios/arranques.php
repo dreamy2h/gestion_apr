@@ -73,10 +73,8 @@
 					                    <div class="row">
 					                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 				                				<div class="form-group">
-					                                <label class="small mb-1" for="txt_n_medidor">Número de Medidor</label>
-					                                <div class="autocomplete">
-												    	<select class="form-control basicAutoSelect" name="cmb_medidor" id="cmb_medidor" placeholder="Escriba para filtrar" autocomplete="off"></select>
-												  	</div>
+					                                <label class="small mb-1" for="cmb_medidor">Número de Medidor</label>
+												    <select id="cmb_medidor" name="cmb_medidor" class="form-control"></select>
 					                            </div>
 					                        </div>
 					                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">

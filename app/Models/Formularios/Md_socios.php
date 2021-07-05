@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'rut', 'dv', 'rol', 'nombres', 'ape_pat', 'ape_mat', 'fecha_entrada', 'fecha_nacimiento', 'id_sexo', 'calle', 'numero', 'resto_direccion', 'id_comuna', 'estado', 'id_usuario', 'fecha', 'id_apr', 'ruta'];
+	    protected $allowedFields = ['id', 'rut', 'dv', 'rol', 'nombres', 'ape_pat', 'ape_mat', 'fecha_entrada', 'fecha_nacimiento', 'id_sexo', 'calle', 'numero', 'resto_direccion', 'id_comuna', 'estado', 'id_usuario', 'fecha', 'id_apr', 'ruta', 'abono'];
 
 	    public function datatable_socios($db, $id_apr) {
 	    	$consulta = "SELECT 

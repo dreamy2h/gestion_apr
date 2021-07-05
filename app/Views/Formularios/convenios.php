@@ -134,21 +134,21 @@
 					                    <table id="grid_convenios" class="table table-bordered" width="100%">
 					                        <thead class="thead-dark">
 					                            <tr>
-					                            	<th width="10%">Identificador</th>
-					                            	<th width="0%">id_socio</th>
-					                            	<th width="0%">rut_socio</th>
-					                                <th width="0%">rol_socio</th>
-					                                <th width="15%">Nombre Socio</th>
-					                                <th width="0%">id_servicio</th>
-					                                <th width="10%">Servicio</th>
-					                                <th width="0%">detalle_servicio</th>
-					                                <th width="10%">Fecha Servicio</th>
-					                                <th width="10%">N° Cuotas</th>
-					                                <th width="10%">Comienza a Pagar</th>
-					                                <th width="10%">Costo Servicio</th>
-					                                <th width="10%">Usuarios Reg</th>
-					                                <th width="10%">Fecha</th>
-					                                <th width="5%">Traza</th>
+					                            	<th>Id.</th>
+					                            	<th>id_socio</th>
+					                            	<th>rut_socio</th>
+					                                <th>rol_socio</th>
+					                                <th>Nombre Socio</th>
+					                                <th>id_servicio</th>
+					                                <th>Servicio</th>
+					                                <th>detalle_servicio</th>
+					                                <th>Fecha Servicio</th>
+					                                <th>N° Cuotas</th>
+					                                <th>Comienza a Pagar</th>
+					                                <th>Costo Servicio</th>
+					                                <th>Usuarios Reg</th>
+					                                <th>Fecha</th>
+					                                <th>Traza</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 
@@ -241,26 +241,35 @@
 	                    	<div class="card shadow mb-12">
             					<div class="card-body">
 		                    		<div class="container-fluid">
-		                    			<div class="row">
-				                    		<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-				                				<div class="form-group">
-					                                <label class="small mb-1" for="txt_deuda_vigente">Deuda Vigente</label>
-					                                <input type='text' class="form-control" id='txt_deuda_vigente' name="txt_deuda_vigente" />
-					                            </div>
-					                        </div>
-					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-					                        	<div class="form-group">
-					                        		<label class="small mb-1" for="txt_n_cuotas">N° de Cuotas</label>
-					                        		<input type='text' class="form-control" id='txt_n_cuotas' name="txt_n_cuotas" />
-					                        	</div>
-					                        </div>
-					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-					                        	<div class="form-group">
-					                                <label class="small mb-1" for="dt_fecha_pago">Mes de Inicio</label>
-					                                <input type='text' class="form-control" id='dt_fecha_pago' name="dt_fecha_pago" />
-					                            </div>
-					                        </div>
-					                    </div>
+		                    			<div class="alert alerta-fijo hidden" role="alert" id="alerta_repactacion"></div>
+		                    			<form id="form_repactar" name="form_repactar" encType="multipart/form-data">
+			                    			<div class="row">
+					                    		<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+					                				<div class="form-group">
+						                                <label class="small mb-1" for="txt_deuda_vigente">Deuda Vigente</label>
+						                                <input type='text' class="form-control" id='txt_deuda_vigente' name="txt_deuda_vigente" />
+						                            </div>
+						                        </div>
+						                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+						                        	<div class="form-group">
+						                        		<label class="small mb-1" for="txt_n_cuotas_repact">N° de Cuotas</label>
+						                        		<input type='number' class="form-control" id='txt_n_cuotas_repact' name="txt_n_cuotas_repact" min="0" />
+						                        	</div>
+						                        </div>
+						                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+						                        	<div class="form-group">
+						                                <label class="small mb-1" for="dt_fecha_pago_repac">Mes de Inicio</label>
+						                                <input type='text' class="form-control" id='dt_fecha_pago_repac' name="dt_fecha_pago_repac" />
+						                            </div>
+						                        </div>
+						                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+						                        	<div class="form-group">
+						                                <label class="small mb-1" for="btn_aceptar_repactar"></label>
+						                                <button type="button" name="btn_aceptar_repactar" id="btn_aceptar_repactar" class="btn btn-success form-control"><i class="fas fa-save"></i> Aceptar</button>
+						                            </div>
+						                        </div>
+						                    </div>
+						                </form>
 				                    </div>
 			                    </div>
 	                    	</div><br>

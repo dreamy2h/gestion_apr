@@ -173,12 +173,46 @@ function sumar_cuotas_faltantes() {
     $("#txt_deuda_vigente").val(total);
 }
 
+function guardar_repactacion() {
+    var id_convenio = $("#txt_id_convenio").val();
+    var deuda_vigente = $("#txt_deuda_vigente").val();
+    var n_cuotas = $("#txt_n_cuotas_repact").val();
+    var fecha_pago = $("#dt_fecha_pago_repac").val();
+
+    $.ajax({
+        url: base_url + "/Formularios/Ctrl_convenios/guardar_repactacion",
+        type: "POST",
+        async: false,
+        data: {
+            id_convenio: id_convenio,
+            deuda_vigente: deuda_vigente,
+            n_cuotas: n_cuotas,
+            fecha_pago: fecha_pago
+        },
+        success: function(respuesta) {
+            const OK = 1;
+            if (respuesta == OK) {
+                $("#grid_repactar").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_repactar_convenio/" + id_convenio);
+                $("#form_repactar")[0].reset();
+                alerta.ok("alerta_repactacion", "Repactación éxitosa");
+            } else {
+                alerta.error("alerta_repactacion", respuesta);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta_repactacion", respuesta.message);
+        }
+    });
+}
+
 $(document).ready(function() {
     $("#txt_id_convenio").prop("disabled", true);
     $("#txt_id_socio").prop("readonly", true);
     $("#txt_rut_socio").prop("readonly", true);
     $("#txt_rol").prop("readonly", true);
     $("#txt_nombre_socio").prop("readonly", true);
+    $("#txt_deuda_vigente").prop("readonly", true);
     des_habilitar(true, false);
     llenar_cmb_servicios();
 
@@ -247,15 +281,6 @@ $(document).ready(function() {
         $('#dlg_buscar_socio').modal('show');
     });
 
-    $("#btn_repactar").on("click", function() {
-        var id_convenio = $("#txt_id_convenio").val();
-        $("#grid_repactar").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_repactar_convenio/" + id_convenio);
-        setTimeout(function() {
-            sumar_cuotas_faltantes();
-        }, 1000);
-        $('#dlg_repactar').modal('show');
-    });
-
     $("#dt_fecha_servicio").datetimepicker({
         format: "DD-MM-YYYY",
         useCurrent: false,
@@ -277,6 +302,31 @@ $(document).ready(function() {
     $("#txt_costo").on("blur", function() {
         var numero = peso.quitar_formato(this.value);
         this.value = peso.formateaNumero(numero);
+    });
+
+    $("#btn_repactar").on("click", function() {
+        var id_convenio = $("#txt_id_convenio").val();
+        $("#form_repactar")[0].reset();
+
+        $("#grid_repactar").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_convenios/datatable_repactar_convenio/" + id_convenio);
+        setTimeout(function() {
+            sumar_cuotas_faltantes();
+        }, 1000);
+        $('#dlg_repactar').modal('show');
+    });
+
+    $("#dt_fecha_pago_repac").datetimepicker({
+        format: "MM-YYYY",
+        useCurrent: false,
+        locale: moment.locale("es"),
+        minDate: new Date()
+
+    });
+
+    $("#btn_aceptar_repactar").on("click", function() {
+        if ($("#form_repactar").valid()) {
+            guardar_repactacion();
+        }
     });
 
     $.validator.addMethod("charspecial", function(value, element) {
@@ -350,17 +400,49 @@ $(document).ready(function() {
         }
     });
 
+    $("#form_repactar").validate({
+        debug: true,
+        errorClass: "my-error-class",
+        highlight: function (element, required) {
+            $(element).css('border', '2px solid #FDADAF');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).css('border', '1px solid #CCC');
+        },
+        rules:  {
+            txt_deuda_vigente: {
+                required: true
+            },
+            txt_n_cuotas_repact: {
+                required: true
+            },
+            dt_fecha_pago_repac: {
+                required: true
+            }
+        },
+        messages: {
+            txt_deuda_vigente: {
+                required: "La deuda vigente es obligatoria"
+            },
+            txt_n_cuotas_repact: {
+                required: "Ingrese el número de cuotas"
+            },
+            dt_fecha_pago_repac: {
+                required: "Seleccione una fecha"
+            }
+        }
+    });
+
     var grid_convenios = $("#grid_convenios").DataTable({
 		responsive: true,
         paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         select: {
             toggleable: false
         },
         ajax: base_url + "/Formularios/Ctrl_convenios/datatable_convenios",
         orderClasses: true,
+        order: [[ 0, "desc" ]],
         columns: [
             { "data": "id_convenio" },
             { "data": "id_socio" },
@@ -420,8 +502,6 @@ $(document).ready(function() {
     var grid_convenio_detalle = $("#grid_convenio_detalle").DataTable({
         responsive: true,
         paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         orderClasses: true,
         columns: [

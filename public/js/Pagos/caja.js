@@ -49,6 +49,11 @@ function sumar_deudas() {
     $("#txt_vuelto").val(0);
     $("#txt_descuento").val(0);
     $("#txt_total_pagar").val(peso.formateaNumero(total));
+
+    var abono = peso.quitar_formato($("#txt_abono").val());
+    if (parseInt(abono) >= total) {
+        $("#txt_entregado").val(peso.formateaNumero(total));
+    }
 }
 
 function calcular_vuelto() {
@@ -113,6 +118,7 @@ function guardar_pago() {
     var n_transaccion = $("#txt_n_transaccion").val();
     var id_socio = $("#txt_id_socio").val();
     var nombre_socio = $("#txt_nombre_socio").val();
+    var abono = peso.quitar_formato($("#txt_abono").val());
 
     if (parseInt(entregado) < parseInt(total_pagar)) {
         alerta.error("alerta", "Lo entregado no puede ser menor al total a pagar");
@@ -147,6 +153,7 @@ function guardar_pago() {
                         descuento: descuento,
                         forma_pago: forma_pago,
                         n_transaccion: n_transaccion,
+                        abono: abono,
                         arr_ids_metros: arr_ids_metros
                     },
                     success: function(respuesta) {
@@ -156,6 +163,7 @@ function guardar_pago() {
                             $("#txt_rut_socio").val("");
                             $("#txt_rol").val("");
                             $("#txt_nombre_socio").val("");
+                            $("#txt_abono").val("");
                             $("#btn_pagar").prop("disabled", true);
                             $("#cmb_forma_pago").prop("disabled", true);
                             $("#cmb_forma_pago").val(1);
@@ -204,6 +212,7 @@ $(document).ready(function() {
     $("#txt_rut_socio").prop("disabled", true);
     $("#txt_rol").prop("disabled", true);
     $("#txt_nombre_socio").prop("disabled", true);
+    $("#txt_abono").prop("disabled", true);
 	$("#btn_pagar").prop("disabled", true);
     $("#txt_descuento").prop("disabled", true);
 	$("#txt_total_pagar").prop("readonly", true);

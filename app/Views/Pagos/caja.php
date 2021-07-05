@@ -35,10 +35,16 @@
 	                        </div>
 	                    </div>
 	                    <div class="row">
-	                    	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+	                    	<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
 	                        	<div class="form-group">
 	                                <label class="small mb-1" for="txt_nombre_socio">Nombre Socio</label>
 	                                <input type='text' class="form-control" id='txt_nombre_socio' name="txt_nombre_socio" />
+	                            </div>
+	                        </div>
+	                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+	                        	<div class="form-group">
+	                                <label class="small mb-1" for="txt_abono">Abono</label>
+	                                <input type='text' class="form-control" id='txt_abono' name="txt_abono" />
 	                            </div>
 	                        </div>
 	                    </div>

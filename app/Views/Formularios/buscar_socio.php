@@ -20,6 +20,7 @@
                         <th width="0%">tope_subsidio</th>
                         <th width="0%">consumo_anterior</th>
                         <th width="0%">cargo_fijo</th>
+                        <th width="0%">abono</th>
                     <?php } ?>
                     </tr>
                 </thead>

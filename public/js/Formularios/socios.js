@@ -429,7 +429,7 @@ $(document).ready(function() {
             },
             txt_ruta: {
                 charspecial: true,
-                maxlength: 10
+                maxlength: 45
             }
         },
         messages: {
@@ -473,7 +473,7 @@ $(document).ready(function() {
             },
             txt_ruta: {
                 charspecial: "Hay caracteres extraños no permitdos",
-                maxlength: "Máximo 10 caracteres"
+                maxlength: "Máximo 45 caracteres"
             }
         }
     });

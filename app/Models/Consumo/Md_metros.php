@@ -114,7 +114,8 @@
 							case when sub.estado = 1 then p.glosa else '0%' end as subsidio,
 							(select tope_subsidio from apr where id = s.id_apr) as tope_subsidio,
 							ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = a.id_socio and estado <> 0)), 0) as consumo_anterior,
-						    cf.cargo_fijo
+						    cf.cargo_fijo,
+						    s.abono
 						from 
 							arranques a
 						    inner join medidores m on a.id_medidor = m.id
@@ -130,34 +131,10 @@
 
 
 			$query = $db->query($consulta);
-			$metros = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($metros as $key) {
-				$row = array(
-					"id_socio" => $key["id_socio"],
-					"rut" => $key["rut"],
-					"rol" => $key["rol"],
-					"nombre" => $key["nombre"],
-					"fecha_entrada" => $key["fecha_entrada"],
-					"id_arranque" => $key["id_arranque"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"sector" => $key["sector"],
-					"subsidio" => $key["subsidio"],
-					"tope_subsidio" => $key["tope_subsidio"],
-					"consumo_anterior" => $key["consumo_anterior"],
-					"cargo_fijo" => $key["cargo_fijo"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function datatable_boleta_electronica($db, $id_apr, $datosBusqueda) {

@@ -7,6 +7,11 @@
 	use App\Models\Pagos\Md_caja;
 	use App\Models\Pagos\Md_caja_detalle;
 	use App\Models\Pagos\Md_caja_traza;
+	use App\Models\Formularios\Md_convenios;
+	use App\Models\Formularios\Md_convenio_detalle;
+	use App\Models\Formularios\Md_convenio_traza;
+	use App\Models\Formularios\Md_socios;
+	use App\Models\Formularios\Md_socios_traza;
 	use \Mpdf\Mpdf;
 
 	class Ctrl_caja extends BaseController {
@@ -15,6 +20,11 @@
 		protected $caja;
 		protected $caja_detalle;
 		protected $caja_traza;
+		protected $convenios;
+		protected $convenio_detalle;
+		protected $convenio_traza;
+		protected $socios;
+		protected $socios_traza;
 		protected $sesión;
 		protected $db;
 		protected $mpdf;
@@ -25,6 +35,11 @@
 			$this->caja = new Md_caja();
 			$this->caja_detalle = new Md_caja_detalle();
 			$this->caja_traza = new Md_caja_traza();
+			$this->convenios = new Md_convenios();
+			$this->convenio_detalle = new Md_convenio_detalle();
+			$this->convenio_traza = new Md_convenio_traza();
+			$this->socios = new Md_socios();
+			$this->socios_traza = new Md_socios_traza();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 			$this->mpdf = new \Mpdf\Mpdf([
@@ -74,6 +89,9 @@
 			define("OK", 1);
 			define("PAGADO", 2);
 			define("PAGADO_TRAZA", 5);
+			define("ACTIVO", 1);
+			define("CONVENIO_PAGADO", 1);
+			define("CUOTA_PAGADA", 5);
 
 			$id_socio = $this->request->getPost("id_socio");
 			$total_pagar = $this->request->getPost("total_pagar");
@@ -82,6 +100,7 @@
 			$descuento = $this->request->getPost("descuento");
 			$forma_pago = $this->request->getPost("forma_pago");
 			$n_transaccion = $this->request->getPost("n_transaccion");
+			$abono = $this->request->getPost("abono");
 			$arr_ids_metros = $this->request->getPost("arr_ids_metros");
 
 			if ($n_transaccion == "") {
@@ -105,54 +124,109 @@
 				"id_apr" => $id_apr
 			];
 
-			if ($this->caja->save($datosPago)) {
-				$datosPago_ = $this->caja->select("max(id) as id_caja")->where("estado", 1)->first();
-				$id_caja = $datosPago_["id_caja"];
-				$estado_pago = PAGADO;
+			$this->db->transStart();
+			
+			$this->caja->save($datosPago);
+			
+			$datosPago_ = $this->caja->select("max(id) as id_caja")->where("estado", 1)->first();
+			$id_caja = $datosPago_["id_caja"];
+			$estado_pago = PAGADO;
 
-				foreach ($arr_ids_metros as $id_metros) {
-					$datosPagoDetalle = [
-						"id_caja" => $id_caja,
-						"id_metros" => $id_metros
-					];
+			foreach ($arr_ids_metros as $id_metros) {
+				$datosPagoDetalle = [
+					"id_caja" => $id_caja,
+					"id_metros" => $id_metros
+				];
 
-					if (!$this->caja_detalle->save($datosPagoDetalle)) {
-						echo "Error al registrar el detalle del pago";
-					}
+				$this->caja_detalle->save($datosPagoDetalle);
 
-					$datosMetros = [
-						"id" => $id_metros,
-						"estado" => $estado_pago,
-						"id_usuario" => $id_usuario,
-						"fecha" => $fecha
-					];
+				$datosMetros = $this->metros->select("total_servicios")->select("date_format(fecha_vencimiento, '%m-%Y') as fecha_vencimiento")->where("id", $id_metros)->first();
 
-					if ($this->metros->save($datosMetros)) {
-						$datosMetrosTraza = [
-							"id_metros" => $id_metros,
-							"estado" => PAGADO_TRAZA,
-							"id_usuario" => $id_usuario,
-							"fecha" => $fecha
-						];
+				if ($datosMetros["total_servicios"] != 0) {
+					$datosConvenio = $this->convenios->select("convenio_detalle.id as id_convenio_detalle")->select("convenios.id as id_convenio")->join("convenio_detalle", "convenio_detalle.id_convenio = convenios.id")->where("convenios.estado", ACTIVO)->where("date_format(convenio_detalle.fecha_pago, '%m-%Y')", $datosMetros["fecha_vencimiento"])->where("convenios.id_socio", $id_socio)->findAll();
 
-						if (!$this->metros_traza->save($datosMetrosTraza)) {
-							echo "Error al registrar traza al registro de metros";
+					if ($datosConvenio != null) {
+						foreach ($datosConvenio as $key) {
+							$datosConvenioDetalle = [
+								"id" => $key["id_convenio_detalle"],
+								"pagado" => CONVENIO_PAGADO
+							];
+
+							$this->convenio_detalle->save($datosConvenioDetalle);
+
+							$datosConvenioTraza = [
+								"id_convenio" => $key["id_convenio"],
+								"estado" => CUOTA_PAGADA,
+								"observacion" => "Cuota pagada, correspondiente a " . $datosMetros["fecha_vencimiento"] . ".",
+								"id_usuario" => $id_usuario,
+								"fecha" => $fecha
+							];
+
+							$this->convenio_traza->save($datosConvenioTraza);
 						}
 					}
 				}
 
-				echo OK;
-
-				$datosPagoTraza = [
-					"id_caja" => $id_caja,
-					"estado" => 1,
+				$datosMetrosSave = [
+					"id" => $id_metros,
+					"estado" => $estado_pago,
 					"id_usuario" => $id_usuario,
 					"fecha" => $fecha
 				];
 
-				if (!$this->caja_traza->save($datosPagoTraza)) {
-					echo "Error al registrar la traza del pago";
+				$this->metros->save($datosMetrosSave);
+				
+				$datosMetrosTraza = [
+					"id_metros" => $id_metros,
+					"estado" => PAGADO_TRAZA,
+					"id_usuario" => $id_usuario,
+					"fecha" => $fecha
+				];
+
+				$this->metros_traza->save($datosMetrosTraza);
+			}
+
+			$datosPagoTraza = [
+				"id_caja" => $id_caja,
+				"estado" => 1,
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
+
+			$this->caja_traza->save($datosPagoTraza);
+
+			if (intval($abono) > 0) {
+				define("PAGO_ABONO", 7);
+
+				if (intval($abono) <= intval($total_pagar)) {
+					$abono = 0;
+				} else {
+					$abono = intval($abono) - intval($total_pagar);
 				}
+
+				$datosSocios = [
+					"id" => $id_socio,
+					"abono" => $abono,
+					"id_usuario" => $id_usuario,
+					"fecha" => $fecha
+				];
+				
+				$this->socios->save($datosSocios);
+
+				$datosSociosTraza = [
+					"id_socio" => $id_socio,
+					"estado" => PAGO_ABONO,
+					"id_usuario" => $id_usuario,
+					"fecha" => $fecha
+				];
+
+				$this->socios_traza->save($datosSociosTraza);
+			}
+
+			$this->db->transComplete();
+
+			if ($this->db->transStatus()) {
+				echo OK;
 			} else {
 				echo "Error al registrar el pago";
 			}

@@ -20,11 +20,12 @@ $(document).ready(function() {
             {"data": "subsidio"},
             {"data": "tope_subsidio"},
             {"data": "consumo_anterior"}, 
-            {"data": "cargo_fijo"}
+            {"data": "cargo_fijo"},
+            {"data": "abono"}
         );
 
         columnasOcultas = [
-            { "targets": [5, 6, 7, 8, 9, 10 ,11, 12], "visible": false, "searchable": false }
+            { "targets": [5, 6, 7, 8, 9, 10 ,11, 12, 13], "visible": false, "searchable": false }
         ];
         
         ruta = "/Consumo/Ctrl_metros";
@@ -125,6 +126,7 @@ $(document).ready(function() {
             }
         } else if (origen == "Ctrl_caja") {
             buscar_deuda();
+            $("#txt_abono").val(peso.formateaNumero(data["abono"]));
             $('#dlg_buscar_socio').modal('hide');
         } else if (origen == "Ctrl_historial_pagos") {
             buscar_pagos();

@@ -252,5 +252,76 @@
 			$this->validar_sesion();
 			echo $this->convenio_detalle->datatable_repactar_convenio($this->db, $id_convenio);
 		}
+
+		public function guardar_repactacion() {
+			$this->validar_sesion();
+			define("REPACTACION", 6);
+			define("OK", 1);
+
+			$id_convenio = $this->request->getPost("id_convenio");
+			$deuda_vigente = $this->request->getPost("deuda_vigente");
+			$n_cuotas = $this->request->getPost("n_cuotas");
+			$fecha_pago = $this->request->getPost("fecha_pago");
+
+			$datosConvenioDetalle = $this->convenio_detalle->select("count(*) as filas")->where("pagado", 1)->where("id_convenio", $id_convenio)->where("date_format(fecha_pago, '%m-%Y')", $fecha_pago)->first();
+
+			if ($datosConvenioDetalle["filas"] > 0) {
+				echo "Seleccione el mes siguiente, ya tiene una cuota pagada en el mes seleccionado.";
+				exit();
+			}
+
+			$this->db->transStart();
+			
+			$datosConvenioDetalle = $this->convenio_detalle->select("id")->where("pagado", 0)->where("id_convenio", $id_convenio)->findAll();
+
+			foreach ($datosConvenioDetalle as $key) {
+				$this->convenio_detalle->delete($key["id"]);
+			}
+
+			$datosConvenioDetalle = $this->convenio_detalle->select("max(numero_cuota) as max_n_cuota")->where("pagado", 1)->where("id_convenio", $id_convenio)->first();
+
+			$max_n_cuota = 0;
+			if ($datosConvenioDetalle != null) {
+				$max_n_cuota = $datosConvenioDetalle["max_n_cuota"];
+			}
+
+			$valor_cuota = $deuda_vigente/$n_cuotas;
+			$fecha_pagos = date_format(date_create("01-" . $fecha_pago), 'Y-m-d');
+
+			for ($i = 0; $i < $n_cuotas; $i++) {
+				$max_n_cuota++;
+				
+				$datosDetalle = [
+					"id_convenio" => $id_convenio,
+					"fecha_pago" =>	$fecha_pagos,
+					"numero_cuota" => $max_n_cuota,
+					"valor_cuota" => intval(round($valor_cuota))
+				];
+
+				$this->convenio_detalle->save($datosDetalle);
+				$fecha_pagos = date("Y-m-d", strtotime($fecha_pagos. ' + 1 month'));
+			}
+
+			$fecha = date("Y-m-d H:i:s");
+			$id_usuario = $this->sesión->id_usuario_ses;
+
+			$datosTraza = [
+				"id_convenio" => $id_convenio,
+				"estado" => REPACTACION,
+				"observacion" => "Se repacta la deuda vigente a la fecha",
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
+
+			$this->convenio_traza->save($datosTraza);
+
+			$this->db->transComplete();
+
+			if ($this->db->transStatus()) {
+				echo OK;
+			} else {
+				echo "Error al guardar la repactación";
+			}
+		}
 	}
 ?>

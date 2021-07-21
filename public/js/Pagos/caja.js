@@ -78,30 +78,35 @@ function calcular_vuelto() {
 }
 
 function calcular_descuento() {
-    var total_pagar = 0;
-    var datos = $("#grid_deuda").DataTable().rows(".selected").data();
-
-    for (var i = 0; i < datos.length; i++) {
-        total_pagar += parseInt(datos[i].deuda);
-    }
-
     var descuento = peso.quitar_formato($("#txt_descuento").val());
-        
-    if (!isNaN(descuento)) {
-        if (parseInt(total_pagar) > 0) {
-            if (parseInt(descuento) > parseInt(total_pagar)) {
-                alerta.aviso("alerta", "El descuento no puede ser mayor al total a pagar");
-                $("#txt_descuento").val(0);
-            } else {
-                var total = parseInt(total_pagar) - parseInt(descuento);
-                $("#txt_total_pagar").val(peso.formateaNumero(total));
+    if (parseInt(descuento) > 0) {
+        var total_pagar = 0;
+        var datos = $("#grid_deuda").DataTable().rows(".selected").data();
 
-                $("#txt_vuelto").val(0);
-                $("#txt_entregado").val(0);
+        for (var i = 0; i < datos.length; i++) {
+            total_pagar += parseInt(datos[i].deuda);
+        }
+
+            
+        if (!isNaN(descuento)) {
+            if (parseInt(total_pagar) > 0) {
+                if (parseInt(descuento) > parseInt(total_pagar)) {
+                    alerta.aviso("alerta", "El descuento no puede ser mayor al total a pagar");
+                    $("#txt_descuento").val(0);
+                } else {
+                    var total = parseInt(total_pagar) - parseInt(descuento);
+                    $("#txt_total_pagar").val(peso.formateaNumero(total));
+                    $("#txt_descuento").val(peso.formateaNumero(descuento));
+
+                    $("#txt_vuelto").val(0);
+                    $("#txt_entregado").val(0);
+                }
+            } else {
+                $("#txt_descuento").val(0);
+                alerta.aviso("alerta", "Seleccione deudas a pagar");
             }
         } else {
             $("#txt_descuento").val(0);
-            alerta.aviso("alerta", "Seleccione deudas a pagar");
         }
     } else {
         $("#txt_descuento").val(0);
@@ -172,6 +177,7 @@ function guardar_pago() {
                             $("#txt_vuelto").prop("disabled", true);
                             $("#txt_vuelto").val("");
                             $("#txt_total_pagar").val("");
+                            $("#txt_descuento").val("");
                             $("#txt_n_transaccion").prop("disabled", true);
                             $("#txt_n_transaccion").val(""); 
 

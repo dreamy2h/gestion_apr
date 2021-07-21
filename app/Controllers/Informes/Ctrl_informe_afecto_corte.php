@@ -24,7 +24,19 @@
 
 		public function datatable_informe_afecto_corte($n_meses) {
 			$this->validar_sesion();
-			echo $this->socios->datatable_informe_afecto_corte($this->db, $this->sesión->id_apr_ses, $n_meses);
+
+			$data = $this->socios
+			->select("rol as rol_socio")
+			->select("concat(rut, '-', dv) as rut")
+		    ->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")
+		    ->select("afecto_corte(id, id_apr) as meses_pendientes")
+		    ->select("total_deuda(id, id_apr) as total_deuda")
+		    ->where("id_apr", $this->sesión->id_apr_ses)
+		    ->where("afecto_corte(id, id_apr) >=", $n_meses)
+		    ->findAll();
+
+		    $salida = array('data' => $data);
+		    return json_encode($salida);
 		}
 	}
 ?>

@@ -44,7 +44,7 @@
 
 		public function llenar_cmb_servicios() {
 			$this->validar_sesion();
-			$datos_servicios = $this->servicios->select("id")->select("glosa as servicio")->where("estado", 1)->findAll();
+			$datos_servicios = $this->servicios->select("id")->select("glosa as servicio")->where("estado", 1)->where("id_apr", $this->sesión->id_apr_ses)->findAll();
 			echo json_encode($datos_servicios);
 		}
 
@@ -82,7 +82,7 @@
 					exit();
 				} else if ($datosMetros["estado"] == ACTIVO) {
 					$valor_cuota = $costo_servicio/$numero_cuotas;
-					$nuevo_total_mes = intval($datosMetros["total_mes"]) + intval($datosMetros["total_servicios"]) + intval(round($valor_cuota));
+					$nuevo_total_mes = intval($datosMetros["total_mes"]) + intval(round($valor_cuota));
 					$nuevo_total_servicios = intval($datosMetros["total_servicios"]) + intval(round($valor_cuota));
 
 					$datosMetrosSave = [
@@ -161,8 +161,10 @@
 		public function eliminar_convenio() {
 			define("ELIMINAR_CONVENIO", 3);
 			define("RECICLAR_CONVENIO", 4);
+			define("PENDIENTE", 0);
 			define("ELIMINAR", 0);
 			define("OK", 1);
+			define("CONVENIO_ANULADO", 12);
 
 			$fecha = date("Y-m-d H:i:s");
 			$id_usuario = $this->sesión->id_usuario_ses;
@@ -171,25 +173,70 @@
 			$estado = $this->request->getPost("estado");
 			$observacion = $this->request->getPost("observacion");
 
+			$this->db->transStart();
+
 			$datosConvenio = [
 				"id" => $id_convenio,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
-				"estado" => $estado,
+				"estado" => $estado
 			];
 
-			if ($this->convenios->save($datosConvenio)) {
-				echo OK;
-				
-				if ($estado == ELIMINAR) {
-					$estado_traza = ELIMINAR_CONVENIO;
-				} else {
-					$estado_traza = RECICLAR_CONVENIO;
-				}
+			$this->convenios->save($datosConvenio);
+			
+			$datosConveniosTraza = [
+				"id_convenio" => $id_convenio,
+				"estado" => ELIMINAR_CONVENIO,
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
 
-				$this->guardar_traza($id_convenio, $estado_traza, $observacion);
+			$this->convenio_traza->save($datosConveniosTraza);
+
+			$datosConvenioDetalle = $this->convenio_detalle
+			->select("date_format(convenio_detalle.fecha_pago, '%m-%Y') as fecha_pago")
+			->select("convenio_detalle.valor_cuota")
+			->select("convenios.id_socio")
+			->join("convenios", "convenio_detalle.id_convenio=convenios.id")
+			->where("convenio_detalle.id_convenio", $id_convenio)
+			->where("convenio_detalle.pagado", PENDIENTE)
+			->findAll();
+
+			foreach ($datosConvenioDetalle as $key) {
+				$datosMetros = $this->metros->select("id as id_metros")->select("total_mes")->select("total_servicios")->where("id_socio", $key["id_socio"])->where("date_format(fecha_vencimiento, '%m-%Y')", $key["fecha_pago"])->where("estado", 1)->first();
+
+				if ($datosMetros != null) {
+					$nuevo_total_servicios = intval($datosMetros["total_servicios"]) - intval($key["valor_cuota"]);
+					$nuevo_total_mes = intval($datosMetros["total_mes"]) - intval($key["valor_cuota"]);
+
+					$datosMetrosSave = [
+						"total_mes" => $nuevo_total_mes,
+						"total_servicios" => $nuevo_total_servicios,
+						"id" => $datosMetros["id_metros"],
+						"id_usuario" => $id_usuario,
+						"fecha" => $fecha
+					];
+
+					$this->metros->save($datosMetrosSave);
+
+					$datosMetrosTraza = [
+						"id_metros" => $datosMetros["id_metros"],
+						"estado" => CONVENIO_ANULADO,
+						"observacion" => "Valor restado al total de servicios y al total del mes: $" . $key["valor_cuota"] . ".",
+						"id_usuario" => $id_usuario,
+						"fecha" => $fecha
+					];
+
+					$this->metros_traza->save($datosMetrosTraza);
+				}
+			}
+
+			$this->db->transComplete();
+
+			if ($this->db->transStatus()) {
+				echo OK;
 			} else {
-				echo "Error al actualizar el sector";
+				echo "Error al anular la repactación";
 			}
 		}
 

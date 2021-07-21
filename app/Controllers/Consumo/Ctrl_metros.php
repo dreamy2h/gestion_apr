@@ -6,12 +6,14 @@
 	use App\Models\Consumo\Md_metros_traza;
 	use App\Models\Configuracion\Md_costo_metros;
 	use App\Models\Formularios\Md_convenio_detalle;
+	use App\Models\Formularios\Md_repactaciones_detalle;
 
 	class Ctrl_metros extends BaseController {
 		protected $metros;
 		protected $metros_traza;
 		protected $costo_metros;
 		protected $convenio_detalle;
+		protected $repactaciones_detalle;
 		protected $sesión;
 		protected $db;
 
@@ -20,6 +22,7 @@
 			$this->metros_traza = new Md_metros_traza();
 			$this->costo_metros = new Md_costo_metros();
 			$this->convenio_detalle = new Md_convenio_detalle();
+			$this->repactaciones_detalle = new Md_repactaciones_detalle();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -58,6 +61,7 @@
 			$subtotal = $this->request->getPost("subtotal");
 			$multa = $this->request->getPost("multa");
 			$total_servicios = $this->request->getPost("total_servicios");
+			$cuota_repactacion = $this->request->getPost("cuota_repactacion");
 			$total_mes = $this->request->getPost("total_mes");
 			$cargo_fijo = $this->request->getPost("cargo_fijo");
 			$monto_facturable = $this->request->getPost("monto_facturable");
@@ -73,6 +77,7 @@
 				"subtotal" => $subtotal,
 				"multa" => $multa,
 				"total_servicios" => $total_servicios,
+				"cuota_repactacion" => $cuota_repactacion,
 				"total_mes" => $total_mes,
 				"cargo_fijo" => $cargo_fijo,
 				"monto_facturable" => $monto_facturable,
@@ -169,10 +174,42 @@
 		}
 
 		public function calcular_total_servicios() {
-			$fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
+			$fecha_vencimiento = date_format(date_create($this->request->getPost("fecha_vencimiento")), 'm-Y');
 			$id_socio = $this->request->getPost("id_socio");
+			define("ACTIVO", 1);
 
-			echo $this->convenio_detalle->calcular_total_servicios($this->db, $fecha_vencimiento, $id_socio);
+			$datosConvenioDetalle = $this->convenio_detalle
+			->select("ifnull(sum(convenio_detalle.valor_cuota), 0) as total_servicios")
+			->join("convenios", "convenio_detalle.id_convenio=convenios.id")
+			->where("date_format(convenio_detalle.fecha_pago, '%m-%Y')", $fecha_vencimiento)
+			->where("convenios.id_socio", $id_socio)->where("convenios.estado", ACTIVO)
+			->first();
+
+			if ($datosConvenioDetalle != null) {
+				$total_servicios = intval($datosConvenioDetalle["total_servicios"]);
+			} else {
+				$total_servicios = 0;
+			}
+
+			$datosRepactacionesDetalle = $this->repactaciones_detalle
+			->select("ifnull(sum(repactaciones_detalle.valor_cuota), 0) as total_servicios")
+			->join("repactaciones", "repactaciones_detalle.id_repactacion=repactaciones.id")
+			->where("date_format(repactaciones_detalle.fecha_pago, '%m-%Y')", $fecha_vencimiento)
+			->where("repactaciones.id_socio", $id_socio)->where("repactaciones.estado", ACTIVO)
+			->first();
+
+			if ($datosRepactacionesDetalle != null) {
+				$cuota_repactacion = intval($datosRepactacionesDetalle["total_servicios"]);
+			} else {
+				$cuota_repactacion = 0;
+			}
+			
+			$datosServicios = [
+				"total_servicios" => $total_servicios,
+				"cuota_repactacion" => $cuota_repactacion
+			];
+
+			return json_encode($datosServicios);
 		}
 
 		public function existe_consumo_mes() {

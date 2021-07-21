@@ -31,6 +31,8 @@ $(document).ready(function() {
         ruta = "/Consumo/Ctrl_metros";
     } else if (origen == "Ctrl_historial_pagos" || origen == "Ctrl_informe_socios" || origen == "Ctrl_boleta_electronica") {
         ruta = "/Pagos/Ctrl_historial_pagos";
+    } else if (origen ==  "Ctrl_repactacion") {
+        ruta = "/Formularios/Ctrl_Convenios";
     } else {
         ruta = "/Formularios/" + origen;
     }
@@ -137,6 +139,9 @@ $(document).ready(function() {
         } else if (origen == "Ctrl_boleta_electronica") { 
             buscar_boletas();
             $('#dlg_buscar_socio').modal('hide');
+        } else if (origen == "Ctrl_repactacion") {
+            $('#dlg_buscar_socio').modal('hide');
+            buscar_deuda();
         } else {
             $('#dlg_buscar_socio').modal('hide');
         }

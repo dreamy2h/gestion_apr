@@ -315,6 +315,11 @@
 			echo view('Pagos/abonar');
 		}
 
+		public function repactar() {
+			$this->validar_sesion();
+			echo view('Formularios/repactar');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

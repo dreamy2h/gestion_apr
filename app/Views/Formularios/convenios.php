@@ -10,12 +10,12 @@
 	                <div class="container-fluid">
 	                    <center>
 	                        <button type="button" name="btn_nuevo" id="btn_nuevo" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo</button>
-	                        <button type="button" name="btn_modificar" id="btn_modificar" class="btn btn-primary"><i class="fas fa-edit"></i> Modificar</button>
+	                        <button type="button" name="btn_modificar" id="btn_modificar" class="btn btn-primary d-none"><i class="fas fa-edit"></i> Modificar</button>
 	                        <button type="button" name="btn_eliminar" id="btn_eliminar" class="btn btn-primary"><i class="fas fa-trash"></i> Eliminar</button>
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
-	                        <button type="button" name="btn_reciclar" id="btn_reciclar" class="btn btn-warning"><i class="fas fa-recycle"></i> Reciclar</button>
-	                        <button type="button" name="btn_repactar" id="btn_repactar" class="btn btn-secondary"><i class="fas fa-divide"></i> Repactar Deuda</button>
+	                        <button type="button" name="btn_reciclar" id="btn_reciclar" class="btn btn-warning d-none"><i class="fas fa-recycle"></i> Reciclar</button>
+	                        <button type="button" name="btn_repactar" id="btn_repactar" class="btn btn-secondary d-none"><i class="fas fa-divide"></i> Repactar Deuda</button>
 	                    </center>
 	                </div>
 	            </div>
@@ -111,10 +111,6 @@
 		                                        </div>
 		                                    </div>
 		                                </div>
-		                                <br>
-		                                <div class="row">
-		                                	
-		                                </div>
 					                </form>
 					            </div>
 					        </div>
@@ -122,7 +118,6 @@
 					</div>
 				</div>
 			</div>
-			<br>
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">

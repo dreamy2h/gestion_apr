@@ -303,7 +303,7 @@ $(document).ready(function() {
             txt_nombre_cuenta: {
                 required: true,
                 charspecial: true,
-                maxlength: 10
+                maxlength: 100
             },
             txt_email_cuenta: {
                 email: true,
@@ -330,7 +330,7 @@ $(document).ready(function() {
             txt_nombre_cuenta: {
                 required: "El nombre es obligatorio",
                 charspecial: "Caracteres no permitidos",
-                maxlength: "45"
+                maxlength: "Máximo 100 caracteres"
             },
             txt_email_cuenta: {
                 email: "Ingrese un correo electrónico válido",

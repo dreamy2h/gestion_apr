@@ -12,6 +12,9 @@
 	use App\Models\Formularios\Md_convenio_traza;
 	use App\Models\Formularios\Md_socios;
 	use App\Models\Formularios\Md_socios_traza;
+	use App\Models\Finanzas\Md_egresos;
+	use App\Models\Finanzas\Md_egresos_traza;
+	use App\Models\Finanzas\Md_egresos_simples;
 	use \Mpdf\Mpdf;
 
 	class Ctrl_caja extends BaseController {
@@ -25,6 +28,9 @@
 		protected $convenio_traza;
 		protected $socios;
 		protected $socios_traza;
+		protected $egresos;
+		protected $egresos_traza;
+		protected $egresos_simples;
 		protected $sesión;
 		protected $db;
 		protected $mpdf;
@@ -40,6 +46,9 @@
 			$this->convenio_traza = new Md_convenio_traza();
 			$this->socios = new Md_socios();
 			$this->socios_traza = new Md_socios_traza();
+			$this->egresos = new Md_egresos();
+			$this->egresos_traza = new Md_egresos_traza();
+			$this->egresos_simples = new Md_egresos_simples();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 			$this->mpdf = new \Mpdf\Mpdf([
@@ -221,6 +230,47 @@
 				];
 
 				$this->socios_traza->save($datosSociosTraza);
+			}
+
+			if (intval($descuento) > 0) {
+				define("DESCUENTOS", 0);
+				define("CREAR_EGRESO", 1);
+				define("EGRESO_SIMPLE", 2);
+				define("SOCIO", "socio");
+				define("EGRESO_AUTOMATICO", 0);
+
+				$datosEgreso = [
+					"tipo_egreso" => EGRESO_SIMPLE,
+					"id_usuario" => $id_usuario,
+					"fecha" => $fecha,
+					"id_apr" => $id_apr
+				];
+
+				$this->egresos->save($datosEgreso);
+
+				$obtener_id = $this->egresos->select("max(id) as id_egreso")->first();
+				$id_egreso = $obtener_id["id_egreso"];
+
+				$datosEgresoTraza = [
+					"id_egreso" => $id_egreso,
+					"estado" => CREAR_EGRESO,
+					"id_usuario" => $id_usuario,
+					"fecha" => $fecha
+				];
+
+				$this->egresos_traza->save($datosEgresoTraza);
+
+				$datosEgresoSimple = [
+					"id_tipo_egreso" => DESCUENTOS,
+					"fecha" => date("Y-m-d"),
+					"monto" => $descuento,
+					"tipo_entidad" => SOCIO,
+					"id_entidad" => $id_socio,
+					"id_motivo" => EGRESO_AUTOMATICO,
+					"id_egreso" => $id_egreso
+				];
+
+				$this->egresos_simples->save($datosEgresoSimple);
 			}
 
 			$this->db->transComplete();

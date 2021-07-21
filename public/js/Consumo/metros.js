@@ -29,6 +29,7 @@ function des_habilitar(a, b) {
     $("#txt_subtotal").prop("disabled", a);
     $("#txt_multa").prop("disabled", a);
     $("#txt_total_servicios").prop("disabled", a);
+    $("#txt_cuota_repactacion").prop("disabled", a);
     $("#txt_monto_facturable").prop("disabled", a);
     $("#txt_total_mes").prop("disabled", a);
 }
@@ -53,6 +54,7 @@ function mostrar_datos_metros(data) {
     $("#txt_subtotal").val(peso.formateaNumero(data["subtotal"]));
     $("#txt_multa").val(peso.formateaNumero(data["multa"]));
     $("#txt_total_servicios").val(peso.formateaNumero(data["total_servicios"]));
+    $("#txt_cuota_repactacion").val(peso.formateaNumero(data["cuota_repactacion"]));
     $("#txt_monto_facturable").val(peso.formateaNumero(data["monto_facturable"]));
     $("#txt_cargo_fijo").val(peso.formateaNumero(data["cargo_fijo"]));
     $("#txt_total_mes").val(peso.formateaNumero(data["total_mes"]));
@@ -72,6 +74,7 @@ function guardar_metros() {
     var subtotal = peso.quitar_formato($("#txt_subtotal").val());
     var multa = peso.quitar_formato($("#txt_multa").val());
     var total_servicios = peso.quitar_formato($("#txt_total_servicios").val());
+    var cuota_repactacion = peso.quitar_formato($("#txt_cuota_repactacion").val());
     var total_mes = peso.quitar_formato($("#txt_total_mes").val());
     var cargo_fijo = peso.quitar_formato($("#txt_cargo_fijo").val());
     var monto_facturable = peso.quitar_formato($("#txt_monto_facturable").val());
@@ -92,6 +95,7 @@ function guardar_metros() {
             subtotal: subtotal,
             multa: multa,
             total_servicios: total_servicios,
+            cuota_repactacion: cuota_repactacion,
             total_mes: total_mes,
             cargo_fijo: cargo_fijo,
             monto_facturable: monto_facturable
@@ -165,16 +169,14 @@ function calcular_total_servicios() {
         url: base_url + "/Consumo/Ctrl_metros/calcular_total_servicios",
         type: "POST",
         async: false,
+        dataType: "json",
         data: { 
             fecha_vencimiento: fecha_vencimiento,
             id_socio: id_socio
         },
         success: function(respuesta) {
-            if (respuesta >= 0) {
-                $("#txt_total_servicios").val(peso.formateaNumero(respuesta));
-            } else {
-                alerta.error("alerta", respuesta);
-            }
+            $("#txt_total_servicios").val(peso.formateaNumero(respuesta.total_servicios));
+            $("#txt_cuota_repactacion").val(peso.formateaNumero(respuesta.cuota_repactacion));
         },
         error: function(error) {
             respuesta = JSON.parse(error["responseText"]);
@@ -259,16 +261,18 @@ function calcular_total() {
     var subtotal = $("#txt_subtotal").val();
     var multa = $("#txt_multa").val();
     var total_servicios = $("#txt_total_servicios").val();
+    var cuota_repactacion = $("#txt_cuota_repactacion").val();
     var monto_subsidio = $("#txt_monto_subsidio").val();
     var cargo_fijo = parseInt($("#txt_cargo_fijo").val());
 
     if (subtotal == "") { subtotal = 0; } else { subtotal = peso.quitar_formato(subtotal); }
     if (multa == "") { multa = 0; } else { multa = peso.quitar_formato(multa); }
     if (total_servicios == "") { total_servicios = 0; } else { total_servicios = peso.quitar_formato(total_servicios); }
+    if (cuota_repactacion == "") { cuota_repactacion = 0; } else { cuota_repactacion = peso.quitar_formato(cuota_repactacion); }
     if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
 
-    var total_mes = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios) - parseInt(monto_subsidio);
-    var monto_facturable = parseInt(subtotal) + parseInt(multa) + parseInt(total_servicios);
+    var monto_facturable = parseInt(monto_subsidio) > parseInt(subtotal) ? total_mes = 0 : ((parseInt(subtotal)  - parseInt(monto_subsidio)) + parseInt(multa) + parseInt(total_servicios));
+    var total_mes = parseInt(monto_facturable) + parseInt(cuota_repactacion);
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
     $("#txt_monto_facturable").val(peso.formateaNumero(monto_facturable));
@@ -319,6 +323,7 @@ $(document).ready(function() {
     $("#txt_metros").prop("readonly", true);
     $("#txt_subtotal").prop("readonly", true);
     $("#txt_total_servicios").prop("readonly", true);
+    $("#txt_cuota_repactacion").prop("readonly", true);
     $("#txt_total_mes").prop("readonly", true);
     $("#txt_c_actual").prop("readonly", true);
     $("#dt_fecha_ingreso").prop("readonly", true);
@@ -623,10 +628,16 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return "<button type='button' class='traza_metros btn btn-warning' title='Traza Metros'><i class='fas fa-shoe-prints'></i></button>";
                 }
+            },
+            { 
+                "data": "cuota_repactacion",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 5, 6, 8, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 5, 6, 8, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 25], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

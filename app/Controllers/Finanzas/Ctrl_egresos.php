@@ -199,11 +199,15 @@
 			echo OK;
 		}
 
-		public function llenar_cmb_tipo_egreso() {
+		public function llenar_cmb_tipo_egreso($opcion) {
 			$this->validar_sesion();
 			define("ACTIVO", 1);
 
 			$datosTiposEgreso = $this->tipos_egreso->select("id")->select("tipo_egreso")->where("estado", ACTIVO)->where("id_apr", $this->sesión->id_apr_ses)->findAll();
+
+			if ($opcion == 1) {
+				$datosTiposEgreso[] = $this->tipos_egreso->select("id")->select("tipo_egreso")->where("id", 0)->first();
+			}
 
 			echo json_encode($datosTiposEgreso);
 		}

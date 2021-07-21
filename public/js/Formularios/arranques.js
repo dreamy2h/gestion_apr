@@ -88,6 +88,7 @@ function guardar_arranque() {
     var resto_direccion = $("#txt_resto_direccion").val();
     var tipo_documento = $("#cmb_tipo_documento").val();
     var descuento = $("#txt_descuento").val();
+    var id_medidor = $("#cmb_medidor").val();
 
     $.ajax({
         url: base_url + "/Formularios/Ctrl_arranques/guardar_arranque",
@@ -117,6 +118,7 @@ function guardar_arranque() {
                 alerta.ok("alerta", "Arranque guardado con éxito");
                 datatable_enabled = true;
                 reset_radio_buttons();
+                llenar_cmb_medidores();
                 $("#datosArranque").collapse("hide");
             } else {
                 alerta.error("alerta", respuesta);

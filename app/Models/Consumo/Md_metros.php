@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr', 'cargo_fijo', 'monto_facturable'];
+	    protected $allowedFields = ['id', 'folio_bolect', 'id_socio', 'monto_subsidio', 'fecha_ingreso', 'fecha_vencimiento', 'consumo_anterior', 'consumo_actual', 'metros', 'subtotal', 'multa', 'total_servicios', 'total_mes', 'id_usuario', 'fecha', 'estado', 'id_apr', 'cargo_fijo', 'monto_facturable', 'cuota_repactacion'];
 
 	    public function datatable_metros($db, $id_apr) {
 	    	define("ELIMINADO", 0);
@@ -36,6 +36,7 @@
 							ifnull(m.subtotal, 0) as subtotal,
 							ifnull(m.multa, 0) as multa,
 							ifnull(m.total_servicios, 0) as total_servicios,
+							ifnull(m.cuota_repactacion, 0) as cuota_repactacion,
 							ifnull(m.total_mes, 0) as total_mes,
 							ifnull(m.cargo_fijo, 0) as cargo_fijo,
                             ifnull(m.monto_facturable, 0) as monto_facturable,
@@ -58,46 +59,10 @@
 						limit 10000";
 
 			$query = $db->query($consulta, [$estado, $id_apr]);
-			$metros = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($metros as $key) {
-				$row = array(
-					"id_metros" => $key["id_metros"],
-					"id_socio" => $key["id_socio"],
-					"rut_socio" => $key["rut_socio"],
-					"rol_socio" => $key["rol_socio"],
-					"nombre_socio" => $key["nombre_socio"],
-					"id_arranque" => $key["id_arranque"],
-					"subsidio" => $key["subsidio"],
-					"tope_subsidio" => $key["tope_subsidio"],
-					"monto_subsidio" => $key["monto_subsidio"],
-					"sector" => $key["sector"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"fecha_ingreso" => $key["fecha_ingreso"],
-					"fecha_vencimiento" => $key["fecha_vencimiento"],
-					"consumo_anterior" => $key["consumo_anterior"],
-					"consumo_actual" => $key["consumo_actual"],
-					"metros" => $key["metros"],
-					"subtotal" => $key["subtotal"],
-					"multa" => $key["multa"],
-					"total_servicios" => $key["total_servicios"],
-					"total_mes" => $key["total_mes"],
-					"cargo_fijo" => $key["cargo_fijo"],
-					"monto_facturable" => $key["monto_facturable"],
-					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": []}";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function datatable_buscar_socio($db, $id_apr) {

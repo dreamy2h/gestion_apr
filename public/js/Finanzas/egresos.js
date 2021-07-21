@@ -76,10 +76,16 @@ var peso = {
 }
 
 function llenar_cmb_tipo_egreso() {
+    if ($("#txt_id_egreso_egre").val()) {
+        var opcion = 1;
+    } else {
+        var opcion = 0;
+    }
+
     $.ajax({
         type: "GET",
         dataType: "json",
-        url: base_url + "/Finanzas/Ctrl_egresos/llenar_cmb_tipo_egreso",
+        url: base_url + "/Finanzas/Ctrl_egresos/llenar_cmb_tipo_egreso/" + opcion,
     }).done( function(data) {
         $("#cmb_tipo_egreso").html('');
 

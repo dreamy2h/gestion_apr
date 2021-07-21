@@ -157,22 +157,28 @@
 							                        </div>
 						                        </div>
 						                        <div class="row">
-						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_multa">Multa $</label>
 							                                <input type='text' class="form-control" id='txt_multa' name="txt_multa" />
 							                            </div>
 							                        </div>
-							                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios $</label>
 							                                <input type='text' class="form-control" id='txt_total_servicios' name="txt_total_servicios" />
 							                            </div>
 							                        </div>
-						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
 							                                <label class="small mb-1" for="txt_monto_facturable">Monto Facturable $</label>
 							                                <input type='text' class="form-control" id='txt_monto_facturable' name="txt_monto_facturable" />
+							                            </div>
+							                        </div>
+							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+							                         	<div class="form-group">
+							                                <label class="small mb-1" for="txt_cuota_repactacion">Cuota Repactación $</label>
+							                                <input type='text' class="form-control" id='txt_cuota_repactacion' name="txt_cuota_repactacion" />
 							                            </div>
 							                        </div>
 						                        </div>
@@ -256,6 +262,7 @@
 					                                <th>Usuario</th>
 					                                <th>Fecha</th>
 					                                <th>Traza</th>
+					                                <th>Couta Repactación</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

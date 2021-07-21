@@ -51,6 +51,7 @@
 			$this->validar_sesion();
 			define("BOLETA_EXENTA", 41);
 	        define("ASIGNA_FOLIO_BOLECT", 7);
+	        define("PENDIENTE", 1);
 
 			$url = 'https://libredte.cl';
 			$hash = $this->sesión->hash_apr_ses;
@@ -59,16 +60,21 @@
 			$folios = $this->request->getPost("arr_boletas");
 
 			foreach ($folios as $folio) {
-				$datosMetros = $this->metros->select("id_socio")->select("total_mes")->select("consumo_anterior")->select("consumo_actual")->select("metros")->where("id", $folio)->first();
+				$datosMetros = $this->metros->select("id_socio")->select("monto_facturable")->select("total_mes")->select("total_servicios")->select("multa")->select("cuota_repactacion")->select("consumo_anterior")->select("consumo_actual")->select("metros")->where("id", $folio)->first();
+
 
 				$consumo_anterior = $datosMetros["consumo_anterior"];
 				$consumo_actual = $datosMetros["consumo_actual"];
 				$metros_ = $datosMetros["metros"];
 				$total_mes = $datosMetros["total_mes"];
+				$monto_facturable = $datosMetros["monto_facturable"];
+				$cuota_repactacion = $datosMetros["cuota_repactacion"];
+				$total_servicios = $datosMetros["total_servicios"];
+				$multa = $datosMetros["multa"];
 				$id_socio =  $datosMetros["id_socio"];
 
 				if (intval($total_mes) > 0) {
-					$datosSocios = $this->socios->select("concat(rut, '-', dv) as rut_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")->select("concat(calle, ', ', numero, ', ', resto_direccion) as direccion")->select("id_comuna")->where("id", $id_socio)->first();
+					$datosSocios = $this->socios->select("concat(rut, '-', dv) as rut_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")->select("concat(calle, ', ', numero, ', ', resto_direccion) as direccion")->select("rol")->select("id_comuna")->where("id", $id_socio)->first();
 
 					if ($datosSocios["rut_socio"] != "") {
 						$rut_socio = $datosSocios["rut_socio"];
@@ -103,6 +109,16 @@
 						$datos_graf[$key["fecha"]] = $key["consumo_actual"];
 					}
 
+					$datosDeuda = $this->metros->select("total_mes")->where("id_socio", $id_socio)->where("estado", PENDIENTE)->where("id<", $folio)->findAll();
+
+					$consumo_anterior_nf = 0;
+				
+					if ($datosDeuda != null) {
+						foreach ($datosDeuda as $key) {
+							$consumo_anterior_nf = $consumo_anterior_nf + intval($key["total_mes"]);
+						}
+					} 
+					
 					$dte = [
 		                'Encabezado' => [
 		                    'IdDoc' => [
@@ -116,20 +132,21 @@
 		                        'RznSocRecep' => $nombre_socio,
 		                        'GiroRecep' => 'Particular',
 		                        'DirRecep' => $direccion,
-		                        'CmnaRecep' => $comuna
+		                        'CmnaRecep' => $comuna,
+		                        'CdgIntRecep' => $datosSocios["rol"]
 		                    ],
 		                ],
 		                'Detalle' => [
-		                    [
-		                        'IndExe' => 1,
+							[
+								'IndExe' => 1,
 		                        'NmbItem' => 'Consumo de Agua Potable',
 		                        'QtyItem' => 1,
-		                        'PrcItem' => $total_mes
-		                    ],
-		                ],
+		                        'PrcItem' => $monto_facturable,
+							]
+						],
 		                'LibreDTE' => [
 		                    'extra' => [
-		                        'dte' => [
+		                    	'dte' => [
 		                            'Encabezado' => [
 		                                'IdDoc' => [
 		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³."
@@ -139,11 +156,28 @@
 		                        'historial' => [
 		                            'titulo' => 'Consumo de Agua Potable',
 		                            'datos' => $datos_graf
-		                        ]
+		                        ],
+		                        "servicios_basicos" => [
+					                "consumos" => [
+					                    "unidad" => "M3",
+					                    "lectura_actual" => $consumo_actual,
+					                    "lectura_anterior" => $consumo_anterior,
+					                    "consumo_calculado" => $metros_,
+					                    "consumo_facturado" => $metros_,
+					                ]
+					            ],
 		                    ]
 		                ]
 		            ];
 
+		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0) {
+		            	$dte["Encabezado"]["Totales"] = [
+			                'MontoNF' => intval($consumo_anterior_nf) + intval($cuota_repactacion),
+			                'SaldoAnterior' => $consumo_anterior_nf,
+			                'VlrPagar' => intval($monto_facturable) + intval($consumo_anterior_nf) + intval($cuota_repactacion),
+			            ];
+		            } 
+		            // return json_encode($dte); exit();
 		            $LibreDTE = new \sasco\LibreDTE\SDK\LibreDTE($hash, $url);
 
 		            // crear DTE temporal

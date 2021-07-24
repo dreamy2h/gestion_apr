@@ -29,7 +29,7 @@ $(document).ready(function() {
         ];
         
         ruta = "/Consumo/Ctrl_metros";
-    } else if (origen == "Ctrl_historial_pagos" || origen == "Ctrl_informe_socios" || origen == "Ctrl_boleta_electronica") {
+    } else if (origen == "Ctrl_historial_pagos" || origen == "Ctrl_informe_socios" || origen == "Ctrl_boleta_electronica" || origen == "Ctrl_informe_historico_socio") {
         ruta = "/Pagos/Ctrl_historial_pagos";
     } else if (origen ==  "Ctrl_repactacion") {
         ruta = "/Formularios/Ctrl_Convenios";

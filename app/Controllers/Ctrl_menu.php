@@ -320,6 +320,11 @@
 			echo view('Formularios/repactar');
 		}
 
+		public function informe_historico_socio() {
+			$this->validar_sesion();
+			echo view('Informes/informe_historico_socio');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

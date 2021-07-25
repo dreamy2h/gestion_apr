@@ -537,6 +537,7 @@
 		    ->select("forma_pago.glosa as forma_pago")
 		    ->select("caja.numero_transaccion")
 		    ->select("concat(usuarios.nombres, ' ', usuarios.ape_paterno, ' ', usuarios.ape_materno) as usuario")
+		    ->select("date_format(caja.fecha, '%d-%m-%Y %H:%m:%s') as fecha")
     		->join("usuarios", "caja.id_usuario = usuarios.id")
 			->join("forma_pago", "caja.id_forma_pago = forma_pago.id")
 			->where("caja.id_socio", $id_socio)
@@ -555,6 +556,7 @@
 		                        <th style="border: 1px solid; background-color: #17057F; color: white;">Forma Pago</th>
 		                        <th style="border: 1px solid; background-color: #17057F; color: white;">N° Transacción</th>
 		                        <th style="border: 1px solid; background-color: #17057F; color: white;">Usuario Recibe Pago</th>
+		                        <th style="border: 1px solid; background-color: #17057F; color: white;">Fecha</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -569,6 +571,7 @@
 	                        <th style="border: 1px solid; font-weight: normal;">' . $key["forma_pago"] . '</th>
 	                        <th style="border: 1px solid; font-weight: normal;">' . $key["numero_transaccion"] . '</th>
 	                        <th style="border: 1px solid; font-weight: normal;">' . $key["usuario"] . '</th>
+	                        <th style="border: 1px solid; font-weight: normal;">' . $key["fecha"] . '</th>
 	                    </tr>
 			    	');
 		    	}
@@ -600,6 +603,7 @@
 
 		    $datosAbonos = $this->abonos
 			->select("abono")
+			->select("date_format(fecha, '%d-%m-%Y %H:%m:%s') as fecha")
 			->where("id_socio", $id_socio)
 			->orderBy("id", "DESC")
 			->findAll();
@@ -611,6 +615,7 @@
 		                <thead>
 		                    <tr>
 		                    	<th style="border: 1px solid; background-color: #17057F; color: white;">Abono</th>
+		                    	<th style="border: 1px solid; background-color: #17057F; color: white;">Fecha</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -620,6 +625,7 @@
 		    		$this->mpdf->WriteHTML('
 	                    <tr>
 	                    	<th style="border: 1px solid; font-weight: normal;">' . number_format($key["abono"], 0, ',', '.') . '</th>
+	                    	<th style="border: 1px solid; font-weight: normal;">' . $key["fecha"] . '</th>
 	                    </tr>
 			    	');
 		    	}

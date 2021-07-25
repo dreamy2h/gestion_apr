@@ -217,7 +217,6 @@
 		    ->select("convenios.costo_servicio")
 			->join("servicios", "convenios.id_servicio = servicios.id")
 			->where("convenios.id_socio", $id_socio)
-			->where("convenios.estado", ACTIVO)
 			->findAll();
 
 		    if ($datosConvenios != null) {
@@ -393,7 +392,6 @@
 		    ->select("date_format(cambio_medidor.fecha_cambio, '%d-%m-%Y') as fecha_cambio")
     		->join("funcionarios", "cambio_medidor.id_funcionario = funcionarios.id")
 			->where("cambio_medidor.id_socio", $id_socio)
-    		->where("cambio_medidor.estado", ACTIVO)
     		->findAll();
 
     		if ($datosCambiosMedidor != null) {
@@ -542,7 +540,6 @@
     		->join("usuarios", "caja.id_usuario = usuarios.id")
 			->join("forma_pago", "caja.id_forma_pago = forma_pago.id")
 			->where("caja.id_socio", $id_socio)
-			->where("caja.estado", ACTIVO)
 			->orderBy("caja.id", "DESC")
 			->findAll();
 
@@ -604,7 +601,6 @@
 		    $datosAbonos = $this->abonos
 			->select("abono")
 			->where("id_socio", $id_socio)
-			->where("estado", ACTIVO)
 			->orderBy("id", "DESC")
 			->findAll();
 

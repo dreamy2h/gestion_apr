@@ -188,24 +188,10 @@
 
 		public function datatable_buscar_socio() {
 			$this->validar_sesion();
-			$datosSocio = $this->socios->select("id as id_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_pat) as nombre_socio")->select("concat(rut, '-', dv) as rut_socio")->where("id_apr", $this->sesión->id_apr_ses)->where("estado", 1)->findAll();
+			$data = $this->socios->select("id as id_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_pat) as nombre_socio")->select("concat(rut, '-', dv) as rut_socio")->select("rol as rol_socio")->where("id_apr", $this->sesión->id_apr_ses)->where("estado", 1)->findAll();
 
-			foreach ($datosSocio as $key) {
-				$row = array(
-					"id_socio" => $key["id_socio"],
-					"rut_socio" => $key["rut_socio"],
-					"nombre_socio" => $key["nombre_socio"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 		}
 
 		public function v_buscar_motivo() {

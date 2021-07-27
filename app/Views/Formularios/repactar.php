@@ -182,17 +182,18 @@
 	                </div>
 	            </div>
 	        </div>
-	        <div id="dlg_buscar_socio" class="modal fade" role="dialog">
+	        <div id="dlg_buscador" class="modal fade" role="dialog">
 	            <div class="modal-dialog modal-xl">
 	                <div class="modal-content">
 	                    <div class="modal-header">
-	                        <h4 class="modal-title">Buscar Socio (Doble click, para seleccionar)</h4>
+	                        <h4 class="modal-title" id="tlt_buscador"></h4>
 	                    </div>
 	                    <div class="modal-body">
-	                        <div id="divContenedorBuscarSocio"></div>
+	                    	<input type="hidden" name="txt_origen" id="txt_origen" value="repactacion">
+	                        <div id="divContenedorBuscador"></div>
 	                    </div>
 	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+	                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
 	                    </div>
 	                </div>
 	            </div>

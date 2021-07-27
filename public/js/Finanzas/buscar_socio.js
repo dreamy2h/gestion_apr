@@ -9,6 +9,7 @@ $(document).ready(function() {
         columns: [
             { "data": "id_socio" },
             { "data": "rut_socio" },
+            { "data": "rol_socio" },
             { "data": "nombre_socio" }
         ],
         language: {
@@ -44,6 +45,7 @@ $(document).ready(function() {
         var data = grid_buscar_socio.row(tr).data();
         var id_socio = data["id_socio"];
         var rut_socio = data["rut_socio"];
+        var rol_socio = data["rol_socio"];
         var nombre_socio = data["nombre_socio"];
 
         switch (origen) {
@@ -76,6 +78,12 @@ $(document).ready(function() {
             case "cambio_medidor":
                 $("#txt_id_socio").val(id_socio);
                 $("#txt_rut_socio").val(rut_socio);
+                $("#txt_nombre_socio").val(nombre_socio);
+                break;
+            case "repactacion":
+                $("#txt_id_socio").val(id_socio);
+                $("#txt_rut_socio").val(rut_socio);
+                $("#txt_rol").val(rol_socio);
                 $("#txt_nombre_socio").val(nombre_socio);
                 break;
         }

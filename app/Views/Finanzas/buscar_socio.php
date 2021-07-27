@@ -7,6 +7,7 @@
                     <tr>
                     	<th>Id.</th>
                         <th>RUT</th>
+                        <th>ROL</th>
                         <th>Nombre</th>
                     </tr>
                 </thead>

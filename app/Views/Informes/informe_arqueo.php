@@ -119,10 +119,12 @@
 				                            	<th>Total Pagado</th>
 				                            	<th>Entregado $</th>
 				                            	<th>Vuelto $</th>
+				                            	<th>Usuario</th>
 				                            </tr>
 				                        </thead>
 				                        <tfoot>
 				                            <tr>
+				                            	<th></th>
 				                            	<th></th>
 				                            	<th></th>
 				                            	<th></th>

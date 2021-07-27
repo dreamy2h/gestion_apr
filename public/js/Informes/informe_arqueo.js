@@ -144,6 +144,7 @@ $(document).ready(function() {
                     return peso.formateaNumero(data);
                 }
             },
+            { "data": "usuario" }
         ],
         footerCallback: function (row, data, start, end, display) {
             var api = this.api();

@@ -246,12 +246,6 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return peso.formateaNumero(data);
                 }
-            },
-            { 
-                "data": "id_metros",
-                "render": function(data, type, row) {
-                    return "<button type='button' class='detalle_metros btn btn-light' title='Detalle del Consumo de Metros'><i class='fas fa-tint'></i> </button>";
-                }
             }
         ],
         order: [[ 2, "asc" ]],

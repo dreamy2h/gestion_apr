@@ -8,8 +8,8 @@
 	            <div class="card-body">
 	                <div class="container-fluid">
 	                    <center>
-	                        <button type="button" name="btn_emitir" id="btn_emitir" class="btn btn-success"><i class="fas fa-receipt"></i> Emitir Boletas</button>
-	                        <button type="button" name="btn_imprimir" id="btn_imprimir" class="btn btn-primary"><i class="fas fa-print"></i> Imprimir Boleta Electrónica</button>
+	                        <button type="button" name="btn_emitir" id="btn_emitir" class="btn btn-success"><i class="fas fa-receipt"></i> Emitir DTE</button>
+	                        <button type="button" name="btn_imprimir" id="btn_imprimir" class="btn btn-primary"><i class="fas fa-print"></i> Imprimir DTE</button>
 	                        <button type="button" name="btn_aviso_cobranza" id="btn_aviso_cobranza" class="btn btn-info"><i class="fas fa-print"></i> Imprimir Aviso de Cobranza</button>
 	                    </center>
 	                </div>
@@ -128,7 +128,6 @@
 					                                <th>Multa $</th>
 					                                <th>T. Servicios $</th>
 					                                <th>T. Mes $</th>
-					                                <th width="10%">Detalle</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

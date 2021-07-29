@@ -206,17 +206,7 @@
 
 		public function llenar_cmb_tipo_ingreso() {
 			$this->validar_sesion();
-			$datosTiposIngreso = $this->tipos_ingreso->select("id")->select("tipo_ingreso")->where("estado", 1)->where("id_apr", $this->sesión->id_apr_ses)->findAll();
-
-			foreach ($datosTiposIngreso as $key) {
-				$row = array(
-					"id" => $key["id"],
-					"tipo_ingreso" => $key["tipo_ingreso"]
-				);
-
-				$data[] = $row;
-			}
-
+			$data = $this->tipos_ingreso->select("id")->select("tipo_ingreso")->where("estado", 1)->where("id_apr", $this->sesión->id_apr_ses)->findAll();
 			return json_encode($data);
 		}
 	}

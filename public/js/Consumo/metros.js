@@ -271,8 +271,8 @@ function calcular_total() {
     if (cuota_repactacion == "") { cuota_repactacion = 0; } else { cuota_repactacion = peso.quitar_formato(cuota_repactacion); }
     if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
 
-    var monto_facturable = parseInt(monto_subsidio) > parseInt(subtotal) ? total_mes = 0 : ((parseInt(subtotal)  - parseInt(monto_subsidio)) + parseInt(multa) + parseInt(total_servicios));
-    var total_mes = parseInt(monto_facturable) + parseInt(cuota_repactacion);
+    var monto_facturable = parseInt(monto_subsidio) > parseInt(subtotal) ? total_mes = 0 : parseInt(subtotal)  - parseInt(monto_subsidio);
+    var total_mes = parseInt(monto_facturable) + parseInt(cuota_repactacion)  + parseInt(multa) + parseInt(total_servicios);
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
     $("#txt_monto_facturable").val(peso.formateaNumero(monto_facturable));

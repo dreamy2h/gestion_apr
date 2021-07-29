@@ -79,6 +79,9 @@ $(document).ready(function() {
                 $("#txt_rut_proveedor_det").val(rut_proveedor);
                 $("#txt_razon_social_det").val(razon_social);
                 break;
+            case "informe_municipalidad_subsidios":
+                emitir_factura(id_proveedor, rut_proveedor, razon_social);
+                break;
         }
 
         if (('#dlg_buscador')) {

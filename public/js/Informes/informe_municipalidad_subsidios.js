@@ -24,15 +24,75 @@ var peso = {
 function buscar_subsidios() {
     var mes_consumo = $("#dt_mes_consumo").val();
 	$("#grid_subsidios").dataTable().fnReloadAjax(base_url + "/Informes/Ctrl_informe_municipal/datatable_informe_municipal/" + mes_consumo);
+    $("#grid_subsidios").DataTable().ajax.reload(function(json) {
+        $("#btn_emitir_factura").prop("disabled", false);
+    });
+}
+
+function emitir_factura(id_proveedor, rut_proveedor, razon_social) {
+    Swal.fire({
+        title: "¿Emitir Factura?",
+        text: "RUT Municipalidad: " + rut_proveedor + ", Razón Social: " + razon_social + ".",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var sub50 = $('#grid_subsidios').DataTable().column(4).data().sum();
+            var sub100 = $('#grid_subsidios').DataTable().column(5).data().sum();
+            var mes_facturado = $("#dt_mes_consumo").val();
+
+            $.ajax({
+                url: base_url + "/Informes/Ctrl_informe_municipal/emitir_factura",
+                type: "POST",
+                async: false,
+                dataType: "json",
+                data: {
+                    id_proveedor: id_proveedor,
+                    sub50: sub50,
+                    sub100: sub100,
+                    mes_facturado: mes_facturado
+                },
+                success: function(respuesta) {
+                    const OK = 1;
+                    if (respuesta.estado == OK) {
+                        alerta.ok("alerta", respuesta.mensaje);
+                        var url = base_url + "/Informes/Ctrl_informe_municipal/imprimir_factura/" + respuesta.folio;
+                        window.open(url, "Factura Electrónica", "width=1200,height=800,location=0,scrollbars=yes");
+                    } else {
+                        alerta.error("alerta", respuesta.mensaje);
+                    }
+                },
+                error: function(error) {
+                    respuesta = JSON.parse(error["responseText"]);
+                    alerta.error("alerta", respuesta.message);
+                }
+            });
+        }
+    });
 }
 
 $(document).ready(function() {
+    $("#btn_emitir_factura").prop("disabled", true);
+
 	$("#dt_mes_consumo").datetimepicker({
         format: "MM-YYYY",
         useCurrent: false,
         locale: moment.locale("es")
     }).on("dp.change", function() {
         buscar_subsidios();
+    });
+
+    $("#btn_emitir_factura").on("click", function() {
+        $("#tlt_buscador").text("Buscar Municipalidad");
+        $("#divContenedorDlg").load(
+            base_url + "/Finanzas/Ctrl_ingresos/v_buscar_proveedor"
+        ); 
+
+        $('#dlg_buscador').modal('show');
     });
 
 	var grid_subsidios = $("#grid_subsidios").DataTable({

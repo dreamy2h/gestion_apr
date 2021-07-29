@@ -50,6 +50,7 @@
 		public function emitir_dte() {
 			$this->validar_sesion();
 			define("BOLETA_EXENTA", 41);
+			define("FACTURA_ELECTRONICA", 33);
 	        define("ASIGNA_FOLIO_BOLECT", 7);
 	        define("PENDIENTE", 1);
 
@@ -170,11 +171,11 @@
 		                ]
 		            ];
 
-		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0) {
+		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0 || intval($multa) > 0 || intval($total_servicios) > 0) {
 		            	$dte["Encabezado"]["Totales"] = [
-			                'MontoNF' => intval($consumo_anterior_nf) + intval($cuota_repactacion),
+			                'MontoNF' => intval($consumo_anterior_nf) + intval($cuota_repactacion) + intval($multa) + intval($total_servicios),
 			                'SaldoAnterior' => $consumo_anterior_nf,
-			                'VlrPagar' => intval($monto_facturable) + intval($consumo_anterior_nf) + intval($cuota_repactacion),
+			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
 			            ];
 		            } 
 		            // return json_encode($dte); exit();

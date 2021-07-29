@@ -16,7 +16,12 @@
 				                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 				                    		<div class="form-group">
 				                    			<label class="small mb-1" for="dt_mes_consumo">Mes Consumo</label>
-				                                <input type='text' class="form-control" id='dt_mes_consumo' name="dt_mes_consumo" />
+				                    			<div class="input-group">
+				                                	<input type='text' class="form-control" id='dt_mes_consumo' name="dt_mes_consumo" />
+				                                	<div class="input-group-append">
+				                                		<button type="button" id="btn_emitir_factura" name="btn_emitir_factura" class="btn btn-primary"><i class="fas fa-receipt"></i> Emitir Factura</button>
+				                    				</div>
+				                    			</div>
 				                    		</div>
 				                    	</div>
 				                    </div>
@@ -67,6 +72,22 @@
 				    </div>
 				</div>
             </div>
+	    </div>
+	    <div id="dlg_buscador" class="modal fade" role="dialog">
+	        <div class="modal-dialog modal-xl">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title" id="tlt_buscador"></h4>
+	                </div>
+	                <div class="modal-body">
+	                	<input type="hidden" name="txt_origen" id="txt_origen" value="informe_municipalidad_subsidios">
+	                    <div id="divContenedorDlg"></div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	                </div>
+	            </div>
+	        </div>
 	    </div>
 	</div>
 </main>

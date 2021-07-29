@@ -28,7 +28,7 @@ function mostrar_datos_socios(data) {
     if (data["id_region"] != null) { $("#cmb_region").val(data["id_region"]); }
     if (data["id_provincia"] != null) { $("#cmb_provincia").val(data["id_provincia"]); }
     if (data["id_comuna"] != null) { $("#cmb_comuna").val(data["id_comuna"]); }
-    if (data["direccion_proveedor"] != null) { $("#txt_direccion_proveedor").val(data["direccion_proveedor"]); }
+    if (data["direccion"] != null) { $("#txt_direccion_proveedor").val(data["direccion"]); }
     if (data["email_proveedor"] != null) { $("#txt_email_proveedor").val(data["email_proveedor"]); }
     if (data["fono"] != null) { $("#txt_fono").val(data["fono"]); }
 }

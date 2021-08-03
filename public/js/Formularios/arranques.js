@@ -1,6 +1,5 @@
 var base_url = $("#txt_base_url").val();
 var datatable_enabled = true;
-var id_medidor;
 
 function des_habilitar(a, b) {
     $("#btn_nuevo").prop("disabled", b);
@@ -29,6 +28,8 @@ function des_habilitar(a, b) {
     $("#txt_resto_direccion").prop("disabled", a);
     $("#cmb_tipo_documento").prop("disabled", a);
     $("#txt_descuento").prop("disabled", a);
+    $("#txt_razon_social").prop("disabled", a);
+    $("#txt_giro").prop("disabled", a);
 }
 
 function mostrar_datos_arranque(data) {
@@ -37,8 +38,7 @@ function mostrar_datos_arranque(data) {
     $("#txt_rut_socio").val(data["rut_socio"]);
     $("#txt_rol").val(data["rol_socio"]);
     $("#txt_nombre_socio").val(data["nombre_socio"]);
-    id_medidor = data["id_medidor"];
-    $("#cmb_medidor").val(data["n_medidor"]);
+    $("#cmb_medidor").val(data["id_medidor"]);
     $("#cmb_sector").val(data["id_sector"]);
     
     $("#lbl_rd_si_sc").removeClass("active");
@@ -74,6 +74,8 @@ function mostrar_datos_arranque(data) {
     $("#txt_resto_direccion").val(data["resto_direccion"]);
     $("#cmb_tipo_documento").val(data["id_tipo_documento"]);
     $("#txt_descuento").val(data["descuento"]);
+    $("#txt_razon_social").val(data["razon_social"]);
+    $("#txt_giro").val(data["giro"]);
 }
 
 function guardar_arranque() {
@@ -89,6 +91,8 @@ function guardar_arranque() {
     var tipo_documento = $("#cmb_tipo_documento").val();
     var descuento = $("#txt_descuento").val();
     var id_medidor = $("#cmb_medidor").val();
+    var razon_social = $("#txt_razon_social").val();
+    var giro = $("#txt_giro").val();
 
     $.ajax({
         url: base_url + "/Formularios/Ctrl_arranques/guardar_arranque",
@@ -106,19 +110,20 @@ function guardar_arranque() {
             numero: numero,
             resto_direccion: resto_direccion,
             tipo_documento: tipo_documento,
-            descuento: descuento
+            descuento: descuento,
+            razon_social: razon_social,
+            giro: giro
         },
         success: function(respuesta) {
             const OK = 1;
             if (respuesta == OK) {
                 $("#grid_arranques").dataTable().fnReloadAjax(base_url + "/Formularios/Ctrl_arranques/datatable_arranques");
                 $("#form_arranque")[0].reset();
-                id_medidor = null;
                 des_habilitar(true, false);
                 alerta.ok("alerta", "Arranque guardado con éxito");
                 datatable_enabled = true;
                 reset_radio_buttons();
-                llenar_cmb_medidores();
+                llenar_cmb_medidores("TODOS");
                 $("#datosArranque").collapse("hide");
             } else {
                 alerta.error("alerta", respuesta);
@@ -295,11 +300,14 @@ function reset_radio_buttons() {
     $("#lbl_rd_no_sc").addClass("active");
 }
 
-function llenar_cmb_medidores() {
+function llenar_cmb_medidores(opcion) {
     $.ajax({
-        type: "GET",
+        type: "POST",
         dataType: "json",
         url: base_url + "/Formularios/Ctrl_arranques/llenar_cmb_medidores",
+        data: {
+            opcion: opcion
+        }
     }).done( function(data) {
         $("#cmb_medidor").html('');
         var opciones = "<option value=\"\">Seleccione un número de medidor</option>";
@@ -326,11 +334,12 @@ $(document).ready(function() {
     llenar_cmb_comuna();
     llenar_cmb_sector();
     llenar_cmb_tipo_documento();
-    llenar_cmb_medidores();
+    llenar_cmb_medidores("TODOS");
 
     $("#btn_nuevo").on("click", function() {
         des_habilitar(false, true);
         $("#form_arranque")[0].reset();
+        llenar_cmb_medidores("FILTRADO");
 
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
@@ -375,8 +384,8 @@ $(document).ready(function() {
         $("#form_arranque")[0].reset();
         des_habilitar(true, false);
         datatable_enabled = true;
-        id_medidor = null;
         reset_radio_buttons();
+        llenar_cmb_medidores("TODOS");
 
         $("#datosArranque").collapse("hide");
     });
@@ -496,10 +505,12 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return "<button type='button' class='traza_arranque btn btn-warning' title='Traza Arranque'><i class='fas fa-shoe-prints'></i></button>";
                 }
-            }
+            },
+            { "data": "razon_social" },
+            { "data": "giro" }
         ],
         "columnDefs": [
-            { "targets": [1, 2, 5, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], "visible": false, "searchable": false }
+            { "targets": [1, 2, 5, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 24, 25], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

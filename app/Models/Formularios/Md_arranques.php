@@ -9,7 +9,7 @@
 	    protected $returnType = 'array';
 	    // protected $useSoftDeletes = true;
 
-	    protected $allowedFields = ['id', 'id_socio', 'estado', 'id_medidor', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'id_sector', 'alcantarillado', 'cuota_socio', 'id_tipo_documento', 'descuento', 'id_usuario', 'fecha', 'id_apr'];
+	    protected $allowedFields = ['id', 'id_socio', 'estado', 'id_medidor', 'id_comuna', 'calle', 'numero', 'resto_direccion', 'id_sector', 'alcantarillado', 'cuota_socio', 'id_tipo_documento', 'descuento', 'id_usuario', 'fecha', 'id_apr', 'razon_social', 'giro'];
 
 	    public function datatable_arranques($db, $id_apr) {
 	    	$consulta = "SELECT 
@@ -35,7 +35,9 @@
 						     a.id_tipo_documento,
 						     a.descuento,
 						     u.usuario,
-						     date_format(a.fecha, '%d-%m-%Y %H:%i') as fecha
+						     date_format(a.fecha, '%d-%m-%Y %H:%i') as fecha,
+						     a.razon_social,
+						     a.giro
 						from 
 							arranques a
 						    left join socios s on a.id_socio = s.id
@@ -53,44 +55,10 @@
 
 
 			$query = $db->query($consulta);
-			$arranques = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($arranques as $key) {
-				$row = array(
-					"id_arranque" => $key["id_arranque"],
-					"id_socio" => $key["id_socio"],
-					"rut_socio" => $key["rut_socio"],
-					"rol_socio" => $key["rol_socio"],
-					"nombre_socio" => $key["nombre_socio"],
-					"id_medidor" => $key["id_medidor"],
-					"n_medidor" => $key["n_medidor"],
-					"id_diametro" => $key["id_diametro"],
-					"diametro" => $key["diametro"],
-					"id_sector" => $key["id_sector"],
-					"sector" => $key["sector"],
-					"alcantarillado" => $key["alcantarillado"],
-					"cuota_socio" => $key["cuota_socio"],
-					"id_region" => $key["id_region"],
-					"id_provincia" => $key["id_provincia"],
-					"id_comuna" => $key["id_comuna"],
-					"calle" => $key["calle"],
-					"numero" => $key["numero"],
-					"resto_direccion" => $key["resto_direccion"],
-					"id_tipo_documento" => $key["id_tipo_documento"],
-					"descuento" => $key["descuento"],
-					"usuario" => $key["usuario"],
-					"fecha" => $key["fecha"],
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": [] }";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 		public function datatable_arranque_reciclar($db, $id_apr) {

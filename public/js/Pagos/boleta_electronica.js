@@ -66,51 +66,55 @@ function emitir_dte() {
   	});
 
   	if (arr_boletas.length > 0) {
-  		$(".div_sample").JQLoader({
-			theme: "standard",
-			mask: true,
-			background: "#fff",
-			color: "#fff"
-		});
+  		setTimeout(function() {
+            $(".div_sample").JQLoader({
+                theme: "standard",
+                mask: true,
+                background: "#fff",
+                color: "#fff"
+            });
+        }, 500);
 
-		$.ajax({
-	        url: base_url + "/Pagos/Ctrl_boleta_electronica/emitir_dte",
-	        type: "POST",
-	        async: false,
-	        data: { arr_boletas: arr_boletas },
-	        success: function(respuesta) {
-	            const OK = 1;
-	            if (respuesta == OK) {
-	            	buscar_boletas();
-	                alerta.ok("alerta", "Boletas generadas con éxito");
-	            } else {
-	                Swal.fire({
-					  	icon: 'error',
-					  	title: 'Errores',
-					  	html: respuesta,
-					  	footer: 'Procedimiento terminado con errores'
-					});
-	            }
-	            $(".div_sample").JQLoader({
-					theme: "standard",
-					mask: true,
-					background: "#fff",
-					color: "#fff",
-					action: "close"
-				});
-	        },
-	        error: function(error) {
-	            $(".div_sample").JQLoader({
-					theme: "standard",
-					mask: true,
-					background: "#fff",
-					color: "#fff",
-					action: "close"
-				});
-	            respuesta = JSON.parse(error["responseText"]);
-	            alerta.error("alerta", respuesta.message);
-	        }
-	    });
+        setTimeout(function() {
+    		$.ajax({
+    	        url: base_url + "/Pagos/Ctrl_boleta_electronica/emitir_dte",
+    	        type: "POST",
+    	        async: false,
+    	        data: { arr_boletas: arr_boletas },
+    	        success: function(respuesta) {
+    	            const OK = 1;
+    	            if (respuesta == OK) {
+    	            	buscar_boletas();
+    	                alerta.ok("alerta", "Boletas generadas con éxito");
+    	            } else {
+    	                Swal.fire({
+    					  	icon: 'error',
+    					  	title: 'Errores',
+    					  	html: respuesta,
+    					  	footer: 'Procedimiento terminado con errores'
+    					});
+    	            }
+    	            $(".div_sample").JQLoader({
+    					theme: "standard",
+    					mask: true,
+    					background: "#fff",
+    					color: "#fff",
+    					action: "close"
+    				});
+    	        },
+    	        error: function(error) {
+    	            $(".div_sample").JQLoader({
+    					theme: "standard",
+    					mask: true,
+    					background: "#fff",
+    					color: "#fff",
+    					action: "close"
+    				});
+    	            respuesta = JSON.parse(error["responseText"]);
+    	            alerta.error("alerta", respuesta.message);
+    	        }
+    	    });
+        }, 500);
   	} else {
   		alerta.error("alerta", "Seleccione al menos una boleta, sin folio SII")
   	}

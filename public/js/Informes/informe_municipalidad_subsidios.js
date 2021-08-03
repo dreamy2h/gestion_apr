@@ -45,32 +45,59 @@ function emitir_factura(id_proveedor, rut_proveedor, razon_social) {
             var sub100 = $('#grid_subsidios').DataTable().column(5).data().sum();
             var mes_facturado = $("#dt_mes_consumo").val();
 
-            $.ajax({
-                url: base_url + "/Informes/Ctrl_informe_municipal/emitir_factura",
-                type: "POST",
-                async: false,
-                dataType: "json",
-                data: {
-                    id_proveedor: id_proveedor,
-                    sub50: sub50,
-                    sub100: sub100,
-                    mes_facturado: mes_facturado
-                },
-                success: function(respuesta) {
-                    const OK = 1;
-                    if (respuesta.estado == OK) {
-                        alerta.ok("alerta", respuesta.mensaje);
-                        var url = base_url + "/Informes/Ctrl_informe_municipal/imprimir_factura/" + respuesta.folio;
-                        window.open(url, "Factura Electrónica", "width=1200,height=800,location=0,scrollbars=yes");
-                    } else {
-                        alerta.error("alerta", respuesta.mensaje);
+            setTimeout(function() {
+                $(".div_sample").JQLoader({
+                    theme: "standard",
+                    mask: true,
+                    background: "#fff",
+                    color: "#fff"
+                });
+            }, 500);
+
+            setTimeout(function() {
+                $.ajax({
+                    url: base_url + "/Informes/Ctrl_informe_municipal/emitir_factura",
+                    type: "POST",
+                    async: false,
+                    dataType: "json",
+                    data: {
+                        id_proveedor: id_proveedor,
+                        sub50: sub50,
+                        sub100: sub100,
+                        mes_facturado: mes_facturado
+                    },
+                    success: function(respuesta) {
+                        const OK = 1;
+                        if (respuesta.estado == OK) {
+                            alerta.ok("alerta", respuesta.mensaje);
+                            var url = base_url + "/Informes/Ctrl_informe_municipal/imprimir_factura/" + respuesta.folio;
+                            window.open(url, "Factura Electrónica", "width=1200,height=800,location=0,scrollbars=yes");
+                        } else {
+                            alerta.error("alerta", respuesta.mensaje);
+                        }
+
+                        $(".div_sample").JQLoader({
+                            theme: "standard",
+                            mask: true,
+                            background: "#fff",
+                            color: "#fff",
+                            action: "close"
+                        });
+                    },
+                    error: function(error) {
+                        respuesta = JSON.parse(error["responseText"]);
+                        alerta.error("alerta", respuesta.message);
+
+                        $(".div_sample").JQLoader({
+                            theme: "standard",
+                            mask: true,
+                            background: "#fff",
+                            color: "#fff",
+                            action: "close"
+                        });
                     }
-                },
-                error: function(error) {
-                    respuesta = JSON.parse(error["responseText"]);
-                    alerta.error("alerta", respuesta.message);
-                }
-            });
+                });
+            }, 500);
         }
     });
 }

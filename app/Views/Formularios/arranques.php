@@ -153,7 +153,6 @@
 				                			</div>
 				                		</div>
 				                		<div class="row">
-		                                    
 		                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
 		                                        <div class="form-group">
 		                                            <label class="small mb-1" for="cmb_tipo_documento">Tipo Documento</label>
@@ -168,7 +167,18 @@
 					                        </div>
 		                                </div>
 				                		<div class="row">
-				                			
+				                			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+		                                        <div class="form-group">
+		                                            <label class="small mb-1" for="txt_razon_social">Razón Social</label>
+		                                            <input type='text' class="form-control" id='txt_razon_social' name="txt_razon_social" />
+		                                        </div>
+		                                    </div>
+		                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+				                				<div class="form-group">
+					                                <label class="small mb-1" for="txt_giro">Giro</label>
+					                                <input type='text' class="form-control" id='txt_giro' name="txt_giro" />
+					                            </div>
+					                        </div>
 				                		</div>
 				                	</form>
 				                </div>
@@ -177,7 +187,6 @@
 				    </div>
 			    </div>
 			</div>
-			<br>
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 	<div class="card mb-4">
@@ -213,6 +222,8 @@
 					                                <th>Usuarios Reg</th>
 					                                <th>Fecha</th>
 					                                <th>Traza</th>
+					                                <th>Razón Social</th>
+					                                <th>Giro</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

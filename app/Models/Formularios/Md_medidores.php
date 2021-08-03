@@ -63,17 +63,19 @@
 			return json_encode($salida);
 	    }
 
-	    public function llenar_cmb_medidores($db, $id_apr) {
+	    public function llenar_cmb_medidores($db, $id_apr, $opcion) {
 	    	$consulta = "SELECT 
 							id,
 						    numero
 						from 
 							medidores
 						where
-							id NOT IN(select id_medidor from arranques where id_medidor is not null and id_apr = $id_apr and estado = 1) and
-						    id_apr = $id_apr and
+							id_apr = $id_apr and
 						    estado = 1";
-
+							
+			if ($opcion ==  "FILTRADO") {
+				$consulta .= " and id NOT IN(select id_medidor from arranques where id_medidor is not null and id_apr = $id_apr and estado = 1)";
+			}
 
 			$query = $db->query($consulta);
 			$data = $query->getResultArray();

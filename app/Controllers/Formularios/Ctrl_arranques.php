@@ -79,7 +79,9 @@
 
 		public function llenar_cmb_medidores() {
 			$this->validar_sesion();
-			echo $this->medidores->llenar_cmb_medidores($this->db, $this->sesión->id_apr_ses);
+			$opcion = $this->request->getPost("opcion");
+
+			echo $this->medidores->llenar_cmb_medidores($this->db, $this->sesión->id_apr_ses, $opcion);
 		}
 
 		public function guardar_arranque() {
@@ -107,6 +109,8 @@
 			$resto_direccion = $this->request->getPost("resto_direccion");
 			$tipo_documento = $this->request->getPost("tipo_documento");
 			$descuento = $this->request->getPost("descuento");
+			$razon_social = $this->request->getPost("razon_social");
+			$giro = $this->request->getPost("giro");
 
 			if ($id_comuna == "") { $id_comuna = null; }
 			if ($calle == "") { $calle = null; }
@@ -127,7 +131,9 @@
 				"descuento" => $descuento,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
-				"id_apr" => $id_apr
+				"id_apr" => $id_apr,
+				"razon_social" => $razon_social,
+				"giro" => $giro
 			];
 
 			if ($id_arranque != "") {

@@ -41,6 +41,7 @@
 				                        <thead class="thead-dark">
 				                            <tr>
 				                            	<th>#</th>
+												<th>Folio DTE</th>
 				                            	<th>ROL</th>
 				                            	<th>RUT</th>
 				                            	<th>Nombre</th>
@@ -51,7 +52,8 @@
 				                            	<th>Multa $</th>
 				                            	<th>T. Serv. $</th>
 				                            	<th>Subsidio $</th>
-				                            	<th>Total Mes</th>
+												<th>Saldo anterior $</th>
+				                            	<th>Total Mes $</th>
 				                            	<th>Estado Pago</th>
 				                            </tr>
 				                        </thead>
@@ -70,6 +72,8 @@
 				                            	<th></th>
 				                            	<th></th>
 				                            	<th></th>
+												<th></th>
+												<th></th>
 				                            </tr>
 				                        </tfoot>
 				                    </table> 

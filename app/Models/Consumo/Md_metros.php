@@ -213,6 +213,7 @@
 
 	    	$consulta = "SELECT 
 							m.id as id_metros,
+							m.folio_bolect,
 						    s.rol as rol_socio,
 						    concat(s.rut, '-', dv) as rut,
 						    concat(s.nombres, ' ', s.ape_pat) as nombre_socio,
@@ -223,6 +224,7 @@
 						    m.multa,
 						    m.total_servicios,
 						    m.monto_subsidio,
+							(select sum(total_mes) from metros m2 where m2.id_socio = m.id_socio and m2.estado = 1 and m2.id < m.id) as saldo_anterior,
 						    m.total_mes,
 						    me.glosa as estado
 						from 
@@ -235,34 +237,10 @@
 						    m.id_apr = ?";
 
 			$query = $db->query($consulta, [$mes_consumo, $estado, $id_apr]);
-			$metros = $query->getResultArray();
+			$data = $query->getResultArray();
 
-			foreach ($metros as $key) {
-				$row = array(
-					"id_metros" => $key["id_metros"],
-					"rol_socio" => $key["rol_socio"],
-					"rut" => $key["rut"],
-					"nombre_socio" => $key["nombre_socio"],
-					"consumo_anterior" => $key["consumo_anterior"],
-					"consumo_actual" => $key["consumo_actual"],
-					"metros" => $key["metros"],
-					"subtotal" => $key["subtotal"],
-					"multa" => $key["multa"],
-					"total_servicios" => $key["total_servicios"],
-					"monto_subsidio" => $key["monto_subsidio"],
-					"total_mes" => $key["total_mes"],
-					"estado" => $key["estado"]
-				);
-
-				$data[] = $row;
-			}
-
-			if (isset($data)) {
-				$salida = array("data" => $data);
-				return json_encode($salida);
-			} else {
-				return "{ \"data\": []}";
-			}
+			$salida = array("data" => $data);
+			return json_encode($salida);
 	    }
 
 	    public function datatable_informe_consumo_agua($db, $id_apr, $datosBusqueda) {

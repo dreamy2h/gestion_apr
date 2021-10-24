@@ -47,6 +47,28 @@
 			echo $this->metros->datatable_boleta_electronica($this->db, $this->sesión->id_apr_ses, $datosBusqueda);
 		}
 
+		public function periodo_desde($mes_consumo) {
+			$my_date = new \DateTime();
+			$mes_consumo = explode("-", $mes_consumo);
+			$month = $mes_consumo[0];
+			$year = $mes_consumo[1];
+			$monthName = strtotime($month);
+			$my_date->modify('first day of ' . $monthName . ' ' . $year);
+			$my_date = date_format($my_date,"Y-m-d");
+			return $my_date;
+		}
+
+		public function periodo_hasta($mes_consumo) {
+			$my_date = new \DateTime();
+			$mes_consumo = explode("-", $mes_consumo);
+			$month = $mes_consumo[0];
+			$year = $mes_consumo[1];
+			$monthName = strtotime($month);
+			$my_date->modify('last day of ' . $monthName . ' ' . $year);
+			$my_date = date_format($my_date,"Y-m-d");
+			return $my_date;
+		}
+
 		public function emitir_dte() {
 			$this->validar_sesion();
 			define("BOLETA_EXENTA", 41);
@@ -73,9 +95,12 @@
 				->select("consumo_anterior")
 				->select("consumo_actual")
 				->select("metros")
+				->select("monto_subsidio")
+				->select("subtotal")
+				->select("date_format(fecha_ingreso, '%m-%Y') as mes_consumo")
+				->select("date_format(fecha_vencimiento, '%Y-%m-%d') as fecha_vencimiento")
 				->where("id", $folio)
 				->first();
-
 
 				$consumo_anterior = $datosMetros["consumo_anterior"];
 				$consumo_actual = $datosMetros["consumo_actual"];
@@ -85,8 +110,14 @@
 				$cuota_repactacion = $datosMetros["cuota_repactacion"];
 				$total_servicios = $datosMetros["total_servicios"];
 				$multa = $datosMetros["multa"];
+				$monto_subsidio = $datosMetros["monto_subsidio"];
+				$subtotal = $datosMetros["subtotal"];
+				$mes_consumo = $datosMetros["mes_consumo"];
+				$periodo_desde = $this->periodo_desde($mes_consumo);
+				$periodo_hasta = $this->periodo_hasta($mes_consumo);
+				$fecha_vencimiento = $datosMetros["fecha_vencimiento"];
 				$id_socio =  $datosMetros["id_socio"];
-
+				
 				if (intval($total_mes) > 0) {
 					$datosSocios = $this->socios
 					->select("concat(socios.rut, '-', socios.dv) as rut_socio")
@@ -95,7 +126,13 @@
 					->select("socios.rol")
 					->select("socios.id_comuna")
 					->select("a.id_tipo_documento as tipo_documento")
+					->select("m.numero as num_medidor")
+					->select("cf.cargo_fijo")
+					->select("s.nombre as sector")
 					->join("arranques a", "a.id_socio = socios.id")
+					->join("sectores s", "a.id_sector = s.id")
+					->join("medidores m", "a.id_medidor = m.id")
+					->join("apr_cargo_fijo cf", "cf.id_apr = socios.id_apr and cf.id_diametro = m.id_diametro")
 					->where("socios.id", $id_socio)
 					->first();
 
@@ -133,6 +170,10 @@
 							$tipo_documento = FACTURA_EXENTA;
 							break;
 					}
+
+					$num_medidor = $datosSocios["num_medidor"];
+					$cargo_fijo = $datosSocios["cargo_fijo"];
+					$sector = $datosSocios["sector"];
 					
 					$datosParaGrafico = $this->metros->select("date_format(fecha_ingreso, '%m-%Y') as fecha")->select("consumo_actual")->where("id_socio", $id_socio)->whereNotIn("estado", [0])->findAll();
 
@@ -156,6 +197,9 @@
 		                'Encabezado' => [
 		                    'IdDoc' => [
 		                        'TipoDTE' => $tipo_documento,
+								'PeriodoDesde' => $periodo_desde,
+								'PeriodoHasta' => $periodo_hasta,
+								'FchVenc' => $fecha_vencimiento
 		                    ],
 		                    'Emisor' => [
 		                        'RUTEmisor' => $rut_apr,
@@ -172,9 +216,16 @@
 		                'Detalle' => [
 							[
 								'IndExe' => 1,
+								'NmbItem' => 'Cargo Fijo',
+								'QtyItem' => 1,
+								'PrcItem' => $cargo_fijo
+							],
+							[
+								'IndExe' => 1,
 		                        'NmbItem' => 'Consumo de Agua Potable',
 		                        'QtyItem' => 1,
-		                        'PrcItem' => $monto_facturable,
+		                        'PrcItem' => intval($subtotal) - intval($cargo_fijo),
+								'DescuentoMonto' => $monto_subsidio
 							]
 						],
 		                'LibreDTE' => [
@@ -182,7 +233,9 @@
 		                    	'dte' => [
 		                            'Encabezado' => [
 		                                'IdDoc' => [
-		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³."
+		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³.
+																N° Medidor: $num_medidor
+																Sector: $sector"
 		                                ]
 		                            ]
 		                        ],
@@ -209,7 +262,44 @@
 			                'SaldoAnterior' => $consumo_anterior_nf,
 			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
 			            ];
-		            } 
+		            }
+
+					if (intval($consumo_anterior_nf) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Consumo Anterior',
+							'QtyItem' => 1,
+							'PrcItem' => $consumo_anterior_nf
+						]);
+					}
+
+					if (intval($cuota_repactacion) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Cuota Repactación',
+							'QtyItem' => 1,
+							'PrcItem' => $cuota_repactacion
+						]);
+					}
+
+					if (intval($multa) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Multa',
+							'QtyItem' => 1,
+							'PrcItem' => $multa
+						]);
+					}
+
+					if (intval($total_servicios) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Total Servicios',
+							'QtyItem' => 1,
+							'PrcItem' => $total_servicios
+						]);
+					}
+
 		            // return json_encode($dte); exit();
 		            $LibreDTE = new \sasco\LibreDTE\SDK\LibreDTE($hash, $url);
 

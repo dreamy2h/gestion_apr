@@ -280,7 +280,7 @@ function calcular_total() {
 
 function existe_consumo_mes() {
     var id_socio = $("#txt_id_socio").val();
-    var fecha_vencimiento = $("#dt_fecha_vencimiento").val();
+    var fecha_ingreso = $("#dt_fecha_ingreso").val();
 
     $.ajax({
         url: base_url + "/Consumo/Ctrl_metros/existe_consumo_mes",
@@ -288,16 +288,15 @@ function existe_consumo_mes() {
         async: false,
         data: { 
             id_socio: id_socio,
-            fecha_vencimiento: fecha_vencimiento
+            fecha_ingreso: fecha_ingreso
         },
         success: function(respuesta) {
             if (parseInt(respuesta) > 0) {
                 $("#dt_fecha_ingreso").val("");
                 $("#dt_fecha_vencimiento").val("");
-                alerta.aviso("alerta", "Hay un consumo ingresado con vencimiento este mes, para este socio");
+                alerta.aviso("alerta", "Hay un consumo ingresado este mes, para este socio");
             } else {
                 habilita_consumo_actual();
-                calcular_total_servicios();
             }
         },
         error: function(error) {
@@ -414,7 +413,7 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_ingreso").on("blur", function() {
-        habilita_consumo_actual();
+        existe_consumo_mes();
     });
 
     $("#dt_fecha_vencimiento").datetimepicker({
@@ -426,7 +425,8 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_vencimiento").on("blur", function() {
-        existe_consumo_mes();
+        habilita_consumo_actual();
+        calcular_total_servicios();
     });
 
     $("#txt_c_actual").on("blur", function() {

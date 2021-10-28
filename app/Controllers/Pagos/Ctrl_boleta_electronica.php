@@ -82,6 +82,12 @@
 			$hash = $this->sesión->hash_apr_ses;
 			$rut_apr = $this->sesión->rut_apr_ses . "-" . $this->sesión->dv_apr_ses;
 
+			$datosApr = $this->apr
+			->select("ifnull(resto_direccion, 'Sin Registro') as observaciones")
+			->where("id", $this->sesión->id_apr_ses)->first();
+
+			$observaciones = $datosApr["observaciones"];
+
 			$folios = $this->request->getPost("arr_boletas");
 
 			foreach ($folios as $folio) {
@@ -219,13 +225,6 @@
 								'NmbItem' => 'Cargo Fijo',
 								'QtyItem' => 1,
 								'PrcItem' => $cargo_fijo
-							],
-							[
-								'IndExe' => 1,
-		                        'NmbItem' => 'Consumo de Agua Potable',
-		                        'QtyItem' => 1,
-		                        'PrcItem' => intval($subtotal) - intval($cargo_fijo),
-								'DescuentoMonto' => $monto_subsidio
 							]
 						],
 		                'LibreDTE' => [
@@ -235,7 +234,8 @@
 		                                'IdDoc' => [
 		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³.
 																N° Medidor: $num_medidor
-																Sector: $sector"
+																Sector: $sector
+																$observaciones"
 		                                ]
 		                            ]
 		                        ],
@@ -263,6 +263,18 @@
 			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
 			            ];
 		            }
+					
+					$subtotal_dte = intval($subtotal) - intval($cargo_fijo);
+					
+					if ($subtotal_dte > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Consumo de Agua Potable',
+							'QtyItem' => 1,
+							'PrcItem' => $subtotal_dte,
+							'DescuentoMonto' => $monto_subsidio
+						]);
+					}
 
 					if (intval($consumo_anterior_nf) > 0) {
 						array_push($dte["Detalle"], [

@@ -233,9 +233,8 @@
 		                            'Encabezado' => [
 		                                'IdDoc' => [
 		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³.
-																N° Medidor: $num_medidor
-																Sector: $sector
-																$observaciones"
+											N° Medidor: $num_medidor, Sector: $sector
+											$observaciones"
 		                                ]
 		                            ]
 		                        ],

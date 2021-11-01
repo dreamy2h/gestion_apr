@@ -222,9 +222,11 @@
 		                'Detalle' => [
 							[
 								'IndExe' => 1,
-								'NmbItem' => 'Cargo Fijo',
+								'NmbItem' => 'Consumo de Agua Potable',
 								'QtyItem' => 1,
-								'PrcItem' => $cargo_fijo
+								'PrcItem' => $subtotal,
+								'DescuentoMonto' => $monto_subsidio,
+								'RecargoMonto' => $cargo_fijo
 							]
 						],
 		                'LibreDTE' => [
@@ -262,18 +264,6 @@
 			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
 			            ];
 		            }
-					
-					$subtotal_dte = intval($subtotal) - intval($cargo_fijo);
-					
-					if ($subtotal_dte > 0) {
-						array_push($dte["Detalle"], [
-							'IndExe' => 1,
-							'NmbItem' => 'Consumo de Agua Potable',
-							'QtyItem' => 1,
-							'PrcItem' => $subtotal_dte,
-							'DescuentoMonto' => $monto_subsidio
-						]);
-					}
 
 					if (intval($consumo_anterior_nf) > 0) {
 						array_push($dte["Detalle"], [

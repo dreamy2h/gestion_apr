@@ -240,7 +240,6 @@ $(document).ready(function() {
             },
             txt_monto: {
                 required: true,
-                number: true,
                 maxlength: 12
             },
             dt_fecha_egreso: {
@@ -267,7 +266,6 @@ $(document).ready(function() {
             },
             txt_monto: {
                 required: "El monto es obligatorio",
-                number: "Solo números",
                 maxlength: "Máximo 12 caracteres"
             },
             dt_fecha_egreso: {

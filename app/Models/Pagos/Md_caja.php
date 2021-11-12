@@ -132,7 +132,8 @@
 							caja c
 						where 
 							c.id_apr = ? and
-							date_format(c.fecha, '%m-%Y') = ?
+							date_format(c.fecha, '%m-%Y') = ? and
+							c.estado = 1
 						group by
 							date_format(c.fecha, '%d-%m-%Y')";
 

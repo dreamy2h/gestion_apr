@@ -232,7 +232,12 @@
 
 		public function llenar_cmb_ubicacion() {
 			$this->validar_sesion();
-			$datosUbicaciones = $this->ubicaciones_producto->select("id")->select("ubicacion")->where("estado", 1)->findAll();
+			$datosUbicaciones = $this->ubicaciones_producto
+								->select("id")
+								->select("ubicacion")
+								->where("estado", 1)
+								->where("id_apr", $this->sesión->id_apr_ses)
+								->findAll();
 
 			$data = array();
 

@@ -637,7 +637,7 @@ $(document).ready(function() {
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 5, 6, 8, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 25], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 25], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

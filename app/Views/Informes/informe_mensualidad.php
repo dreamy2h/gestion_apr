@@ -15,7 +15,7 @@
 				                    <div class="row">
 				                    	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 				                    		<div class="form-group">
-				                    			<label class="small mb-1" for="dt_mes_consumo">Mes Consumo</label>
+				                    			<label class="small mb-1" for="dt_mes_consumo">Seleccione Mes</label>
 				                                <input type='text' class="form-control" id='dt_mes_consumo' name="dt_mes_consumo" />
 				                    		</div>
 				                    	</div>

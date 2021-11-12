@@ -92,9 +92,15 @@
 
 			$this->mpdf->SetTitle("Informe Histórico Socio " . $datosSocio["rol"]);
 		    $this->mpdf->WriteHTML('
+				<div style="width: 20%; position: absolute; top: 10px; right: 0;">
+					<img src="' . $this->sesión->id_apr_ses . '.png" />
+				</div>
 		    	<div style="width: 60%; float: left; font-size: 150%; margin-left: 20%;">
                     <center><b>Informe Histórico de Socio ' . $datosSocio["rol"] . '</b></center>
                 </div>
+				<div style="width: 40%; float: left; font-size: 110%; margin-left: 30%;">
+                    <b>' . $this->sesión->apr_ses . '</b>
+				</div>					
                 <br><br>
                 <div style="width: 100%; float: left;">
                     <div style="font-size: 110%;">

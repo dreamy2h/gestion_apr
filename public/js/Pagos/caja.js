@@ -150,6 +150,7 @@ function guardar_pago() {
                     url: base_url + "/Pagos/Ctrl_caja/guardar_pago",
                     type: "POST",
                     async: false,
+                    dataType: "json",
                     data: {
                         id_socio: id_socio,
                         total_pagar: total_pagar,
@@ -163,7 +164,7 @@ function guardar_pago() {
                     },
                     success: function(respuesta) {
                         const OK = 1;
-                        if (respuesta == OK) {
+                        if (respuesta.estado == OK) {
                             $("#txt_id_socio").val("");
                             $("#txt_rut_socio").val("");
                             $("#txt_rol").val("");
@@ -193,14 +194,15 @@ function guardar_pago() {
                                 forma_pago_glosa: forma_pago_glosa,
                                 n_transaccion: n_transaccion,
                                 nombre_socio: nombre_socio,
-                                descuento: descuento
+                                descuento: descuento,
+                                id_caja: respuesta.id_caja
                             }
 
                             var datos_json = JSON.stringify(datos);
 
                             window.open(base_url + "/Pagos/Ctrl_caja/emitir_comprobante_pago/" + datos_json, "DTE", "width=1200,height=800,location=0,scrollbars=yes");
                         } else {
-                            alerta.error("alerta", respuesta);
+                            alerta.error("alerta", respuesta.estado);
                         }
                     },
                     error: function(error) {

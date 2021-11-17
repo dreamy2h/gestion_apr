@@ -203,8 +203,6 @@
 		                'Encabezado' => [
 		                    'IdDoc' => [
 		                        'TipoDTE' => $tipo_documento,
-								'PeriodoDesde' => $periodo_desde,
-								'PeriodoHasta' => $periodo_hasta,
 								'FchVenc' => $fecha_vencimiento
 		                    ],
 		                    'Emisor' => [
@@ -224,9 +222,8 @@
 								'IndExe' => 1,
 								'NmbItem' => 'Consumo de Agua Potable',
 								'QtyItem' => 1,
-								'PrcItem' => intval($subtotal) - intval($cargo_fijo),
-								'DescuentoMonto' => $monto_subsidio,
-								'RecargoMonto' => $cargo_fijo
+								'PrcItem' => intval($subtotal),
+								'DescuentoMonto' => $monto_subsidio
 							]
 						],
 		                'LibreDTE' => [
@@ -235,6 +232,7 @@
 		                            'Encabezado' => [
 		                                'IdDoc' => [
 		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³.
+											Cargo Fijo: " . number_format($cargo_fijo, 0, ",", ".") . "
 											N° Medidor: $num_medidor, Sector: $sector
 											$observaciones"
 		                                ]

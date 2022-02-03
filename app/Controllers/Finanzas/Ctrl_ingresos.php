@@ -188,7 +188,7 @@
 
 		public function datatable_buscar_socio() {
 			$this->validar_sesion();
-			$data = $this->socios->select("id as id_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_pat) as nombre_socio")->select("concat(rut, '-', dv) as rut_socio")->select("rol as rol_socio")->where("id_apr", $this->sesión->id_apr_ses)->where("estado", 1)->findAll();
+			$data = $this->socios->select("id as id_socio")->select("concat(nombres, ' ', ape_pat, ' ', ape_mat) as nombre_socio")->select("concat(rut, '-', dv) as rut_socio")->select("rol as rol_socio")->where("id_apr", $this->sesión->id_apr_ses)->where("estado", 1)->findAll();
 
 			$salida = array("data" => $data);
 			return json_encode($salida);

@@ -85,6 +85,7 @@ $(document).ready(function() {
                 $("#txt_rut_socio").val(rut_socio);
                 $("#txt_rol").val(rol_socio);
                 $("#txt_nombre_socio").val(nombre_socio);
+                buscar_deuda();
                 break;
         }
 

@@ -481,8 +481,7 @@ $(document).ready(function() {
                 maxlength: 11
             },
             txt_multa: {
-                number: true,
-                maxlength: 11
+                maxlength: 12
             }
         },
         messages: {
@@ -506,7 +505,6 @@ $(document).ready(function() {
                 maxlength: "Máximo 11 números"
             },
             txt_multa: {
-                number: "Solo números",
                 maxlength: "Máximo 11 números"
             }
         }

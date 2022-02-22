@@ -131,13 +131,13 @@
 							                    <div class="row">
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_c_anterior">Consumo Anterior</label>
+							                                <label class="small mb-1" for="txt_c_anterior">Lectura Anterior</label>
 							                                <input type='text' class="form-control" id='txt_c_anterior' name="txt_c_anterior" />
 							                            </div>
 							                        </div>
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_c_actual">Consumo Actual</label>
+							                                <label class="small mb-1" for="txt_c_actual">Lectura Actual</label>
 							                                <input type='text' class="form-control" id='txt_c_actual' name="txt_c_actual" />
 							                            </div>
 							                        </div>

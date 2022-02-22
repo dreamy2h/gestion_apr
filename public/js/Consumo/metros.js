@@ -405,7 +405,7 @@ $(document).ready(function() {
     });
 
     $("#dt_fecha_ingreso").datetimepicker({
-        format: "DD-MM-YYYY",
+        format: "MM-YYYY",
         useCurrent: false,
         locale: moment.locale("es")
     }).on("dp.change", function() {

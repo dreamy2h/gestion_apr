@@ -28,7 +28,7 @@
 							sec.nombre as sector,
 							med.id_diametro,
 							d.glosa as diametro,
-							date_format(m.fecha_ingreso, '%d-%m-%Y') as fecha_ingreso,
+							date_format(m.fecha_ingreso, '%m-%Y') as fecha_ingreso,
 							date_format(m.fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento,
 							m.consumo_anterior,
 							m.consumo_actual,

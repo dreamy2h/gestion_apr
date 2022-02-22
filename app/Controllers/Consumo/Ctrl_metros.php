@@ -53,7 +53,7 @@
 			$id_metros = $this->request->getPost("id_metros");
 			$id_socio = $this->request->getPost("id_socio");
 			$monto_subsidio = $this->request->getPost("monto_subsidio");
-			$fecha_ingreso = $this->request->getPost("fecha_ingreso");
+			$fecha_ingreso = "01-" . $this->request->getPost("fecha_ingreso");
 			$fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
 			$consumo_anterior = $this->request->getPost("consumo_anterior");
 			$consumo_actual = $this->request->getPost("consumo_actual");
@@ -216,7 +216,7 @@
 			$id_socio = $this->request->getPost("id_socio");
 			$fecha_ingreso = $this->request->getPost("fecha_ingreso");
 
-			$existe_consumo_mes = $this->metros->select("count(*) as filas")->where("id_socio", $id_socio)->where("date_format(fecha_ingreso, '%m-%Y')", date_format(date_create($fecha_ingreso), 'm-Y'))->where("estado", 1)->first();
+			$existe_consumo_mes = $this->metros->select("count(*) as filas")->where("id_socio", $id_socio)->where("date_format(fecha_ingreso, '%m-%Y')", $fecha_ingreso)->where("estado", 1)->first();
 			$filas = $existe_consumo_mes["filas"];
 
 			echo $filas;

@@ -56,10 +56,11 @@
                                                     <th>Id. Metros</th>
                                                     <th width="10%">Ruta</th>
 					                            	<th width="15%">ROL</th>
-					                            	<th width="30%">Socio</th>
-					                                <th width="15%">N° Medidor</th>
+					                            	<th width="25%">Socio</th>
+					                                <th width="10%">N° Medidor</th>
 					                                <th width="15%">L. Anterior</th>
 					                                <th width="15%">L. Actual</th>
+													<th width="10%">Promedio</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

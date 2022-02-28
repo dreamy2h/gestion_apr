@@ -22,9 +22,12 @@
         protected $apr;
         protected $subsidios;
         protected $arranques;
-        protected $validacion_datos;
 		protected $sesión;
 		protected $db;
+        
+        protected $validation;
+        protected $validacion_datos;
+        protected $validacion_id_socio;
 
 		public function __construct() {
 			$this->metros = new Md_metros();
@@ -38,6 +41,7 @@
             $this->arranques = new Md_arranques();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
+            $this->validation =  \Config\Services::validation();
 
             $this->validacion_datos = [
                 "id_metros" => [
@@ -83,6 +87,17 @@
                     "errors" => [
                         "required" => "El campo {field} es obligatorio",
                         "numeric" => "El campo {field} debe ser numérico"
+                    ]
+                ]
+			];
+
+            $this->validacion_id_socio = [
+                "id_socio" => [
+                    "label" => "ID. Socio",
+                    "rules" => "required|integer",
+                    "errors" => [
+                        "required" => "{field} no se está enviando, reincie el formulario",
+                        "integer" => "Id. Socio debe ser un campo numérico"
                     ]
                 ]
 			];
@@ -273,8 +288,27 @@
                     return json_encode($respuesta);
                 }
             } else {
-                $validation =  \Config\Services::validation();
-                $errors = implode(",", $validation->getErrors());
+                $errors = implode(",", $this->validation->getErrors());
+                $respuesta = [
+                    "estado" => "Error",
+                    "mensaje" => $errors
+                ];
+                return json_encode($respuesta);
+            }
+        }
+
+        public function obtener_promedio() {
+            $this->validar_sesion();
+            if ($this->request->getMethod() == "post" && $this->validate($this->validacion_id_socio)) {
+                $id_socio = $this->request->getPost("id_socio");
+                $datosMetros = $this->metros->select("CAST(AVG(metros) as SIGNED) as promedio")->where("id_socio", $id_socio)->first();
+                $respuesta = [
+                    "estado" => "OK",
+                    "mensaje" => $datosMetros["promedio"]
+                ];
+                return json_encode($respuesta);
+            } else {
+                $errors = implode(",", $this->validation->getErrors());
                 $respuesta = [
                     "estado" => "Error",
                     "mensaje" => $errors

@@ -60,7 +60,9 @@ function ingresar_lectura(data) {
         },
         success: function(respuesta) {
             if (respuesta.estado == "OK") {
+                const table = $("#grid_lecturas_sector").DataTable()
                 alerta.ok("alerta", respuesta.mensaje);
+                table.ajax.reload(null, false);
             } else {
                 alerta.error("alerta", respuesta.mensaje);
             }
@@ -74,6 +76,30 @@ function ingresar_lectura(data) {
 
 function set_lectura_actual(value) {
     lectura_actual = value;
+}
+
+function obtener_promedio(data) {
+    $.ajax({
+        url: base_url + "/Consumo/Ctrl_lecturas_sector/obtener_promedio",
+        type: "POST",
+        async: false,
+        dataType: "json",
+        data: { 
+            id_socio: data.id_socio
+        },
+        success: function(respuesta) {
+            if (respuesta.estado == "OK") {
+                lectura_actual = parseInt(data.lectura_anterior) + parseInt(respuesta.mensaje);
+                ingresar_lectura(data)
+            } else {
+                alerta.error("alerta", respuesta.mensaje);
+            }
+        },
+        error: function(error) {
+            respuesta = JSON.parse(error["responseText"]);
+            alerta.error("alerta", respuesta.message);
+        }
+    });
 }
 
 $(document).ready(function() {
@@ -118,6 +144,16 @@ $(document).ready(function() {
                 "data": "lectura_actual",
                 "render": function(data, type, row) {
                     return '<input type="text" class="txt_ingreso_lectura form-control border border-light" value="' + data + '" onChange="set_lectura_actual(this.value)" />'
+                }
+            },
+            { 
+                "data": "lectura_actual",
+                "render": function(data, type, row) {
+                    if (data !== '') {
+                        return "...";
+                    } else {
+                        return "<button type='button' class='btn_promedio btn btn-success' title='Promedio'><i class='fas fa-book-reader'></i> Promedio</button>"
+                    }
                 }
             }
         ],
@@ -189,5 +225,15 @@ $(document).ready(function() {
         
         var data = grid_lecturas_sector.row(tr).data();
         ingresar_lectura(data);
+    });
+
+    $("#grid_lecturas_sector tbody").on("click", "button.btn_promedio", function () {
+	    var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
+        }
+        
+        var data = grid_lecturas_sector.row(tr).data();
+        obtener_promedio(data);
     });
 });

@@ -340,6 +340,11 @@
 			echo view('Consumo/lectura_sector');
 		}
 
+		public function observaciones_dte() {
+			$this->validar_sesion();
+			echo view('Configuracion/observaciones_dte');
+		}
+
 		public function validar_sesion() {
 			if (!$this->sesión->has("id_usuario_ses")) {
 				echo "La sesión expiró, actualice el sitio web con F5";

@@ -9,6 +9,9 @@
 	use App\Models\Formularios\Md_medidores;
 	use App\Models\Configuracion\Md_comunas;
 	use App\Models\Configuracion\Md_apr;
+	use App\Models\Configuracion\Md_observaciones_dte;
+	use App\Models\Formularios\Md_repactaciones;
+	use App\Models\Pagos\Md_caja;
 	use \Mpdf\Mpdf;
 
 	class Ctrl_boleta_electronica extends BaseController {
@@ -19,6 +22,9 @@
 		protected $apr;
 		protected $arranques;
 		protected $medidores;
+		protected $repactaciones;
+		protected $observaciones_dte;
+		protected $caja;
 		protected $sesión;
 		protected $db;
 		protected $error = "";
@@ -31,6 +37,9 @@
 			$this->apr = new Md_apr();
 			$this->arranques = new Md_arranques();
 			$this->medidores = new Md_medidores();
+			$this->repactaciones = new Md_repactaciones();
+			$this->observaciones_dte = new Md_observaciones_dte();
+			$this->caja = new Md_caja();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -48,24 +57,26 @@
 		}
 
 		public function periodo_desde($mes_consumo) {
-			$my_date = new \DateTime();
 			$mes_consumo = explode("-", $mes_consumo);
 			$month = $mes_consumo[0];
 			$year = $mes_consumo[1];
-			$monthName = strtotime($month);
-			$my_date->modify('first day of ' . $monthName . ' ' . $year);
-			$my_date = date_format($my_date,"Y-m-d");
+			$my_date = $year.'-'.$month.'-01';
 			return $my_date;
 		}
 
 		public function periodo_hasta($mes_consumo) {
-			$my_date = new \DateTime();
 			$mes_consumo = explode("-", $mes_consumo);
 			$month = $mes_consumo[0];
 			$year = $mes_consumo[1];
-			$monthName = strtotime($month);
-			$my_date->modify('last day of ' . $monthName . ' ' . $year);
-			$my_date = date_format($my_date,"Y-m-d");
+			$my_date = date("Y-m-t", strtotime($year.'-'.$month.'-01'));
+			return $my_date;
+		}
+
+		public function mes_pago($fecha_vencimiento) {
+			$mes_pago = explode("-", $fecha_vencimiento);
+			$month = $mes_pago[1];
+			$year = $mes_pago[0];
+			$my_date = $month.'-'.$year;
 			return $my_date;
 		}
 
@@ -77,16 +88,11 @@
 	        define("PENDIENTE", 1);
 	        define("BOLETA", 1);
 	        define("FACTURA", 2);
+			define("ACTIVO", 1);
 
 			$url = 'https://libredte.cl';
 			$hash = $this->sesión->hash_apr_ses;
 			$rut_apr = $this->sesión->rut_apr_ses . "-" . $this->sesión->dv_apr_ses;
-
-			$datosApr = $this->apr
-			->select("ifnull(resto_direccion, 'Sin Registro') as observaciones")
-			->where("id", $this->sesión->id_apr_ses)->first();
-
-			$observaciones = $datosApr["observaciones"];
 
 			$folios = $this->request->getPost("arr_boletas");
 
@@ -105,6 +111,7 @@
 				->select("subtotal")
 				->select("date_format(fecha_ingreso, '%m-%Y') as mes_consumo")
 				->select("date_format(fecha_vencimiento, '%Y-%m-%d') as fecha_vencimiento")
+				->select("ifnull(elt(field(tipo_facturacion, 1, 2), 'NORMAL', 'TÉRMINO MEDIO'), 'NO REGISTRADO') as tipo_facturacion")
 				->where("id", $folio)
 				->first();
 
@@ -182,7 +189,6 @@
 					$sector = $datosSocios["sector"];
 					
 					$datosParaGrafico = $this->metros->select("date_format(fecha_ingreso, '%m-%Y') as fecha")->select("consumo_actual")->where("id_socio", $id_socio)->whereNotIn("estado", [0])->findAll();
-
 					$datos_graf = [];
 
 					foreach ($datosParaGrafico as $key) {
@@ -190,6 +196,19 @@
 					}
 
 					$datosDeuda = $this->metros->select("total_mes")->where("id_socio", $id_socio)->where("estado", PENDIENTE)->where("id<", $folio)->findAll();
+					$datosObservacionesDte = $this->observaciones_dte->select("titulo")->select("observacion")->where("id_apr", $this->sesión->id_apr_ses)->findAll();
+
+					$datosUltPagoId = $this->caja
+					->selectMax("id")
+					->where("id_socio", $id_socio)
+					->where("estado", ACTIVO)
+					->first();
+					
+					$datosUltPago = $this->caja
+					->select("total_pagar")
+					->select("date_format(fecha, '%d-%m-%Y') as fecha")
+					->where("id", $datosUltPagoId["id"])
+					->first();
 
 					$consumo_anterior_nf = 0;
 				
@@ -197,13 +216,27 @@
 						foreach ($datosDeuda as $key) {
 							$consumo_anterior_nf = $consumo_anterior_nf + intval($key["total_mes"]);
 						}
-					} 
+					}
+
+					$observaciones = "TIPO FACTURACIÓN, " . $datosMetros["tipo_facturacion"] . "\n";
+					
+					if ($datosUltPago != null) {
+						$observaciones .= "ÚLTIMO PAGO REALIZADO: " . $datosUltPago["fecha"] . ", POR $" . number_format($datosUltPago["total_pagar"], 0, ",", ".") . "\n";
+					}
+
+					if ($datosObservacionesDte != null) {
+						foreach ($datosObservacionesDte as $key) {
+							$observaciones .= $key["titulo"] . ", " . $key["observacion"] . "\n";
+						}
+					}
 					
 					$dte = [
 		                'Encabezado' => [
 		                    'IdDoc' => [
 		                        'TipoDTE' => $tipo_documento,
-								'FchVenc' => $fecha_vencimiento
+								'FchVenc' => $fecha_vencimiento,
+								'PeriodoDesde' => $periodo_desde,
+								'PeriodoHasta' => $periodo_hasta,
 		                    ],
 		                    'Emisor' => [
 		                        'RUTEmisor' => $rut_apr,
@@ -214,7 +247,8 @@
 		                        'GiroRecep' => 'Particular',
 		                        'DirRecep' => $direccion,
 		                        'CmnaRecep' => $comuna,
-		                        'CdgIntRecep' => $datosSocios["rol"]
+		                        'CdgIntRecep' => $datosSocios["rol"],
+								'Contacto' => "N° MEDIDOR: $num_medidor, SECTOR: $sector"
 		                    ],
 		                ],
 		                'Detalle' => [
@@ -222,8 +256,16 @@
 								'IndExe' => 1,
 								'NmbItem' => 'Consumo de Agua Potable',
 								'QtyItem' => 1,
-								'PrcItem' => intval($subtotal),
-								'DescuentoMonto' => $monto_subsidio
+								'PrcItem' => intval($subtotal) - intval($cargo_fijo),
+							]
+						],
+						'DscRcgGlobal' => [
+							[
+								'TpoMov' => 'R',
+								'IndExeDR' => 1,
+								'GlosaDR' => "Cargo Fijo",
+								'TpoValor' => '$',
+								'ValorDR' => $cargo_fijo
 							]
 						],
 		                'LibreDTE' => [
@@ -231,10 +273,7 @@
 		                    	'dte' => [
 		                            'Encabezado' => [
 		                                'IdDoc' => [
-		                                    "TermPagoGlosa" => "Lectura mes anterior: $consumo_anterior m³. Lectura mes actual: $consumo_actual m³. Consumo del mes: $metros_ m³.
-											Cargo Fijo: " . number_format($cargo_fijo, 0, ",", ".") . "
-											N° Medidor: $num_medidor, Sector: $sector
-											$observaciones"
+		                                    "TermPagoGlosa" => $observaciones
 		                                ]
 		                            ]
 		                        ],
@@ -265,7 +304,7 @@
 
 					if (intval($consumo_anterior_nf) > 0) {
 						array_push($dte["Detalle"], [
-							'IndExe' => 1,
+							'IndExe' => 2,
 							'NmbItem' => 'Consumo Anterior',
 							'QtyItem' => 1,
 							'PrcItem' => $consumo_anterior_nf
@@ -273,9 +312,17 @@
 					}
 
 					if (intval($cuota_repactacion) > 0) {
+						$datosCuotaRepactacion = $this->repactaciones
+						->select("concat('(', rd.numero_cuota, '/', repactaciones.n_cuotas, ')') as cuotas")
+						->join("repactaciones_detalle rd", "rd.id_repactacion = repactaciones.id")
+						->where("repactaciones.id_socio", $id_socio)
+						->where("date_format(rd.fecha_pago, '%m-%Y')", $this->mes_pago($fecha_vencimiento))
+						->first();
+						$cuotas = $datosCuotaRepactacion["cuotas"];
+
 						array_push($dte["Detalle"], [
-							'IndExe' => 1,
-							'NmbItem' => 'Cuota Repactación',
+							'IndExe' => 2,
+							'NmbItem' => 'Cuota Repactación '.$cuotas,
 							'QtyItem' => 1,
 							'PrcItem' => $cuota_repactacion
 						]);
@@ -283,7 +330,7 @@
 
 					if (intval($multa) > 0) {
 						array_push($dte["Detalle"], [
-							'IndExe' => 1,
+							'IndExe' => 2,
 							'NmbItem' => 'Multa',
 							'QtyItem' => 1,
 							'PrcItem' => $multa
@@ -292,10 +339,20 @@
 
 					if (intval($total_servicios) > 0) {
 						array_push($dte["Detalle"], [
-							'IndExe' => 1,
+							'IndExe' => 2,
 							'NmbItem' => 'Total Servicios',
 							'QtyItem' => 1,
 							'PrcItem' => $total_servicios
+						]);
+					}
+
+					if (intval($monto_subsidio) > 0) {
+						array_push($dte["DscRcgGlobal"], [
+							'TpoMov' => 'D',
+							'IndExeDR' => 1,
+							'GlosaDR' => "Monto del subsidio",
+							'TpoValor' => '$',
+							'ValorDR' => $monto_subsidio
 						]);
 					}
 

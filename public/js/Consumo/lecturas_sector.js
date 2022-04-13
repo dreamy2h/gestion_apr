@@ -37,7 +37,7 @@ function obtener_consumo_mes() {
     $("#grid_lecturas_sector").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_lecturas_sector/datatable_lecturas_sector/" + datosBusqueda);
 }
 
-function ingresar_lectura(data) {
+function ingresar_lectura(data, tipo_facturacion) {
     var id_socio = data.id_socio;
     var id_metros = data.id_metros;
     var lectura_anterior = data.lectura_anterior;
@@ -56,7 +56,8 @@ function ingresar_lectura(data) {
             lectura_anterior: lectura_anterior,
             lectura_actual: lectura_actual,
             mes_consumo: mes_consumo,
-            fecha_vencimiento: fecha_vencimiento
+            fecha_vencimiento: fecha_vencimiento,
+            tipo_facturacion: tipo_facturacion
         },
         success: function(respuesta) {
             if (respuesta.estado == "OK") {
@@ -89,8 +90,9 @@ function obtener_promedio(data) {
         },
         success: function(respuesta) {
             if (respuesta.estado == "OK") {
+                const T_MEDIO = 2;
                 lectura_actual = parseInt(data.lectura_anterior) + parseInt(respuesta.mensaje);
-                ingresar_lectura(data)
+                ingresar_lectura(data, T_MEDIO);
             } else {
                 alerta.error("alerta", respuesta.mensaje);
             }
@@ -223,8 +225,9 @@ $(document).ready(function() {
             tr = $(tr).prev();  
         }
         
+        const NORMAL = 1;
         var data = grid_lecturas_sector.row(tr).data();
-        ingresar_lectura(data);
+        ingresar_lectura(data, NORMAL);
     });
 
     $("#grid_lecturas_sector tbody").on("click", "button.btn_promedio", function () {

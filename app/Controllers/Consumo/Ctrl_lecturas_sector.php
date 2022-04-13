@@ -154,6 +154,8 @@
                 define("OK", 1);
                 define("ACTIVO", 1);
 
+                define("T_MEDIO", 2);
+
                 $fecha = date("Y-m-d H:i:s");
                 $id_usuario = $this->sesión->id_usuario_ses;
                 $id_apr = $this->sesión->id_apr_ses;
@@ -164,6 +166,7 @@
                 $fecha_vencimiento = $this->request->getPost("fecha_vencimiento");
                 $lectura_actual = $this->request->getPost("lectura_actual");
                 $lectura_anterior = $this->request->getPost("lectura_anterior");
+                $tipo_facturacion = $this->request->getPost("tipo_facturacion");
                 
                 if (intval($lectura_anterior) > intval($lectura_actual)) {
                     $respuesta = [
@@ -246,6 +249,10 @@
                     "fecha" => $fecha,
                     "id_apr" => $id_apr
                 ];
+
+                if ($tipo_facturacion == T_MEDIO) {
+                    $datosMetros["tipo_facturacion"] = T_MEDIO;
+                }
 
                 if ($id_metros != 0) {
                     $estado_traza = MODIFICAR_METROS;

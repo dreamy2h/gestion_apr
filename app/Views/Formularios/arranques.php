@@ -86,28 +86,74 @@
 		                                </div>
 		                                <div class="row">
 					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-					                        	<div class="form-group">
-						                        	<label class="small mb-1" for="rd_alcantarillado">Alcantarillado</label>
-						                        	<div class="btn-group btn-group-toggle" data-toggle="buttons" id="rd_alcantarillado">
-													  	<label class="btn btn-light" id="lbl_rd_si_a">
-													    	<input type="radio" name="alcantarillado" id="rd_si_a"> SI
-													  	</label>
-													  	<label class="btn btn-light active" id="lbl_rd_no_a">
-													    	<input type="radio" name="alcantarillado" id="rd_no_a" checked> NO
-													  	</label>
+												<div class="col-xs-12">
+													<div class="form-group">
+														<label class="small mb-1" for="rd_alcantarillado">Alcantarillado</label>
+														<div class="btn-group btn-group-toggle" data-toggle="buttons" id="rd_alcantarillado">
+															<label class="btn btn-light" id="lbl_rd_si_a">
+																<input type="radio" name="alcantarillado" id="rd_si_a"> SI
+															</label>
+															<label class="btn btn-light active" id="lbl_rd_no_a">
+																<input type="radio" name="alcantarillado" id="rd_no_a" checked> NO
+															</label>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="small mb-1" for="txt_alcantarillado">Monto Alcantarillado</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+															</div>
+															<input type='text' class="form-control" id='txt_alcantarillado' name="txt_alcantarillado" />
+														</div>
 													</div>
 												</div>
 					                        </div>
 					                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-					                        	<div class="form-group">
-						                        	<label class="small mb-1" for="rd_cuota_socio">Cuota Socio</label>
-						                        	<div class="btn-group btn-group-toggle" data-toggle="buttons" id="rd_cuota_socio">
-													  	<label class="btn btn-light" id="lbl_rd_si_sc">
-													    	<input type="radio" name="cuota_socio" id="rd_si_cs"> SI
-													  	</label>
-													  	<label class="btn btn-light active" id="lbl_rd_no_sc">
-													    	<input type="radio" name="cuota_socio" id="rd_no_cs" checked> NO
-													  	</label>
+												<div class="col-xs-12">
+													<div class="form-group">
+														<label class="small mb-1" for="rd_cuota_socio">Cuota Socio</label>
+														<div class="btn-group btn-group-toggle" data-toggle="buttons" id="rd_cuota_socio">
+															  <label class="btn btn-light" id="lbl_rd_si_sc">
+																<input type="radio" name="cuota_socio" id="rd_si_cs"> SI
+															  </label>
+															  <label class="btn btn-light active" id="lbl_rd_no_sc">
+																<input type="radio" name="cuota_socio" id="rd_no_cs" checked> NO
+															  </label>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="small mb-1" for="txt_cuota_socio">Monto Cuota Socio</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+															</div>
+															<input type='text' class="form-control" id='txt_cuota_socio' name="txt_cuota_socio" />
+														</div>
+													</div>
+												</div>
+					                        </div>
+											<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<label class="small mb-1" for="rd_otros">Otros</label>
+														<div class="btn-group btn-group-toggle" data-toggle="buttons" id="rd_otros">
+															  <label class="btn btn-light" id="lbl_rd_si_otros">
+																<input type="radio" name="otros" id="rd_si_otros"> SI
+															  </label>
+															  <label class="btn btn-light active" id="lbl_rd_no_otros">
+																<input type="radio" name="otros" id="rd_no_otros" checked> NO
+															  </label>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="small mb-1" for="txt_otros">Monto Otros</label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+															</div>
+															<input type='text' class="form-control" id='txt_otros' name="txt_otros" />
+														</div>
 													</div>
 												</div>
 					                        </div>
@@ -224,6 +270,10 @@
 					                                <th>Traza</th>
 					                                <th>Razón Social</th>
 					                                <th>Giro</th>
+													<th>Otros</th>
+													<th>Monto Alcantarillado</th>
+													<th>Monto Cuota Socio</th>
+													<th>Monto Otros</th>
 					                            </tr>
 					                        </thead>
 					                    </table> 

@@ -103,6 +103,7 @@
 			$id_sector = $this->request->getPost("id_sector");
 			$alcantarillado = $this->request->getPost("alcantarillado");
 			$cuota_socio = $this->request->getPost("cuota_socio");
+			$otros = $this->request->getPost("otros");
 			$id_comuna = $this->request->getPost("id_comuna");
 			$calle = $this->request->getPost("calle");
 			$numero = $this->request->getPost("numero");
@@ -111,6 +112,9 @@
 			$descuento = $this->request->getPost("descuento");
 			$razon_social = $this->request->getPost("razon_social");
 			$giro = $this->request->getPost("giro");
+			$monto_alcantarillado = $this->request->getPost("monto_alcantarillado");
+			$monto_cuota_socio = $this->request->getPost("monto_cuota_socio");
+			$monto_otros = $this->request->getPost("monto_otros");
 
 			if ($id_comuna == "") { $id_comuna = null; }
 			if ($calle == "") { $calle = null; }
@@ -123,6 +127,7 @@
 				"id_sector" => $id_sector,
 				"alcantarillado" => $alcantarillado,
 				"cuota_socio" => $cuota_socio,
+				"otros" => $otros,
 				"id_comuna" => $id_comuna,
 				"calle" => $calle,
 				"numero" => $numero,
@@ -133,7 +138,10 @@
 				"fecha" => $fecha,
 				"id_apr" => $id_apr,
 				"razon_social" => $razon_social,
-				"giro" => $giro
+				"giro" => $giro,
+				"monto_alcantarillado" => $monto_alcantarillado,
+				"monto_cuota_socio" => $monto_cuota_socio,
+				"monto_otros" => $monto_otros
 			];
 
 			if ($id_arranque != "") {

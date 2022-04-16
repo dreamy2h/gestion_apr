@@ -196,7 +196,12 @@
 					}
 
 					$datosDeuda = $this->metros->select("total_mes")->where("id_socio", $id_socio)->where("estado", PENDIENTE)->where("id<", $folio)->findAll();
-					$datosObservacionesDte = $this->observaciones_dte->select("titulo")->select("observacion")->where("id_apr", $this->sesión->id_apr_ses)->findAll();
+					$datosObservacionesDte = $this->observaciones_dte
+					->select("titulo")
+					->select("observacion")
+					->where("id_apr", $this->sesión->id_apr_ses)
+					->where("estado", ACTIVO)
+					->findAll();
 
 					$datosUltPagoId = $this->caja
 					->selectMax("id")

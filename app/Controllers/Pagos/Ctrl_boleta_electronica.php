@@ -109,6 +109,9 @@
 				->select("metros")
 				->select("monto_subsidio")
 				->select("subtotal")
+				->select("alcantarillado")
+				->select("cuota_socio")
+				->select("otros")
 				->select("date_format(fecha_ingreso, '%m-%Y') as mes_consumo")
 				->select("date_format(fecha_vencimiento, '%Y-%m-%d') as fecha_vencimiento")
 				->select("ifnull(elt(field(tipo_facturacion, 1, 2), 'NORMAL', 'TÉRMINO MEDIO'), 'NO REGISTRADO') as tipo_facturacion")
@@ -125,6 +128,9 @@
 				$multa = $datosMetros["multa"];
 				$monto_subsidio = $datosMetros["monto_subsidio"];
 				$subtotal = $datosMetros["subtotal"];
+				$alcantarillado = $datosMetros["alcantarillado"];
+				$cuota_socio = $datosMetros["cuota_socio"];
+				$otros = $datosMetros["otros"];
 				$mes_consumo = $datosMetros["mes_consumo"];
 				$periodo_desde = $this->periodo_desde($mes_consumo);
 				$periodo_hasta = $this->periodo_hasta($mes_consumo);
@@ -301,7 +307,8 @@
 
 		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0 || intval($multa) > 0 || intval($total_servicios) > 0) {
 		            	$dte["Encabezado"]["Totales"] = [
-			                'MontoNF' => intval($consumo_anterior_nf) + intval($cuota_repactacion) + intval($multa) + intval($total_servicios),
+			                'MontoNF' =>
+								intval($consumo_anterior_nf) + intval($cuota_repactacion) + intval($multa) + intval($total_servicios) + intval($alcantarillado) + intval($cuota_socio) + intval($otros),
 			                'SaldoAnterior' => $consumo_anterior_nf,
 			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
 			            ];
@@ -358,6 +365,33 @@
 							'GlosaDR' => "Monto del subsidio",
 							'TpoValor' => '$',
 							'ValorDR' => $monto_subsidio
+						]);
+					}
+
+					if (intval($alcantarillado) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 2,
+							'NmbItem' => 'Alcantarillado',
+							'QtyItem' => 1,
+							'PrcItem' => $alcantarillado
+						]);
+					}
+
+					if (intval($cuota_socio) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 2,
+							'NmbItem' => 'Cuota Socio',
+							'QtyItem' => 1,
+							'PrcItem' => $cuota_socio
+						]);
+					}
+
+					if (intval($otros) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 2,
+							'NmbItem' => 'Otros',
+							'QtyItem' => 1,
+							'PrcItem' => $otros
 						]);
 					}
 

@@ -1,5 +1,4 @@
 var base_url = $("#txt_base_url").val();
-var datatable_enabled = true;
 
 function des_habilitar(a, b) {
     $("#btn_nuevo").prop("disabled", b);
@@ -32,6 +31,9 @@ function des_habilitar(a, b) {
     $("#txt_cuota_repactacion").prop("disabled", a);
     $("#txt_monto_facturable").prop("disabled", a);
     $("#txt_total_mes").prop("disabled", a);
+    $("#txt_alcantarillado").prop("disabled", a);
+    $("#txt_cuota_socio").prop("disabled", a);
+    $("#txt_otros").prop("disabled", a);
 }
 
 function mostrar_datos_metros(data) {
@@ -58,6 +60,9 @@ function mostrar_datos_metros(data) {
     $("#txt_monto_facturable").val(peso.formateaNumero(data["monto_facturable"]));
     $("#txt_cargo_fijo").val(peso.formateaNumero(data["cargo_fijo"]));
     $("#txt_total_mes").val(peso.formateaNumero(data["total_mes"]));
+    $("#txt_alcantarillado").val(peso.formateaNumero(data["alcantarillado"]));
+    $("#txt_cuota_socio").val(peso.formateaNumero(data["cuota_socio"]));
+    $("#txt_otros").val(peso.formateaNumero(data["otros"]));
 
     $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
 }
@@ -78,6 +83,9 @@ function guardar_metros() {
     var total_mes = peso.quitar_formato($("#txt_total_mes").val());
     var cargo_fijo = peso.quitar_formato($("#txt_cargo_fijo").val());
     var monto_facturable = peso.quitar_formato($("#txt_monto_facturable").val());
+    var alcantarillado = peso.quitar_formato($("#txt_alcantarillado").val());
+    var cuota_socio = peso.quitar_formato($("#txt_cuota_socio").val());
+    var otros = peso.quitar_formato($("#txt_otros").val());
 
     $.ajax({
         url: base_url + "/Consumo/Ctrl_metros/guardar_metros",
@@ -98,7 +106,10 @@ function guardar_metros() {
             cuota_repactacion: cuota_repactacion,
             total_mes: total_mes,
             cargo_fijo: cargo_fijo,
-            monto_facturable: monto_facturable
+            monto_facturable: monto_facturable,
+            alcantarillado: alcantarillado,
+            cuota_socio: cuota_socio,
+            otros: otros
         },
         success: function(respuesta) {
             const OK = 1;
@@ -109,7 +120,6 @@ function guardar_metros() {
                 $("#grid_costo_metros").DataTable().clear().draw();
                 alerta.ok("alerta", "Consumo de metros, guardado con éxito");
                 $("#datosMetros").collapse("hide");
-                datatable_enabled = true;
             } else {
                 alerta.error("alerta", respuesta);
             }
@@ -258,21 +268,18 @@ var peso = {
 }
 
 function calcular_total() {
-    var subtotal = $("#txt_subtotal").val();
-    var multa = $("#txt_multa").val();
-    var total_servicios = $("#txt_total_servicios").val();
-    var cuota_repactacion = $("#txt_cuota_repactacion").val();
-    var monto_subsidio = $("#txt_monto_subsidio").val();
-    var cargo_fijo = parseInt($("#txt_cargo_fijo").val());
-
-    if (subtotal == "") { subtotal = 0; } else { subtotal = peso.quitar_formato(subtotal); }
-    if (multa == "") { multa = 0; } else { multa = peso.quitar_formato(multa); }
-    if (total_servicios == "") { total_servicios = 0; } else { total_servicios = peso.quitar_formato(total_servicios); }
-    if (cuota_repactacion == "") { cuota_repactacion = 0; } else { cuota_repactacion = peso.quitar_formato(cuota_repactacion); }
-    if (monto_subsidio == "") { monto_subsidio = 0; } else { monto_subsidio = peso.quitar_formato(monto_subsidio); }
+    var subtotal = $("#txt_subtotal").val() == "" ? 0 : peso.quitar_formato($("#txt_subtotal").val());
+    var multa = $("#txt_multa").val() == "" ? 0 : peso.quitar_formato($("#txt_multa").val());
+    var total_servicios = $("#txt_total_servicios").val() == "" ? 0 : peso.quitar_formato($("#txt_total_servicios").val());
+    var cuota_repactacion = $("#txt_cuota_repactacion").val() == "" ? 0 : peso.quitar_formato($("#txt_cuota_repactacion").val());
+    var monto_subsidio = $("#txt_monto_subsidio").val() == "" ? 0 : peso.quitar_formato($("#txt_monto_subsidio").val());
+    var alcantarillado = $("#txt_alcantarillado").val() == "" ? 0 : peso.quitar_formato($("#txt_alcantarillado").val());
+    var cuota_socio = $("#txt_cuota_socio").val() == "" ? 0 : peso.quitar_formato($("#txt_cuota_socio").val());
+    var otros = $("#txt_otros").val() == "" ? 0 : peso.quitar_formato($("#txt_otros").val());
 
     var monto_facturable = parseInt(monto_subsidio) > parseInt(subtotal) ? total_mes = 0 : parseInt(subtotal)  - parseInt(monto_subsidio);
-    var total_mes = parseInt(monto_facturable) + parseInt(cuota_repactacion)  + parseInt(multa) + parseInt(total_servicios);
+    var total_mes =
+        parseInt(monto_facturable) + parseInt(cuota_repactacion)  + parseInt(multa) + parseInt(total_servicios) + parseInt(alcantarillado) + parseInt(cuota_socio) + parseInt(otros);
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
     $("#txt_monto_facturable").val(peso.formateaNumero(monto_facturable));
@@ -329,6 +336,9 @@ $(document).ready(function() {
     $("#dt_fecha_vencimiento").prop("readonly", true);
     $("#txt_cargo_fijo").prop("readonly", true);
     $("#txt_monto_facturable").prop("readonly", true);
+    $("#txt_alcantarillado").prop("readonly", true);
+    $("#txt_cuota_socio").prop("readonly", true);
+    $("#txt_otros").prop("readonly", true);
 
     des_habilitar(true, false);
 
@@ -338,7 +348,6 @@ $(document).ready(function() {
         $("#dt_fecha_vencimiento").val("01-01-2021");
         $("#form_metros")[0].reset();
         $("#grid_costo_metros").DataTable().clear().draw();
-        datatable_enabled = false;
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
         $("#datosMetros").collapse("show");
@@ -348,7 +357,6 @@ $(document).ready(function() {
         des_habilitar(false, true);
         $("#btn_modificar").prop("disabled", true);
         $("#btn_eliminar").prop("disabled", true);
-        datatable_enabled = false;
         $("#dt_fecha_ingreso").prop("readonly", false);
         $("#dt_fecha_vencimiento").prop("readonly", false);
         $("#txt_c_actual").prop("readonly", false);
@@ -383,7 +391,6 @@ $(document).ready(function() {
     $("#btn_cancelar").on("click", function() {
         $("#form_metros")[0].reset();
         des_habilitar(true, false);
-        datatable_enabled = true;
         $("#grid_costo_metros").DataTable().clear().draw();
         $("#datosMetros").collapse("hide");
     });
@@ -663,28 +670,24 @@ $(document).ready(function() {
 	});
 
     $("#grid_metros tbody").on("click", "tr", function () {
-        if (datatable_enabled) {
-            var tr = $(this).closest('tr');
-            if ($(tr).hasClass('child') ) {
-                tr = $(tr).prev();  
-            }
-
-            var data = grid_metros.row(tr).data();
-            mostrar_datos_metros(data);
-            des_habilitar(true, false);
-            $("#btn_modificar").prop("disabled", false);
-            $("#btn_eliminar").prop("disabled", false);
-            $("#datosMetros").collapse("hide");
+        var tr = $(this).closest('tr');
+        if ($(tr).hasClass('child') ) {
+            tr = $(tr).prev();  
         }
+
+        var data = grid_metros.row(tr).data();
+        mostrar_datos_metros(data);
+        des_habilitar(true, false);
+        $("#btn_modificar").prop("disabled", false);
+        $("#btn_eliminar").prop("disabled", false);
+        $("#datosMetros").collapse("hide");
     });
 
     $("#grid_metros tbody").on("click", "button.traza_metros", function () {
-        if (datatable_enabled) {
-            $("#divContenedorTrazaMetros").load(
-                base_url + "/Consumo/Ctrl_metros/v_metros_traza"
-            ); 
+        $("#divContenedorTrazaMetros").load(
+            base_url + "/Consumo/Ctrl_metros/v_metros_traza"
+        ); 
 
-            $('#dlg_traza_metros').modal('show');
-        }
+        $('#dlg_traza_metros').modal('show');
     });
 });

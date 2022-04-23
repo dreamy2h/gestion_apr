@@ -186,6 +186,9 @@
                 $datosCargoFijo = $this->arranques
                 ->select("cf.cargo_fijo")
                 ->select("m.id_diametro")
+                ->select("arranques.monto_alcantarillado as alcantarillado")
+                ->select("arranques.monto_cuota_socio as cuota_socio")
+                ->select("arranques.monto_otros as otros")
                 ->join("medidores m", "arranques.id_medidor = m.id")
                 ->join("apr_cargo_fijo cf", "m.id_diametro = cf.id_diametro")
                 ->where("arranques.id_socio", $id_socio)
@@ -218,12 +221,27 @@
                 $tope_subsidio = $datosApr["tope_subsidio"];
                 $porcentaje = $datosSubsidio ? substr($datosSubsidio["porcentaje"], 0, strlen($datosSubsidio["porcentaje"]) - 1) : 0;
                 $cargo_fijo = $datosCargoFijo["cargo_fijo"];
+                $alcantarillado = $datosCargoFijo["alcantarillado"];
+                $cuota_socio = $datosCargoFijo["cuota_socio"];
+                $otros = $datosCargoFijo["otros"];
                 
                 $total_servicios = $datosConvenioDetalle != null ? intval($datosConvenioDetalle["total_servicios"]) : 0;
                 $cuota_repactacion = $datosRepactacionesDetalle != null ? intval($datosRepactacionesDetalle["total_servicios"]) : 0;
 
                 helper('calcular_montos');
-                $montos = calcular_montos($lectura_anterior, $lectura_actual, $tope_subsidio, $datosCostoMetros, $cargo_fijo, $porcentaje, $total_servicios, $cuota_repactacion);
+                $montos = calcular_montos(
+                    $lectura_anterior,
+                    $lectura_actual,
+                    $tope_subsidio,
+                    $datosCostoMetros,
+                    $cargo_fijo,
+                    $porcentaje,
+                    $total_servicios,
+                    $cuota_repactacion,
+                    $alcantarillado,
+                    $cuota_socio,
+                    $otros
+                );
                 
                 $monto_subsidio = $montos["monto_subsidio"];
                 $metros = $montos["metros_consumidos"];
@@ -245,6 +263,9 @@
                     "total_mes" => $total_mes,
                     "cargo_fijo" => $cargo_fijo,
                     "monto_facturable" => $monto_facturable,
+                    "alcantarillado" => $alcantarillado,
+                    "cuota_socio" => $cuota_socio,
+                    "otros" => $otros,
                     "id_usuario" => $id_usuario,
                     "fecha" => $fecha,
                     "id_apr" => $id_apr

@@ -14,7 +14,7 @@
 	                        <button type="button" name="btn_eliminar" id="btn_eliminar" class="btn btn-primary"><i class="fas fa-trash"></i> Eliminar</button>
 	                        <button type="button" name="btn_aceptar" id="btn_aceptar" class="btn btn-success"><i class="fas fa-check"></i> Aceptar</button>
 	                        <button type="button" name="btn_cancelar" id="btn_cancelar" class="btn btn-danger"><i class="fas fa-ban"></i> Cancelar</button>
-	                        <button type="button" name="btn_importar" id="btn_importar" class="btn btn-info"><i class="fas fa-upload"></i> Importar Planilla</button>
+	                        <button type="button" name="btn_importar" id="btn_importar" class="btn btn-info d-none"><i class="fas fa-upload"></i> Importar Planilla</button>
 	                    </center>
 	                </div>
 	            </div>
@@ -151,37 +151,97 @@
 							                        </div>
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_subtotal">Subtotal $</label>
-							                                <input type='text' class="form-control" id='txt_subtotal' name="txt_subtotal" />
+							                                <label class="small mb-1" for="txt_subtotal">Subtotal</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_subtotal' name="txt_subtotal" />
+															</div>
 							                            </div>
 							                        </div>
 						                        </div>
 						                        <div class="row">
 						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_multa">Multa $</label>
-							                                <input type='text' class="form-control" id='txt_multa' name="txt_multa" />
+							                                <label class="small mb-1" for="txt_multa">Multa</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_multa' name="txt_multa" />
+															</div>
 							                            </div>
 							                        </div>
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios $</label>
-							                                <input type='text' class="form-control" id='txt_total_servicios' name="txt_total_servicios" />
+							                                <label class="small mb-1" for="txt_total_servicios">Total Servicios</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_total_servicios' name="txt_total_servicios" />
+															</div>
 							                            </div>
 							                        </div>
 						                        	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_monto_facturable">Monto Facturable $</label>
-							                                <input type='text' class="form-control" id='txt_monto_facturable' name="txt_monto_facturable" />
+							                                <label class="small mb-1" for="txt_monto_facturable">Monto Facturable</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_monto_facturable' name="txt_monto_facturable" />
+															</div>
 							                            </div>
 							                        </div>
 							                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 							                         	<div class="form-group">
-							                                <label class="small mb-1" for="txt_cuota_repactacion">Cuota Repactación $</label>
-							                                <input type='text' class="form-control" id='txt_cuota_repactacion' name="txt_cuota_repactacion" />
+							                                <label class="small mb-1" for="txt_cuota_repactacion">Cuota Repactación</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_cuota_repactacion' name="txt_cuota_repactacion" />
+															</div>
 							                            </div>
 							                        </div>
 						                        </div>
+												<div class="row">
+						                        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                         	<div class="form-group">
+							                                <label class="small mb-1" for="txt_alcantarillado">Alcantarillado</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_alcantarillado' name="txt_alcantarillado" />
+															</div>
+							                            </div>
+							                        </div>
+													<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                         	<div class="form-group">
+							                                <label class="small mb-1" for="txt_cuota_socio">Cuota Socio</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_cuota_socio' name="txt_cuota_socio" />
+															</div>
+							                            </div>
+							                        </div>
+													<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+							                         	<div class="form-group">
+							                                <label class="small mb-1" for="txt_otros">Otros</label>
+															<div class="input-group mb-3">
+																<div class="input-group-prepend">
+																	<span class="input-group-text font-weight-bold" id="basic-addon1">$</span>
+																</div>
+																<input type='text' class="form-control" id='txt_otros' name="txt_otros" />
+															</div>
+							                            </div>
+							                        </div>
+												</div>
 				                			</div>
 				                			<div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
 				                				<div class="row">

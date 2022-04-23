@@ -7,6 +7,7 @@
 	use App\Models\Configuracion\Md_costo_metros;
 	use App\Models\Formularios\Md_convenio_detalle;
 	use App\Models\Formularios\Md_repactaciones_detalle;
+	use App\Models\Formularios\Md_arranques;
 
 	class Ctrl_metros extends BaseController {
 		protected $metros;
@@ -14,6 +15,7 @@
 		protected $costo_metros;
 		protected $convenio_detalle;
 		protected $repactaciones_detalle;
+		protected $arranques;
 		protected $sesión;
 		protected $db;
 
@@ -23,6 +25,7 @@
 			$this->costo_metros = new Md_costo_metros();
 			$this->convenio_detalle = new Md_convenio_detalle();
 			$this->repactaciones_detalle = new Md_repactaciones_detalle();
+			$this->arranques = new Md_arranques();
 			$this->sesión = session();
 			$this->db = \Config\Database::connect();
 		}
@@ -36,7 +39,54 @@
 
 		public function datatable_metros() {
 			$this->validar_sesion();
-			echo $this->metros->datatable_metros($this->db, $this->sesión->id_apr_ses);
+			define("ELIMINADO", 0);
+
+			$datosMetros = $this->metros
+			->select("metros.id as id_metros")
+			->select("metros.id_socio")
+			->select("concat(soc.rut, '-', soc.dv) as rut_socio")
+			->select("soc.rol as rol_socio")
+			->select("concat(soc.nombres, ' ', soc.ape_pat, ' ', soc.ape_mat) as nombre_socio")
+			->select("a.id as id_arranque")
+			->select("ifnull(p.glosa, '0%') as subsidio")
+			->select("(select tope_subsidio from apr where id = metros.id_apr) as tope_subsidio")
+			->select("ifnull(metros.monto_subsidio, 0) as monto_subsidio")
+			->select("sec.nombre as sector")
+			->select("med.id_diametro")
+			->select("d.glosa as diametro")
+			->select("date_format(metros.fecha_ingreso, '%m-%Y') as fecha_ingreso")
+			->select("date_format(metros.fecha_vencimiento, '%d-%m-%Y') as fecha_vencimiento")
+			->select("metros.consumo_anterior")
+			->select("metros.consumo_actual")
+			->select("metros.metros")
+			->select("ifnull(metros.subtotal, 0) as subtotal")
+			->select("ifnull(metros.multa, 0) as multa")
+			->select("ifnull(metros.total_servicios, 0) as total_servicios")
+			->select("ifnull(metros.cuota_repactacion, 0) as cuota_repactacion")
+			->select("ifnull(metros.total_mes, 0) as total_mes")
+			->select("ifnull(metros.cargo_fijo, 0) as cargo_fijo")
+			->select("ifnull(metros.monto_facturable, 0) as monto_facturable")
+			->select("ifnull(metros.alcantarillado, 0) as alcantarillado")
+			->select("ifnull(metros.cuota_socio, 0) as cuota_socio")
+			->select("ifnull(metros.otros, 0) as otros")
+			->select("u.usuario")
+			->select("date_format(metros.fecha, '%d-%m-%Y') as fecha")
+			->join("socios soc", "metros.id_socio = soc.id")
+			->join("arranques a", "a.id_socio = soc.id")
+			->join("sectores sec", "a.id_sector = sec.id")
+			->join("subsidios sub", "sub.id_socio = soc.id", "left")
+			->join("porcentajes p", "sub.id_porcentaje = p.id", "left")
+			->join("usuarios u", "metros.id_usuario = u.id")
+			->join("medidores med", "a.id_medidor = med.id")
+			->join("diametro d", "med.id_diametro = d.id")
+			->where("metros.estado <>", ELIMINADO)
+			->where("metros.id_apr", $this->sesión->id_apr_ses)
+			->orderBy("metros.fecha_vencimiento", "asc")
+			->limit(10000)
+			->findAll();
+			
+			$salida = array('data' => $datosMetros);
+			return json_encode($salida);
 		}
 
 		public function guardar_metros() {
@@ -65,6 +115,9 @@
 			$total_mes = $this->request->getPost("total_mes");
 			$cargo_fijo = $this->request->getPost("cargo_fijo");
 			$monto_facturable = $this->request->getPost("monto_facturable");
+			$alcantarillado = $this->request->getPost("alcantarillado");
+			$cuota_socio = $this->request->getPost("cuota_socio");
+			$otros = $this->request->getPost("otros");
 
 			$datosMetros = [
 				"id_socio" => $id_socio,
@@ -83,7 +136,10 @@
 				"monto_facturable" => $monto_facturable,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha,
-				"id_apr" => $id_apr
+				"id_apr" => $id_apr,
+				"alcantarillado" => $alcantarillado,
+				"cuota_socio" => $cuota_socio,
+				"otros" => $otros
 			];
 
 			if ($id_metros != "") {
@@ -165,7 +221,39 @@
 
 		public function datatable_buscar_socio() {
 			$this->validar_sesion();
-			echo $this->metros->datatable_buscar_socio($this->db, $this->sesión->id_apr_ses);
+			define("ACTIVO", 1);
+
+			$datosSocios = $this->arranques
+			->select("s.id as id_socio")
+			->select("concat(s.rut, '-', s.dv) as rut")
+			->select("s.rol")
+			->select("concat(s.nombres, ' ', s.ape_pat, ' ', s.ape_mat) as nombre")
+			->select("date_format(s.fecha_entrada, '%d-%m-%Y') as fecha_entrada")
+			->select("arranques.id as id_arranque")
+			->select("m.id_diametro")
+			->select("d.glosa as diametro")
+			->select("sec.nombre as sector")
+			->select("case when sub.estado = 1 then p.glosa else '0%' end as subsidio")
+			->select("(select tope_subsidio from apr where id = s.id_apr) as tope_subsidio")
+			->select("ifnull((select consumo_actual from metros m where m.id = (select max(m2.id) from metros m2 where m2.id_socio = arranques.id_socio and estado <> 0)), 0) as consumo_anterior")
+			->select("cf.cargo_fijo")
+			->select("s.abono")
+			->select("ifnull(arranques.monto_alcantarillado, 0) as alcantarillado")
+			->select("ifnull(arranques.monto_cuota_socio, 0) as cuota_socio")
+			->select("ifnull(arranques.monto_otros, 0) as otros")
+			->join("medidores m", "arranques.id_medidor = m.id")
+			->join("diametro d", "m.id_diametro = d.id")
+			->join("socios s", "arranques.id_socio = s.id")
+			->join("sectores sec", "arranques.id_sector = sec.id")
+			->join("subsidios sub",  "sub.id_socio = s.id", "left")
+			->join("porcentajes p", "sub.id_porcentaje = p.id", "left")
+			->join("apr_cargo_fijo cf", "cf.id_apr = s.id_apr and cf.id_diametro = m.id_diametro")
+			->where("s.id_apr", $this->sesión->id_apr_ses)
+			->where("s.estado", ACTIVO)
+			->findAll();
+			
+			$salida = array('data' => $datosSocios);
+			return json_encode($salida);
 		}
 
 		public function datatable_costo_metros($consumo_actual, $id_diametro) {

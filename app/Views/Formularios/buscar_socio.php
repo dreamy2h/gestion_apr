@@ -21,6 +21,9 @@
                         <th width="0%">consumo_anterior</th>
                         <th width="0%">cargo_fijo</th>
                         <th width="0%">abono</th>
+                        <th width="0%">alcantarillado</th>
+                        <th width="0%">cuota_socio</th>
+                        <th width="0%">otros</th>
                     <?php } ?>
                     </tr>
                 </thead>

@@ -21,11 +21,15 @@ $(document).ready(function() {
             {"data": "tope_subsidio"},
             {"data": "consumo_anterior"}, 
             {"data": "cargo_fijo"},
-            {"data": "abono"}
+            {"data": "abono"},
+            {"data": "alcantarillado"},
+            {"data": "cuota_socio"},
+            {"data": "otros"}
+
         );
 
         columnasOcultas = [
-            { "targets": [5, 6, 7, 8, 9, 10 ,11, 12, 13], "visible": false, "searchable": false }
+            { "targets": [5, 6, 7, 8, 9, 10 ,11, 12, 13, 14, 15, 16], "visible": false, "searchable": false }
         ];
         
         ruta = "/Consumo/Ctrl_metros";
@@ -40,8 +44,6 @@ $(document).ready(function() {
 	var grid_buscar_socio = $("#grid_buscar_socio").DataTable({
 		responsive: true,
 		paging: true,
-        // scrollY: '50vh',
-        // scrollCollapse: true,
         destroy: true,
         order: [[ 3, "desc" ]],
         ajax: base_url +  ruta + "/datatable_buscar_socio",
@@ -103,6 +105,9 @@ $(document).ready(function() {
                                 $("#txt_c_anterior").val(value);
                                 $("#txt_diametro").val(data["diametro"]);
                                 $("#txt_cargo_fijo").val(peso.formateaNumero(data["cargo_fijo"]));
+                                $("#txt_alcantarillado").val(peso.formateaNumero(data["alcantarillado"]));
+                                $("#txt_cuota_socio").val(peso.formateaNumero(data["cuota_socio"]));
+                                $("#txt_otros").val(peso.formateaNumero(data["otros"]));
                                 $("#dt_fecha_ingreso").prop("readonly", false);
                                 $("#dt_fecha_vencimiento").prop("readonly", false);
                                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
@@ -121,6 +126,9 @@ $(document).ready(function() {
                 $("#txt_c_anterior").val(data["consumo_anterior"]);
                 $("#txt_diametro").val(data["diametro"]);
                 $("#txt_cargo_fijo").val(peso.formateaNumero(data["cargo_fijo"]));
+                $("#txt_alcantarillado").val(peso.formateaNumero(data["alcantarillado"]));
+                $("#txt_cuota_socio").val(peso.formateaNumero(data["cuota_socio"]));
+                $("#txt_otros").val(peso.formateaNumero(data["otros"]));
                 $("#dt_fecha_ingreso").prop("readonly", false);
                 $("#dt_fecha_vencimiento").prop("readonly", false);
                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);

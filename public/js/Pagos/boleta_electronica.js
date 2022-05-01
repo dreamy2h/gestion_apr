@@ -73,7 +73,7 @@ function emitir_dte() {
                 background: "#fff",
                 color: "#fff"
             });
-        }, 500);
+        }, 1000);
 
         setTimeout(function() {
     		$.ajax({

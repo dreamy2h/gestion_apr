@@ -66,14 +66,12 @@ function emitir_dte() {
   	});
 
   	if (arr_boletas.length > 0) {
-  		setTimeout(function() {
-            $(".div_sample").JQLoader({
-                theme: "standard",
-                mask: true,
-                background: "#fff",
-                color: "#fff"
-            });
-        }, 1000);
+        $(".div_sample").JQLoader({
+            theme: "standard",
+            mask: true,
+            background: "#fff",
+            color: "#fff"
+        });
 
         setTimeout(function() {
     		$.ajax({

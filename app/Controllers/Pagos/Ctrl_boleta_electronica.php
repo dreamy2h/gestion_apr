@@ -240,6 +240,8 @@
 							$observaciones .= $key["titulo"] . ", " . $key["observacion"] . "\n";
 						}
 					}
+
+					$monto_metros = intval($subtotal) - intval($cargo_fijo);
 					
 					$dte = [
 		                'Encabezado' => [
@@ -262,21 +264,12 @@
 								'Contacto' => "N° MEDIDOR: $num_medidor, SECTOR: $sector"
 		                    ],
 		                ],
-		                'Detalle' => [
+						'Detalle' => [
 							[
 								'IndExe' => 1,
-								'NmbItem' => 'Consumo de Agua Potable',
+								'NmbItem' => "Cargo Fijo",
 								'QtyItem' => 1,
-								'PrcItem' => intval($subtotal) - intval($cargo_fijo),
-							]
-						],
-						'DscRcgGlobal' => [
-							[
-								'TpoMov' => 'R',
-								'IndExeDR' => 1,
-								'GlosaDR' => "Cargo Fijo",
-								'TpoValor' => '$',
-								'ValorDR' => $cargo_fijo
+								'PrcItem' => $cargo_fijo
 							]
 						],
 		                'LibreDTE' => [
@@ -304,7 +297,7 @@
 		                    ]
 		                ]
 		            ];
-
+					
 		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0 || intval($multa) > 0 || intval($total_servicios) > 0) {
 		            	$dte["Encabezado"]["Totales"] = [
 			                'MontoNF' =>
@@ -314,12 +307,21 @@
 			            ];
 		            }
 
+					if (intval($monto_metros) > 0) {
+						array_push($dte["Detalle"], [
+							'IndExe' => 1,
+							'NmbItem' => 'Consumo de Agua Potable',
+							'QtyItem' => 1,
+							'PrcItem' => intval($monto_metros)
+						]);
+					}
+
 					if (intval($consumo_anterior_nf) > 0) {
 						array_push($dte["Detalle"], [
 							'IndExe' => 2,
 							'NmbItem' => 'Consumo Anterior',
 							'QtyItem' => 1,
-							'PrcItem' => $consumo_anterior_nf
+							'PrcItem' => intval($consumo_anterior_nf)
 						]);
 					}
 
@@ -336,7 +338,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Cuota Repactación '.$cuotas,
 							'QtyItem' => 1,
-							'PrcItem' => $cuota_repactacion
+							'PrcItem' => intval($cuota_repactacion)
 						]);
 					}
 
@@ -345,7 +347,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Multa',
 							'QtyItem' => 1,
-							'PrcItem' => $multa
+							'PrcItem' => intval($multa)
 						]);
 					}
 
@@ -354,7 +356,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Total Servicios',
 							'QtyItem' => 1,
-							'PrcItem' => $total_servicios
+							'PrcItem' => intval($total_servicios)
 						]);
 					}
 
@@ -364,7 +366,7 @@
 							'IndExeDR' => 1,
 							'GlosaDR' => "Monto del subsidio",
 							'TpoValor' => '$',
-							'ValorDR' => $monto_subsidio
+							'ValorDR' => intval($monto_subsidio)
 						]);
 					}
 
@@ -373,7 +375,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Alcantarillado',
 							'QtyItem' => 1,
-							'PrcItem' => $alcantarillado
+							'PrcItem' => intval($alcantarillado)
 						]);
 					}
 
@@ -382,7 +384,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Cuota Socio',
 							'QtyItem' => 1,
-							'PrcItem' => $cuota_socio
+							'PrcItem' => intval($cuota_socio)
 						]);
 					}
 
@@ -391,7 +393,7 @@
 							'IndExe' => 2,
 							'NmbItem' => 'Otros',
 							'QtyItem' => 1,
-							'PrcItem' => $otros
+							'PrcItem' => intval($otros)
 						]);
 					}
 

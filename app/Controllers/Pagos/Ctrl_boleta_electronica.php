@@ -361,13 +361,13 @@
 					}
 
 					if (intval($monto_subsidio) > 0) {
-						array_push($dte["DscRcgGlobal"], [
+						$dte["DscRcgGlobal"] = [
 							'TpoMov' => 'D',
 							'IndExeDR' => 1,
 							'GlosaDR' => "Monto del subsidio",
 							'TpoValor' => '$',
 							'ValorDR' => intval($monto_subsidio)
-						]);
+						];
 					}
 
 					if (intval($alcantarillado) > 0) {

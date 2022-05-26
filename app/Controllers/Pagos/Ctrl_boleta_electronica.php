@@ -86,8 +86,6 @@
 			define("FACTURA_EXENTA", 34);
 	        define("ASIGNA_FOLIO_BOLECT", 7);
 	        define("PENDIENTE", 1);
-	        define("BOLETA", 1);
-	        define("FACTURA", 2);
 			define("ACTIVO", 1);
 
 			$url = 'https://libredte.cl';
@@ -180,15 +178,8 @@
 						$comuna = "Sin Comuna";
 					}
 
-					switch ($datosSocios["tipo_documento"]) {
-						case BOLETA:
-							$tipo_documento = BOLETA_EXENTA;
-							break;
-
-						case FACTURA:
-							$tipo_documento = FACTURA_EXENTA;
-							break;
-					}
+					helper('tipo_dte');
+					$tipo_dte = tipo_dte($datosSocios["tipo_documento"]);
 
 					$num_medidor = $datosSocios["num_medidor"];
 					$cargo_fijo = $datosSocios["cargo_fijo"];
@@ -242,11 +233,12 @@
 					}
 
 					$monto_metros = intval($subtotal) - intval($cargo_fijo);
+					$exento = $tipo_dte === BOLETA_EXENTA || $tipo_dte === FACTURA_EXENTA;
 					
 					$dte = [
 		                'Encabezado' => [
 		                    'IdDoc' => [
-		                        'TipoDTE' => $tipo_documento,
+		                        'TipoDTE' => $tipo_dte,
 								'FchVenc' => $fecha_vencimiento,
 								'PeriodoDesde' => $periodo_desde,
 								'PeriodoHasta' => $periodo_hasta,
@@ -266,7 +258,7 @@
 		                ],
 						'Detalle' => [
 							[
-								'IndExe' => 1,
+								'IndExe' => $exento ? 1 : false,
 								'NmbItem' => "Cargo Fijo",
 								'QtyItem' => 1,
 								'PrcItem' => $cargo_fijo
@@ -297,19 +289,35 @@
 		                    ]
 		                ]
 		            ];
+
+					$monto_nf = intval($consumo_anterior_nf) + intval($cuota_repactacion) + intval($multa) + intval($total_servicios) + intval($alcantarillado) + intval($cuota_socio) + intval($otros);
 					
-		            if (intval($consumo_anterior_nf) > 0 || intval($cuota_repactacion) > 0 || intval($multa) > 0 || intval($total_servicios) > 0) {
-		            	$dte["Encabezado"]["Totales"] = [
-			                'MontoNF' =>
-								intval($consumo_anterior_nf) + intval($cuota_repactacion) + intval($multa) + intval($total_servicios) + intval($alcantarillado) + intval($cuota_socio) + intval($otros),
-			                'SaldoAnterior' => $consumo_anterior_nf,
-			                'VlrPagar' => intval($total_mes) + intval($consumo_anterior_nf),
-			            ];
-		            }
+					if ($exento) {
+						$vlr_pagar = intval($total_mes) + intval($consumo_anterior_nf);
+
+						$dte["Encabezado"]["Totales"] = [
+							'MontoNF' => $monto_nf,
+							'SaldoAnterior' => $consumo_anterior_nf,
+							'VlrPagar' => $vlr_pagar
+						];
+					} else {
+						$monto_neto = intval($monto_subsidio) > 0 ? intval($subtotal) - intval($monto_subsidio) : intval($subtotal);
+						$iva = intval($monto_neto) * 0.19;
+						$vlr_pagar = intval($total_mes) + intval($consumo_anterior_nf) + intval($iva);
+
+						$dte["Encabezado"]["Totales"] = [
+							'MontoNF' => $monto_nf,
+							'SaldoAnterior' => $consumo_anterior_nf,
+							'MntNeto' => $monto_neto,
+							'IVA' => $iva,
+							'MntTotal' => intval($iva),
+							'VlrPagar' => $vlr_pagar
+						];
+					}
 
 					if (intval($monto_metros) > 0) {
 						array_push($dte["Detalle"], [
-							'IndExe' => 1,
+							'IndExe' => $exento ? 1 : false,
 							'NmbItem' => 'Consumo de Agua Potable',
 							'QtyItem' => 1,
 							'PrcItem' => intval($monto_metros)
@@ -363,7 +371,7 @@
 					if (intval($monto_subsidio) > 0) {
 						$dte["DscRcgGlobal"] = [
 							'TpoMov' => 'D',
-							'IndExeDR' => 1,
+							'IndExeDR' => $exento ? 1 : false,
 							'GlosaDR' => "Monto del subsidio",
 							'TpoValor' => '$',
 							'ValorDR' => intval($monto_subsidio)
@@ -397,7 +405,8 @@
 						]);
 					}
 
-		            // return json_encode($dte); exit();
+					// return json_encode($dte);
+
 		            $LibreDTE = new \sasco\LibreDTE\SDK\LibreDTE($hash, $url);
 
 		            // crear DTE temporal
@@ -456,11 +465,6 @@
 			$this->validar_sesion();
 			$mpdf = new \Mpdf\Mpdf();
 
-			define("BOLETA_EXENTA", 41);
-			define("FACTURA_EXENTA", 34);
-			define("BOLETA", 1);
-			define("FACTURA", 2);
-
 			$url = 'https://libredte.cl';
 			$hash = $this->sesión->hash_apr_ses;
 			$rut_apr = $this->sesión->rut_apr_ses;
@@ -473,18 +477,11 @@
 				$folio_sii = $datosMetros["folio_bolect"];
 				$tipo_documento = $datosMetros["id_tipo_documento"];
 
-				switch ($tipo_documento) {
-					case BOLETA:
-						$tipo_documento = BOLETA_EXENTA;	
-						break;
-
-					case FACTURA:
-						$tipo_documento = FACTURA_EXENTA;	
-						break;
-				}
+				helper('tipo_dte');
+				$tipo_dte = tipo_dte($tipo_documento);
 
 				// obtener el PDF del DTE
-	            $pdf = $LibreDTE->get('/dte/dte_emitidos/pdf/' . $tipo_documento . '/' . $folio_sii . '/' . $rut_apr);
+	            $pdf = $LibreDTE->get('/dte/dte_emitidos/pdf/' . $tipo_dte . '/' . $folio_sii . '/' . $rut_apr);
 	            if ($pdf['status']['code']!=200) {
 	                die('Error al generar PDF del DTE: '.$pdf['body']."\n");
 	            }

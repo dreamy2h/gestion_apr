@@ -24,6 +24,7 @@
                         <th width="0%">alcantarillado</th>
                         <th width="0%">cuota_socio</th>
                         <th width="0%">otros</th>
+                        <th width="0%">id_tipo_documento</th>
                     <?php } ?>
                     </tr>
                 </thead>

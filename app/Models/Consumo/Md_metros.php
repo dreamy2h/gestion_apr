@@ -34,7 +34,8 @@
 			'tipo_facturacion',
 			'alcantarillado',
 			'cuota_socio',
-			'otros'
+			'otros',
+			'iva'
 		];
 
 	    public function datatable_boleta_electronica($db, $id_apr, $datosBusqueda) {

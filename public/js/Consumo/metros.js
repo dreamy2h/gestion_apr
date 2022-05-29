@@ -34,6 +34,7 @@ function des_habilitar(a, b) {
     $("#txt_alcantarillado").prop("disabled", a);
     $("#txt_cuota_socio").prop("disabled", a);
     $("#txt_otros").prop("disabled", a);
+    $("#txt_iva").prop("disabled", a);
 }
 
 function mostrar_datos_metros(data) {
@@ -63,6 +64,7 @@ function mostrar_datos_metros(data) {
     $("#txt_alcantarillado").val(peso.formateaNumero(data["alcantarillado"]));
     $("#txt_cuota_socio").val(peso.formateaNumero(data["cuota_socio"]));
     $("#txt_otros").val(peso.formateaNumero(data["otros"]));
+    $("#txt_iva").val(peso.formateaNumero(data["iva"]));
 
     $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/" + data["metros"] + "/" + data["id_diametro"]);
 }
@@ -86,6 +88,7 @@ function guardar_metros() {
     var alcantarillado = peso.quitar_formato($("#txt_alcantarillado").val());
     var cuota_socio = peso.quitar_formato($("#txt_cuota_socio").val());
     var otros = peso.quitar_formato($("#txt_otros").val());
+    var iva = peso.quitar_formato($("#txt_iva").val());
 
     $.ajax({
         url: base_url + "/Consumo/Ctrl_metros/guardar_metros",
@@ -109,19 +112,21 @@ function guardar_metros() {
             monto_facturable: monto_facturable,
             alcantarillado: alcantarillado,
             cuota_socio: cuota_socio,
-            otros: otros
+            otros: otros,
+            iva: iva
         },
+        dataType: "json",
         success: function(respuesta) {
             const OK = 1;
-            if (respuesta == OK) {
+            if (respuesta.estado == OK) {
                 $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_metros");
                 $("#form_metros")[0].reset();
                 des_habilitar(true, false);
                 $("#grid_costo_metros").DataTable().clear().draw();
-                alerta.ok("alerta", "Consumo de metros, guardado con éxito");
+                alerta.ok("alerta", respuesta.mensaje);
                 $("#datosMetros").collapse("hide");
             } else {
-                alerta.error("alerta", respuesta);
+                alerta.error("alerta", respuesta.mensaje);
             }
         },
         error: function(error) {
@@ -140,14 +145,15 @@ function eliminar_metros(observacion, id_metros) {
             id_metros: id_metros,
             observacion: observacion
         },
+        dataType: "json",
         success: function(respuesta) {
             const OK = 1;
 
-            if (respuesta == OK) {
-                alerta.ok("alerta", "Consumo de metros, eliminado con éxito");
+            if (respuesta.estado == OK) {
+                alerta.ok("alerta", respuesta.mensaje);
                 $("#grid_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_metros");
             } else {
-                alerta.error("alerta", respuesta);
+                alerta.error("alerta", respuesta.mensaje);
             }
         },
         error: function(error) {
@@ -239,6 +245,8 @@ function calcular_montos() {
         var subsidio = parseInt(subsidio_arr[0]);
         var monto_subsidio = total_subsidio * subsidio / 100;
         $("#txt_monto_subsidio").val(peso.formateaNumero(monto_subsidio));
+        var iva = $("#row_iva").hasClass("d-none") ? 0 : parseInt(subtotal) * 0.19;
+        $("#txt_iva").val(peso.formateaNumero(iva));
         calcular_total();
     } else {
         $("#txt_c_actual").val("");
@@ -276,10 +284,11 @@ function calcular_total() {
     var alcantarillado = $("#txt_alcantarillado").val() == "" ? 0 : peso.quitar_formato($("#txt_alcantarillado").val());
     var cuota_socio = $("#txt_cuota_socio").val() == "" ? 0 : peso.quitar_formato($("#txt_cuota_socio").val());
     var otros = $("#txt_otros").val() == "" ? 0 : peso.quitar_formato($("#txt_otros").val());
+    var iva = $("#txt_iva").val() == "" ? 0 : peso.quitar_formato($("#txt_iva").val());
 
     var monto_facturable = parseInt(monto_subsidio) > parseInt(subtotal) ? total_mes = 0 : parseInt(subtotal)  - parseInt(monto_subsidio);
     var total_mes =
-        parseInt(monto_facturable) + parseInt(cuota_repactacion)  + parseInt(multa) + parseInt(total_servicios) + parseInt(alcantarillado) + parseInt(cuota_socio) + parseInt(otros);
+        parseInt(monto_facturable) + parseInt(cuota_repactacion)  + parseInt(multa) + parseInt(total_servicios) + parseInt(alcantarillado) + parseInt(cuota_socio) + parseInt(otros) + parseInt(iva);
 
     $("#txt_total_mes").val(peso.formateaNumero(total_mes));
     $("#txt_monto_facturable").val(peso.formateaNumero(monto_facturable));
@@ -339,6 +348,7 @@ $(document).ready(function() {
     $("#txt_alcantarillado").prop("readonly", true);
     $("#txt_cuota_socio").prop("readonly", true);
     $("#txt_otros").prop("readonly", true);
+    $("#txt_iva").prop("readonly", true);
 
     des_habilitar(true, false);
 
@@ -639,10 +649,16 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     return peso.formateaNumero(data);
                 }
+            },
+            { 
+                "data": "iva",
+                "render": function(data, type, row) {
+                    return peso.formateaNumero(data);
+                }
             }
         ],
         "columnDefs": [
-            { "targets": [0, 1, 2, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 25], "visible": false, "searchable": false }
+            { "targets": [0, 1, 2, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 25, 26], "visible": false, "searchable": false }
         ],
         language: {
             "decimal": "",

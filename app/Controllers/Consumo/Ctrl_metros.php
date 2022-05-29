@@ -69,6 +69,7 @@
 			->select("ifnull(metros.alcantarillado, 0) as alcantarillado")
 			->select("ifnull(metros.cuota_socio, 0) as cuota_socio")
 			->select("ifnull(metros.otros, 0) as otros")
+			->select("ifnull(metros.iva, 0) as iva")
 			->select("u.usuario")
 			->select("date_format(metros.fecha, '%d-%m-%Y') as fecha")
 			->join("socios soc", "metros.id_socio = soc.id")
@@ -118,6 +119,7 @@
 			$alcantarillado = $this->request->getPost("alcantarillado");
 			$cuota_socio = $this->request->getPost("cuota_socio");
 			$otros = $this->request->getPost("otros");
+			$iva = $this->request->getPost("iva");
 
 			$datosMetros = [
 				"id_socio" => $id_socio,
@@ -139,7 +141,8 @@
 				"id_apr" => $id_apr,
 				"alcantarillado" => $alcantarillado,
 				"cuota_socio" => $cuota_socio,
-				"otros" => $otros
+				"otros" => $otros,
+				"iva" => $iva
 			];
 
 			if ($id_metros != "") {
@@ -148,18 +151,41 @@
 			} else {
 				$estado_traza = INGRESO_METROS;
 			}
+			
+			$this->db->transStart();
+			$this->metros->save($datosMetros);
+			
+			if ($id_metros == "") {
+				$obtener_id = $this->metros->select("max(id) as id_metros")->first();
+				$id_metros = $obtener_id["id_metros"];
+			}
 
-			if ($this->metros->save($datosMetros)) {
-				echo OK;
-				
-				if ($id_metros == "") {
-					$obtener_id = $this->metros->select("max(id) as id_metros")->first();
-					$id_metros = $obtener_id["id_metros"];
-				}
+			$datosTraza = [
+				"id_metros" => $id_metros,
+				"estado" => $estado_traza,
+				"observacion" => '',
+				"id_usuario" => $id_usuario,
+				"fecha" => $fecha
+			];
+
+			$this->metros_traza->save($datosTraza);
 					
-				$this->guardar_traza($id_metros, $estado_traza, "");
+			$this->db->transComplete();
+
+			if ($this->db->transStatus()) {
+				$respuesta = [
+                    "estado" => OK,
+                    "mensaje" => "Ingreso de lectura exitoso"
+                ];
+
+                return json_encode($respuesta);
 			} else {
-				echo "Error al guardar los metros";
+                $respuesta = [
+                    "estado" => "Error",
+                    "mensaje" => "Error al ingresar la lectura"
+                ];
+
+                return json_encode($respuesta);
 			}
 		}
 
@@ -184,28 +210,35 @@
 				"fecha" => $fecha
 			];
 
-			if ($this->metros->save($datosMetros)) {
-				echo OK;
-				$this->guardar_traza($id_metros, $estado_traza, $observacion);
-			}
-		}
-
-		public function guardar_traza($id_metros, $estado, $observacion) {
-			$this->validar_sesion();
-
-			$fecha = date("Y-m-d H:i:s");
-			$id_usuario = $this->sesión->id_usuario_ses;
-
+			$this->db->transStart();
+			$this->metros->save($datosMetros);
+			
 			$datosTraza = [
 				"id_metros" => $id_metros,
-				"estado" => $estado,
+				"estado" => $estado_traza,
 				"observacion" => $observacion,
 				"id_usuario" => $id_usuario,
 				"fecha" => $fecha
 			];
 
-			if (!$this->metros_traza->save($datosTraza)) {
-				echo "Falló al guardar la traza";
+			$this->metros_traza->save($datosTraza);
+					
+			$this->db->transComplete();
+
+			if ($this->db->transStatus()) {
+				$respuesta = [
+                    "estado" => OK,
+                    "mensaje" => "Lectura eliminada con éxito"
+                ];
+
+                return json_encode($respuesta);
+			} else {
+                $respuesta = [
+                    "estado" => "Error",
+                    "mensaje" => "Error al eliminar la lectura"
+                ];
+
+                return json_encode($respuesta);
 			}
 		}
 
@@ -241,6 +274,7 @@
 			->select("ifnull(arranques.monto_alcantarillado, 0) as alcantarillado")
 			->select("ifnull(arranques.monto_cuota_socio, 0) as cuota_socio")
 			->select("ifnull(arranques.monto_otros, 0) as otros")
+			->select("arranques.id_tipo_documento")
 			->join("medidores m", "arranques.id_medidor = m.id")
 			->join("diametro d", "m.id_diametro = d.id")
 			->join("socios s", "arranques.id_socio = s.id")

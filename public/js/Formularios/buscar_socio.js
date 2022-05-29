@@ -24,8 +24,8 @@ $(document).ready(function() {
             {"data": "abono"},
             {"data": "alcantarillado"},
             {"data": "cuota_socio"},
-            {"data": "otros"}
-
+            {"data": "otros"},
+            {"data": "id_tipo_documento"}
         );
 
         columnasOcultas = [
@@ -110,6 +110,8 @@ $(document).ready(function() {
                                 $("#txt_otros").val(peso.formateaNumero(data["otros"]));
                                 $("#dt_fecha_ingreso").prop("readonly", false);
                                 $("#dt_fecha_vencimiento").prop("readonly", false);
+                                data["id_tipo_documento"] == 1 || data["id_tipo_documento"] == 2 ? $("#row_iva").addClass("d-none") : $("#row_iva").removeClass("d-none");
+
                                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                                 $('#dlg_buscar_socio').modal('hide');
                             } else {
@@ -131,6 +133,8 @@ $(document).ready(function() {
                 $("#txt_otros").val(peso.formateaNumero(data["otros"]));
                 $("#dt_fecha_ingreso").prop("readonly", false);
                 $("#dt_fecha_vencimiento").prop("readonly", false);
+                data["id_tipo_documento"] == 1 || data["id_tipo_documento"] == 2 ? $("#row_iva").addClass("d-none") : $("#row_iva").removeClass("d-none");
+
                 $("#grid_costo_metros").dataTable().fnReloadAjax(base_url + "/Consumo/Ctrl_metros/datatable_costo_metros/0/" + data["id_diametro"]);
                 $('#dlg_buscar_socio').modal('hide');
             }

@@ -110,6 +110,7 @@
 				->select("alcantarillado")
 				->select("cuota_socio")
 				->select("otros")
+				->select("iva")
 				->select("date_format(fecha_ingreso, '%m-%Y') as mes_consumo")
 				->select("date_format(fecha_vencimiento, '%Y-%m-%d') as fecha_vencimiento")
 				->select("ifnull(elt(field(tipo_facturacion, 1, 2), 'NORMAL', 'TÉRMINO MEDIO'), 'NO REGISTRADO') as tipo_facturacion")
@@ -129,6 +130,7 @@
 				$alcantarillado = $datosMetros["alcantarillado"];
 				$cuota_socio = $datosMetros["cuota_socio"];
 				$otros = $datosMetros["otros"];
+				$iva = $datosMetros["iva"];
 				$mes_consumo = $datosMetros["mes_consumo"];
 				$periodo_desde = $this->periodo_desde($mes_consumo);
 				$periodo_hasta = $this->periodo_hasta($mes_consumo);
@@ -302,8 +304,7 @@
 						];
 					} else {
 						$monto_neto = intval($monto_subsidio) > 0 ? intval($subtotal) - intval($monto_subsidio) : intval($subtotal);
-						$iva = intval($monto_neto) * 0.19;
-						$vlr_pagar = intval($total_mes) + intval($consumo_anterior_nf) + intval($iva);
+						$vlr_pagar = intval($total_mes) + intval($consumo_anterior_nf);
 
 						$dte["Encabezado"]["Totales"] = [
 							'MontoNF' => $monto_nf,

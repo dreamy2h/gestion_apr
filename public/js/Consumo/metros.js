@@ -246,7 +246,8 @@ function calcular_montos() {
         var monto_subsidio = total_subsidio * subsidio / 100;
         $("#txt_monto_subsidio").val(peso.formateaNumero(monto_subsidio));
         var iva = $("#row_iva").hasClass("d-none") ? 0 : parseInt(subtotal) * 0.19;
-        $("#txt_iva").val(peso.formateaNumero(iva));
+        console.log('iva', Math.round(iva));
+        $("#txt_iva").val(peso.formateaNumero(Math.round(iva)));
         calcular_total();
     } else {
         $("#txt_c_actual").val("");
